@@ -28,11 +28,24 @@ public class GameWindow extends JPanel
 		}
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		init();
+		start();
 	}
 	
-	public static void main(String[] args)
+	private void init()
 	{
-		new GameWindow();
+		
 	}
-
+	
+	private void start()
+	{
+		
+	}
+	
+	@SuppressWarnings("unused")
+	private void stop()
+	{
+		
+	}
 }
