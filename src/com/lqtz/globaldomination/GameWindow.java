@@ -13,7 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 /**
+ * 
  * Class for the game window
+ * @author Gitdropcode
+ * 
  */
 public class GameWindow extends JFrame
 {

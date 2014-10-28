@@ -5,7 +5,10 @@ import javax.swing.JFrame;
 import com.lqtz.globaldomination.GameWindow;
 
 /**
+ * 
  * Welcome screen
+ * @author Gitdropcode
+ * 
  */
 public class Welcome extends JFrame
 {
