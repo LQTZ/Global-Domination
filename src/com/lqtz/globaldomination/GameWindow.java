@@ -1,6 +1,8 @@
 package com.lqtz.globaldomination;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
@@ -65,7 +67,9 @@ public class GameWindow extends JFrame
 		// Left components
 		left = new JPanel(new BorderLayout());
 		units = new JTextPane();
+		units.setPreferredSize(new Dimension(200, getHeight()/2));
 		eventLog = new JTextPane();
+		eventLog.setPreferredSize(new Dimension(200, getHeight()/2));
 		left.add(units, BorderLayout.NORTH);
 		left.add(eventLog, BorderLayout.SOUTH);
 		
@@ -76,15 +80,19 @@ public class GameWindow extends JFrame
 		
 		// Creates buttons
 		buttonsCont = new JPanel();
-		buttonsCont.setLayout(new BoxLayout(buttonsCont, BoxLayout.X_AXIS));
+		buttonsCont.setLayout(new BoxLayout(buttonsCont, BoxLayout.LINE_AXIS));
 		buttons = new JButton[5];
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton();
 			buttonsCont.add(buttons[i]);
+			buttons[i].setAlignmentX(Component.CENTER_ALIGNMENT);
+			buttons[i].setAlignmentY(Component.CENTER_ALIGNMENT);
 		}
+		buttonsCont.setPreferredSize(new Dimension(getWidth() - 400, 300));
 		
 		infoBox = new JLabel();
+		infoBox.setPreferredSize(new Dimension(getWidth() - 400, 50));
 		control.add(buttonsCont, BorderLayout.NORTH);
 		control.add(infoBox, BorderLayout.SOUTH);
 		center.add(gameScreen, BorderLayout.NORTH);
@@ -92,10 +100,11 @@ public class GameWindow extends JFrame
 		
 		// Right components
 		infoPane = new JTextPane();
+		infoPane.setPreferredSize(new Dimension(200, getHeight()));
 		
-		add(left, BorderLayout.EAST);
+		add(left, BorderLayout.WEST);
 		add(center, BorderLayout.CENTER);
-		add(infoPane, BorderLayout.WEST);
+		add(infoPane, BorderLayout.EAST);
 	}
 	
 	/**
