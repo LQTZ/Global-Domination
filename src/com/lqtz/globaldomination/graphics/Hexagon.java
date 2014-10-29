@@ -4,9 +4,8 @@ import java.awt.Polygon;
 
 /**
  * 
- * @author Gitdropcode
- * A hexagon (almost regular, but not quite, since <code>java.awt.Polygon</code>
- * only accepts ints)
+ * @author Gitdropcode A hexagon (almost regular, but not quite, since
+ *         <code>java.awt.Polygon</code> only accepts ints)
  * 
  */
 public class Hexagon extends Polygon
