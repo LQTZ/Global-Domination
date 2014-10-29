@@ -1,4 +1,4 @@
-package com.lqtz.globaldomination;
+package com.lqtz.globaldomination.graphics;
 
 import javax.swing.JPanel;
 

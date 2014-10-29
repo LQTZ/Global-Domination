@@ -2,21 +2,22 @@ package com.lqtz.globaldomination;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+
+import com.lqtz.globaldomination.graphics.GameScreen;
 
 /**
  * 
@@ -91,51 +92,25 @@ public class GameWindow extends JFrame
 		buttonsPane = new JPanel();
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
 		buttons = new JButton[5];
+		String[] buttonText = new String[] {"Move Unit", "Settle", "Upgrade City",
+				"Upgrade Unit", "Attack"};
+		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 5; i++)
 		{
-			buttons[i] = new JButton(); // Create new button
+			buttons[i] = new JButton(buttonText[i]); // Create new button
 			buttonsPane.add(buttons[i]); // Add button
-			buttons[i].setAlignmentX(Component.CENTER_ALIGNMENT); // Align
-																	// button
-			buttons[i].setAlignmentY(Component.CENTER_ALIGNMENT); //
+			buttonsPane.add(Box.createHorizontalGlue());
+			buttons[i].setMinimumSize(new Dimension(150, 100));
+			buttons[i].setMaximumSize(new Dimension(150, 100));
+			buttons[i].setPreferredSize(new Dimension(150, 100));
 		}
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 300));
 
-		// Set up the buttons panel with GridBagLayout
-		// TODO Make buttons panel distributed across the entire center panel
-		controlPane.setLayout(new GridBagLayout()); // Change controlPane layout
-													// setter to GridBagLayout
-		GridBagConstraints controlPanelFormattingConstraints = new GridBagConstraints(); // Object
-																							// to
-																							// hold
-																							// GridBagLayout
-																							// constraints
-		controlPanelFormattingConstraints.fill = GridBagConstraints.HORIZONTAL;
-		controlPanelFormattingConstraints.anchor = GridBagConstraints.NORTH;
-		controlPanelFormattingConstraints.gridx = 3; // Centered (aligned at
-														// column 3)
-		controlPanelFormattingConstraints.gridwidth = 5; // 5 columns wide
-		controlPanelFormattingConstraints.gridy = 1; // First row
-		controlPane.add(buttonsPane, controlPanelFormattingConstraints); // Add
-																			// the
-																			// buttons
-																			// pane
-
 		// Set up the combat odds label and pane to go below the action buttons
-		// TODO Make combat odds panel distributed across the entire center
-		// panel
-		combatOddsPane = new JLabel();
-		combatOddsPane.setPreferredSize(new Dimension(getWidth() - 400, 50));
-		controlPanelFormattingConstraints.anchor = GridBagConstraints.SOUTH;
-		controlPanelFormattingConstraints.gridx = 3; // Centered (aligned at
-														// column 3)
-		controlPanelFormattingConstraints.gridwidth = 5; // 5 columns wide
-		controlPanelFormattingConstraints.gridy = 2; // First row
-		controlPane.add(combatOddsPane, controlPanelFormattingConstraints); // Add
-																			// the
-																			// combat
-																			// odds
-																			// pane
+		combatOddsPane = new JLabel("Blah Blah", SwingConstants.CENTER);
+		combatOddsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
+		controlPane.add(buttonsPane, BorderLayout.NORTH);
+		controlPane.add(combatOddsPane, BorderLayout.SOUTH); // Add
 
 		// Add Containers to the main center panel
 		centerPanel.add(mapPane, BorderLayout.NORTH);
@@ -146,31 +121,16 @@ public class GameWindow extends JFrame
 		infoPanel.setPreferredSize(new Dimension(200, getHeight()));
 
 		// Outline panels with color (to be removed)
-		leftPanel.setBorder(BorderFactory.createLineBorder(Color.black)); // Main
-																			// panels
-																			// black
-		centerPanel.setBorder(BorderFactory.createLineBorder(Color.black)); //
-		infoPanel.setBorder(BorderFactory.createLineBorder(Color.black)); //
-		mapPane.setBorder(BorderFactory.createLineBorder(Color.blue)); // Map
-																		// blue
-		unitsPane.setBorder(BorderFactory.createLineBorder(Color.cyan)); // Units
-																			// pane
-																			// cyan
-		eventLogPane.setBorder(BorderFactory.createLineBorder(Color.pink)); // Event
-																			// log
-																			// pane
-																			// pink
-		controlPane.setBorder(BorderFactory.createLineBorder(Color.blue)); // Control
-																			// pane
-																			// blue
-		buttonsPane.setBorder(BorderFactory.createLineBorder(Color.cyan)); // Buttons
-																			// pane
-																			// cyan
-		combatOddsPane.setBorder(BorderFactory.createLineBorder(Color.green)); // Combat
-																				// odds
-																				// pane
-																				// green
-
+		leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		centerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		infoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		mapPane.setBorder(BorderFactory.createLineBorder(Color.blue));
+		unitsPane.setBorder(BorderFactory.createLineBorder(Color.cyan));
+		eventLogPane.setBorder(BorderFactory.createLineBorder(Color.pink));
+		controlPane.setBorder(BorderFactory.createLineBorder(Color.blue));
+		buttonsPane.setBorder(BorderFactory.createLineBorder(Color.cyan));
+		combatOddsPane.setBorder(BorderFactory.createLineBorder(Color.green));
+		
 		// Add the main panels
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
