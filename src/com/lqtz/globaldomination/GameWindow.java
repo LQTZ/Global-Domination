@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Insets;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
@@ -86,29 +87,32 @@ public class GameWindow extends JFrame
 		// Center components
 		centerPanel = new JPanel(new BorderLayout());
 		mapPane = new GameScreen();
+		mapPane.setPreferredSize(new Dimension(getWidth() - 400,
+				getHeight() - 152));
 		controlPane = new JPanel(new BorderLayout());
 
 		// Creates buttons and add them to the buttonsPane
 		buttonsPane = new JPanel();
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
 		buttons = new JButton[5];
-		String[] buttonText = new String[] {"Move Unit", "Settle", "Upgrade City",
-				"Upgrade Unit", "Attack"};
+		String[] buttonText = new String[] {"Move Unit", "Settle",
+				"Upgrade City", "Upgrade Unit", "Attack"};
 		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
 			buttonsPane.add(buttons[i]); // Add button
 			buttonsPane.add(Box.createHorizontalGlue());
-			buttons[i].setMinimumSize(new Dimension(150, 100));
-			buttons[i].setMaximumSize(new Dimension(150, 100));
-			buttons[i].setPreferredSize(new Dimension(150, 100));
+			buttons[i].setMargin(new Insets(5, 5, 5, 5));
+			buttons[i].setMinimumSize(new Dimension(100, 60));
+			buttons[i].setMaximumSize(new Dimension(100, 60));
+			buttons[i].setPreferredSize(new Dimension(100, 60));
 		}
-		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 300));
+		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
 
 		// Set up the combat odds label and pane to go below the action buttons
 		combatOddsPane = new JLabel("Blah Blah", SwingConstants.CENTER);
-		combatOddsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
+		combatOddsPane.setPreferredSize(new Dimension(getWidth() - 400, 50));
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(combatOddsPane, BorderLayout.SOUTH); // Add
 
@@ -120,17 +124,8 @@ public class GameWindow extends JFrame
 		infoPanel = new JTextPane();
 		infoPanel.setPreferredSize(new Dimension(200, getHeight()));
 
-		// Outline panels with color (to be removed)
-		leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		centerPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		infoPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		mapPane.setBorder(BorderFactory.createLineBorder(Color.blue));
-		unitsPane.setBorder(BorderFactory.createLineBorder(Color.cyan));
-		eventLogPane.setBorder(BorderFactory.createLineBorder(Color.pink));
-		controlPane.setBorder(BorderFactory.createLineBorder(Color.blue));
-		buttonsPane.setBorder(BorderFactory.createLineBorder(Color.cyan));
-		combatOddsPane.setBorder(BorderFactory.createLineBorder(Color.green));
-		
+		controlPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
 		// Add the main panels
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
