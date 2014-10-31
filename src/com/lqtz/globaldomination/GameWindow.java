@@ -3,10 +3,13 @@ package com.lqtz.globaldomination;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -19,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import com.lqtz.globaldomination.graphics.GameScreen;
+import com.lqtz.globaldomination.io.Fonts;
 
 /**
  * 
@@ -43,9 +47,26 @@ public class GameWindow extends JFrame
 	private JButton[] buttons; // Action buttons themselves
 	private JLabel combatOddsPane; // Pane with combat odds info
 	private JTextPane infoPanel; // Pane with tile, city, and game info
+	private Fonts fonts;
 
 	public GameWindow()
 	{
+		// Initializes fonts
+		try
+		{
+			fonts = new Fonts();
+		}
+		catch (FontFormatException e)
+		{
+			System.err.println("Fonts corrupted");
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			System.err.println("Fonts not found");
+			e.printStackTrace();
+		}
+
 		// Removes buttons
 		setUndecorated(true);
 
@@ -101,18 +122,21 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
+			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 16));
 			buttonsPane.add(buttons[i]); // Add button
-			buttonsPane.add(Box.createHorizontalGlue());
+			buttonsPane.add(Box.createHorizontalGlue()); // Add spacing
 			buttons[i].setMargin(new Insets(5, 5, 5, 5));
-			buttons[i].setMinimumSize(new Dimension(100, 60));
-			buttons[i].setMaximumSize(new Dimension(100, 60));
-			buttons[i].setPreferredSize(new Dimension(100, 60));
+			buttons[i].setMinimumSize(new Dimension(120, 60));
+			buttons[i].setMaximumSize(new Dimension(120, 60));
+			buttons[i].setPreferredSize(new Dimension(120, 60));
 		}
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
 
 		// Set up the combat odds label and pane to go below the action buttons
 		combatOddsPane = new JLabel("Blah Blah", SwingConstants.CENTER);
 		combatOddsPane.setPreferredSize(new Dimension(getWidth() - 400, 50));
+		combatOddsPane.setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 20));
+		combatOddsPane.setText("blah");
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(combatOddsPane, BorderLayout.SOUTH); // Add
 
