@@ -110,6 +110,7 @@ public class GameWindow extends JFrame
 		mapPane = new GameScreen();
 		mapPane.setPreferredSize(new Dimension(getWidth() - 400,
 				getHeight() - 152));
+		mapPane.addTiles();
 		controlPane = new JPanel(new BorderLayout());
 
 		// Creates buttons and add them to the buttonsPane

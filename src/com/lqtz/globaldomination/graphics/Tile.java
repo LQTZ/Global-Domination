@@ -10,7 +10,7 @@ package com.lqtz.globaldomination.graphics;
 public class Tile extends Object
 {
 
-	private static final int tileSize = 8; // Change this to the real value in
+	private static final int tileSize = 96; // Change this to the real value in
 											// future
 	private static final int maxUnitCapacity = 50; // Max number of units that
 													// can fit on a tile
@@ -23,7 +23,7 @@ public class Tile extends Object
 	public int tileProductivity;
 	public boolean hasCity = false;
 
-	public Tile(int centerX, int centerY, int size, int revenue,
+	public Tile(int centerX, int centerY, int revenue,
 			int productivity)
 	{
 		// TODO Auto-generated constructor stub
