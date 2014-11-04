@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import com.lqtz.globaldomination.graphics.GameScreen;
+import com.lqtz.globaldomination.io.Colors;
 import com.lqtz.globaldomination.io.Fonts;
 
 /**
@@ -33,6 +34,8 @@ import com.lqtz.globaldomination.io.Fonts;
  */
 public class GameWindow extends JFrame
 {
+	private static final int BUTTON_FONT_SIZE = 14;
+
 	private static final long serialVersionUID = 1L;
 
 	// Declare components
@@ -119,17 +122,27 @@ public class GameWindow extends JFrame
 		buttons = new JButton[5];
 		String[] buttonText = new String[] {"Move Unit", "Settle",
 				"Upgrade City", "Upgrade Unit", "Attack"};
+		Color[] buttonColor = new Color[] {Colors.moveUnitButtonColor,
+				Colors.settleButtonColor, Colors.upgradeCityButtonColor,
+				Colors.upgradeUnitButtonColor, Colors.attackButtonColor};
 		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
-			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 16));
+			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, BUTTON_FONT_SIZE));	// Set font
 			buttonsPane.add(buttons[i]); // Add button
-			buttonsPane.add(Box.createHorizontalGlue()); // Add spacing
+			
+			// Spacing
+			buttonsPane.add(Box.createHorizontalGlue());
 			buttons[i].setMargin(new Insets(5, 5, 5, 5));
 			buttons[i].setMinimumSize(new Dimension(120, 60));
 			buttons[i].setMaximumSize(new Dimension(120, 60));
 			buttons[i].setPreferredSize(new Dimension(120, 60));
+			
+			// Colors of buttons
+			buttons[i].setBackground(buttonColor[i]);	// Button color
+			buttons[i].setForeground(Color.black);		// Text color
+			buttons[i].setOpaque(true);
 		}
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
 
