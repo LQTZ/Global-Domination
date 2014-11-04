@@ -67,8 +67,6 @@ public class Tile extends Object
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
-
-		this.unitsOnTile = Units[Tile.maxUnitCapacity];
 	}
 
 	// public void addCity (City city){ // Uncomment when this exists
