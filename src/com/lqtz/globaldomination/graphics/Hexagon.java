@@ -8,13 +8,14 @@ import java.awt.Polygon;
  * 
  * @author Gitdropcode
  * 
- * 
  */
 public class Hexagon extends Polygon
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Hexagon Polygon to represent map tiles
+	 * 
 	 * @param centerY
 	 *            x-coordinate of center
 	 * @param centerX
@@ -29,6 +30,5 @@ public class Hexagon extends Polygon
 				centerX - 7 * size / 8}, new int[] {centerY + size,
 				centerY + size / 2, centerY - size / 2, centerY - size,
 				centerY - size / 2, centerY + size / 2}, 6);
-
 	}
 }

@@ -17,6 +17,14 @@ public class GameScreen extends JPanel
 	private Tile[][] tiles;
 	private final int DIM = 5;
 
+	/**
+	 * Adds all the Hexagons
+	 * 
+	 * @param width
+	 *            Width of the panel
+	 * @param height
+	 *            Height of the panel
+	 */
 	public void addTiles(int width, int height)
 	{
 		// Size needed to fit tiles horizontally / 8
@@ -36,13 +44,19 @@ public class GameScreen extends JPanel
 			for (int j = 0; j < 5; j++)
 			{
 				tiles[i][j] = new Tile(sizeFit * (1 + 2 * i + j) * 7 / 8
-						+ xOffset, height - (sizeFit * (3 * j + 2) / 2 + yOffset),
-						sizeFit, 0, 0);
+						+ xOffset, height
+						- (sizeFit * (3 * j + 2) / 2 + yOffset), sizeFit, 0, 0);
 			}
 		}
 	}
 
 	@Override
+	/**
+	 * Paints all the Hexagons in the GameScreen
+	 * 
+	 * @param g
+	 *            Graphics device for painting
+	 */
 	protected void paintComponent(Graphics g)
 	{
 		for (Tile[] tileList : tiles)

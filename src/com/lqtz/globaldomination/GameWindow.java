@@ -52,6 +52,9 @@ public class GameWindow extends JFrame
 	private JTextPane infoPanel; // Pane with tile, city, and game info
 	private Fonts fonts;
 
+	/**
+	 * Main game interface window
+	 */
 	public GameWindow()
 	{
 		// Initializes fonts
@@ -129,19 +132,20 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
-			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, BUTTON_FONT_SIZE));	// Set font
+			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN,
+					BUTTON_FONT_SIZE)); // Set font
 			buttonsPane.add(buttons[i]); // Add button
-			
+
 			// Spacing
 			buttonsPane.add(Box.createHorizontalGlue());
 			buttons[i].setMargin(new Insets(5, 5, 5, 5));
 			buttons[i].setMinimumSize(new Dimension(120, 60));
 			buttons[i].setMaximumSize(new Dimension(120, 60));
 			buttons[i].setPreferredSize(new Dimension(120, 60));
-			
+
 			// Colors of buttons
-			buttons[i].setBackground(buttonColor[i]);	// Button color
-			buttons[i].setForeground(Color.black);		// Text color
+			buttons[i].setBackground(buttonColor[i]); // Button color
+			buttons[i].setForeground(Color.black); // Text color
 			buttons[i].setOpaque(true);
 		}
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
