@@ -4,14 +4,13 @@ package com.lqtz.globaldomination.graphics;
 
 /**
  * 
- * @author Gandalf A hexagonal tile in the GD map
+ * A hexagonal tile in the GD map
+ * 
+ * @author Gandalf
  * 
  */
 public class Tile extends Object
 {
-
-	private static final int tileSize = 96; // Change this to the real value in
-											// future
 	private static final int maxUnitCapacity = 50; // Max number of units that
 													// can fit on a tile
 
@@ -23,11 +22,11 @@ public class Tile extends Object
 	public int tileProductivity;
 	public boolean hasCity = false;
 
-	public Tile(int centerX, int centerY, int revenue,
+	public Tile(int centerX, int centerY, int tileSize, int revenue,
 			int productivity)
 	{
 		// TODO Auto-generated constructor stub
-		this.hexagon = new Hexagon(centerX, centerY, Tile.tileSize);
+		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
 	}
