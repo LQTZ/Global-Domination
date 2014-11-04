@@ -16,7 +16,12 @@ public class Tile extends Object
 	 */
 	@SuppressWarnings("unused")
 	private static final int maxUnitCapacity = 50;
-
+	
+	/**
+	 * Number of units the tile contains
+	 */
+	private int currentUnitCapacity = 0;
+	
 	/**
 	 * The Hexagon to represent the tile on the screen
 	 */
@@ -63,11 +68,21 @@ public class Tile extends Object
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
 	}
-
-	// public void addCity(City city){ // Uncomment when this exists
+	
+	// public void addCity (City city){ // Uncomment when this exists
 	// Foo
 	// }
 
+	public void addUnit(Unit unit)
+	{
+		if (currentUnitCapacity < 50)
+		{
+			currentUnitCapcity++; 
+		}
+		// else{
+		// foo
+		// }
+	}
 	// public void addUnit(Unit unit){ // Uncomment when this exists
 	// Foo
 	// }
