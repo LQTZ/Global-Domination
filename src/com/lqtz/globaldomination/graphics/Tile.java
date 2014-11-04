@@ -16,20 +16,20 @@ public class Tile extends Object
 	 */
 	@SuppressWarnings("unused")
 	private static final int maxUnitCapacity = 50;
-	
+
 	/**
 	 * Number of units the tile contains
 	 */
-	private int currentUnitCapacity = 0;
-	
+	private int currentUnitCount = 0;
+
 	/**
 	 * The Hexagon to represent the tile on the screen
 	 */
 	public Hexagon hexagon;
 
 	// public Unit[] unitsOnTile; // Uncomment when this exists
-	// this.unitsOnTile = new Unit[Tile.maxUnitCapacity]; // Uncomment when this
-	// exists
+	// public unitsOnTile = new Unit[Tile.maxUnitCapacity]; // Uncomment when
+	// this exists
 
 	/**
 	 * Revenue Cities on the Tile would collect
@@ -67,21 +67,27 @@ public class Tile extends Object
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
+
+		this.unitsOnTile = Units[Tile.maxUnitCapacity];
 	}
-	
+
 	// public void addCity (City city){ // Uncomment when this exists
 	// Foo
 	// }
 
-	public void addUnit(Unit unit)
-	{
-		if (currentUnitCapacity < 50)
-		{
-			currentUnitCapcity++; 
-		}
-		// else{
-		// foo
-		// }
+//	/**
+//	 * @param unit
+//	 *            unit to put on on the unit array
+//	 */
+//	public void addUnit(Unit unit)
+//	{
+//		if (currentUnitCount < Tile.maxUnitCapacity)
+//		{
+//			currentUnitCount++;
+//		}
+//		// else{
+//		// foo
+//		// }
 	}
 	// public void addUnit(Unit unit){ // Uncomment when this exists
 	// Foo
