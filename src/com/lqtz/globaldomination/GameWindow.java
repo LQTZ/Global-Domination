@@ -22,7 +22,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import com.lqtz.globaldomination.graphics.GameScreen;
-import com.lqtz.globaldomination.io.Colors;
 import com.lqtz.globaldomination.io.Fonts;
 
 /**
@@ -125,9 +124,9 @@ public class GameWindow extends JFrame
 		buttons = new JButton[5];
 		String[] buttonText = new String[] {"Move Unit", "Settle",
 				"Upgrade City", "Upgrade Unit", "Attack"};
-		Color[] buttonColor = new Color[] {Colors.moveUnitButtonColor,
-				Colors.settleButtonColor, Colors.upgradeCityButtonColor,
-				Colors.upgradeUnitButtonColor, Colors.attackButtonColor};
+		Color[] buttonColor = new Color[] {new Color(39, 78, 19),
+				new Color(116, 27, 71), new Color(11, 83, 148),
+				new Color(53, 28, 117), new Color(153, 0, 0)};
 		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 5; i++)
 		{
@@ -145,7 +144,7 @@ public class GameWindow extends JFrame
 
 			// Colors of buttons
 			buttons[i].setBackground(buttonColor[i]); // Button color
-			buttons[i].setForeground(Color.black); // Text color
+			buttons[i].setForeground(Color.white); // Text color
 			buttons[i].setOpaque(true);
 		}
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
