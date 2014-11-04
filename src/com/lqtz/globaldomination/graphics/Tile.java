@@ -4,30 +4,62 @@ package com.lqtz.globaldomination.graphics;
 
 /**
  * 
- * @author Gandalf A hexagonal tile in the GD map
+ * A hexagonal tile in the GD map
+ * 
+ * @author Gandalf
  * 
  */
 public class Tile extends Object
 {
+	/**
+	 * Max number of units that can fit on a file
+	 */
+	@SuppressWarnings("unused")
+	private static final int maxUnitCapacity = 50;
 
-	private static final int tileSize = 96; // Change this to the real value in
-											// future
-	private static final int maxUnitCapacity = 50; // Max number of units that
-													// can fit on a tile
-
+	/**
+	 * The Hexagon to represent the tile on the screen
+	 */
 	public Hexagon hexagon;
+
 	// public Unit[] unitsOnTile; // Uncomment when this exists
 	// this.unitsOnTile = new Unit[Tile.maxUnitCapacity]; // Uncomment when this
 	// exists
+
+	/**
+	 * Revenue Cities on the Tile would collect
+	 */
 	public int tileRevenue;
+
+	/**
+	 * Productivity Cities on the Tile would collect
+	 */
 	public int tileProductivity;
+
+	/**
+	 * Whether there is a City on the Tile
+	 */
 	public boolean hasCity = false;
 
-	public Tile(int centerX, int centerY, int revenue,
+	/**
+	 * A Tile in the Map
+	 * 
+	 * @param centerX
+	 *            x-coordinate of center of the hexagon
+	 * @param centerY
+	 *            y-coordinate of center of the hexagon
+	 * @param tileSize
+	 *            radius of circumscribed circle (multiple of 8) of the hexagon
+	 * @param revenue
+	 *            revenue Cities on the Tile would collect
+	 * @param productivity
+	 *            productivity Cities on the Tile would collect
+	 */
+	public Tile(int centerX, int centerY, int tileSize, int revenue,
 			int productivity)
 	{
 		// TODO Auto-generated constructor stub
-		this.hexagon = new Hexagon(centerX, centerY, Tile.tileSize);
+		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
 	}

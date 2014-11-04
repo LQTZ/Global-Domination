@@ -12,10 +12,25 @@ import java.io.IOException;
  */
 public class Fonts
 {
+	/**
+	 * A body text font
+	 */
 	public Font droid;
+	/**
+	 * A header text font
+	 */
 	public Font goudy;
+	/**
+	 * A body text font
+	 */
 	public Font sourcesans;
 	
+	/**
+	 * Fonts in the game
+	 * 
+	 * @throws FontFormatException
+	 * @throws IOException
+	 */
 	public Fonts() throws FontFormatException, IOException
 	{
 		droid = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/droid_sans_mono.ttf"));
