@@ -86,7 +86,6 @@ public class Tile extends Object
 //		// else{
 //		// foo
 //		// }
-	}
 	// public void addUnit(Unit unit){ // Uncomment when this exists
 	// Foo
 	// }
