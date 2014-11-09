@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+
 import com.lqtz.globaldomination.graphics.GameScreen;
 import com.lqtz.globaldomination.io.Fonts;
 
@@ -33,16 +34,13 @@ import com.lqtz.globaldomination.io.Fonts;
 public class GameWindow extends JFrame
 {
 	private static final int BUTTON_FONT_SIZE = 14;
-
 	private static final long serialVersionUID = 1L;
 
 	// Declare components
 	/**
-	 * Background for drawing stuff on
+	 * Background to draw on
 	 */
-	public JLabel background = new JLabel(
-			new ImageIcon(
-					"C://Users//Tse//git//Global-Domination//res//images//background_1920-1080.png"));
+	public JLabel background;
 
 	private JPanel leftPanel; // Panel with units info pane and event log pane
 	private JTextPane unitsPane; // Units info pane
@@ -98,15 +96,15 @@ public class GameWindow extends JFrame
 		setTitle("Global Domination");
 		addComponents(gd);
 
-//		// Screen refresh
-//		if (gd.isFullScreenSupported())
-//		{
-//			gd.setFullScreenWindow(this);
-//		}
-//		else
-//		{
-//			setSize(Toolkit.getDefaultToolkit().getScreenSize());
-//		}
+		// Screen refresh
+		if (gd.isFullScreenSupported())
+		{
+			gd.setFullScreenWindow(this);
+		}
+		else
+		{
+			setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		}
 
 		setVisible(true);
 
@@ -118,8 +116,15 @@ public class GameWindow extends JFrame
 	 */
 	private void addComponents(GraphicsDevice gd)
 	{
+		setLayout(new BorderLayout());
+
+		// Get background
+		String projDir = System.getProperty("user.dir");
+		String backgroundPicRelPath = "\\res\\images\\background_1920-1080.png";
+		String backgroundPicAbsPath = projDir + backgroundPicRelPath;
+		this.background = new JLabel(new ImageIcon(backgroundPicAbsPath));
+
 		// Set background
-//		setLayout(new BorderLayout());
 		add(this.background);
 		this.background.setLayout(new BorderLayout());
 
