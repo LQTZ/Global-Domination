@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
@@ -13,7 +14,6 @@ import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 
 import com.lqtz.globaldomination.graphics.GameScreen;
 import com.lqtz.globaldomination.io.Fonts;
+import com.lqtz.globaldomination.io.Images;
 
 /**
  * 
@@ -33,15 +34,9 @@ import com.lqtz.globaldomination.io.Fonts;
  */
 public class GameWindow extends JFrame
 {
-	private static final int BUTTON_FONT_SIZE = 14;
 	private static final long serialVersionUID = 1L;
 
 	// Declare components
-	/**
-	 * Background to draw on
-	 */
-	public JLabel background;
-
 	private JPanel leftPanel; // Panel with units info pane and event log pane
 	private JTextPane unitsPane; // Units info pane
 	private JTextPane eventLogPane; // Event log pane
@@ -51,7 +46,7 @@ public class GameWindow extends JFrame
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private JPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
-	private JLabel combatOddsPane; // Pane with combat odds info
+	private JLabel infoBox; // Info box
 	private JTextPane infoPanel; // Pane with tile, city, and game info
 	private Fonts fonts;
 
@@ -60,7 +55,7 @@ public class GameWindow extends JFrame
 	 */
 	public GameWindow()
 	{
-		// Initializes fonts
+		// Initializes resources
 		try
 		{
 			fonts = new Fonts();
@@ -94,6 +89,7 @@ public class GameWindow extends JFrame
 		// Setup screen attributes
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
 		setTitle("Global Domination");
+		setContentPane(new ImageContentPane());
 		addComponents(gd);
 
 		// Screen refresh
@@ -118,25 +114,15 @@ public class GameWindow extends JFrame
 	{
 		setLayout(new BorderLayout());
 
-		// Get background
-		String projDir = System.getProperty("user.dir");
-		String backgroundPicRelPath = "\\res\\images\\background_1920-1080.png";
-		String backgroundPicAbsPath = projDir + backgroundPicRelPath;
-		this.background = new JLabel(new ImageIcon(backgroundPicAbsPath));
-
-		// Set background
-		add(this.background);
-		this.background.setLayout(new BorderLayout());
-
 		// Left components
 		leftPanel = new JPanel(new BorderLayout());
-		leftPanel.setBackground(new Color(30, 30, 30, 0));
+		leftPanel.setOpaque(false);
 		unitsPane = new JTextPane();
-		unitsPane.setBackground(new Color(30, 30, 30, 150));
+		unitsPane.setBackground(new Color(64, 64, 64, 210));
 		unitsPane.setPreferredSize(new Dimension(200, getHeight() / 2));
 
 		eventLogPane = new JTextPane();
-		eventLogPane.setBackground(new Color(30, 30, 30, 150));
+		eventLogPane.setBackground(new Color(64, 64, 64, 210));
 		eventLogPane.setPreferredSize(new Dimension(200, getHeight() / 2));
 
 		leftPanel.add(unitsPane, BorderLayout.NORTH);
@@ -144,18 +130,18 @@ public class GameWindow extends JFrame
 
 		// Center components
 		centerPanel = new JPanel(new BorderLayout());
-		centerPanel.setBackground(new Color(30, 30, 30, 50));
+		centerPanel.setOpaque(false);
 		mapPane = new GameScreen();
-		mapPane.setBackground(new Color(30, 30, 30, 150));
+		mapPane.setBackground(new Color(0, 0, 0, 0));
 		mapPane.setPreferredSize(new Dimension(getWidth() - 400,
 				getHeight() - 152));
 		mapPane.addTiles(getWidth() - 400, getHeight() - 152);
 		controlPane = new JPanel(new BorderLayout());
-		controlPane.setBackground(new Color(30, 30, 30, 150));
+		controlPane.setOpaque(false);
 
 		// Creates buttons and add them to the buttonsPane
 		buttonsPane = new JPanel();
-		buttonsPane.setBackground(new Color(30, 30, 30, 150));
+		buttonsPane.setBackground(new Color(50, 50, 50, 210));
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
 		buttons = new JButton[5];
 		String[] buttonText = new String[] {"Move Unit", "Settle",
@@ -167,8 +153,7 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
-			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN,
-					BUTTON_FONT_SIZE)); // Set font
+			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set font
 			buttonsPane.add(buttons[i]); // Add button
 
 			// Spacing
@@ -185,16 +170,16 @@ public class GameWindow extends JFrame
 		}
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
 
-		// Set up the combat odds label and pane to go below the action buttons
-		combatOddsPane = new JLabel("blah", SwingConstants.CENTER);
-		combatOddsPane.setBackground(new Color(30, 30, 30, 150));
-		combatOddsPane.setPreferredSize(new Dimension(getWidth() - 400, 50));
-		combatOddsPane.setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 20));
-		combatOddsPane.setText("blah");
+		// Set up the info box and pane to go below the action buttons
+		infoBox = new JLabel("blah", SwingConstants.CENTER);
+		infoBox.setOpaque(true);
+		infoBox.setBackground(new Color(64, 64, 64, 230));
+		infoBox.setForeground(Color.WHITE);
+		infoBox.setPreferredSize(new Dimension(getWidth() - 400, 50));
+		infoBox.setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 20));
+		infoBox.setText("blah");
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
-		controlPane.add(combatOddsPane, BorderLayout.SOUTH);
-
-		controlPane.setBackground(new Color(30, 30, 30, 150));
+		controlPane.add(infoBox, BorderLayout.SOUTH);
 
 		// Add Containers to the main center panel
 		centerPanel.add(mapPane, BorderLayout.NORTH);
@@ -205,9 +190,9 @@ public class GameWindow extends JFrame
 		infoPanel.setBackground(new Color(30, 30, 30, 150));
 		infoPanel.setPreferredSize(new Dimension(200, getHeight()));
 
-		this.background.add(leftPanel, BorderLayout.WEST);
-		this.background.add(centerPanel, BorderLayout.CENTER);
-		this.background.add(infoPanel, BorderLayout.EAST);
+		add(leftPanel, BorderLayout.WEST);
+		add(centerPanel, BorderLayout.CENTER);
+		add(infoPanel, BorderLayout.EAST);
 	}
 
 	/**
@@ -217,5 +202,4 @@ public class GameWindow extends JFrame
 	{
 
 	}
-
 }
