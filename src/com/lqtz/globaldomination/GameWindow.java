@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
@@ -23,7 +22,6 @@ import javax.swing.SwingConstants;
 
 import com.lqtz.globaldomination.graphics.GameScreen;
 import com.lqtz.globaldomination.io.Fonts;
-import com.lqtz.globaldomination.io.Images;
 
 /**
  * 
@@ -90,7 +88,7 @@ public class GameWindow extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
 		setTitle("Global Domination");
 		setContentPane(new ImageContentPane());
-		addComponents(gd);
+		addComponents();
 
 		// Screen refresh
 		if (gd.isFullScreenSupported())
@@ -110,7 +108,7 @@ public class GameWindow extends JFrame
 	/**
 	 * Adds components to frame
 	 */
-	private void addComponents(GraphicsDevice gd)
+	private void addComponents()
 	{
 		setLayout(new BorderLayout());
 
@@ -118,11 +116,12 @@ public class GameWindow extends JFrame
 		leftPanel = new JPanel(new BorderLayout());
 		leftPanel.setOpaque(false);
 		unitsPane = new JTextPane();
-		unitsPane.setBackground(new Color(64, 64, 64, 210));
+		
+		unitsPane.setBackground(new Color(64, 64, 64, 160));
 		unitsPane.setPreferredSize(new Dimension(200, getHeight() / 2));
 
 		eventLogPane = new JTextPane();
-		eventLogPane.setBackground(new Color(64, 64, 64, 210));
+		eventLogPane.setBackground(new Color(64, 64, 64, 160));
 		eventLogPane.setPreferredSize(new Dimension(200, getHeight() / 2));
 
 		leftPanel.add(unitsPane, BorderLayout.NORTH);
@@ -165,7 +164,7 @@ public class GameWindow extends JFrame
 
 			// Colors of buttons
 			buttons[i].setBackground(buttonColor[i]); // Button color
-			buttons[i].setForeground(Color.white); // Text color
+			buttons[i].setForeground(Color.WHITE); // Text color
 			buttons[i].setOpaque(true);
 		}
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
@@ -187,7 +186,7 @@ public class GameWindow extends JFrame
 
 		// Add Containers to the main right components (only the info panel)
 		infoPanel = new JTextPane();
-		infoPanel.setBackground(new Color(30, 30, 30, 150));
+		infoPanel.setBackground(new Color(64, 64, 64, 160));
 		infoPanel.setPreferredSize(new Dimension(200, getHeight()));
 
 		add(leftPanel, BorderLayout.WEST);

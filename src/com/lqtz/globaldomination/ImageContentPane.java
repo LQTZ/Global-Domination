@@ -34,6 +34,7 @@ public class ImageContentPane extends JPanel
 	@Override
 	protected void paintComponent(Graphics g)
 	{
+		super.paintComponent(g);
 		for (int i = 0; i < getWidth() / images.background.getWidth() + 1; i++)
 		{
 			for (int j = 0; j < getHeight() / images.background.getHeight() + 1; j++)
