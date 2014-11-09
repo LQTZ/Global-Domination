@@ -10,7 +10,7 @@ import com.lqtz.globaldomination.io.Images;
 /**
  * Content pane with image background
  * 
- * @author Daniel Zhu
+ * @author Gitdropcode
  *
  */
 public class ImageContentPane extends JPanel
