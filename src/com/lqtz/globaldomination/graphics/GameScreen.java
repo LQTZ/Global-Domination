@@ -1,6 +1,5 @@
 package com.lqtz.globaldomination.graphics;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -64,10 +63,7 @@ public class GameScreen extends JPanel
 		{
 			for (Tile tile : tileList)
 			{
-				g.setColor(new Color(127, 127, 127, 200));
-				g.fillPolygon(tile.hexagon);
-				g.setColor(Color.BLACK);
-				g.drawPolygon(tile.hexagon);
+				tile.paint(g);
 			}
 		}
 	}

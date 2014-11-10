@@ -1,5 +1,8 @@
 package com.lqtz.globaldomination.graphics;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 //import com.lqtz.globaldomination.gameplay.*;	// Uncomment when this exists
 
 /**
@@ -16,11 +19,6 @@ public class Tile extends Object
 	 */
 	@SuppressWarnings("unused")
 	private static final int maxUnitCapacity = 50;
-
-	/**
-	 * Number of units the tile contains
-	 */
-	private int currentUnitCount = 0;
 
 	/**
 	 * The Hexagon to represent the tile on the screen
@@ -67,6 +65,14 @@ public class Tile extends Object
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
+	}
+
+	protected void paint(Graphics g)
+	{
+		g.setColor(new Color(127, 127, 127, 200));
+		g.fillPolygon(hexagon);
+		g.setColor(Color.BLACK);
+		g.drawPolygon(hexagon);
 	}
 
 	// public void addCity (City city){ // Uncomment when this exists
