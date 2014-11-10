@@ -11,7 +11,7 @@ import com.lqtz.globaldomination.io.Images;
  * Content pane with image background
  * 
  * @author Gitdropcode
- *
+ * 
  */
 public class ImageContentPane extends JPanel
 {
@@ -39,7 +39,9 @@ public class ImageContentPane extends JPanel
 		{
 			for (int j = 0; j < getHeight() / images.background.getHeight() + 1; j++)
 			{
-				g.drawImage(images.background, 0, 0, null);
+				g.drawImage(images.background,
+						i * images.background.getWidth(),
+						j * images.background.getHeight(), null);
 			}
 		}
 	}
