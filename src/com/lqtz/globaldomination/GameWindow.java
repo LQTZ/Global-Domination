@@ -44,6 +44,7 @@ public class GameWindow extends JFrame
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private JPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
+	private JPanel rightPanel; // Right panel
 	private JLabel infoBox; // Info box
 	private JTextPane infoPanel; // Pane with tile, city, and game info
 	private Fonts fonts;
@@ -185,13 +186,17 @@ public class GameWindow extends JFrame
 		centerPanel.add(controlPane, BorderLayout.SOUTH);
 
 		// Add Containers to the main right components (only the info panel)
+		rightPanel = new JPanel();
+		rightPanel.setOpaque(false);
 		infoPanel = new JTextPane();
 		infoPanel.setBackground(new Color(64, 64, 64, 160));
 		infoPanel.setPreferredSize(new Dimension(200, getHeight()));
+		rightPanel.setPreferredSize(new Dimension(200, getHeight()));
+		rightPanel.add(infoPanel);
 
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
-		add(infoPanel, BorderLayout.EAST);
+		add(rightPanel, BorderLayout.EAST);
 	}
 
 	/**
