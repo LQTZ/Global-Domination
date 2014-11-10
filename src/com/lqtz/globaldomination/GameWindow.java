@@ -117,7 +117,7 @@ public class GameWindow extends JFrame
 		leftPanel = new JPanel(new BorderLayout());
 		leftPanel.setOpaque(false);
 		unitsPane = new JTextPane();
-		
+
 		unitsPane.setBackground(new Color(64, 64, 64, 160));
 		unitsPane.setPreferredSize(new Dimension(200, getHeight() / 2));
 
@@ -153,7 +153,8 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
-			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set font
+			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set
+																				// font
 			buttonsPane.add(buttons[i]); // Add button
 
 			// Spacing

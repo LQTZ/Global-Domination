@@ -24,7 +24,7 @@ public class Fonts
 	 * A body text font
 	 */
 	public Font sourcesans;
-	
+
 	/**
 	 * Fonts in the game
 	 * 
@@ -33,8 +33,11 @@ public class Fonts
 	 */
 	public Fonts() throws FontFormatException, IOException
 	{
-		droid = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/droid_sans_mono.ttf"));
-		goudy = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/goudy_bookletter_1911.otf"));
-		sourcesans = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/source_sans_pro.otf"));
+		droid = Font.createFont(Font.TRUETYPE_FONT, getClass()
+				.getResourceAsStream("/fonts/droid_sans_mono.ttf"));
+		goudy = Font.createFont(Font.TRUETYPE_FONT, getClass()
+				.getResourceAsStream("/fonts/goudy_bookletter_1911.otf"));
+		sourcesans = Font.createFont(Font.TRUETYPE_FONT, getClass()
+				.getResourceAsStream("/fonts/source_sans_pro.otf"));
 	}
 }

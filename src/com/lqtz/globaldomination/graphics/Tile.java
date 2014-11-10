@@ -3,7 +3,7 @@ package com.lqtz.globaldomination.graphics;
 import java.awt.Color;
 import java.awt.Graphics;
 
-//import com.lqtz.globaldomination.gameplay.*;	// Uncomment when this exists
+// import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
 
 /**
  * 
@@ -79,19 +79,19 @@ public class Tile extends Object
 	// Foo
 	// }
 
-//	/**
-//	 * @param unit
-//	 *            unit to put on on the unit array
-//	 */
-//	public void addUnit(Unit unit)
-//	{
-//		if (currentUnitCount < Tile.maxUnitCapacity)
-//		{
-//			currentUnitCount++;
-//		}
-//		// else{
-//		// foo
-//		// }
+	// /**
+	// * @param unit
+	// * unit to put on on the unit array
+	// */
+	// public void addUnit(Unit unit)
+	// {
+	// if (currentUnitCount < Tile.maxUnitCapacity)
+	// {
+	// currentUnitCount++;
+	// }
+	// // else{
+	// // foo
+	// // }
 	// public void addUnit(Unit unit){ // Uncomment when this exists
 	// Foo
 	// }

@@ -14,9 +14,10 @@ import javax.imageio.ImageIO;
 public class Images
 {
 	public BufferedImage background;
-	
+
 	public Images() throws IOException
 	{
-		background = ImageIO.read(getClass().getResourceAsStream("/images/background.png"));
+		background = ImageIO.read(getClass().getResourceAsStream(
+				"/images/background.png"));
 	}
 }
