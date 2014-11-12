@@ -27,10 +27,7 @@ public class Images
 	 * Productivity icon
 	 */
 	public BufferedImage productivity;
-	
-	/**
-	 * Revenue icon
-	 */
+
 	public BufferedImage revenue;
 
 	@SuppressWarnings("javadoc")

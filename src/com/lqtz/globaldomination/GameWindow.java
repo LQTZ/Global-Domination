@@ -48,11 +48,12 @@ public class GameWindow extends JFrame
 	private JLabel infoBox; // Info box
 	private JTextPane infoPanel; // Pane with tile, city, and game info
 	private Fonts fonts;
+	private Game game;
 
 	/**
 	 * Main game interface window
 	 */
-	public GameWindow()
+	public GameWindow(Game game)
 	{
 		// Initializes resources
 		try
@@ -69,6 +70,7 @@ public class GameWindow extends JFrame
 			System.err.println("Fonts not found");
 			e.printStackTrace();
 		}
+		this.game = game;
 
 		// Removes buttons
 		setUndecorated(true);
@@ -131,7 +133,7 @@ public class GameWindow extends JFrame
 		// Center components
 		centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setOpaque(false);
-		mapPane = new GameScreen();
+		mapPane = new GameScreen(game);
 		mapPane.setBackground(new Color(0, 0, 0, 0));
 		mapPane.setPreferredSize(new Dimension(getWidth() - 400,
 				getHeight() - 152));

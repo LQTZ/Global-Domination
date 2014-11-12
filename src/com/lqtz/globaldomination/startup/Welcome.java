@@ -2,7 +2,7 @@ package com.lqtz.globaldomination.startup;
 
 import javax.swing.JFrame;
 
-import com.lqtz.globaldomination.GameWindow;
+import com.lqtz.globaldomination.Game;
 
 /**
  * 
@@ -19,6 +19,6 @@ public class Welcome extends JFrame
 
 	public static void main(String[] args)
 	{
-		new GameWindow();
+		new Game();
 	}
 }

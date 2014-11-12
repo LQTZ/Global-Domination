@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
 
+import com.lqtz.globaldomination.Game;
 import com.lqtz.globaldomination.io.Images;
 
 // import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
@@ -52,11 +53,10 @@ public class Tile extends Object
 	// public boolean hasCity = false;
 	public boolean hasCity = true;
 
-	private Images images;
-	private ImageObserver imageObserver;
 	private int centerX;
 	private int centerY;
 	private int tileSize;
+	private Game game;
 
 	/**
 	 * A Tile in the Map
@@ -73,7 +73,7 @@ public class Tile extends Object
 	 *            productivity Cities on the Tile would collect
 	 */
 	public Tile(int centerX, int centerY, int tileSize, int revenue,
-			int productivity)
+			int productivity, Game game)
 	{
 		// TODO Auto-generated constructor stub
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
@@ -82,16 +82,7 @@ public class Tile extends Object
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.tileSize = tileSize;
-
-		try
-		{
-			images = new Images();
-		}
-		catch (IOException e)
-		{
-			System.err.println("Images not found");
-			e.printStackTrace();
-		}
+		this.game = game;
 	}
 
 	protected void paint(Graphics g)
@@ -105,11 +96,11 @@ public class Tile extends Object
 		// Draw the city (if applicable)
 		if (this.hasCity)
 		{
-			g.drawImage(this.images.city,
+			g.drawImage(game.images.city,
 					(int) ((centerX - 7 * tileSize / 8)),
 					(int) (centerY - tileSize / 2),
 					(int) (this.tileSize * sqrt(3.0d)),
-					2 * 7 / 8 * this.tileSize, null, this.imageObserver);
+					2 * 7 / 8 * this.tileSize, null);
 		}
 	}
 }

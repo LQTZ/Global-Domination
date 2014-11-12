@@ -4,6 +4,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import com.lqtz.globaldomination.Game;
+
 /**
  * 
  * Game screen - where tiles are drawn
@@ -16,6 +18,13 @@ public class GameScreen extends JPanel
 	private static final long serialVersionUID = 1L;
 	private Tile[][] tiles;
 	private final int DIM = 5;
+	private Game game;
+
+	public GameScreen(Game game)
+	{
+		super();
+		this.game = game;
+	}
 
 	/**
 	 * Adds all the Hexagons
@@ -45,7 +54,8 @@ public class GameScreen extends JPanel
 			{
 				tiles[i][j] = new Tile(sizeFit * (1 + 2 * i + j) * 7 / 8
 						+ xOffset, height
-						- (sizeFit * (3 * j + 2) / 2 + yOffset), sizeFit, 0, 0);
+						- (sizeFit * (3 * j + 2) / 2 + yOffset), sizeFit, 0, 0,
+						game);
 			}
 		}
 	}
