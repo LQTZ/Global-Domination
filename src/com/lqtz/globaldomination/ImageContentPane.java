@@ -18,6 +18,9 @@ public class ImageContentPane extends JPanel
 	private static final long serialVersionUID = 1L;
 	private Images images;
 
+	/**
+	 * Content pane for the GD UI (the background)
+	 */
 	public ImageContentPane()
 	{
 		try

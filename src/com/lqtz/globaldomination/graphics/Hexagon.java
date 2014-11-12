@@ -21,7 +21,8 @@ public class Hexagon extends Polygon
 	 * @param centerX
 	 *            y-coordinate of center
 	 * @param size
-	 *            radius of circumscribed circle (multiple of 8)
+	 *            radius of circle the hexagon is inscribed in (must be a
+	 *            multiple of 8 for polygon constructor to work)
 	 */
 	public Hexagon(int centerX, int centerY, int size)
 	{

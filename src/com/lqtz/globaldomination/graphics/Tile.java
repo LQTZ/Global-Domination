@@ -1,7 +1,14 @@
 package com.lqtz.globaldomination.graphics;
 
+import static java.lang.Math.*;
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.ImageObserver;
+import java.io.IOException;
+
+import com.lqtz.globaldomination.io.Images;
 
 // import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
 
@@ -42,7 +49,14 @@ public class Tile extends Object
 	/**
 	 * Whether there is a City on the Tile
 	 */
-	public boolean hasCity = false;
+	// public boolean hasCity = false;
+	public boolean hasCity = true;
+
+	private Images images;
+	private ImageObserver imageObserver;
+	private int centerX;
+	private int centerY;
+	private int tileSize;
 
 	/**
 	 * A Tile in the Map
@@ -65,35 +79,37 @@ public class Tile extends Object
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
+		this.centerX = centerX;
+		this.centerY = centerY;
+		this.tileSize = tileSize;
+
+		try
+		{
+			images = new Images();
+		}
+		catch (IOException e)
+		{
+			System.err.println("Images not found");
+			e.printStackTrace();
+		}
 	}
 
 	protected void paint(Graphics g)
 	{
+		// Draw the hexagon
 		g.setColor(new Color(127, 127, 127, 200));
 		g.fillPolygon(hexagon);
 		g.setColor(Color.BLACK);
 		g.drawPolygon(hexagon);
+
+		// Draw the city (if applicable)
+		if (this.hasCity)
+		{
+			g.drawImage(this.images.city,
+					(int) ((centerX - 7 * tileSize / 8)),
+					(int) (centerY - tileSize / 2),
+					(int) (this.tileSize * sqrt(3.0d)),
+					2 * 7 / 8 * this.tileSize, null, this.imageObserver);
+		}
 	}
-
-	// public void addCity (City city){ // Uncomment when this exists
-	// Foo
-	// }
-
-	// /**
-	// * @param unit
-	// * unit to put on on the unit array
-	// */
-	// public void addUnit(Unit unit)
-	// {
-	// if (currentUnitCount < Tile.maxUnitCapacity)
-	// {
-	// currentUnitCount++;
-	// }
-	// // else{
-	// // foo
-	// // }
-	// public void addUnit(Unit unit){ // Uncomment when this exists
-	// Foo
-	// }
-
 }
