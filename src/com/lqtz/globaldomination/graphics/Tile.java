@@ -1,15 +1,9 @@
 package com.lqtz.globaldomination.graphics;
 
-import static java.lang.Math.*;
-
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.ImageObserver;
-import java.io.IOException;
 
 import com.lqtz.globaldomination.Game;
-import com.lqtz.globaldomination.io.Images;
 
 // import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
 
@@ -20,8 +14,7 @@ import com.lqtz.globaldomination.io.Images;
  * @author Gandalf
  * 
  */
-public class Tile extends Object
-{
+public class Tile extends Object {
 	/**
 	 * Max number of units that can fit on a file
 	 */
@@ -73,8 +66,7 @@ public class Tile extends Object
 	 *            productivity Cities on the Tile would collect
 	 */
 	public Tile(int centerX, int centerY, int tileSize, int revenue,
-			int productivity, Game game)
-	{
+			int productivity, Game game) {
 		// TODO Auto-generated constructor stub
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
@@ -85,8 +77,7 @@ public class Tile extends Object
 		this.game = game;
 	}
 
-	protected void paint(Graphics g)
-	{
+	protected void paint(Graphics g) {
 		// Draw the hexagon
 		g.setColor(new Color(127, 127, 127, 200));
 		g.fillPolygon(hexagon);
@@ -94,13 +85,13 @@ public class Tile extends Object
 		g.drawPolygon(hexagon);
 
 		// Draw the city (if applicable)
-		if (this.hasCity)
-		{
-			g.drawImage(game.images.city,
-					(int) ((centerX - 7 * tileSize / 8)),
+		if (this.hasCity) {
+			g.drawImage(game.images.city, (int) ((centerX - 7 * tileSize / 8)),
 					(int) (centerY - tileSize / 2),
-					(int) (this.tileSize * sqrt(3.0d)),
+					(int) (this.tileSize * Math.sqrt(3)),
 					2 * 7 / 8 * this.tileSize, null);
 		}
+		
+		// Draw revenue icon
 	}
 }
