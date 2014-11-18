@@ -1,9 +1,13 @@
 package com.lqtz.globaldomination.graphics;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.io.IOException;
 
 import com.lqtz.globaldomination.Game;
+import com.lqtz.globaldomination.io.Fonts;
 
 // import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
 
@@ -91,7 +95,20 @@ public class Tile extends Object {
 					(int) (this.tileSize * Math.sqrt(3)),
 					2 * 7 / 8 * this.tileSize, null);
 		}
-		
+
 		// Draw revenue icon
+		g.drawImage(game.images.revenue, centerX - 7 * tileSize / 16, centerY
+				- 3 * tileSize / 4, tileSize / 4, tileSize / 4, null);
+		try {
+			g.setFont(new Fonts().sourcesans.deriveFont(Font.PLAIN, tileSize / 4));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		g.drawString(String.valueOf(tileRevenue), centerX - 7
+				* tileSize / 16, centerY - 2 * tileSize / 4);
 	}
 }
