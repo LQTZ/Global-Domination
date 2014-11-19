@@ -93,16 +93,6 @@ public class GameWindow extends JFrame
 		setContentPane(new ImageContentPane());
 		addComponents();
 
-		// Screen refresh
-		if (gd.isFullScreenSupported())
-		{
-			gd.setFullScreenWindow(this);
-		}
-		else
-		{
-			setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		}
-
 		setVisible(true);
 
 		start();
