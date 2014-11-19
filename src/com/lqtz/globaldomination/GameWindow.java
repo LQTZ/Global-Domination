@@ -4,12 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -55,21 +53,7 @@ public class GameWindow extends JFrame
 	 */
 	public GameWindow(Game game)
 	{
-		// Initializes resources
-		try
-		{
-			fonts = new Fonts();
-		}
-		catch (FontFormatException e)
-		{
-			System.err.println("Fonts corrupted");
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			System.err.println("Fonts not found");
-			e.printStackTrace();
-		}
+		
 		this.game = game;
 
 		// Removes buttons
