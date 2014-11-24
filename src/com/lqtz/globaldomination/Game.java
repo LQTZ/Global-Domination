@@ -39,6 +39,6 @@ public class Game
 			System.err.println("Fonts not found");
 			e.printStackTrace();
 		}
-		new GameWindow(this);
+//		new GameWindow(this);
 	}
 }

@@ -149,8 +149,8 @@ public class GameWindow extends JFrame
 
 		// Set up the info box and pane to go below the action buttons
 		infoBox = new JLabel("blah", SwingConstants.CENTER);
-		infoBox.setOpaque(true);
-		infoBox.setBackground(new Color(64, 64, 64, 230));
+//		infoBox.setOpaque(true);
+//		infoBox.setBackground(new Color(64, 64, 64, 230));
 		infoBox.setForeground(Color.WHITE);
 		infoBox.setPreferredSize(new Dimension(getWidth() - 400, 50));
 		infoBox.setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 20));
