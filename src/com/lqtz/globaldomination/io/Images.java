@@ -17,12 +17,12 @@ public class Images
 	 * Background image
 	 */
 	public BufferedImage background;
-	
+
 	/**
 	 * City icon
 	 */
 	public BufferedImage city;
-	
+
 	/**
 	 * Productivity icon
 	 */

@@ -8,8 +8,10 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 import com.lqtz.globaldomination.Game;
@@ -22,21 +24,29 @@ import com.lqtz.globaldomination.ImageContentPane;
  * @author Gitdropcode
  * 
  */
-public class Welcome extends JFrame {
+public class Welcome extends JFrame
+{
 	private static final long serialVersionUID = 1L;
 	private Game game;
-	private JLabel title;
+	private JTextArea title;
 
-	public Welcome() {
+	/**
+	 * Welcome screen for links to info pages and new game
+	 */
+	public Welcome()
+	{
 		game = new Game(); // Get Game object for resources
-		
+
 		setUndecorated(true);
-		
+
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice();
-		if (gd.isFullScreenSupported()) {
+		if (gd.isFullScreenSupported())
+		{
 			gd.setFullScreenWindow(this);
-		} else {
+		}
+		else
+		{
 			setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		}
 
@@ -48,15 +58,20 @@ public class Welcome extends JFrame {
 		setVisible(true);
 	}
 
-	private void addComponents() {
-//		setLayout(new BorderLayout());
-		title = new JLabel("Global Domination", SwingConstants.LEFT);
-		title.setFont(game.fonts.goudy.deriveFont(Font.PLAIN, 100));
-		title.setText("Global Domination");
+	private void addComponents()
+	{
+		setLayout(new BorderLayout());
+		title = new JTextArea();
+		title.setOpaque(false);
+		title.setEditable(false);
+		title.setText("Global\nDomination");
+		title.setFont(game.fonts.goudy.deriveFont(Font.PLAIN, 200));
+		title.setForeground(new Color(160, 160, 160));
 		add(title);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		// new Game();
 		new Welcome();
 	}
