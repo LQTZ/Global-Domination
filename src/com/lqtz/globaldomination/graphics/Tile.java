@@ -73,7 +73,6 @@ public class Tile extends Object
 	public Tile(int centerX, int centerY, int tileSize, int revenue,
 			int productivity, Game game)
 	{
-		// TODO Auto-generated constructor stub
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
@@ -110,12 +109,10 @@ public class Tile extends Object
 		}
 		catch (FontFormatException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		g.drawString(String.valueOf(tileRevenue), centerX - 7 * tileSize / 16,

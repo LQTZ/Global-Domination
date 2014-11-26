@@ -87,6 +87,7 @@ public class GameWindow extends JFrame
 	 */
 	private void addComponents()
 	{
+		// TODO decrease # of calls of deriveFont
 		setLayout(new BorderLayout());
 
 		// Left components
