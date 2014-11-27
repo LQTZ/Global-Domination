@@ -2,12 +2,8 @@ package com.lqtz.globaldomination.graphics;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.io.IOException;
-
 import com.lqtz.globaldomination.Game;
-import com.lqtz.globaldomination.io.Fonts;
 
 // import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
 

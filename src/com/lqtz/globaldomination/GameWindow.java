@@ -19,7 +19,6 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 import com.lqtz.globaldomination.graphics.GameScreen;
-import com.lqtz.globaldomination.io.Fonts;
 
 /**
  * 
