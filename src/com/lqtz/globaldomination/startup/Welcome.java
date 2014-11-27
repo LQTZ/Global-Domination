@@ -38,7 +38,7 @@ public class Welcome extends JFrame
 		setUndecorated(true);
 		setSize(new Dimension(1000, 400));
 		setLocationRelativeTo(null);
-		
+
 		// Setup screen attributes
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Global Domination");
@@ -59,21 +59,28 @@ public class Welcome extends JFrame
 		// new Game();
 		new Welcome();
 	}
-	
+
 	private class WelcomePanel extends JPanel
 	{
 		private static final long serialVersionUID = 1L;
 		private JLabel title1;
 		private JLabel title2;
-		private int selected = -1;
+		private int selected = 0;
 		private Font labelFont;
 		private Game game;
-		
+		private int[][] locations;
+		private String[] labels;
+
 		private WelcomePanel(Game game)
 		{
+			locations = new int[][] {new int[] {50, 310}, new int[] {200, 370},
+					new int[] {350, 310}, new int[] {500, 370},
+					new int[] {650, 310}, new int[] {800, 370}};
+			labels = new String[] {"new game", "settings", "load game",
+					"about", "how to play", "exit"};
 			this.game = game;
 			labelFont = this.game.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
-			
+
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			setPreferredSize(getSize());
 			setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -94,18 +101,25 @@ public class Welcome extends JFrame
 			add(Box.createVerticalStrut(150));
 			setPreferredSize(new Dimension(1000, 400));
 		}
-		
+
 		@Override
 		protected void paintComponent(Graphics g)
 		{
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
-			g.drawString("new game", 50, 310);
-			g.drawString("settings", 200, 370);
-			g.drawString("load game", 350, 310);
-			g.drawString("about", 500, 370);
-			g.drawString("how to play", 650, 310);
-			g.drawString("exit", 800, 370);
+			for (int i = 0; i < 6; i++)
+			{
+				g.drawString(labels[i], locations[i][0], locations[i][1]);
+			}
+			if (selected != -1)
+			{
+				g.setColor(new Color(240, 192, 48));
+				g.fillPolygon(new int[] {locations[selected][0] - 15,
+						locations[selected][0] - 15,
+						locations[selected][0] - 5}, new int[] {
+						locations[selected][1] - 5, locations[selected][1] - 25,
+						locations[selected][1] - 15}, 3);
+			}
 		}
 	}
 }
