@@ -4,6 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -13,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.lqtz.globaldomination.Game;
+import com.lqtz.globaldomination.GameWindow;
 import com.lqtz.globaldomination.ImageContentPane;
 
 /**
@@ -49,7 +56,7 @@ public class Welcome extends JFrame
 
 	private void addComponents()
 	{
-		panel = new WelcomePanel(game);
+		panel = new WelcomePanel(game, this);
 		add(panel);
 		pack();
 	}
@@ -60,18 +67,19 @@ public class Welcome extends JFrame
 		new Welcome();
 	}
 
-	private class WelcomePanel extends JPanel
+	private class WelcomePanel extends JPanel implements MouseListener, MouseMotionListener
 	{
 		private static final long serialVersionUID = 1L;
 		private JLabel title1;
 		private JLabel title2;
-		private int selected = 0;
+		private int selected = -1;
 		private Font labelFont;
 		private Game game;
+		private JFrame frame;
 		private int[][] locations;
 		private String[] labels;
 
-		private WelcomePanel(Game game)
+		private WelcomePanel(Game game, JFrame frame)
 		{
 			locations = new int[][] {new int[] {50, 310}, new int[] {200, 370},
 					new int[] {350, 310}, new int[] {500, 370},
@@ -79,6 +87,7 @@ public class Welcome extends JFrame
 			labels = new String[] {"new game", "settings", "load game",
 					"about", "how to play", "exit"};
 			this.game = game;
+			this.frame = frame;
 			labelFont = this.game.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
 
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -100,6 +109,9 @@ public class Welcome extends JFrame
 			add(title2);
 			add(Box.createVerticalStrut(150));
 			setPreferredSize(new Dimension(1000, 400));
+			
+			addMouseListener(this);
+			addMouseMotionListener(this);
 		}
 
 		@Override
@@ -120,6 +132,69 @@ public class Welcome extends JFrame
 						locations[selected][1] - 5, locations[selected][1] - 25,
 						locations[selected][1] - 15}, 3);
 			}
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e)
+		{
+			switch (selected)
+			{
+				case -1:
+				{
+					break;
+				}
+				case 0:
+				{
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+					new GameWindow(game);
+				}
+				case 5:
+				{
+					frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+					break;
+				}
+			}
+		}
+		
+		@Override
+		public void mouseMoved(MouseEvent e)
+		{
+			
+			for (int i = 0; i < 6; i++)
+			{
+				Rectangle itemRect = new Rectangle(locations[i][0], locations[i][1] - 30, 150, 30);
+				if (itemRect.contains(e.getPoint()))
+				{
+					selected = i;
+					repaint();
+				}
+			}
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e)
+		{
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e)
+		{
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e)
+		{
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e)
+		{
+		}
+
+		@Override
+		public void mouseDragged(MouseEvent e)
+		{
 		}
 	}
 }
