@@ -82,7 +82,7 @@ public class Tile extends Object
 		this.game = game;
 	}
 
-	protected void paint(Graphics g)
+	protected void paint(Graphics g, Font font)
 	{
 		// Draw the hexagon
 		g.setColor(new Color(127, 127, 127, 200));
@@ -102,19 +102,7 @@ public class Tile extends Object
 		// Draw revenue icon
 		g.drawImage(game.images.revenue, centerX - 7 * tileSize / 16, centerY
 				- 3 * tileSize / 4, tileSize / 4, tileSize / 4, null);
-		try
-		{
-			g.setFont(new Fonts().sourcesans.deriveFont(Font.PLAIN,
-					tileSize / 4));
-		}
-		catch (FontFormatException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		g.setFont(font);
 		g.drawString(String.valueOf(tileRevenue), centerX - 7 * tileSize / 16,
 				centerY - 2 * tileSize / 4);
 	}

@@ -45,7 +45,6 @@ public class GameWindow extends JFrame
 	private JPanel rightPanel; // Right panel
 	private JLabel infoBox; // Info box
 	private JTextPane infoPanel; // Pane with tile, city, and game info
-	private Fonts fonts;
 	private Game game;
 
 	/**
@@ -87,7 +86,6 @@ public class GameWindow extends JFrame
 	 */
 	private void addComponents()
 	{
-		// TODO decrease # of calls of deriveFont
 		setLayout(new BorderLayout());
 
 		// Left components
@@ -130,7 +128,7 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
-			buttons[i].setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set
+			buttons[i].setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set
 																				// font
 			buttonsPane.add(buttons[i]); // Add button
 
@@ -154,7 +152,7 @@ public class GameWindow extends JFrame
 		// infoBox.setBackground(new Color(64, 64, 64, 230));
 		infoBox.setForeground(Color.WHITE);
 		infoBox.setPreferredSize(new Dimension(getWidth() - 400, 50));
-		infoBox.setFont(fonts.sourcesans.deriveFont(Font.PLAIN, 20));
+		infoBox.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
 		infoBox.setText("blah");
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);

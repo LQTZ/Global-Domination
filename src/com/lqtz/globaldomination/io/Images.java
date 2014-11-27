@@ -30,7 +30,6 @@ public class Images
 
 	public BufferedImage revenue;
 
-	@SuppressWarnings("javadoc")
 	public Images() throws IOException
 	{
 		background = ImageIO.read(getClass().getResourceAsStream(
