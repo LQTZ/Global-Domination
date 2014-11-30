@@ -17,9 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.lqtz.globaldomination.Game;
-import com.lqtz.globaldomination.GameWindow;
-import com.lqtz.globaldomination.ImageContentPane;
+import com.lqtz.globaldomination.graphics.GameWindow;
+import com.lqtz.globaldomination.graphics.ImageContentPane;
+import com.lqtz.globaldomination.io.Game;
 
 /**
  * 
@@ -64,9 +64,11 @@ public class Welcome extends JFrame
 	{
 		// new Game();
 		new Welcome();
+		// new GameWindow(new Game());
 	}
 
-	private class WelcomePanel extends JPanel implements MouseListener, MouseMotionListener
+	private class WelcomePanel extends JPanel implements MouseListener,
+			MouseMotionListener
 	{
 		private static final long serialVersionUID = 1L;
 		private JLabel title1;
@@ -108,7 +110,7 @@ public class Welcome extends JFrame
 			add(title2);
 			add(Box.createVerticalStrut(150));
 			setPreferredSize(new Dimension(1000, 400));
-			
+
 			addMouseListener(this);
 			addMouseMotionListener(this);
 		}
@@ -125,11 +127,13 @@ public class Welcome extends JFrame
 			if (selected != -1)
 			{
 				g.setColor(new Color(240, 192, 48));
-				g.fillPolygon(new int[] {locations[selected][0] - 15,
-						locations[selected][0] - 15,
-						locations[selected][0] - 5}, new int[] {
-						locations[selected][1] - 5, locations[selected][1] - 25,
-						locations[selected][1] - 15}, 3);
+				g.fillPolygon(
+						new int[] {locations[selected][0] - 15,
+								locations[selected][0] - 15,
+								locations[selected][0] - 5}, new int[] {
+								locations[selected][1] - 5,
+								locations[selected][1] - 25,
+								locations[selected][1] - 15}, 3);
 			}
 		}
 
@@ -138,31 +142,45 @@ public class Welcome extends JFrame
 		{
 			switch (selected)
 			{
-				case -1:
+				case -1: // Invalid button push
 				{
 					break;
 				}
-				case 0:
+				case 0: // New game button
 				{
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+					frame.dispatchEvent(new WindowEvent(frame,
+							WindowEvent.WINDOW_CLOSING));
 					new GameWindow(game);
+					break;
 				}
-				case 5:
+				
+				case 3: // About button
 				{
-					frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(new WindowEvent(frame,
+							WindowEvent.WINDOW_CLOSING));
+					new AboutScreen(game);
+					break;
+				}
+				
+				case 5: // Exit button
+				{
+					frame.dispatchEvent(new WindowEvent(frame,
+							WindowEvent.WINDOW_CLOSING));
 					break;
 				}
 			}
 		}
-		
+
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-			
+
 			for (int i = 0; i < 6; i++)
 			{
-				Rectangle itemRect = new Rectangle(locations[i][0], locations[i][1] - 30, 150, 30);
+				Rectangle itemRect = new Rectangle(locations[i][0],
+						locations[i][1] - 30, 150, 30);
 				if (itemRect.contains(e.getPoint()))
 				{
 					selected = i;

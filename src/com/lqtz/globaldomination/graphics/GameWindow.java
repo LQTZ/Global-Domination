@@ -1,4 +1,4 @@
-package com.lqtz.globaldomination;
+package com.lqtz.globaldomination.graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,6 +8,11 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-import com.lqtz.globaldomination.graphics.GameScreen;
+import com.lqtz.globaldomination.io.Game;
 
 /**
  * 
@@ -51,7 +56,6 @@ public class GameWindow extends JFrame
 	 */
 	public GameWindow(Game game)
 	{
-
 		this.game = game;
 
 		// Removes buttons
@@ -127,7 +131,8 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]); // Create new button
-			buttons[i].setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set
+			buttons[i]
+					.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set
 																				// font
 			buttonsPane.add(buttons[i]); // Add button
 
