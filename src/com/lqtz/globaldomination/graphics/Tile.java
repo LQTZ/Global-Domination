@@ -66,6 +66,8 @@ public class Tile extends Object
 	 *            revenue Cities on the Tile would collect
 	 * @param productivity
 	 *            productivity Cities on the Tile would collect
+	 * @param game
+	 *            Game object for loading res
 	 */
 	public Tile(int centerX, int centerY, int tileSize, int revenue,
 			int productivity, Game game)

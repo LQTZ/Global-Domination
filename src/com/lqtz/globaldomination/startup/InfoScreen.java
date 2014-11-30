@@ -29,10 +29,14 @@ import com.lqtz.globaldomination.io.Game;
  * Class for about page
  * 
  * @author Gandalf
- *
+ * 
  */
-public class AboutScreen extends JFrame
+public class InfoScreen extends JFrame
 {
+	private static final long serialVersionUID = 1L;
+
+	private String fileNameStr;
+	private String titleStr;
 	private Game game;
 
 	private JPanel titlePanel;
@@ -42,13 +46,27 @@ public class AboutScreen extends JFrame
 	private JPanel backPanel;
 	private JButton backButton;
 
+	/**
+	 * Text to display in body (read from file)
+	 */
 	private String bodyText;
 
 	/**
-	 * Screen for displaying credits
+	 * Screen with only a header, a body, and an exit button (i.e. the about
+	 * page)
+	 * 
+	 * @param fileNameStr
+	 *            Name of the txt file with the text to display in the body (do
+	 *            not include path)
+	 * @param titleStr
+	 *            Text to display in the title
+	 * @param game
+	 *            Game object for loading res
 	 */
-	public AboutScreen(Game game)
+	public InfoScreen(String fileNameStr, String titleStr, Game game)
 	{
+		this.fileNameStr = fileNameStr;
+		this.titleStr = titleStr;
 		this.game = game;
 
 		try
@@ -94,7 +112,7 @@ public class AboutScreen extends JFrame
 		// Draw title
 		titlePanel = new JPanel();
 		titlePanel.setOpaque(false);
-		titleLabel = new JLabel("About");
+		titleLabel = new JLabel(titleStr);
 		titleLabel.setPreferredSize(new Dimension(600, 200));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBackground(new Color(0, 0, 0, 0));
@@ -109,10 +127,10 @@ public class AboutScreen extends JFrame
 		bodyPanel.setOpaque(false);
 		bodyLabel = new JLabel("<html><p>" + bodyText + "</p></html>");
 		bodyLabel
-		.setPreferredSize(new Dimension((int) (Toolkit
-				.getDefaultToolkit().getScreenSize().getWidth()),
-				(int) (Toolkit.getDefaultToolkit().getScreenSize()
-						.getHeight() - 400)));
+				.setPreferredSize(new Dimension((int) (Toolkit
+						.getDefaultToolkit().getScreenSize().getWidth()),
+						(int) (Toolkit.getDefaultToolkit().getScreenSize()
+								.getHeight() - 400)));
 		bodyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		bodyLabel.setBackground(new Color(0, 0, 0, 0));
 		bodyLabel.setForeground(Color.WHITE);
@@ -149,12 +167,13 @@ public class AboutScreen extends JFrame
 		add(backPanel, BorderLayout.SOUTH);
 	}
 
-	private void goBack()
+	/**
+	 * Closes window
+	 */
+	public void goBack()
 	{
-		// TODO exit cleanly back to Welcome screen without closing and reopening
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-		new Welcome();
 	}
 
 	/**
@@ -165,26 +184,30 @@ public class AboutScreen extends JFrame
 	 */
 	private String readText() throws IOException
 	{
-		BufferedReader br = new BufferedReader(new FileReader(
-				"res/text/AboutText.txt"));
-		String all = "";
+		// Get a BufferedReader to read text file from the res/text/ dir
+		BufferedReader br = new BufferedReader(new FileReader("res/text/"
+				+ fileNameStr));
+		String fileRepStr = "";	// String to hold the content of the text file
+		
 		try
 		{
+			// Initialize the StringBuilder and read lines to it
 			StringBuilder sb = new StringBuilder();
 			String line = br.readLine();
-
 			while (line != null)
 			{
 				sb.append(line);
 				line = br.readLine();
 			}
-			all = sb.toString();
+			
+			// Convert the StringBuilder to string
+			fileRepStr = sb.toString();
 		}
 		finally
 		{
-			br.close();
+			br.close();		// Close the txt file
 		}
-		return all;
+		return fileRepStr;		// Return the string rep of the text file
 	}
 
 	private void start()

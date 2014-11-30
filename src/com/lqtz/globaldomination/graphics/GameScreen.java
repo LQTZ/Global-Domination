@@ -22,6 +22,12 @@ public class GameScreen extends JPanel
 	private Game game;
 	private Font tileFont;
 
+	/**
+	 * Map screen to draw tiles on
+	 * 
+	 * @param game
+	 *            Game object for loading res
+	 */
 	public GameScreen(Game game)
 	{
 		super();
@@ -44,10 +50,10 @@ public class GameScreen extends JPanel
 		double sizeFitY = height / (1.5 * DIM + 0.5) / 8.0;
 		// Best size for tiles
 		int sizeFit = (int) (8 * (int) Math.min(sizeFitX, sizeFitY));
-		
+
 		// Create font size
 		tileFont = game.fonts.sourcesans.deriveFont(Font.PLAIN, sizeFit / 4);
-		
+
 		// Center tiles
 		int xOffset = (int) ((width - sizeFit * (3 * DIM - 1) * 7 / 8) / 2);
 		int yOffset = (int) ((height - sizeFit * (1.5 * DIM + 0.5)) / 2);

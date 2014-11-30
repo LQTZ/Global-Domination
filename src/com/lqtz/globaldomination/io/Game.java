@@ -3,11 +3,29 @@ package com.lqtz.globaldomination.io;
 import java.awt.FontFormatException;
 import java.io.IOException;
 
+/**
+ * 
+ * Object for loading res
+ * 
+ * @author Gandalf
+ * 
+ */
 public class Game
 {
+	/**
+	 * Images to load
+	 */
 	public Images images;
+	
+	/**
+	 * Fonts to load
+	 */
 	public Fonts fonts;
 
+	
+	/**
+	 * Load resources
+	 */
 	public Game()
 	{
 		// Import images

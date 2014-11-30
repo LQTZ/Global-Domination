@@ -60,6 +60,12 @@ public class Welcome extends JFrame
 		pack();
 	}
 
+	/**
+	 * 
+	 * Start Global Domination
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		// new Game();
@@ -154,16 +160,50 @@ public class Welcome extends JFrame
 					new GameWindow(game);
 					break;
 				}
-				
+
 				case 3: // About button
 				{
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new AboutScreen(game);
+					new InfoScreen("AboutText.txt", "About", game)
+					{
+						private static final long serialVersionUID = 1L;
+
+						/**
+						 * Open a new Welcome screen when goBack
+						 */
+
+						@Override
+						public void goBack()
+						{
+							super.goBack();
+							new Welcome();
+						}
+					};
 					break;
 				}
-				
+				case 4:
+				{
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(new WindowEvent(frame,
+							WindowEvent.WINDOW_CLOSING));
+					new InfoScreen("HowToPlay.txt", "How to Play", game)
+					{
+						private static final long serialVersionUID = 1L;
+
+						/**
+						 * Open a new Welcome screen when goBack
+						 */
+
+						@Override
+						public void goBack()
+						{
+							super.goBack();
+							new Welcome();
+						}
+					};
+				}
 				case 5: // Exit button
 				{
 					frame.dispatchEvent(new WindowEvent(frame,

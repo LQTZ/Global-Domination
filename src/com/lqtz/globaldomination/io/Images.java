@@ -28,8 +28,16 @@ public class Images
 	 */
 	public BufferedImage productivity;
 
+	/**
+	 * Revenue icon
+	 */
 	public BufferedImage revenue;
 
+	/**
+	 * Load images
+	 * 
+	 * @throws IOException
+	 */
 	public Images() throws IOException
 	{
 		background = ImageIO.read(getClass().getResourceAsStream(

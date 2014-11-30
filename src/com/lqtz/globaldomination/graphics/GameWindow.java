@@ -8,11 +8,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -53,6 +48,9 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Main game interface window
+	 * 
+	 * @param game
+	 *            Game object for loading res
 	 */
 	public GameWindow(Game game)
 	{

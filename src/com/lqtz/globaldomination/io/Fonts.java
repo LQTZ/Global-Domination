@@ -26,7 +26,7 @@ public class Fonts
 	public Font sourcesans;
 
 	/**
-	 * Fonts in the game
+	 * Load fonts
 	 * 
 	 * @throws FontFormatException
 	 * @throws IOException
