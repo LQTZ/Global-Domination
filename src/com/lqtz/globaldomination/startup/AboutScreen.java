@@ -24,6 +24,13 @@ import javax.swing.SwingConstants;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Game;
 
+/**
+ * 
+ * Class for about page
+ * 
+ * @author Gandalf
+ *
+ */
 public class AboutScreen extends JFrame
 {
 	private Game game;
