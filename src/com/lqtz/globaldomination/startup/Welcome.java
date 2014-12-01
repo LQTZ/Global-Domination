@@ -188,7 +188,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen("HowToPlay.txt", "How to Play", game)
+					new InfoScreen("HowToPlayText.txt", "How to Play", game)
 					{
 						private static final long serialVersionUID = 1L;
 

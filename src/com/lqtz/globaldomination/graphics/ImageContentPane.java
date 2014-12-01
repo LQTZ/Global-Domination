@@ -23,6 +23,7 @@ public class ImageContentPane extends JPanel
 	 */
 	public ImageContentPane()
 	{
+		// TODO reference Game object
 		try
 		{
 			images = new Images();
