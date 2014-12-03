@@ -74,7 +74,7 @@ public class GameWindow extends JFrame
 		// Setup screen attributes
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
 		setTitle("Global Domination");
-		setContentPane(new ImageContentPane());
+		setContentPane(new ImageContentPane(game));
 		addComponents();
 
 		setVisible(true);

@@ -80,6 +80,7 @@ public class GameScreen extends JPanel
 	 */
 	protected void paintComponent(Graphics g)
 	{
+		super.paintComponent(g);
 		for (Tile[] tileList : tiles)
 		{
 			for (Tile tile : tileList)

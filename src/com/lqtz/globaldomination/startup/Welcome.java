@@ -37,9 +37,9 @@ public class Welcome extends JFrame
 	/**
 	 * Welcome screen for links to info pages and new game
 	 */
-	public Welcome()
+	public Welcome(Game game)
 	{
-		game = new Game(); // Get Game object for resources
+		this.game = game;
 
 		setUndecorated(true);
 		setSize(new Dimension(1000, 400));
@@ -48,7 +48,7 @@ public class Welcome extends JFrame
 		// Setup screen attributes
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Global Domination");
-		setContentPane(new ImageContentPane());
+		setContentPane(new ImageContentPane(game));
 		addComponents();
 		setVisible(true);
 	}
@@ -69,7 +69,7 @@ public class Welcome extends JFrame
 	public static void main(String[] args)
 	{
 		// new Game();
-		new Welcome();
+		new Welcome(new Game());
 		// new GameWindow(new Game());
 	}
 
@@ -124,6 +124,7 @@ public class Welcome extends JFrame
 		@Override
 		protected void paintComponent(Graphics g)
 		{
+			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
 			for (int i = 0; i < 6; i++)
@@ -166,21 +167,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen("AboutText.txt", "About", game)
-					{
-						private static final long serialVersionUID = 1L;
-
-						/**
-						 * Open a new Welcome screen when goBack
-						 */
-
-						@Override
-						public void goBack()
-						{
-							super.goBack();
-							new Welcome();
-						}
-					};
+					new InfoScreen("AboutText.txt", "About", game);
 					break;
 				}
 				case 4:
@@ -188,21 +175,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen("HowToPlayText.txt", "How to Play", game)
-					{
-						private static final long serialVersionUID = 1L;
-
-						/**
-						 * Open a new Welcome screen when goBack
-						 */
-
-						@Override
-						public void goBack()
-						{
-							super.goBack();
-							new Welcome();
-						}
-					};
+					new InfoScreen("HowToPlayText.txt", "How to Play", game);
 				}
 				case 5: // Exit button
 				{
@@ -216,7 +189,7 @@ public class Welcome extends JFrame
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-
+			boolean onString = false;
 			for (int i = 0; i < 6; i++)
 			{
 				Rectangle itemRect = new Rectangle(locations[i][0],
@@ -224,9 +197,15 @@ public class Welcome extends JFrame
 				if (itemRect.contains(e.getPoint()))
 				{
 					selected = i;
-					repaint();
+					onString = true;
 				}
 			}
+			
+			if (!onString)
+			{
+				selected = -1;
+			}
+			repaint();
 		}
 
 		@Override
