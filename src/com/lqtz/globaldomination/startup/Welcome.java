@@ -176,6 +176,7 @@ public class Welcome extends JFrame
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					new InfoScreen("HowToPlayText.txt", "How to Play", game);
+					break;
 				}
 				case 5: // Exit button
 				{
