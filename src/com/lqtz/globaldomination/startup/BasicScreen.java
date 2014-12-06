@@ -80,12 +80,10 @@ public abstract class BasicScreen extends JFrame
 		titleLabel.setOpaque(false);
 		add(titleLabel, BorderLayout.NORTH);
 
-		// Draw title
 		bodyComponent = createBody();
 		add(bodyComponent, BorderLayout.CENTER);
 
 		footComponent = createFoot();
-		footComponent.setOpaque(false);
 		add(footComponent, BorderLayout.SOUTH);
 	}
 	
