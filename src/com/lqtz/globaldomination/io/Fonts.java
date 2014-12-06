@@ -8,7 +8,7 @@ import java.io.IOException;
  * Loads fonts
  * 
  * @author Gitdropcode
- *
+ * 
  */
 public class Fonts
 {

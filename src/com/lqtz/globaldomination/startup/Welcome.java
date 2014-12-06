@@ -38,6 +38,9 @@ public class Welcome extends JFrame
 
 	/**
 	 * Welcome screen for links to info pages and new game
+	 * 
+	 * @param game
+	 *            game object for loading res
 	 */
 	public Welcome(Game game)
 	{
@@ -186,7 +189,8 @@ public class Welcome extends JFrame
 							WindowEvent.WINDOW_CLOSING));
 					try
 					{
-						new InfoScreen(Paths.get("res/text", "AboutText.txt"), "About", game);
+						new InfoScreen(Paths.get("res/text", "AboutText.txt"),
+								"About", game);
 					}
 					catch (IOException e1)
 					{
@@ -201,7 +205,8 @@ public class Welcome extends JFrame
 							WindowEvent.WINDOW_CLOSING));
 					try
 					{
-						new InfoScreen(Paths.get("res/text", "HowToPlayText.txt"), "How to Play", game);
+						new InfoScreen(Paths.get("res/text",
+								"HowToPlayText.txt"), "How to Play", game);
 					}
 					catch (IOException e1)
 					{
@@ -242,22 +247,27 @@ public class Welcome extends JFrame
 
 		@Override
 		public void mousePressed(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseEntered(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseExited(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
-		{}
+		{
+		}
 	}
 }

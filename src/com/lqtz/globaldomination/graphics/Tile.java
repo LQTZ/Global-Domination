@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Game;
 
 // import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
@@ -20,7 +21,6 @@ public class Tile extends Object
 	/**
 	 * Max number of units that can fit on a file
 	 */
-	@SuppressWarnings("unused")
 	private static final int maxUnitCapacity = 50;
 
 	/**
@@ -28,9 +28,10 @@ public class Tile extends Object
 	 */
 	public Hexagon hexagon;
 
-	// public Unit[] unitsOnTile; // Uncomment when this exists
-	// public unitsOnTile = new Unit[Tile.maxUnitCapacity]; // Uncomment when
-	// this exists
+	/**
+	 * The units currently on the tile
+	 */
+	public Unit[] unitsOnTile;
 
 	/**
 	 * Revenue Cities on the Tile would collect
@@ -73,6 +74,7 @@ public class Tile extends Object
 			int productivity, Game game)
 	{
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
+		this.unitsOnTile = new Unit[Tile.maxUnitCapacity];
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
 		this.centerX = centerX;

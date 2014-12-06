@@ -1,0 +1,131 @@
+/**
+ * 
+ */
+package com.lqtz.globaldomination.gameplay;
+
+import java.util.ArrayList;
+
+import com.lqtz.globaldomination.graphics.Tile;
+
+/**
+ * @author Gandalf
+ * 
+ */
+public class Unit implements java.io.Serializable
+{
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Nation of the unit
+	 */
+	public Nation nation;
+
+	/**
+	 * Position on map (x and y coordinates)
+	 */
+	public int[] position;
+
+	/**
+	 * The tile the unit is currently on
+	 */
+	public Tile tile;
+
+	/**
+	 * Maximum number of health points the unit can have (also the starting hp
+	 * level)
+	 */
+	public float maxHealthPoints;
+
+	/**
+	 * The number of health points the unit currently has
+	 */
+	public float currentHealthPoints;
+
+	/**
+	 * The number of tiles the unit can move per turn
+	 */
+	public int moveDistance;
+
+	/**
+	 * The power the unit uses when attacking (a variable in the attack odds
+	 * formula)
+	 */
+	public float attackPower;
+
+	/**
+	 * The power the unit uses when defending (a variable in the defense odds
+	 * formula)
+	 */
+	public float defendPower;
+
+	/**
+	 * Initialize the unit
+	 * 
+	 * @param nation
+	 *            nation of the unit
+	 * @param healthPoints
+	 *            max (starting) health points
+	 * @param moveDistance
+	 *            number of tiles the unit can move per turn
+	 * @param attackPower
+	 *            attack power (variable in attack odds formula)
+	 * @param defendPower
+	 *            defense power (variable in the defense odds formula)
+	 */
+	public Unit(Nation nation, float healthPoints, int moveDistance,
+			float attackPower, float defendPower)
+	{
+		// Initialize fields
+		this.nation = nation;
+		this.maxHealthPoints = healthPoints;
+		this.currentHealthPoints = healthPoints;
+		this.moveDistance = moveDistance;
+		this.attackPower = attackPower;
+		this.defendPower = defendPower;
+	}
+
+	/**
+	 * Attack a tile
+	 * 
+	 * @param tile
+	 *            tile to attack
+	 */
+	public void attackTile(Tile tile)
+	{
+		ArrayList<Unit> unitsToAttack = new ArrayList<Unit>();
+
+		// Determine whether or not tile is hostile
+		for (Unit u : tile.unitsOnTile)
+		{
+			if (u.nation.nationality == nation.nationality)
+			{
+				unitsToAttack.add(u);
+			}
+		}
+
+		// If there is an enemy to attack:
+		if (unitsToAttack.size() > 0)
+		{
+			// Order list from smallest defensive power to greatest defensive
+			// power
+			Unit u;
+			for (int i = 0; i < unitsToAttack.size(); i++)
+			{
+				if (unitsToAttack.get(i).defendPower < unitsToAttack.get(0).defendPower)
+				{
+					u = unitsToAttack.get(i);
+					unitsToAttack.remove(unitsToAttack.get(i));
+					unitsToAttack.add(0, u);
+				}
+			}
+
+			// Attack the greatest defensive power
+			attackUnit(unitsToAttack.get(unitsToAttack.size()));
+		}
+	}
+
+	private void attackUnit(Unit unit)
+	{
+		// TODO Create method
+	}
+}

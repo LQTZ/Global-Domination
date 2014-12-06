@@ -26,7 +26,7 @@ public class GameScreen extends JPanel
 	 * Map screen to draw tiles on
 	 * 
 	 * @param game
-	 *            Game object for loading res
+	 *            game object for loading res
 	 */
 	public GameScreen(Game game)
 	{
@@ -38,9 +38,9 @@ public class GameScreen extends JPanel
 	 * Adds all the Hexagons
 	 * 
 	 * @param width
-	 *            Width of the panel
+	 *            width of the panel
 	 * @param height
-	 *            Height of the panel
+	 *            height of the panel
 	 */
 	public void addTiles(int width, int height)
 	{
@@ -76,7 +76,7 @@ public class GameScreen extends JPanel
 	 * Paints all the Hexagons in the GameScreen
 	 * 
 	 * @param g
-	 *            Graphics device for painting
+	 *            graphics device for painting
 	 */
 	protected void paintComponent(Graphics g)
 	{

@@ -33,7 +33,7 @@ import com.lqtz.globaldomination.io.Game;
 public class InfoScreen extends BasicScreen
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private JTextArea bodyTextArea;
 	private JScrollPane bodyScrollPane;
 	private InfoPanel footPanel;
@@ -42,7 +42,18 @@ public class InfoScreen extends BasicScreen
 	 * Text to display in body (read from file)
 	 */
 	private String bodyText;
-	
+
+	/**
+	 * Read the text for the page
+	 * 
+	 * @param path
+	 *            path to the txt file with the text for the page
+	 * @param titleStr
+	 *            the title of the page
+	 * @param game
+	 *            the game object for loading res
+	 * @throws IOException
+	 */
 	public InfoScreen(Path path, String titleStr, Game game) throws IOException
 	{
 		this(new String(Files.readAllBytes(path)), titleStr, game);
@@ -53,11 +64,11 @@ public class InfoScreen extends BasicScreen
 	 * page)
 	 * 
 	 * @param text
-	 *            Text to display in window
+	 *            text to display in window
 	 * @param titleStr
-	 *            Text to display in the title
+	 *            text to display in the title
 	 * @param game
-	 *            Game object for loading res
+	 *            game object for loading res
 	 */
 	public InfoScreen(String text, String titleStr, Game game)
 	{
@@ -65,7 +76,7 @@ public class InfoScreen extends BasicScreen
 		bodyText = text;
 		createWindow();
 	}
-	
+
 	protected JComponent createBody()
 	{
 		bodyTextArea = new JTextArea(bodyText);
@@ -81,15 +92,15 @@ public class InfoScreen extends BasicScreen
 				getHeight() - 250));
 		bodyScrollPane.setOpaque(false);
 		bodyScrollPane.getViewport().setOpaque(false);
-		
+
 		// Removed border
 		// TODO beautify scroll bars
 		Border nullBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
 		bodyScrollPane.setBorder(nullBorder);
-		
+
 		return bodyScrollPane;
 	}
-	
+
 	protected JComponent createFoot()
 	{
 		footPanel = new InfoPanel(game, this);
@@ -172,22 +183,27 @@ public class InfoScreen extends BasicScreen
 
 		@Override
 		public void mousePressed(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseEntered(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseExited(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
-		{}
+		{
+		}
 	}
 }

@@ -50,7 +50,7 @@ public class GameWindow extends JFrame
 	 * Main game interface window
 	 * 
 	 * @param game
-	 *            Game object for loading res
+	 *            game object for loading res
 	 */
 	public GameWindow(Game game)
 	{

@@ -1,6 +1,7 @@
 package com.lqtz.globaldomination.graphics;
 
 import java.awt.Graphics;
+
 import javax.swing.JPanel;
 
 import com.lqtz.globaldomination.io.Game;
@@ -19,6 +20,9 @@ public class ImageContentPane extends JPanel
 
 	/**
 	 * Content pane for the GD UI (the background)
+	 * 
+	 * @param game
+	 *            game object for loading res
 	 */
 	public ImageContentPane(Game game)
 	{
