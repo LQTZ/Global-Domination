@@ -7,10 +7,12 @@ import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Game;
 
@@ -29,14 +31,17 @@ public abstract class BasicScreen extends JFrame
 	protected Game game;
 
 	private JLabel titleLabel;
-	protected JPanel bodyPanel;
-	protected JPanel footPanel;
+	protected JComponent bodyComponent;
+	protected JComponent footComponent;
 
 	public BasicScreen(String titleStr, Game game)
 	{
 		this.titleStr = titleStr;
 		this.game = game;
+	}
 
+	protected void createWindow()
+	{
 		// Removes buttons
 		setUndecorated(true);
 
@@ -56,6 +61,7 @@ public abstract class BasicScreen extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
 		setTitle("Global Domination");
 		setContentPane(new ImageContentPane(game));
+		addComponents();
 
 		setVisible(true);
 	}
@@ -75,14 +81,15 @@ public abstract class BasicScreen extends JFrame
 		add(titleLabel, BorderLayout.NORTH);
 
 		// Draw title
-		bodyPanel = new JPanel();
-		bodyPanel
-				.setPreferredSize(new Dimension(getWidth(), getHeight() - 250));
-		bodyPanel.setOpaque(false);
-		add(bodyPanel, BorderLayout.CENTER);
+		bodyComponent = createBody();
+		add(bodyComponent, BorderLayout.CENTER);
 
-		footPanel = new JPanel();
-		footPanel.setOpaque(false);
-		add(footPanel, BorderLayout.SOUTH);
+		footComponent = createFoot();
+		footComponent.setOpaque(false);
+		add(footComponent, BorderLayout.SOUTH);
 	}
+	
+	protected abstract JComponent createBody();
+	
+	protected abstract JComponent createFoot();
 }

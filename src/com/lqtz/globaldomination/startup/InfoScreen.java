@@ -1,6 +1,5 @@
 package com.lqtz.globaldomination.startup;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -63,15 +63,11 @@ public class InfoScreen extends BasicScreen
 	{
 		super(titleStr, game);
 		bodyText = text;
-		addComponents();
+		createWindow();
 	}
-
-	@Override
-	protected void addComponents()
+	
+	protected JComponent createBody()
 	{
-		super.addComponents();
-
-		// Draw title
 		bodyTextArea = new JTextArea(bodyText);
 		bodyTextArea.setBackground(new Color(0, 0, 0, 0));
 		bodyTextArea.setForeground(Color.WHITE);
@@ -85,15 +81,19 @@ public class InfoScreen extends BasicScreen
 				getHeight() - 250));
 		bodyScrollPane.setOpaque(false);
 		bodyScrollPane.getViewport().setOpaque(false);
-
+		
 		// Removed border
 		// TODO beautify scroll bars
 		Border nullBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
 		bodyScrollPane.setBorder(nullBorder);
-		bodyPanel.add(bodyScrollPane);
-
+		
+		return bodyScrollPane;
+	}
+	
+	protected JComponent createFoot()
+	{
 		footPanel = new InfoPanel(game, this);
-		add(footPanel, BorderLayout.SOUTH);
+		return footPanel;
 	}
 
 	private class InfoPanel extends JPanel implements MouseListener,
