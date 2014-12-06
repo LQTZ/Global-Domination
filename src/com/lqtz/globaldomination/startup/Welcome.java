@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -161,6 +163,14 @@ public class Welcome extends JFrame
 					new GameWindow(game);
 					break;
 				}
+				case 1: // Settings button
+				{
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(new WindowEvent(frame,
+							WindowEvent.WINDOW_CLOSING));
+					new InfoScreen("under construction", "Settings", game);
+					break;
+				}
 				case 2: // New game button
 				{
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -174,7 +184,14 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen("AboutText.txt", "About", game);
+					try
+					{
+						new InfoScreen(Paths.get("res/text", "AboutText.txt"), "About", game);
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
 					break;
 				}
 				case 4:
@@ -182,7 +199,14 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen("HowToPlayText.txt", "How to Play", game);
+					try
+					{
+						new InfoScreen(Paths.get("res/text", "HowToPlayText.txt"), "How to Play", game);
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
 					break;
 				}
 				case 5: // Exit button

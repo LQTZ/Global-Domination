@@ -5,27 +5,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import com.lqtz.globaldomination.graphics.ImageContentPane;
+
 import com.lqtz.globaldomination.io.Game;
 
 /**
@@ -35,15 +30,10 @@ import com.lqtz.globaldomination.io.Game;
  * @author Gandalf
  * 
  */
-public class InfoScreen extends JFrame
+public class InfoScreen extends BasicScreen
 {
 	private static final long serialVersionUID = 1L;
-
-	private String fileNameStr;
-	private String titleStr;
-	private Game game;
-
-	private JLabel titleLabel;
+	
 	private JTextArea bodyTextArea;
 	private JScrollPane bodyScrollPane;
 	private InfoPanel footPanel;
@@ -52,71 +42,34 @@ public class InfoScreen extends JFrame
 	 * Text to display in body (read from file)
 	 */
 	private String bodyText;
+	
+	public InfoScreen(Path path, String titleStr, Game game) throws IOException
+	{
+		this(new String(Files.readAllBytes(path)), titleStr, game);
+	}
 
 	/**
 	 * Screen with only a header, a body, and an exit button (e.g. the about
 	 * page)
 	 * 
-	 * @param fileNameStr
-	 *            Name of the txt file with the text to display in the body (do
-	 *            not include path)
+	 * @param text
+	 *            Text to display in window
 	 * @param titleStr
 	 *            Text to display in the title
 	 * @param game
 	 *            Game object for loading res
 	 */
-	public InfoScreen(String fileNameStr, String titleStr, Game game)
+	public InfoScreen(String text, String titleStr, Game game)
 	{
-		this.fileNameStr = fileNameStr;
-		this.titleStr = titleStr;
-		this.game = game;
-
-		try
-		{
-			this.bodyText = readText();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
-		// Removes buttons
-		setUndecorated(true);
-
-		// Makes full screen
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice();
-		if (gd.isFullScreenSupported())
-		{
-			gd.setFullScreenWindow(this);
-		}
-		else
-		{
-			setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		}
-
-		// Setup screen attributes
-		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
-		setTitle("Global Domination");
-		setContentPane(new ImageContentPane(game));
+		super(titleStr, game);
+		bodyText = text;
 		addComponents();
-
-		setVisible(true);
 	}
 
-	private void addComponents()
+	@Override
+	protected void addComponents()
 	{
-		setLayout(new BorderLayout());
-
-		// Draw title
-		titleLabel = new JLabel(titleStr);
-		titleLabel.setPreferredSize(new Dimension(getWidth(), 100));
-		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setBackground(new Color(0, 0, 0, 0));
-		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setFont(game.fonts.goudy.deriveFont(Font.PLAIN, 100));
-		titleLabel.setOpaque(false);
-		add(titleLabel, BorderLayout.NORTH);
+		super.addComponents();
 
 		// Draw title
 		bodyTextArea = new JTextArea(bodyText);
@@ -129,7 +82,7 @@ public class InfoScreen extends JFrame
 		bodyTextArea.setEditable(false);
 		bodyScrollPane = new JScrollPane(bodyTextArea);
 		bodyScrollPane.setPreferredSize(new Dimension(getWidth(),
-				getHeight() - 200));
+				getHeight() - 250));
 		bodyScrollPane.setOpaque(false);
 		bodyScrollPane.getViewport().setOpaque(false);
 
@@ -137,31 +90,10 @@ public class InfoScreen extends JFrame
 		// TODO beautify scroll bars
 		Border nullBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);
 		bodyScrollPane.setBorder(nullBorder);
-		add(bodyScrollPane, BorderLayout.CENTER);
+		bodyPanel.add(bodyScrollPane);
 
 		footPanel = new InfoPanel(game, this);
 		add(footPanel, BorderLayout.SOUTH);
-	}
-
-	/**
-	 * Closes window
-	 */
-	public void goBack()
-	{
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-	}
-
-	/**
-	 * Gets the text to display on the about screen from file
-	 * 
-	 * @return text in the file
-	 * @throws IOException
-	 */
-	private String readText() throws IOException
-	{
-		return new String(
-				Files.readAllBytes(Paths.get("res/text", fileNameStr)));
 	}
 
 	private class InfoPanel extends JPanel implements MouseListener,
