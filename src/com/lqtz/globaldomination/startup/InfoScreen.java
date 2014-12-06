@@ -18,8 +18,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,9 +25,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
-import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Game;
 
@@ -137,7 +132,7 @@ public class InfoScreen extends JFrame
 				getHeight() - 200));
 		bodyScrollPane.setOpaque(false);
 		bodyScrollPane.getViewport().setOpaque(false);
-		
+
 		// Removed border
 		// TODO beautify scroll bars
 		Border nullBorder = BorderFactory.createEmptyBorder(0, 0, 0, 0);

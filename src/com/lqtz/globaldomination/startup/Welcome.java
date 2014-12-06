@@ -161,7 +161,14 @@ public class Welcome extends JFrame
 					new GameWindow(game);
 					break;
 				}
-
+				case 2: // New game button
+				{
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(new WindowEvent(frame,
+							WindowEvent.WINDOW_CLOSING));
+					new GameWindow(game);
+					break;
+				}
 				case 3: // About button
 				{
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -201,7 +208,7 @@ public class Welcome extends JFrame
 					onString = true;
 				}
 			}
-			
+
 			if (!onString)
 			{
 				selected = -1;
@@ -211,27 +218,22 @@ public class Welcome extends JFrame
 
 		@Override
 		public void mousePressed(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseEntered(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseExited(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
-		{
-		}
+		{}
 	}
 }

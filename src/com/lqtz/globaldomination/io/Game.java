@@ -16,13 +16,12 @@ public class Game
 	 * Images to load
 	 */
 	public Images images;
-	
+
 	/**
 	 * Fonts to load
 	 */
 	public Fonts fonts;
 
-	
 	/**
 	 * Load resources
 	 */

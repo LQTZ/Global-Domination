@@ -149,13 +149,13 @@ public class GameWindow extends JFrame
 		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
 
 		// Set up the info box and pane to go below the action buttons
-		infoBox = new JLabel("blah", SwingConstants.CENTER);
+		// TODO Get rid of "Under Construction"
+		infoBox = new JLabel("Under Construction", SwingConstants.CENTER);
 		// infoBox.setOpaque(true);
 		// infoBox.setBackground(new Color(64, 64, 64, 230));
 		infoBox.setForeground(Color.WHITE);
 		infoBox.setPreferredSize(new Dimension(getWidth() - 400, 50));
 		infoBox.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
-		infoBox.setText("blah");
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);
 
