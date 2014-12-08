@@ -21,7 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 
-import com.lqtz.globaldomination.io.Game;
+import com.lqtz.globaldomination.gameplay.Game;
 
 /**
  * 

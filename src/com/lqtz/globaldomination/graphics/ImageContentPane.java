@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import com.lqtz.globaldomination.io.Game;
+import com.lqtz.globaldomination.gameplay.Game;
 
 /**
  * Content pane with image background

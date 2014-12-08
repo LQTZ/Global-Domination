@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.gameplay.Unit;
-import com.lqtz.globaldomination.io.Game;
 
 // import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
 

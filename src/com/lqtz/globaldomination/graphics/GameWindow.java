@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-import com.lqtz.globaldomination.io.Game;
+import com.lqtz.globaldomination.gameplay.Game;
 
 /**
  * 

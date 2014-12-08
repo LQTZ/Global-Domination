@@ -1,7 +1,10 @@
-package com.lqtz.globaldomination.io;
+package com.lqtz.globaldomination.gameplay;
 
 import java.awt.FontFormatException;
 import java.io.IOException;
+
+import com.lqtz.globaldomination.io.Fonts;
+import com.lqtz.globaldomination.io.Images;
 
 /**
  * 
