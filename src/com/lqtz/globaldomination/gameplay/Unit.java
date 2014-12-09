@@ -31,12 +31,12 @@ public class Unit implements java.io.Serializable
 	 * Maximum number of health points the unit can have (also the starting hp
 	 * level)
 	 */
-	public float maxHealthPoints;
+	public double maxHealthPoints;
 
 	/**
 	 * The number of health points the unit currently has
 	 */
-	public float currentHealthPoints;
+	public double currentHealthPoints;
 
 	/**
 	 * The number of tiles the unit can move per turn
@@ -47,13 +47,13 @@ public class Unit implements java.io.Serializable
 	 * The power the unit uses when attacking (a variable in the attack odds
 	 * formula)
 	 */
-	public float attackPower;
+	public double attackPower;
 
 	/**
 	 * The power the unit uses when defending (a variable in the defense odds
 	 * formula)
 	 */
-	public float defendPower;
+	public double defendPower;
 
 	/**
 	 * Initialize the unit
@@ -69,8 +69,8 @@ public class Unit implements java.io.Serializable
 	 * @param defendPower
 	 *            defense power (variable in the defense odds formula)
 	 */
-	public Unit(Nation nation, float healthPoints, int moveDistance,
-			float attackPower, float defendPower)
+	public Unit(Nation nation, double healthPoints, int moveDistance,
+			double attackPower, double defendPower)
 	{
 		// Initialize fields
 		this.nation = nation;

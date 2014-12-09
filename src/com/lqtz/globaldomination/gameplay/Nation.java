@@ -58,8 +58,8 @@ public class Nation
 	 * @param defendPower
 	 *            defense power (variable in the defense odds formula)
 	 */
-	public void addUnit(float healthPoints, int moveDistance,
-			float attackPower, float defendPower)
+	public void addUnit(double healthPoints, int moveDistance,
+			double attackPower, double defendPower)
 	{
 		// TODO make hp, moveDistance, attackPower, and defendPower based on
 		// unit level
