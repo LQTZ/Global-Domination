@@ -86,8 +86,8 @@ public abstract class BasicScreen extends JFrame
 		footComponent = createFoot();
 		add(footComponent, BorderLayout.SOUTH);
 	}
-	
+
 	protected abstract JComponent createBody();
-	
+
 	protected abstract JComponent createFoot();
 }

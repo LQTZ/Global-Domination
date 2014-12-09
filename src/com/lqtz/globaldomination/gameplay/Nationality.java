@@ -1,31 +1,12 @@
-/**
- * 
- */
 package com.lqtz.globaldomination.gameplay;
 
 /**
+ * Enum for what nationality an object can be.
+ * 
  * @author Gandalf
  * 
  */
 public enum Nationality
 {
-	/**
-	 * "Red" colored nation
-	 */
-	RED,
-
-	/**
-	 * "Green" colored nation
-	 */
-	GREEN,
-
-	/**
-	 * "Blue" colored nation
-	 */
-	BLUE,
-
-	/**
-	 * "Yellow" colored nation
-	 */
-	YELLOW
+	RED, GREEN, BLUE, YELLOW
 }

@@ -1,11 +1,10 @@
-/**
- * 
- */
 package com.lqtz.globaldomination.gameplay;
 
 import java.util.ArrayList;
 
 /**
+ * A nation.
+ * 
  * @author Gandalf
  * 
  */
