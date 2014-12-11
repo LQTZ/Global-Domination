@@ -1,4 +1,9 @@
-Global Domination Created 2014 by LQTZ Corporation
+(UNDER CONSTRUCTION)
+Global Domination Created 2014 by LQTZ Corporation (LQTZ)
+
+LQTZ is a group of students who came together to work on a project for a computer science class. They were inspired by the famous PC game Sid Meyer’s Civilization and the classic board game Risk. All the team members had played strategy games like these before, and enjoyed them thoroughly. The Global Domination project was conceived in an attempt to create a similar strategy game with gameplay adjusted to be just right to the developers’ tastes.
+
+Licensing:
 
 Source Sans Pro is under the SIL Open Font License 1.1 Copyright © 2012 Adobe Systems Incorporated. All rights reserved.
 Droid Sans Mono is under the Apache License 2.0 © 2010 DroidFonts.com.
@@ -96,3 +101,5 @@ You may add Your own copyright statement to Your modifications and may provide a
 8. Limitation of Liability. In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, unless required by applicable law (such as deliberate and grossly negligent acts) or agreed to in writing, shall any Contributor be liable to You for damages, including any direct, indirect, special, incidental, or consequential damages of any character arising as a result of this License or out of the use or inability to use the Work (including but not limited to damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses), even if such Contributor has been advised of the possibility of such damages.
 
 9. Accepting Warranty or Additional Liability. While redistributing the Work or Derivative Works thereof, You may choose to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or rights consistent with this License. However, in accepting such obligations, You may act only on Your own behalf and on Your sole responsibility, not on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by reason of your accepting any such warranty or additional liability.
+
+
