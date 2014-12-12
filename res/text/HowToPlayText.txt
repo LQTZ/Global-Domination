@@ -1,8 +1,6 @@
     Global Domination is a turn-based strategy game where players take turns to attempt to dominate the “world,” a 5 by 5 hex grid. The objective of the game is to fight and eliminate all other players.
 
-
     Each hexagonal tile in the grid is a territory whereupon a city can be built and units can reside. Military units are used to fight other units, and settler units are used to build cities. Cities grow units of the player’s choice, but it takes a certain number of turns for a unit to grow units. Units of higher levels are more powerful (cause more damage when attacking other units, heal more quickly, build cities faster, etc.), but take longer to grow in cities. Each tile has a productivity value which influence the speed at which cities on that tile grow units and a revenue value that dictates the taxes cities built on that tile will yield to the national revenue each turn. On each turn, players have the option to order their units to complete unit actions and upgrade cities. 
-
 
     Unit actions include moving a certain number of tiles, attacking other units, building cities, upgrading level, and retiring (being deleted). To order units, first select them by clicking on the tile the unit is on and clicking the unit you wish to order under the unit list (the selected tile and unit will be bordered in white).
 
@@ -16,5 +14,5 @@
 
     To order a unit to retire, click the “Delete” button.
 
-
     At the beginning of the game, each player starts with a single settler, and nothing else. The settler must build a city. The cities grow military and settler units. The military units are strategically used to attack other players. The settlers are used to build new cities to grow more units. Players must strategically balance their fighting with building (or capturing) of new cities to grow new units. The game ends when one player has destroyed all the units of the other players.
+

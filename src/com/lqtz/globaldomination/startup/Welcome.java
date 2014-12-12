@@ -202,7 +202,7 @@ public class Welcome extends JFrame
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 
-					new ExitPanel(game.creditsText, "Credits", game);
+					new ExitScreen(game.creditsText, "Credits", game);
 
 					break;
 				}

@@ -26,7 +26,7 @@ import com.lqtz.globaldomination.gameplay.Game;
  * @author Gandalf
  * 
  */
-public class ExitPanel extends BasicScreen
+public class ExitScreen extends BasicScreen
 {
 	private static final long serialVersionUID = 1L;
 
@@ -50,7 +50,7 @@ public class ExitPanel extends BasicScreen
 	 *            the game object for loading res
 	 * @throws IOException
 	 */
-	public ExitPanel(Path path, String titleStr, Game game) throws IOException
+	public ExitScreen(Path path, String titleStr, Game game) throws IOException
 	{
 		this(new String(Files.readAllBytes(path)), titleStr, game);
 	}
@@ -66,7 +66,7 @@ public class ExitPanel extends BasicScreen
 	 * @param game
 	 *            game object for loading res
 	 */
-	public ExitPanel(String text, String titleStr, Game game)
+	public ExitScreen(String text, String titleStr, Game game)
 	{
 		super(titleStr, game);
 		bodyText = text;
