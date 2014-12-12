@@ -9,8 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.nio.file.Paths;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -187,15 +185,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					try
-					{
-						new InfoScreen(Paths.get("res/text", "AboutText.txt"),
-								"About", game);
-					}
-					catch (IOException e1)
-					{
-						e1.printStackTrace();
-					}
+					new InfoScreen(game.aboutText, "About", game);
 					break;
 				}
 				case 4:
@@ -203,15 +193,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					try
-					{
-						new InfoScreen(Paths.get("res/text",
-								"HowToPlayText.txt"), "How to Play", game);
-					}
-					catch (IOException e1)
-					{
-						e1.printStackTrace();
-					}
+					new InfoScreen(game.howToPlayText, "How to Play", game);
 					break;
 				}
 				case 5: // Exit button
@@ -220,21 +202,7 @@ public class Welcome extends JFrame
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 
-					try
-					{
-						// new
-						// ExitPanel("Thank you for playing Global Domination",
-						// "Credits", game);
-
-						new ExitPanel(Paths.get("res/text", "CreditsText.txt"),
-								"Credits", game);
-
-					}
-					catch (IOException e1)
-					{
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					new ExitPanel(game.creditsText, "Credits", game);
 
 					break;
 				}
