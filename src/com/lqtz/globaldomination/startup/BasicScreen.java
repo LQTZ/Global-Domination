@@ -34,6 +34,12 @@ public abstract class BasicScreen extends JFrame
 	protected JComponent bodyComponent;
 	protected JComponent footComponent;
 
+	/**
+	 * Basic fullscreen window
+	 * 
+	 * @param titleStr
+	 * @param game
+	 */
 	public BasicScreen(String titleStr, Game game)
 	{
 		this.titleStr = titleStr;

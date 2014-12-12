@@ -216,8 +216,26 @@ public class Welcome extends JFrame
 				}
 				case 5: // Exit button
 				{
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
+
+					try
+					{
+						// new
+						// ExitPanel("Thank you for playing Global Domination",
+						// "Credits", game);
+
+						new ExitPanel(Paths.get("res/text", "CreditsText.txt"),
+								"Credits", game);
+
+					}
+					catch (IOException e1)
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 					break;
 				}
 			}
@@ -247,22 +265,27 @@ public class Welcome extends JFrame
 
 		@Override
 		public void mousePressed(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseEntered(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseExited(MouseEvent e)
-		{}
+		{
+		}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
-		{}
+		{
+		}
 	}
 }
