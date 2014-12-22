@@ -10,8 +10,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -54,9 +54,9 @@ public class InfoScreen extends BasicScreen
 	 *            the game object for loading res
 	 * @throws IOException
 	 */
-	public InfoScreen(Path path, String titleStr, Game game) throws IOException
+	public InfoScreen(InputStream input, String titleStr, Game game) throws IOException
 	{
-		this(new String(Files.readAllBytes(path)), titleStr, game);
+		this(read(input), titleStr, game);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class InfoScreen extends BasicScreen
 	 * @param text
 	 *            text to display in window
 	 * @param titleStr
-	 *            text to display in the title
+	 *            text to display in t  he title
 	 * @param game
 	 *            game object for loading res
 	 */
@@ -105,6 +105,16 @@ public class InfoScreen extends BasicScreen
 	{
 		footPanel = new InfoPanel(game, this);
 		return footPanel;
+	}
+	
+	private static String read(InputStream input)
+	{
+		Scanner unmodscan = new Scanner(input);
+		Scanner s = unmodscan.useDelimiter("\\A");
+		String str = s.next();
+		unmodscan.close();
+		s.close();
+		return str;
 	}
 
 	private class InfoPanel extends JPanel implements MouseListener,

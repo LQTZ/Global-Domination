@@ -1,8 +1,6 @@
 package com.lqtz.globaldomination.gameplay;
 
 import java.awt.FontFormatException;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 import com.lqtz.globaldomination.io.Fonts;
@@ -27,12 +25,6 @@ public class Game
 	 */
 	public Fonts fonts;
 
-	@SuppressWarnings("javadoc")
-	public String aboutText;
-	@SuppressWarnings("javadoc")
-	public String howToPlayText;
-	@SuppressWarnings("javadoc")
-	public String creditsText;
 
 	/**
 	 * Load resources
@@ -65,59 +57,5 @@ public class Game
 			System.err.println("Fonts not found");
 			e.printStackTrace();
 		}
-
-		// Set text
-		// TODO load from file properly (fix problem loading from JAR)
-		try
-		{
-			aboutText = getText("res/text/AboutText.txt");
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try
-		{
-			howToPlayText = getText("res/text/HowToPlayText.txt");
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try
-		{
-			creditsText = getText("res/text/CreditsText.txt");
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private String getText(String path) throws IOException
-	{
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String all = "";
-		try
-		{
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-
-			while (line != null)
-			{
-				sb.append(line);
-				sb.append("\n");
-				line = br.readLine();
-			}
-			all = sb.toString();
-		}
-		finally
-		{
-			br.close();
-		}
-		return all;
 	}
 }

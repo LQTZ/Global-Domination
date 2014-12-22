@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -185,7 +186,15 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen(game.aboutText, "About", game);
+					try
+					{
+						new InfoScreen(getClass().getResourceAsStream(
+								"/text/AboutText.txt"), "About", game);
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
 					break;
 				}
 				case 4:
@@ -193,17 +202,21 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen(game.howToPlayText, "How to Play", game);
+					try
+					{
+						new InfoScreen(getClass().getResourceAsStream(
+								"/text/HowToPlayText.txt"), "How to Play", game);
+					}
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
 					break;
 				}
 				case 5: // Exit button
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-
-					new ExitScreen(game.creditsText, "Credits", game);
-
 					break;
 				}
 			}
@@ -233,27 +246,22 @@ public class Welcome extends JFrame
 
 		@Override
 		public void mousePressed(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseEntered(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseExited(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
-		{
-		}
+		{}
 	}
 }
