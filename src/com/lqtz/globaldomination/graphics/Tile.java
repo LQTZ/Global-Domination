@@ -3,6 +3,7 @@ package com.lqtz.globaldomination.graphics;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.gameplay.Unit;
@@ -18,10 +19,10 @@ import com.lqtz.globaldomination.gameplay.Unit;
  */
 public class Tile extends Object
 {
-	/**
-	 * Max number of units that can fit on a file
-	 */
-	private static final int maxUnitCapacity = 50;
+//	/**
+//	 * Max number of units that can fit on a file
+//	 */
+//	private static final int maxUnitCapacity = 50;
 
 	/**
 	 * The Hexagon to represent the tile on the screen
@@ -31,7 +32,7 @@ public class Tile extends Object
 	/**
 	 * The units currently on the tile
 	 */
-	public Unit[] unitsOnTile;
+	public ArrayList<Unit> unitsOnTile;
 
 	/**
 	 * Revenue Cities on the Tile would collect
@@ -74,7 +75,7 @@ public class Tile extends Object
 			int productivity, Game game)
 	{
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
-		this.unitsOnTile = new Unit[Tile.maxUnitCapacity];
+		this.unitsOnTile = new ArrayList<Unit>();
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
 		this.centerX = centerX;

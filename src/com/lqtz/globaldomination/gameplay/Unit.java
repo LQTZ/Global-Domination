@@ -1,6 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.lqtz.globaldomination.graphics.Tile;
 
@@ -123,6 +124,34 @@ public class Unit implements java.io.Serializable
 
 	private void attackUnit(Unit unit)
 	{
-		// TODO Create method
+		double attackHits = attackPower + (new Random()).nextGaussian()
+				* unit.defendPower / ((attackPower + currentHealthPoints) / 2);
+		unit.currentHealthPoints -= attackHits;
+
+		if (unit.currentHealthPoints <= 0)
+			unit.delete();
+		else
+		{
+			double recievedHits = unit.defendDamage(this);
+			currentHealthPoints -= recievedHits;
+
+			if (currentHealthPoints <= 0)
+				delete();
+		}
+	}
+
+	private double defendDamage(Unit unit)
+	{
+		return defendPower + (new Random()).nextGaussian() * unit.attackPower
+				/ ((defendPower + currentHealthPoints) / 2);
+	}
+
+	/**
+	 * Removes all references to the unit
+	 */
+	public void delete()
+	{
+		this.nation.units.remove(this);
+		this.tile.unitsOnTile.remove(this);
 	}
 }
