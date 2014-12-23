@@ -59,11 +59,12 @@ public class GameScreen extends JPanel
 		int yOffset = (int) ((height - sizeFit * (1.5 * DIM + 0.5)) / 2);
 		tiles = new Tile[DIM][DIM];
 
+		// Add tiles
 		for (int i = 0; i < DIM; i++)
 		{
 			for (int j = 0; j < DIM; j++)
 			{
-				tiles[i][j] = new Tile(sizeFit * (1 + 2 * i + j) * 7 / 8
+				tiles[i][j] = new Tile(i, j, sizeFit * (1 + 2 * i + j) * 7 / 8
 						+ xOffset, height
 						- (sizeFit * (3 * j + 2) / 2 + yOffset), sizeFit, 0, 0,
 						game);

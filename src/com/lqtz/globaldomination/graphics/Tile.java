@@ -19,10 +19,10 @@ import com.lqtz.globaldomination.gameplay.Unit;
  */
 public class Tile extends Object
 {
-//	/**
-//	 * Max number of units that can fit on a file
-//	 */
-//	private static final int maxUnitCapacity = 50;
+	// /**
+	// * Max number of units that can fit on a file
+	// */
+	// private static final int maxUnitCapacity = 50;
 
 	/**
 	 * The Hexagon to represent the tile on the screen
@@ -47,8 +47,17 @@ public class Tile extends Object
 	/**
 	 * Whether there is a City on the Tile
 	 */
-	// public boolean hasCity = false;
 	public boolean hasCity = true;
+
+	/**
+	 * Tile's x-coordinate in the map
+	 */
+	public int xCoord;
+
+	/**
+	 * Tile's y-coordinate in the map
+	 */
+	public int yCoord;
 
 	private int centerX;
 	private int centerY;
@@ -57,6 +66,9 @@ public class Tile extends Object
 
 	/**
 	 * A Tile in the Map
+	 * 
+	 * @param xCoord
+	 * @param yCoord
 	 * 
 	 * @param centerX
 	 *            x-coordinate of center of the hexagon
@@ -71,9 +83,11 @@ public class Tile extends Object
 	 * @param game
 	 *            Game object for loading res
 	 */
-	public Tile(int centerX, int centerY, int tileSize, int revenue,
-			int productivity, Game game)
+	public Tile(int xCoord, int yCoord, int centerX, int centerY, int tileSize,
+			int revenue, int productivity, Game game)
 	{
+		this.xCoord = xCoord;
+		this.yCoord = yCoord;
 		this.hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.unitsOnTile = new ArrayList<Unit>();
 		this.tileRevenue = revenue;

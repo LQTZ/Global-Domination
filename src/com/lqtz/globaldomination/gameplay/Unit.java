@@ -42,7 +42,12 @@ public class Unit implements java.io.Serializable
 	/**
 	 * The number of tiles the unit can move per turn
 	 */
-	public int moveDistance;
+	public int maxMoveDistance;
+
+	/**
+	 * The number of tiles the unit has left to move on the current turn
+	 */
+	public int movesLeft;
 
 	/**
 	 * The power the unit uses when attacking (a variable in the attack odds
@@ -77,7 +82,7 @@ public class Unit implements java.io.Serializable
 		this.nation = nation;
 		this.maxHealthPoints = healthPoints;
 		this.currentHealthPoints = healthPoints;
-		this.moveDistance = moveDistance;
+		this.maxMoveDistance = moveDistance;
 		this.attackPower = attackPower;
 		this.defendPower = defendPower;
 	}
@@ -104,8 +109,7 @@ public class Unit implements java.io.Serializable
 		// If there is an enemy to attack:
 		if (unitsToAttack.size() > 0)
 		{
-			// Order list from smallest defensive power to greatest defensive
-			// power
+			// Order list from smallest to greatest defensive power
 			Unit u;
 			for (int i = 0; i < unitsToAttack.size(); i++)
 			{
@@ -122,7 +126,15 @@ public class Unit implements java.io.Serializable
 		}
 	}
 
-	private void attackUnit(Unit unit)
+	/**
+	 * Attacks a specific unit (hits enemy unit based on attackHits, checks if
+	 * enemy unit is dead, if not tells enemy unit to hit self based on enemy
+	 * unit defenseHits, checks if self is dead
+	 * 
+	 * @param unit
+	 *            unit to attack
+	 */
+	public void attackUnit(Unit unit)
 	{
 		double attackHits = attackPower + (new Random()).nextGaussian()
 				* unit.defendPower / ((attackPower + currentHealthPoints) / 2);
@@ -140,10 +152,45 @@ public class Unit implements java.io.Serializable
 		}
 	}
 
-	private double defendDamage(Unit unit)
+	/**
+	 * Generate defenseHits value
+	 * 
+	 * @param unit
+	 *            unit defending from
+	 * @return defenseHits to pass to attacker's attackUnit method
+	 */
+	public double defendDamage(Unit unit)
 	{
 		return defendPower + (new Random()).nextGaussian() * unit.attackPower
 				/ ((defendPower + currentHealthPoints) / 2);
+	}
+
+	/**
+	 * Move to a certain tile
+	 * 
+	 * @param tile
+	 *            tile to move to
+	 * @return Whether or not move was legal (-2 if the unit has maxed out moves
+	 *         for the turn, -1 if the tiles are not adjacent, and 0 if move
+	 *         successful)
+	 */
+	public int move(Tile tile)
+	{
+		// Check if unit has maxed out moves for the turn
+		if (this.movesLeft <= 0)
+			return -2;
+
+		// Check if tile is not adjacent
+		else if (!((Math.abs((this.tile.xCoord - tile.xCoord)) <= 1) && (Math
+				.abs((this.tile.xCoord - tile.xCoord)) <= 1)))
+			return -1;
+
+		// If move is legal, switch the unit's tile to the new tile
+		else
+		{
+			this.tile = tile;
+			return 0;
+		}
 	}
 
 	/**
