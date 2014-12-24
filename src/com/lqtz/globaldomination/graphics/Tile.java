@@ -2,6 +2,7 @@ package com.lqtz.globaldomination.graphics;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -118,8 +119,35 @@ public class Tile extends Object
 		// Draw revenue icon
 		g.drawImage(game.images.revenue, centerX - 7 * tileSize / 16, centerY
 				- 3 * tileSize / 4, tileSize / 4, tileSize / 4, null);
+
 		g.setFont(font);
-		g.drawString(String.valueOf(tileRevenue), centerX - 7 * tileSize / 16,
-				centerY - 2 * tileSize / 4);
+
+		// Find the size of string in the font
+		FontMetrics fm = g.getFontMetrics();
+		java.awt.geom.Rectangle2D rect = fm.getStringBounds(
+				String.valueOf(tileRevenue), g);
+
+		int textHeight = (int) (rect.getHeight());
+		int textWidth = (int) (rect.getWidth());
+
+		// Find the center of the icon
+		int cornerX = (int) (((centerX - 7 * tileSize / 16) + tileSize / 8) - (textWidth / 2));
+		int cornerY = (int) (((centerY - 3 * tileSize / 4 - (textHeight / 2)) + tileSize / 8) + fm
+				.getAscent());
+
+		// Draw the string
+		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
+
+		// Draw revenue icon
+		g.drawImage(game.images.productivity, centerX + 7 * tileSize / 16
+				- tileSize / 4, centerY - 3 * tileSize / 4, tileSize / 4,
+				tileSize / 4, null);
+
+		// Find the center of the icon based on the calculated difference in x
+		// between the 2 icons
+		cornerX += 5 * tileSize / 8;
+
+		// Draw the string
+		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
 	}
 }
