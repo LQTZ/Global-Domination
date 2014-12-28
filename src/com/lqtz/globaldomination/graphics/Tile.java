@@ -101,6 +101,8 @@ public class Tile extends Object
 
 	protected void paint(Graphics g, Font font)
 	{
+		g.setFont(font); // Init font
+
 		// Draw the hexagon
 		g.setColor(new Color(127, 127, 127, 200));
 		g.fillPolygon(hexagon);
@@ -119,8 +121,6 @@ public class Tile extends Object
 		// Draw revenue icon
 		g.drawImage(game.images.revenue, centerX - 7 * tileSize / 16, centerY
 				- 3 * tileSize / 4, tileSize / 4, tileSize / 4, null);
-
-		g.setFont(font);
 
 		// Find the size of string in the font
 		FontMetrics fm = g.getFontMetrics();
@@ -149,5 +149,22 @@ public class Tile extends Object
 
 		// Draw the string
 		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
+
+		// Draw the military units icon
+		g.drawImage(game.images.military, centerX - 7 * tileSize / 16, centerY
+				+ 3 * tileSize / 4 - tileSize / 4, tileSize / 4, tileSize / 4,
+				null);
+
+		// Draw the string
+		// TODO Get count of military units and display string
+
+		// Draw the settler units icon
+		g.drawImage(game.images.settler, centerX + 7 * tileSize / 16 - tileSize
+				/ 4, centerY + 3 * tileSize / 4 - tileSize / 4, tileSize / 4,
+				tileSize / 4, null);
+
+		// Draw the string
+		// TODO Get count of settler units and display string
+
 	}
 }

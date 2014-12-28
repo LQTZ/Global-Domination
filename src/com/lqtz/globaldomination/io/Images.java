@@ -34,6 +34,16 @@ public class Images
 	public BufferedImage revenue;
 
 	/**
+	 * General military icon (for tiles)
+	 */
+	public BufferedImage military;
+
+	/**
+	 * General settler icon (for tiles)
+	 */
+	public BufferedImage settler;
+
+	/**
 	 * Load images
 	 * 
 	 * @throws IOException
@@ -47,6 +57,10 @@ public class Images
 				"/images/productivity.png"));
 		revenue = ImageIO.read(getClass().getResourceAsStream(
 				"/images/revenue.png"));
+		military = ImageIO.read(getClass().getResourceAsStream(
+				"/images/military.png"));
+		settler = ImageIO.read(getClass().getResourceAsStream(
+				"/images/settler.png"));
 
 	}
 }
