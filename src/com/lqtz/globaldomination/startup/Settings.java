@@ -102,6 +102,7 @@ public class Settings extends BasicScreen implements ActionListener
 		resText.setFont(labelFont);
 		resText.setForeground(Color.WHITE);
 		resSelect = new JComboBox<String>(dimstrs);
+		resSelect.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 24));
 		resSelect.setEnabled(!game.fullScreen);
 		if (!game.fullScreen)
 		{
@@ -204,7 +205,7 @@ public class Settings extends BasicScreen implements ActionListener
 			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
-			g.drawString("apply", frame.getWidth() - 200, 65);
+			g.drawString("apply", frame.getWidth() - 300, 65);
 			g.drawString("back", frame.getWidth() - 100, 65);
 			g.setColor(new Color(240, 192, 48));
 			switch (selected)
@@ -221,9 +222,9 @@ public class Settings extends BasicScreen implements ActionListener
 				case 1:
 				{
 					g.fillPolygon(
-							new int[] {frame.getWidth() - 215,
-									frame.getWidth() - 215,
-									frame.getWidth() - 205}, new int[] {60, 40,
+							new int[] {frame.getWidth() - 315,
+									frame.getWidth() - 315,
+									frame.getWidth() - 305}, new int[] {60, 40,
 									50}, 3);
 				}
 			}
@@ -267,7 +268,7 @@ public class Settings extends BasicScreen implements ActionListener
 		public void mouseMoved(MouseEvent e)
 		{
 			Rectangle itemRect0 = new Rectangle(getWidth() - 100, 35, 100, 30);
-			Rectangle itemRect1 = new Rectangle(getWidth() - 200, 35, 100, 30);
+			Rectangle itemRect1 = new Rectangle(getWidth() - 300, 35, 100, 30);
 			if (itemRect0.contains(e.getPoint()))
 			{
 				selected = 0;
