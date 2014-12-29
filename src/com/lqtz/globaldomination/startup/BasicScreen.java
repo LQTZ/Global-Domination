@@ -46,6 +46,9 @@ public abstract class BasicScreen extends JFrame
 		this.game = game;
 	}
 
+	/**
+	 * Creates window. Not automatically called.
+	 */
 	protected void createWindow()
 	{
 		// Removes buttons

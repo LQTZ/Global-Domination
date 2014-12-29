@@ -170,7 +170,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new InfoScreen("under construction", "Settings", game);
+					new Settings(game);
 					break;
 				}
 				case 2: // New game button
