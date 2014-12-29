@@ -51,25 +51,36 @@ public abstract class BasicScreen extends JFrame
 	 */
 	protected void createWindow()
 	{
-		// Removes buttons
-		setUndecorated(true);
-
-		// Makes full screen
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice();
-		if (gd.isFullScreenSupported())
+		setContentPane(new ImageContentPane(game));
+		
+		if (game.fullScreen)
 		{
-			gd.setFullScreenWindow(this);
+			// Removes buttons
+			setUndecorated(true);
+
+			// Makes full screen
+			GraphicsDevice gd = GraphicsEnvironment
+					.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			if (gd.isFullScreenSupported())
+			{
+				gd.setFullScreenWindow(this);
+			}
+			else
+			{
+				setSize(Toolkit.getDefaultToolkit().getScreenSize());
+			}
 		}
 		else
 		{
-			setSize(Toolkit.getDefaultToolkit().getScreenSize());
+			getContentPane().setPreferredSize(game.resolution);
+			pack();
+			setResizable(false);
+			setLocationRelativeTo(null);
 		}
-
+		
 		// Setup screen attributes
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
 		setTitle("Global Domination");
-		setContentPane(new ImageContentPane(game));
 		addComponents();
 
 		setVisible(true);

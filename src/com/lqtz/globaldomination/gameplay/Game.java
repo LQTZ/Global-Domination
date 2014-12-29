@@ -1,5 +1,6 @@
 package com.lqtz.globaldomination.gameplay;
 
+import java.awt.Dimension;
 import java.awt.FontFormatException;
 import java.io.IOException;
 
@@ -24,6 +25,9 @@ public class Game
 	 * Fonts to load
 	 */
 	public Fonts fonts;
+	
+	public boolean fullScreen = true;
+	public Dimension resolution = null;
 
 
 	/**
