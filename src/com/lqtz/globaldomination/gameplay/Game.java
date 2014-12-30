@@ -25,10 +25,9 @@ public class Game
 	 * Fonts to load
 	 */
 	public Fonts fonts;
-	
-	public boolean fullScreen = true;
-	public Dimension resolution = null;
 
+	public boolean fullScreen = false;
+	public Dimension resolution = new Dimension(1600, 900);
 
 	/**
 	 * Load resources

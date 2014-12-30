@@ -3,10 +3,12 @@ package com.lqtz.globaldomination.graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 
 import javax.swing.Box;
@@ -56,7 +58,7 @@ public class GameWindow extends JFrame
 	{
 		this.game = game;
 		setContentPane(new ImageContentPane(game));
-		
+
 		if (game.fullScreen)
 		{
 			// Removes buttons
@@ -88,7 +90,7 @@ public class GameWindow extends JFrame
 		addComponents();
 
 		setVisible(true);
-
+		pack();
 		start();
 	}
 
@@ -105,11 +107,13 @@ public class GameWindow extends JFrame
 		unitsPane = new JTextPane();
 
 		unitsPane.setBackground(new Color(64, 64, 64, 160));
-		unitsPane.setPreferredSize(new Dimension(200, getHeight() / 2));
+		unitsPane.setPreferredSize(new Dimension(200, getContentPane()
+				.getHeight() / 2));
 
 		eventLogPane = new JTextPane();
 		eventLogPane.setBackground(new Color(64, 64, 64, 160));
-		eventLogPane.setPreferredSize(new Dimension(200, getHeight() / 2));
+		eventLogPane.setPreferredSize(new Dimension(200, getContentPane()
+				.getHeight() / 2));
 
 		leftPanel.add(unitsPane, BorderLayout.NORTH);
 		leftPanel.add(eventLogPane, BorderLayout.SOUTH);
@@ -119,9 +123,11 @@ public class GameWindow extends JFrame
 		centerPanel.setOpaque(false);
 		mapPane = new GameScreen(game);
 		mapPane.setBackground(new Color(0, 0, 0, 0));
-		mapPane.setPreferredSize(new Dimension(getWidth() - 400,
-				getHeight() - 152));
-		mapPane.addTiles(getWidth() - 400, getHeight() - 152);
+		mapPane.setPreferredSize(new Dimension(
+				getContentPane().getWidth() - 400,
+				getContentPane().getHeight() - 150));
+		mapPane.addTiles(getContentPane().getWidth() - 400, getContentPane()
+				.getHeight() - 150);
 		controlPane = new JPanel(new BorderLayout());
 		controlPane.setOpaque(false);
 
@@ -138,10 +144,9 @@ public class GameWindow extends JFrame
 		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 5; i++)
 		{
-			buttons[i] = new JButton(buttonText[i]); // Create new button
+			buttons[i] = new JButton(buttonText[i]);
 			buttons[i]
-					.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 16)); // Set
-																				// font
+					.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 16));
 			buttonsPane.add(buttons[i]); // Add button
 
 			// Spacing
@@ -156,15 +161,15 @@ public class GameWindow extends JFrame
 			buttons[i].setForeground(Color.WHITE); // Text color
 			buttons[i].setOpaque(true);
 		}
-		buttonsPane.setPreferredSize(new Dimension(getWidth() - 400, 100));
+		buttonsPane.setPreferredSize(new Dimension(
+				getContentPane().getWidth() - 400, 100));
 
 		// Set up the info box and pane to go below the action buttons
 		// TODO Get rid of "Under Construction"
 		infoBox = new JLabel("Under Construction", SwingConstants.CENTER);
-		// infoBox.setOpaque(true);
-		// infoBox.setBackground(new Color(64, 64, 64, 230));
 		infoBox.setForeground(Color.WHITE);
-		infoBox.setPreferredSize(new Dimension(getWidth() - 400, 50));
+		infoBox.setPreferredSize(new Dimension(
+				getContentPane().getWidth() - 400, 50));
 		infoBox.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);
@@ -174,12 +179,15 @@ public class GameWindow extends JFrame
 		centerPanel.add(controlPane, BorderLayout.SOUTH);
 
 		// Add Containers to the main right components (only the info panel)
-		rightPanel = new JPanel();
+		rightPanel = new JPanel((LayoutManager) new FlowLayout(
+				FlowLayout.TRAILING, 0, 0));
 		rightPanel.setOpaque(false);
 		infoPanel = new JTextPane();
 		infoPanel.setBackground(new Color(64, 64, 64, 160));
-		infoPanel.setPreferredSize(new Dimension(200, getHeight()));
-		rightPanel.setPreferredSize(new Dimension(200, getHeight()));
+		infoPanel.setPreferredSize(new Dimension(200, getContentPane()
+				.getHeight()));
+		rightPanel.setPreferredSize(new Dimension(200, getContentPane()
+				.getHeight()));
 		rightPanel.add(infoPanel);
 
 		add(leftPanel, BorderLayout.WEST);
