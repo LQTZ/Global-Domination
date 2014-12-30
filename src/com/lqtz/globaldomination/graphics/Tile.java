@@ -63,6 +63,11 @@ public class Tile extends Object
 	 * Whether or not the Tile is currently being moused over
 	 */
 	public boolean isHighlighted;
+	
+	/**
+	 * Whether or not the Tile currently selected (clicked)
+	 */
+	public boolean isSelected;
 
 	private int centerX;
 	private int centerY;
@@ -108,9 +113,14 @@ public class Tile extends Object
 	{
 		g.setFont(font); // Init font
 
-		// Fill hexagon; if selected, highlight hexagon
-		Color fillColor = isHighlighted ? new Color(200, 235, 50, 200)
-				: new Color(127, 127, 127, 200);
+		// Fill hexagon based on its selected/highlighted status
+		Color fillColor;
+		if (isSelected)
+			fillColor = new Color(200, 235, 50, 200);
+		else if (isHighlighted)
+			fillColor = new Color(130, 140, 130);
+		else
+			fillColor = new Color(127, 127, 127, 200);
 		g.setColor(fillColor);
 		g.fillPolygon(hexagon);
 

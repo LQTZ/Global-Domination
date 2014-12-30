@@ -37,6 +37,11 @@ public class GameScreen extends JPanel implements MouseListener,
 	public Tile highlightedTile;
 
 	/**
+	 * Tile currently selected (clicked)
+	 */
+	public Tile selectedTile;
+
+	/**
 	 * Map screen to draw tiles on
 	 * 
 	 * @param gw
@@ -115,6 +120,13 @@ public class GameScreen extends JPanel implements MouseListener,
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
+		if (selectedTile != null)
+			selectedTile.isSelected = false;
+		if (highlightedTile != null)
+		{
+			selectedTile = highlightedTile;
+			selectedTile.isSelected = true;
+		}
 	}
 
 	@Override
