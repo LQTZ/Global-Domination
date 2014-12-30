@@ -36,7 +36,7 @@ public class Images
 	/**
 	 * General military icon (for tiles)
 	 */
-	public BufferedImage military;
+	public BufferedImage soldier;
 
 	/**
 	 * General settler icon (for tiles)
@@ -57,8 +57,8 @@ public class Images
 				"/images/productivity.png"));
 		revenue = ImageIO.read(getClass().getResourceAsStream(
 				"/images/revenue.png"));
-		military = ImageIO.read(getClass().getResourceAsStream(
-				"/images/military.png"));
+		soldier = ImageIO.read(getClass().getResourceAsStream(
+				"/images/soldier.png"));
 		settler = ImageIO.read(getClass().getResourceAsStream(
 				"/images/settler.png"));
 
