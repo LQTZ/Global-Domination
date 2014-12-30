@@ -54,7 +54,8 @@ public class InfoScreen extends BasicScreen
 	 *            the game object for loading res
 	 * @throws IOException
 	 */
-	public InfoScreen(InputStream input, String titleStr, Game game) throws IOException
+	public InfoScreen(InputStream input, String titleStr, Game game)
+			throws IOException
 	{
 		this(read(input), titleStr, game);
 	}
@@ -66,7 +67,7 @@ public class InfoScreen extends BasicScreen
 	 * @param text
 	 *            text to display in window
 	 * @param titleStr
-	 *            text to display in t  he title
+	 *            text to display in t he title
 	 * @param game
 	 *            game object for loading res
 	 */
@@ -106,7 +107,7 @@ public class InfoScreen extends BasicScreen
 		footPanel = new InfoPanel(game, this);
 		return footPanel;
 	}
-	
+
 	private static String read(InputStream input)
 	{
 		Scanner unmodscan = new Scanner(input);
@@ -193,27 +194,22 @@ public class InfoScreen extends BasicScreen
 
 		@Override
 		public void mousePressed(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseEntered(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseExited(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
-		{
-		}
+		{}
 	}
 }
