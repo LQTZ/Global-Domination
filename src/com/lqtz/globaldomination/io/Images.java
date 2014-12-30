@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
+ * 
  * Loads images
  * 
  * @author Gitdropcode

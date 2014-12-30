@@ -9,6 +9,9 @@ import java.util.Random;
 import com.lqtz.globaldomination.graphics.Tile;
 
 /**
+ * 
+ * Soldier type Unit
+ * 
  * @author Gandalf
  * 
  */

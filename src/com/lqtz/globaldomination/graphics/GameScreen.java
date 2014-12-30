@@ -32,22 +32,25 @@ public class GameScreen extends JPanel implements MouseListener,
 	public Tile[][] tiles;
 
 	/**
-	 * Currently selected tile
+	 * Tile currently being moused over
 	 */
-	public Tile selectedTile;
+	public Tile highlightedTile;
 
 	/**
 	 * Map screen to draw tiles on
 	 * 
+	 * @param gw
+	 *            GameWindow object for repainting on
+	 * 
 	 * @param game
-	 *            game object for loading res
+	 *            Game object for loading res
 	 */
 	public GameScreen(GameWindow gw, Game game)
 	{
 		super();
 		this.gw = gw;
 		this.game = game;
-		
+
 		addMouseListener(this);
 		addMouseMotionListener(this);
 	}
@@ -111,44 +114,52 @@ public class GameScreen extends JPanel implements MouseListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e)
-	{}
+	{
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent e)
-	{}
-	
+	{
+	}
+
 	@Override
 	public void mouseExited(MouseEvent e)
-	{}
+	{
+	}
 
 	@Override
 	public void mousePressed(MouseEvent e)
-	{}
+	{
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e)
-	{}
+	{
+	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0)
-	{}
+	{
+	}
 
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
+		if (highlightedTile != null)
+		{
+			highlightedTile.isHighlighted = false;
+			highlightedTile = null;
+		}
+
 		for (Tile t0[] : tiles)
 			for (Tile t1 : t0)
 			{
 				if (t1.hexagon.contains(e.getX(), e.getY()))
 				{
-					if ((selectedTile != null) && (selectedTile != t1))
-					{
-						selectedTile.isSelected = false;
-					}
-					selectedTile = t1;
-					selectedTile.isSelected = true;
-					gw.repaint();
+					highlightedTile = t1;
+					highlightedTile.isHighlighted = true;
 				}
 			}
+		gw.repaint();
 	}
 }

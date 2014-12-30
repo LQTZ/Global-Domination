@@ -3,6 +3,7 @@ package com.lqtz.globaldomination.graphics;
 import java.awt.Polygon;
 
 /**
+ * 
  * A hexagon (almost regular, but not quite, since <code>java.awt.Polygon</code>
  * only accepts ints)
  * 
@@ -12,7 +13,7 @@ import java.awt.Polygon;
 public class Hexagon extends Polygon
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Hexagon Polygon to represent map tiles
 	 * 

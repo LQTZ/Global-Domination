@@ -1,6 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
 /**
+ * 
  * Enum for what nationality an object can be.
  * 
  * @author Gandalf

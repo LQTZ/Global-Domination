@@ -3,6 +3,9 @@ package com.lqtz.globaldomination.gameplay;
 import java.util.ArrayList;
 
 /**
+ * 
+ * Object representing a nation (player) in the game
+ * 
  * @author Gandalf
  * 
  */

@@ -60,9 +60,9 @@ public class Tile extends Object
 	public int yCoord;
 
 	/**
-	 * Whether or not the Tile is selected
+	 * Whether or not the Tile is currently being moused over
 	 */
-	public boolean isSelected;
+	public boolean isHighlighted;
 
 	private int centerX;
 	private int centerY;
@@ -101,7 +101,7 @@ public class Tile extends Object
 		this.centerY = centerY;
 		this.tileSize = tileSize;
 		this.game = game;
-		this.isSelected = false;
+		this.isHighlighted = false;
 	}
 
 	protected void paint(Graphics g, Font font)
@@ -109,7 +109,7 @@ public class Tile extends Object
 		g.setFont(font); // Init font
 
 		// Fill hexagon; if selected, highlight hexagon
-		Color fillColor = isSelected ? new Color(200, 235, 50, 200)
+		Color fillColor = isHighlighted ? new Color(200, 235, 50, 200)
 				: new Color(127, 127, 127, 200);
 		g.setColor(fillColor);
 		g.fillPolygon(hexagon);

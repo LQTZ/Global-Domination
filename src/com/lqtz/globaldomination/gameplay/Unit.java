@@ -5,6 +5,9 @@ import java.util.Random;
 import com.lqtz.globaldomination.graphics.Tile;
 
 /**
+ * 
+ * Unit in the game
+ * 
  * @author Gandalf
  * 
  */

@@ -4,6 +4,9 @@
 package com.lqtz.globaldomination.gameplay;
 
 /**
+ * 
+ * Settler type Unit
+ * 
  * @author Gandalf
  * 
  */

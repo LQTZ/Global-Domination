@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import com.lqtz.globaldomination.gameplay.Game;
 
 /**
+ * 
  * Content pane with image background
  * 
  * @author Gitdropcode
