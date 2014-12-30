@@ -56,7 +56,7 @@ public class GameWindow extends JFrame
 	{
 		this.game = game;
 		setContentPane(new ImageContentPane(game));
-		
+
 		if (game.fullScreen)
 		{
 			// Removes buttons
@@ -117,7 +117,7 @@ public class GameWindow extends JFrame
 		// Center components
 		centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setOpaque(false);
-		mapPane = new GameScreen(game);
+		mapPane = new GameScreen(this, game);
 		mapPane.setBackground(new Color(0, 0, 0, 0));
 		mapPane.setPreferredSize(new Dimension(getWidth() - 400,
 				getHeight() - 152));

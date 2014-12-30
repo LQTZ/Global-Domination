@@ -12,7 +12,7 @@ import java.awt.Polygon;
 public class Hexagon extends Polygon
 {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * Hexagon Polygon to represent map tiles
 	 * 

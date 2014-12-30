@@ -2,6 +2,9 @@ package com.lqtz.globaldomination.graphics;
 
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
@@ -14,13 +17,24 @@ import com.lqtz.globaldomination.gameplay.Game;
  * @author Gitdropcode
  * 
  */
-public class GameScreen extends JPanel
+public class GameScreen extends JPanel implements MouseListener,
+		MouseMotionListener
 {
 	private static final long serialVersionUID = 1L;
-	private Tile[][] tiles;
 	private final int DIM = 5;
 	private Game game;
 	private Font tileFont;
+	private GameWindow gw;
+
+	/**
+	 * All the tiles on the map
+	 */
+	public Tile[][] tiles;
+
+	/**
+	 * Currently selected tile
+	 */
+	public Tile selectedTile;
 
 	/**
 	 * Map screen to draw tiles on
@@ -28,10 +42,14 @@ public class GameScreen extends JPanel
 	 * @param game
 	 *            game object for loading res
 	 */
-	public GameScreen(Game game)
+	public GameScreen(GameWindow gw, Game game)
 	{
 		super();
+		this.gw = gw;
 		this.game = game;
+		
+		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 
 	/**
@@ -89,5 +107,48 @@ public class GameScreen extends JPanel
 				tile.paint(g, tileFont);
 			}
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{}
+
+	@Override
+	public void mouseEntered(MouseEvent e)
+	{}
+	
+	@Override
+	public void mouseExited(MouseEvent e)
+	{}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0)
+	{}
+
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		for (Tile t0[] : tiles)
+			for (Tile t1 : t0)
+			{
+				if (t1.hexagon.contains(e.getX(), e.getY()))
+				{
+					if ((selectedTile != null) && (selectedTile != t1))
+					{
+						selectedTile.isSelected = false;
+					}
+					selectedTile = t1;
+					selectedTile.isSelected = true;
+					gw.repaint();
+				}
+			}
 	}
 }

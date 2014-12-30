@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.gameplay.Settler;
-import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.gameplay.Unit;
 
 /**
@@ -60,6 +59,11 @@ public class Tile extends Object
 	 */
 	public int yCoord;
 
+	/**
+	 * Whether or not the Tile is selected
+	 */
+	public boolean isSelected;
+
 	private int centerX;
 	private int centerY;
 	private int tileSize;
@@ -97,15 +101,20 @@ public class Tile extends Object
 		this.centerY = centerY;
 		this.tileSize = tileSize;
 		this.game = game;
+		this.isSelected = false;
 	}
 
 	protected void paint(Graphics g, Font font)
 	{
 		g.setFont(font); // Init font
 
-		// Draw the hexagon
-		g.setColor(new Color(127, 127, 127, 200));
+		// Fill hexagon; if selected, highlight hexagon
+		Color fillColor = isSelected ? new Color(200, 235, 50, 200)
+				: new Color(127, 127, 127, 200);
+		g.setColor(fillColor);
 		g.fillPolygon(hexagon);
+
+		// Draw hexagon border
 		g.setColor(Color.BLACK);
 		g.drawPolygon(hexagon);
 
