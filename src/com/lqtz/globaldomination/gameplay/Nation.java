@@ -3,8 +3,6 @@ package com.lqtz.globaldomination.gameplay;
 import java.util.ArrayList;
 
 /**
- * A nation.
- * 
  * @author Gandalf
  * 
  */
@@ -47,23 +45,37 @@ public class Nation
 	}
 
 	/**
-	 * Add a unit to the nation's forces
+	 * Add a soldier to the Nation's units list
 	 * 
 	 * @param healthPoints
-	 *            max (starting) health points
 	 * @param moveDistance
-	 *            number of tiles the unit can move per turn
 	 * @param attackPower
-	 *            attack power (variable in attack odds formula)
 	 * @param defendPower
-	 *            defense power (variable in the defense odds formula)
+	 * @param xCoord
+	 * @param yCoord
 	 */
-	public void addUnit(double healthPoints, int moveDistance,
-			double attackPower, double defendPower)
+	public void addSoldier(double healthPoints, int moveDistance,
+			double attackPower, double defendPower, int xCoord, int yCoord)
 	{
-		// TODO make hp, moveDistance, attackPower, and defendPower based on
-		// unit level
-		units.add(new Unit(this, 10, 1, 1, 1));
+		Soldier s = new Soldier(this, healthPoints, moveDistance, attackPower,
+				defendPower, xCoord, yCoord);
+		units.add(s);
 	}
 
+	/**
+	 * Add a settler to the Nation's units list
+	 * 
+	 * @param healthPoints
+	 * @param moveDistance
+	 * @param defendPower
+	 * @param xCoord
+	 * @param yCoord
+	 */
+	public void addSettler(double healthPoints, int moveDistance,
+			double defendPower, int xCoord, int yCoord)
+	{
+		Settler s = new Settler(this, healthPoints, moveDistance, defendPower,
+				xCoord, yCoord);
+		units.add(s);
+	}
 }

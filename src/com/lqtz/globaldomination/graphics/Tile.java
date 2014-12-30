@@ -7,9 +7,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Settler;
+import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.gameplay.Unit;
-
-// import com.lqtz.globaldomination.gameplay.*; // Uncomment when this exists
 
 /**
  * 
@@ -135,10 +135,9 @@ public class Tile extends Object
 		int cornerY = (int) (((centerY - 3 * tileSize / 4 - (textHeight / 2)) + tileSize / 8) + fm
 				.getAscent());
 
-		// Draw the string
 		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
 
-		// Draw revenue icon
+		// Draw productivity icon
 		g.drawImage(game.images.productivity, centerX + 7 * tileSize / 16
 				- tileSize / 4, centerY - 3 * tileSize / 4, tileSize / 4,
 				tileSize / 4, null);
@@ -147,24 +146,39 @@ public class Tile extends Object
 		// between the 2 icons
 		cornerX += 5 * tileSize / 8;
 
-		// Draw the string
-		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
+		g.drawString(String.valueOf(tileProductivity), cornerX, cornerY);
 
-		// Draw the military units icon
-		g.drawImage(game.images.military, centerX - 7 * tileSize / 16, centerY
-				+ 3 * tileSize / 4 - tileSize / 4, tileSize / 4, tileSize / 4,
-				null);
-
-		// Draw the string
-		// TODO Get count of military units and display string
+		// Count the number of settlers and the number of soldiers on the tile
+		int settlerCount = 0;
+		int soldierCount = 0;
+		for (Unit u : unitsOnTile)
+		{
+			if (u instanceof Settler)
+				settlerCount++;
+			else
+				soldierCount++;
+		}
 
 		// Draw the settler units icon
 		g.drawImage(game.images.settler, centerX + 7 * tileSize / 16 - tileSize
 				/ 4, centerY + 3 * tileSize / 4 - tileSize / 4, tileSize / 4,
 				tileSize / 4, null);
 
-		// Draw the string
-		// TODO Get count of settler units and display string
+		// Find the center of the icon based on the calculated difference in y
+		// between the 2 icons
+		cornerY += 5 * tileSize / 4;
 
+		g.drawString(String.valueOf(settlerCount), cornerX, cornerY);
+
+		// Draw the soldier units icon
+		g.drawImage(game.images.soldier, centerX - 7 * tileSize / 16, centerY
+				+ 3 * tileSize / 4 - tileSize / 4, tileSize / 4, tileSize / 4,
+				null);
+
+		// Find the center of the icon based on the calculated difference in x
+		// between the 2 icons
+		cornerX -= 5 * tileSize / 8;
+
+		g.drawString(String.valueOf(soldierCount), cornerX, cornerY);
 	}
 }
