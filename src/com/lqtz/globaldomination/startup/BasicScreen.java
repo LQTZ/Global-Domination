@@ -52,7 +52,7 @@ public abstract class BasicScreen extends JFrame
 	protected void createWindow()
 	{
 		setContentPane(new ImageContentPane(game));
-		
+
 		if (game.fullScreen)
 		{
 			// Removes buttons
@@ -77,7 +77,7 @@ public abstract class BasicScreen extends JFrame
 			setResizable(false);
 			setLocationRelativeTo(null);
 		}
-		
+
 		// Setup screen attributes
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
 		setTitle("Global Domination");
@@ -92,7 +92,8 @@ public abstract class BasicScreen extends JFrame
 
 		// Draw title
 		titleLabel = new JLabel(titleStr);
-		titleLabel.setPreferredSize(new Dimension(getWidth(), 150));
+		titleLabel.setPreferredSize(new Dimension(getContentPane().getWidth(),
+				150));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBackground(new Color(0, 0, 0, 0));
 		titleLabel.setForeground(Color.WHITE);
