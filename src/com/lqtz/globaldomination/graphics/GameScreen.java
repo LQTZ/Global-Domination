@@ -162,7 +162,7 @@ public class GameScreen extends JPanel implements MouseListener,
 		for (Tile[] t0 : tiles)
 			for (Tile t1 : t0)
 			{
-				if (t1.hexagon.contains(e.getX(), e.getY()))
+				if (t1.hexagon.contains(e.getPoint()))
 				{
 					highlightedTile = t1;
 					highlightedTile.isHighlighted = true;

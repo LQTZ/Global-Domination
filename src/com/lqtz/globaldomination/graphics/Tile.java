@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 import com.lqtz.globaldomination.gameplay.Game;
@@ -143,16 +144,16 @@ public class Tile
 
 		// Find the size of string in the font
 		FontMetrics fm = g.getFontMetrics();
-		java.awt.geom.Rectangle2D rect = fm.getStringBounds(
-				String.valueOf(tileRevenue), g);
+		Rectangle2D rect = fm.getStringBounds(String.valueOf(tileRevenue), g);
 
 		int textHeight = (int) (rect.getHeight());
 		int textWidth = (int) (rect.getWidth());
 
 		// Find the center of the icon
-		int cornerX = (int) (((centerX - 7 * tileSize / 16) + tileSize / 8) - (textWidth / 2));
-		int cornerY = (int) (((centerY - 3 * tileSize / 4 - (textHeight / 2)) + tileSize / 8) + fm
-				.getAscent());
+		int cornerX = (int) (((centerX - 7 * tileSize / 16) + tileSize / 8) - 
+				(textWidth / 2));
+		int cornerY = (int) (((centerY - 3 * tileSize / 4 - (textHeight / 2)) +
+				tileSize / 8) + fm.getAscent());
 
 		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
 
