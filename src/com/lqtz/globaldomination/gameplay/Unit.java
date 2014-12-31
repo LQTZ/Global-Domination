@@ -124,7 +124,7 @@ public abstract class Unit implements java.io.Serializable
 	public int move(Tile tile)
 	{
 		// Check if unit has maxed out moves for the turn
-		if (this.movesLeft <= 0)
+		if (movesLeft <= 0)
 			return -2;
 
 		// Check if tile is not adjacent
@@ -145,7 +145,7 @@ public abstract class Unit implements java.io.Serializable
 	 */
 	public void delete()
 	{
-		this.nation.units.remove(this);
-		this.tile.unitsOnTile.remove(this);
+		nation.units.remove(this);
+		tile.unitsOnTile.remove(this);
 	}
 }

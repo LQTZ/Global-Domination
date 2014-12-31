@@ -111,9 +111,14 @@ public class Settings extends BasicScreen implements ActionListener
 		resSelect = new JComboBox<String>(dimstrs);
 		resSelect.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 24));
 		resSelect.setEnabled(!game.fullScreen);
-		if (!game.fullScreen)
+		if (game.fullScreen)
 		{
-			resSelect.setSelectedIndex(possdims.indexOf(game.resolution));
+			resSelect.setSelectedIndex(0);
+		}
+		else
+		{
+			resSelect.setSelectedItem(game.resolution.width + " x "
+					+ game.resolution.height);
 		}
 		resolution.add(resText);
 		resolution.add(resSelect);
@@ -144,15 +149,15 @@ public class Settings extends BasicScreen implements ActionListener
 		bodyPanel.add(fullScreen);
 
 		// Disable expanding
-		resolution.setPreferredSize(new Dimension(getContentPane().getWidth(),
+		resolution.setPreferredSize(new Dimension(game.resolution.width,
 				resolution.getPreferredSize().height));
 		resolution.setMaximumSize(resolution.getPreferredSize());
-		fullScreen.setPreferredSize(new Dimension(getContentPane().getWidth(),
+		fullScreen.setPreferredSize(new Dimension(game.resolution.width,
 				fullScreen.getPreferredSize().height));
 		fullScreen.setMaximumSize(fullScreen.getPreferredSize());
 
 		// resNote must have positive size for modelToView to work
-		resNote.setSize(new Dimension(getContentPane().getWidth(), 36));
+		resNote.setSize(new Dimension(game.resolution.width, 36));
 		Rectangle limRect = null;
 		try
 		{
@@ -164,7 +169,7 @@ public class Settings extends BasicScreen implements ActionListener
 			e.printStackTrace();
 		}
 		// Sets height so that it fits
-		resNote.setPreferredSize(new Dimension(getContentPane().getWidth(),
+		resNote.setPreferredSize(new Dimension(game.resolution.width,
 				limRect.height + limRect.y));
 		resNote.setMaximumSize(resNote.getPreferredSize());
 
@@ -182,6 +187,7 @@ public class Settings extends BasicScreen implements ActionListener
 	public void actionPerformed(ActionEvent e) // Full screen checked
 	{
 		resSelect.setEnabled(!fsSelect.isSelected());
+		resSelect.setSelectedIndex(0);
 	}
 
 	private class SettingsPanel extends JPanel implements MouseListener,
@@ -199,8 +205,7 @@ public class Settings extends BasicScreen implements ActionListener
 			this.frame = frame;
 			labelFont = game.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
 
-			setPreferredSize(new Dimension(frame.getContentPane().getWidth(),
-					100));
+			setPreferredSize(new Dimension(game.resolution.width, 100));
 			setOpaque(false);
 
 			addMouseListener(this);
@@ -213,26 +218,24 @@ public class Settings extends BasicScreen implements ActionListener
 			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
-			g.drawString("apply", frame.getContentPane().getWidth() - 300, 65);
-			g.drawString("back", frame.getContentPane().getWidth() - 100, 65);
+			g.drawString("apply", game.resolution.width - 300, 65);
+			g.drawString("back", game.resolution.width - 100, 65);
 			g.setColor(new Color(240, 192, 48));
 			switch (selected)
 			{
 				case 0:
 				{
-					g.fillPolygon(new int[] {
-							frame.getContentPane().getWidth() - 115,
-							frame.getContentPane().getWidth() - 115,
-							frame.getContentPane().getWidth() - 105},
+					g.fillPolygon(new int[] {game.resolution.width - 115,
+							game.resolution.width - 115,
+							game.resolution.width - 105},
 							new int[] {60, 40, 50}, 3);
 					break;
 				}
 				case 1:
 				{
-					g.fillPolygon(new int[] {
-							frame.getContentPane().getWidth() - 315,
-							frame.getContentPane().getWidth() - 315,
-							frame.getContentPane().getWidth() - 305},
+					g.fillPolygon(new int[] {game.resolution.width - 315,
+							game.resolution.width - 315,
+							game.resolution.width - 305},
 							new int[] {60, 40, 50}, 3);
 				}
 			}
@@ -258,11 +261,8 @@ public class Settings extends BasicScreen implements ActionListener
 				case 1: // Apply
 				{
 					game.fullScreen = fsSelect.isSelected();
-					if (!fsSelect.isSelected())
-					{
-						game.resolution = possdims.get(Arrays.asList(dimstrs)
-								.indexOf(resSelect.getSelectedItem()));
-					}
+					game.resolution = possdims.get(Arrays.asList(dimstrs)
+							.indexOf(resSelect.getSelectedItem()));
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
@@ -275,10 +275,10 @@ public class Settings extends BasicScreen implements ActionListener
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-			Rectangle itemRect0 = new Rectangle(
-					getContentPane().getWidth() - 100, 35, 100, 30);
-			Rectangle itemRect1 = new Rectangle(
-					getContentPane().getWidth() - 300, 35, 100, 30);
+			Rectangle itemRect0 = new Rectangle(game.resolution.width - 100,
+					35, 100, 30);
+			Rectangle itemRect1 = new Rectangle(game.resolution.width - 300,
+					35, 100, 30);
 			if (itemRect0.contains(e.getPoint()))
 			{
 				selected = 0;

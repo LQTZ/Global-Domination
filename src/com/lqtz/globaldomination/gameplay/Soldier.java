@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lqtz.globaldomination.gameplay;
 
 import java.util.ArrayList;

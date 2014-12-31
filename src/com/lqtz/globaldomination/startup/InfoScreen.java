@@ -89,8 +89,8 @@ public class InfoScreen extends BasicScreen
 		bodyTextArea.setWrapStyleWord(true);
 		bodyTextArea.setEditable(false);
 		bodyScrollPane = new JScrollPane(bodyTextArea);
-		bodyScrollPane.setPreferredSize(new Dimension(getContentPane()
-				.getWidth(), getContentPane().getHeight() - 250));
+		bodyScrollPane.setPreferredSize(new Dimension(game.resolution.width,
+				game.resolution.height - 250));
 		bodyScrollPane.setOpaque(false);
 		bodyScrollPane.getViewport().setOpaque(false);
 
@@ -133,8 +133,7 @@ public class InfoScreen extends BasicScreen
 			this.frame = frame;
 			labelFont = game.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
 
-			setPreferredSize(new Dimension(frame.getContentPane().getWidth(),
-					100));
+			setPreferredSize(new Dimension(game.resolution.width, 100));
 			setOpaque(false);
 
 			addMouseListener(this);
@@ -147,15 +146,13 @@ public class InfoScreen extends BasicScreen
 			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
-			g.drawString("back", frame.getContentPane().getWidth() - 100, 65);
+			g.drawString("back", game.resolution.width - 100, 65);
 			if (selected != -1)
 			{
 				g.setColor(new Color(240, 192, 48));
-				g.fillPolygon(new int[] {
-						frame.getContentPane().getWidth() - 115,
-						frame.getContentPane().getWidth() - 115,
-						frame.getContentPane().getWidth() - 105}, new int[] {
-						60, 40, 50}, 3);
+				g.fillPolygon(new int[] {game.resolution.width - 115,
+						game.resolution.width - 115,
+						game.resolution.width - 105}, new int[] {60, 40, 50}, 3);
 			}
 		}
 
@@ -182,8 +179,8 @@ public class InfoScreen extends BasicScreen
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-			Rectangle itemRect = new Rectangle(
-					getContentPane().getWidth() - 100, 35, 100, 30);
+			Rectangle itemRect = new Rectangle(game.resolution.width - 100, 35,
+					100, 30);
 			if (itemRect.contains(e.getPoint()))
 			{
 				selected = 0;
@@ -197,27 +194,22 @@ public class InfoScreen extends BasicScreen
 
 		@Override
 		public void mousePressed(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseEntered(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseExited(MouseEvent e)
-		{
-		}
+		{}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
-		{
-		}
+		{}
 	}
 }

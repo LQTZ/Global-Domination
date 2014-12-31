@@ -107,13 +107,13 @@ public class GameWindow extends JFrame
 		unitsPane = new JTextPane();
 
 		unitsPane.setBackground(new Color(64, 64, 64, 160));
-		unitsPane.setPreferredSize(new Dimension(200, getContentPane()
-				.getHeight() / 2));
+		unitsPane.setPreferredSize(new Dimension(200,
+				game.resolution.height / 2));
 
 		eventLogPane = new JTextPane();
 		eventLogPane.setBackground(new Color(64, 64, 64, 160));
-		eventLogPane.setPreferredSize(new Dimension(200, getContentPane()
-				.getHeight() / 2));
+		eventLogPane.setPreferredSize(new Dimension(200,
+				game.resolution.height / 2));
 
 		leftPanel.add(unitsPane, BorderLayout.NORTH);
 		leftPanel.add(eventLogPane, BorderLayout.SOUTH);
@@ -123,11 +123,10 @@ public class GameWindow extends JFrame
 		centerPanel.setOpaque(false);
 		mapPane = new GameScreen(this, game);
 		mapPane.setBackground(new Color(0, 0, 0, 0));
-		mapPane.setPreferredSize(new Dimension(
-				getContentPane().getWidth() - 400,
-				getContentPane().getHeight() - 150));
-		mapPane.addTiles(getContentPane().getWidth() - 400, getContentPane()
-				.getHeight() - 150);
+		mapPane.setPreferredSize(new Dimension(game.resolution.width - 400,
+				game.resolution.height - 150));
+		mapPane.addTiles(game.resolution.width - 400,
+				game.resolution.height - 150);
 		controlPane = new JPanel(new BorderLayout());
 		controlPane.setOpaque(false);
 
@@ -161,15 +160,14 @@ public class GameWindow extends JFrame
 			buttons[i].setForeground(Color.WHITE); // Text color
 			buttons[i].setOpaque(true);
 		}
-		buttonsPane.setPreferredSize(new Dimension(
-				getContentPane().getWidth() - 400, 100));
+		buttonsPane.setPreferredSize(new Dimension(game.resolution.width - 400,
+				100));
 
 		// Set up the info box and pane to go below the action buttons
 		// TODO Get rid of "Under Construction"
 		infoBox = new JLabel("Under Construction", SwingConstants.CENTER);
 		infoBox.setForeground(Color.WHITE);
-		infoBox.setPreferredSize(new Dimension(
-				getContentPane().getWidth() - 400, 50));
+		infoBox.setPreferredSize(new Dimension(game.resolution.width - 400, 50));
 		infoBox.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);
@@ -184,10 +182,8 @@ public class GameWindow extends JFrame
 		rightPanel.setOpaque(false);
 		infoPanel = new JTextPane();
 		infoPanel.setBackground(new Color(64, 64, 64, 160));
-		infoPanel.setPreferredSize(new Dimension(200, getContentPane()
-				.getHeight()));
-		rightPanel.setPreferredSize(new Dimension(200, getContentPane()
-				.getHeight()));
+		infoPanel.setPreferredSize(new Dimension(200, game.resolution.height));
+		rightPanel.setPreferredSize(new Dimension(200, game.resolution.height));
 		rightPanel.add(infoPanel);
 
 		add(leftPanel, BorderLayout.WEST);

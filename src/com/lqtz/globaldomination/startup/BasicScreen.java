@@ -92,8 +92,7 @@ public abstract class BasicScreen extends JFrame
 
 		// Draw title
 		titleLabel = new JLabel(titleStr);
-		titleLabel.setPreferredSize(new Dimension(getContentPane().getWidth(),
-				150));
+		titleLabel.setPreferredSize(new Dimension(game.resolution.width, 150));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBackground(new Color(0, 0, 0, 0));
 		titleLabel.setForeground(Color.WHITE);

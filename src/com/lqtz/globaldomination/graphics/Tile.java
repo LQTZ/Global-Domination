@@ -63,7 +63,7 @@ public class Tile extends Object
 	 * Whether or not the Tile is currently being moused over
 	 */
 	public boolean isHighlighted;
-	
+
 	/**
 	 * Whether or not the Tile currently selected (clicked)
 	 */
