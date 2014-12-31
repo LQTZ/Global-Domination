@@ -17,7 +17,7 @@ import com.lqtz.globaldomination.gameplay.Unit;
  * @author Gandalf
  * 
  */
-public class Tile extends Object
+public class Tile
 {
 	// /**
 	// * Max number of units that can fit on a file

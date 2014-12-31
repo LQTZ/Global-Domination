@@ -127,6 +127,7 @@ public class GameScreen extends JPanel implements MouseListener,
 			selectedTile = highlightedTile;
 			selectedTile.isSelected = true;
 		}
+		gw.repaint();
 	}
 
 	@Override
@@ -158,7 +159,7 @@ public class GameScreen extends JPanel implements MouseListener,
 			highlightedTile = null;
 		}
 
-		for (Tile t0[] : tiles)
+		for (Tile[] t0 : tiles)
 			for (Tile t1 : t0)
 			{
 				if (t1.hexagon.contains(e.getX(), e.getY()))
