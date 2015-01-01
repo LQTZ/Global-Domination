@@ -129,6 +129,7 @@ public class Settings extends BasicScreen implements ActionListener
 		resNote.setLineWrap(true);
 		resNote.setWrapStyleWord(true);
 		resNote.setEditable(false);
+		resNote.setFocusable(false);
 
 		fullScreen = new JPanel(new FlowLayout(FlowLayout.LEADING, 5, 0));
 		fullScreen.setOpaque(false);

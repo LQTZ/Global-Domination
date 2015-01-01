@@ -87,6 +87,7 @@ public class InfoScreen extends BasicScreen
 		bodyTextArea.setLineWrap(true);
 		bodyTextArea.setWrapStyleWord(true);
 		bodyTextArea.setEditable(false);
+		bodyTextArea.setFocusable(false);
 		bodyScrollPane = new JScrollPane(bodyTextArea);
 		bodyScrollPane.setPreferredSize(new Dimension(game.resolution.width,
 				game.resolution.height - 250));

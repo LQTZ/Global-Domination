@@ -104,16 +104,21 @@ public class GameWindow extends JFrame
 		// Left components
 		leftPanel = new JPanel(new BorderLayout());
 		leftPanel.setOpaque(false);
+		
 		unitsPane = new JTextPane();
-
 		unitsPane.setBackground(new Color(64, 64, 64, 160));
 		unitsPane.setPreferredSize(new Dimension(200,
 				game.resolution.height / 2));
+		unitsPane.setEditable(false);
+		unitsPane.setFocusable(false);
 
 		eventLogPane = new JTextPane();
 		eventLogPane.setBackground(new Color(64, 64, 64, 160));
 		eventLogPane.setPreferredSize(new Dimension(200,
 				game.resolution.height / 2));
+		eventLogPane.setEditable(false);
+		eventLogPane.setFocusable(false);
+		
 
 		leftPanel.add(unitsPane, BorderLayout.NORTH);
 		leftPanel.add(eventLogPane, BorderLayout.SOUTH);
@@ -183,6 +188,8 @@ public class GameWindow extends JFrame
 		infoPanel = new JTextPane();
 		infoPanel.setBackground(new Color(64, 64, 64, 160));
 		infoPanel.setPreferredSize(new Dimension(200, game.resolution.height));
+		infoPanel.setEditable(false);
+		infoPanel.setFocusable(false);
 		rightPanel.setPreferredSize(new Dimension(200, game.resolution.height));
 		rightPanel.add(infoPanel);
 
