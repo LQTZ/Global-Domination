@@ -3,10 +3,9 @@ package com.lqtz.globaldomination.graphics;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.gameplay.Game;
 
@@ -17,8 +16,7 @@ import com.lqtz.globaldomination.gameplay.Game;
  * @author Gitdropcode
  * 
  */
-public class GameScreen extends JPanel implements MouseListener,
-		MouseMotionListener
+public class GameScreen extends JPanel implements MouseInputListener
 {
 	private static final long serialVersionUID = 1L;
 	private final int DIM = 5;
@@ -118,10 +116,13 @@ public class GameScreen extends JPanel implements MouseListener,
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e)
+	public void mousePressed(MouseEvent e)
 	{
 		if (selectedTile != null)
+		{
 			selectedTile.isSelected = false;
+			selectedTile = null;
+		}
 		if (highlightedTile != null)
 		{
 			selectedTile = highlightedTile;
@@ -129,7 +130,40 @@ public class GameScreen extends JPanel implements MouseListener,
 		}
 		gw.repaint();
 	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		if (highlightedTile != null)
+		{
+			if (highlightedTile.hexagon.contains(e.getPoint()))
+			{
+				return;
+			}
+			else
+			{
+				highlightedTile.isHighlighted = false;
+				highlightedTile = null;
+			}
+		}
+		for (Tile[] t0 : tiles)
+		{
+			for (Tile t1 : t0)
+			{
+				if (t1.hexagon.contains(e.getPoint()))
+				{
+					highlightedTile = t1;
+					highlightedTile.isHighlighted = true;
+				}
+			}
+		}
+		gw.repaint();
+	}
 
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{}
+	
 	@Override
 	public void mouseEntered(MouseEvent e)
 	{}
@@ -139,35 +173,10 @@ public class GameScreen extends JPanel implements MouseListener,
 	{}
 
 	@Override
-	public void mousePressed(MouseEvent e)
-	{}
-
-	@Override
 	public void mouseReleased(MouseEvent e)
 	{}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0)
 	{}
-
-	@Override
-	public void mouseMoved(MouseEvent e)
-	{
-		if (highlightedTile != null)
-		{
-			highlightedTile.isHighlighted = false;
-			highlightedTile = null;
-		}
-
-		for (Tile[] t0 : tiles)
-			for (Tile t1 : t0)
-			{
-				if (t1.hexagon.contains(e.getPoint()))
-				{
-					highlightedTile = t1;
-					highlightedTile.isHighlighted = true;
-				}
-			}
-		gw.repaint();
-	}
 }

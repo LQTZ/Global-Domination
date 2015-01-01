@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
@@ -17,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.graphics.GameWindow;
@@ -77,8 +76,7 @@ public class Welcome extends JFrame
 		// new GameWindow(new Game());
 	}
 
-	private class WelcomePanel extends JPanel implements MouseListener,
-			MouseMotionListener
+	private class WelcomePanel extends JPanel implements MouseInputListener
 	{
 		private static final long serialVersionUID = 1L;
 		private JLabel title1;
@@ -149,7 +147,7 @@ public class Welcome extends JFrame
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e)
+		public void mousePressed(MouseEvent e)
 		{
 			switch (selected)
 			{
@@ -245,7 +243,7 @@ public class Welcome extends JFrame
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e)
+		public void mouseClicked(MouseEvent e)
 		{}
 
 		@Override

@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.gameplay.Game;
 
@@ -118,8 +117,7 @@ public class InfoScreen extends BasicScreen
 		return str;
 	}
 
-	private class InfoPanel extends JPanel implements MouseListener,
-			MouseMotionListener
+	private class InfoPanel extends JPanel implements MouseInputListener
 	{
 		private static final long serialVersionUID = 1L;
 		private int selected = -1;
@@ -157,7 +155,7 @@ public class InfoScreen extends BasicScreen
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e)
+		public void mousePressed(MouseEvent e)
 		{
 			switch (selected)
 			{
@@ -193,7 +191,7 @@ public class InfoScreen extends BasicScreen
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e)
+		public void mouseClicked(MouseEvent e)
 		{}
 
 		@Override

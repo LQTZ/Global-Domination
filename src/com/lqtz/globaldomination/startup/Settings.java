@@ -10,8 +10,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.event.MouseInputListener;
 import javax.swing.text.BadLocationException;
 
 import com.lqtz.globaldomination.gameplay.Game;
@@ -190,8 +189,7 @@ public class Settings extends BasicScreen implements ActionListener
 		resSelect.setSelectedIndex(0);
 	}
 
-	private class SettingsPanel extends JPanel implements MouseListener,
-			MouseMotionListener
+	private class SettingsPanel extends JPanel implements MouseInputListener
 	{
 		private static final long serialVersionUID = 1L;
 		private int selected = -1;
@@ -242,7 +240,7 @@ public class Settings extends BasicScreen implements ActionListener
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e)
+		public void mousePressed(MouseEvent e)
 		{
 			switch (selected)
 			{
@@ -295,7 +293,7 @@ public class Settings extends BasicScreen implements ActionListener
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e)
+		public void mouseClicked(MouseEvent e)
 		{}
 
 		@Override
