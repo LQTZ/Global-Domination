@@ -35,6 +35,8 @@ public class Nation
 	 * Nations this nation is enemies with
 	 */
 	public Nation[] enemies;
+	
+	private Utils utils;
 
 	/**
 	 * Creates new nation
@@ -42,9 +44,10 @@ public class Nation
 	 * @param nationality
 	 *            nationality of the nation
 	 */
-	public Nation(Nationality nationality)
+	public Nation(Nationality nationality, Utils utils)
 	{
 		this.nationality = nationality;
+		this.utils = utils;
 	}
 
 	/**
@@ -61,7 +64,7 @@ public class Nation
 			double attackPower, double defendPower, int xCoord, int yCoord)
 	{
 		Soldier s = new Soldier(this, healthPoints, moveDistance, attackPower,
-				defendPower, xCoord, yCoord);
+				defendPower, xCoord, yCoord, utils);
 		units.add(s);
 	}
 
@@ -78,7 +81,7 @@ public class Nation
 			double defendPower, int xCoord, int yCoord)
 	{
 		Settler s = new Settler(this, healthPoints, moveDistance, defendPower,
-				xCoord, yCoord);
+				xCoord, yCoord, utils);
 		units.add(s);
 	}
 }

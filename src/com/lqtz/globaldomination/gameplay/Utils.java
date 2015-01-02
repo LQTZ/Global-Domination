@@ -3,6 +3,7 @@ package com.lqtz.globaldomination.gameplay;
 import java.awt.Dimension;
 import java.awt.FontFormatException;
 import java.io.IOException;
+import java.util.Random;
 
 import com.lqtz.globaldomination.io.Fonts;
 import com.lqtz.globaldomination.io.Images;
@@ -25,6 +26,7 @@ public class Utils
 	 * Fonts to load
 	 */
 	public Fonts fonts;
+	public Random random;
 
 	public boolean fullScreen = false;
 	public Dimension resolution = new Dimension(1600, 900);
@@ -36,6 +38,8 @@ public class Utils
 	 */
 	public Utils()
 	{
+		random = new Random();
+		
 		// Import images
 		try
 		{

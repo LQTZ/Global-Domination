@@ -1,7 +1,6 @@
 package com.lqtz.globaldomination.gameplay;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.lqtz.globaldomination.graphics.Tile;
 
@@ -41,10 +40,11 @@ public class Soldier extends Unit
 	 *            initial y-coordinate
 	 */
 	public Soldier(Nation nation, double healthPoints, int moveDistance,
-			double attackPower, double defendPower, int xCoord, int yCoord)
+			double attackPower, double defendPower, int xCoord, int yCoord,
+			Utils utils)
 	{
-		super(nation, healthPoints, moveDistance, defendPower, xCoord, yCoord);
-		// TODO Auto-generated constructor stub
+		super(nation, healthPoints, moveDistance, defendPower, xCoord, yCoord,
+				utils);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class Soldier extends Unit
 		ArrayList<Unit> unitsToAttack = new ArrayList<Unit>();
 
 		// Determine whether or not tile is hostile
-		for (Unit u : tile.unitsOnTile)
+		for (Unit u : tile.city.units)
 		{
 			if (u.nation.nationality == nation.nationality)
 			{
@@ -96,7 +96,7 @@ public class Soldier extends Unit
 	 */
 	public void attackUnit(Unit unit)
 	{
-		double attackHits = attackPower + (new Random()).nextGaussian()
+		double attackHits = attackPower + utils.random.nextGaussian()
 				* unit.defendPower / ((attackPower + currentHealthPoints) / 2);
 		unit.currentHealthPoints -= attackHits;
 

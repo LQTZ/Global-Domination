@@ -1,5 +1,6 @@
 package com.lqtz.globaldomination.gameplay;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import com.lqtz.globaldomination.graphics.Tile;
@@ -11,7 +12,7 @@ import com.lqtz.globaldomination.graphics.Tile;
  * @author Gandalf
  * 
  */
-public abstract class Unit implements java.io.Serializable
+public abstract class Unit implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
@@ -66,6 +67,8 @@ public abstract class Unit implements java.io.Serializable
 	 * Current y-coordinate on the map
 	 */
 	public int yCoord;
+	
+	protected Utils utils;
 
 	/**
 	 * Initialize the unit
@@ -84,7 +87,7 @@ public abstract class Unit implements java.io.Serializable
 	 *            initial y-coordinate
 	 */
 	public Unit(Nation nation, double healthPoints, int moveDistance,
-			double defendPower, int xCoord, int yCoord)
+			double defendPower, int xCoord, int yCoord, Utils utils)
 	{
 		// Initialize fields
 		this.nation = nation;
@@ -94,6 +97,7 @@ public abstract class Unit implements java.io.Serializable
 		this.defendPower = defendPower;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
+		this.utils = utils;
 
 		// TODO make unit level
 	}
@@ -107,7 +111,7 @@ public abstract class Unit implements java.io.Serializable
 	 */
 	public double defendDamage(Soldier soldier)
 	{
-		return defendPower + (new Random()).nextGaussian()
+		return defendPower + utils.random.nextGaussian()
 				* soldier.attackPower
 				/ ((defendPower + currentHealthPoints) / 2);
 	}
@@ -146,6 +150,6 @@ public abstract class Unit implements java.io.Serializable
 	public void delete()
 	{
 		nation.units.remove(this);
-		tile.unitsOnTile.remove(this);
+		tile.city.units.remove(this);
 	}
 }

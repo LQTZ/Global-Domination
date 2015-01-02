@@ -28,9 +28,10 @@ public class Settler extends Unit
 	 *            initial y-coordinate
 	 */
 	public Settler(Nation nation, double healthPoints, int moveDistance,
-			double defendPower, int xCoord, int yCoord)
+			double defendPower, int xCoord, int yCoord, Utils utils)
 	{
-		super(nation, healthPoints, moveDistance, defendPower, xCoord, yCoord);
+		super(nation, healthPoints, moveDistance, defendPower, xCoord, yCoord,
+				utils);
 	}
 
 	/**

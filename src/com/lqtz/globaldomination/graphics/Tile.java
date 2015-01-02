@@ -4,12 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 
+import com.lqtz.globaldomination.gameplay.City;
 import com.lqtz.globaldomination.gameplay.Utils;
-import com.lqtz.globaldomination.gameplay.Settler;
-import com.lqtz.globaldomination.gameplay.Unit;
 
 /**
  * 
@@ -31,11 +28,6 @@ public class Tile
 	public Hexagon hexagon;
 
 	/**
-	 * The units currently on the tile
-	 */
-	public ArrayList<Unit> unitsOnTile;
-
-	/**
 	 * Revenue Cities on the Tile would collect
 	 */
 	public int tileRevenue;
@@ -48,7 +40,7 @@ public class Tile
 	/**
 	 * Whether there is a City on the Tile
 	 */
-	public boolean hasCity = true;
+	public City city;
 
 	/**
 	 * Tile's x-coordinate in the map
@@ -99,15 +91,15 @@ public class Tile
 	{
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
-		this.hexagon = new Hexagon(centerX, centerY, tileSize);
-		this.unitsOnTile = new ArrayList<Unit>();
+		hexagon = new Hexagon(centerX, centerY, tileSize);
 		this.tileRevenue = revenue;
 		this.tileProductivity = productivity;
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.tileSize = tileSize;
 		this.utils = utils;
-		this.isHighlighted = false;
+		isHighlighted = false;
+		city = new City(this);
 	}
 
 	protected void paint(Graphics g, Font font)
@@ -129,76 +121,54 @@ public class Tile
 		g.setColor(Color.BLACK);
 		g.drawPolygon(hexagon);
 
-		// Draw the city (if applicable)
-		if (this.hasCity)
+		int size = tileSize / 4;
+		
+		// Calculate coordinates of each corner
+		int xOffset = tileSize * 7 / 16;
+		int yOffset = tileSize * 3 / 4;
+		int xMin = centerX - xOffset;
+		int xMax = centerX + xOffset - size;
+		int yMin = centerY - yOffset;
+		int yMax = centerY + yOffset - size;
+
+		// Draw city-related icons
+		if (city != null)
 		{
-			g.drawImage(utils.images.city,
-					(int) ((centerX - 7 * tileSize / 8)),
-					(int) (centerY - tileSize / 2),
-					(int) (this.tileSize * Math.sqrt(3)),
-					2 * 7 / 8 * this.tileSize, null);
+			g.drawImage(utils.images.city, centerX - 2 * xOffset, centerY
+					- tileSize / 2, tileSize * 7 / 4, tileSize, null);
+
+			// Draw the settler units icon
+			g.drawImage(utils.images.settler, xMin, yMax, size, size, null);
+
+			drawCenterText(g, String.valueOf(city.settlerCount), xMin, yMax);
+
+			// Draw the soldier units icon
+			g.drawImage(utils.images.soldier, xMax, yMax, size, size, null);
+
+			drawCenterText(g, String.valueOf(city.soldierCount), xMax, yMax);
 		}
 
 		// Draw revenue icon
-		g.drawImage(utils.images.revenue, centerX - 7 * tileSize / 16, centerY
-				- 3 * tileSize / 4, tileSize / 4, tileSize / 4, null);
+		g.drawImage(utils.images.revenue, xMin, yMin, size, size, null);
 
-		// Find the size of string in the font
-		FontMetrics fm = g.getFontMetrics();
-		Rectangle2D rect = fm.getStringBounds(String.valueOf(tileRevenue), g);
-
-		int textHeight = (int) (rect.getHeight());
-		int textWidth = (int) (rect.getWidth());
-
-		// Find the center of the icon
-		int cornerX = (int) (((centerX - 7 * tileSize / 16) + tileSize / 8) - (textWidth / 2));
-		int cornerY = (int) (((centerY - 3 * tileSize / 4 - (textHeight / 2)) + tileSize / 8) + fm
-				.getAscent());
-
-		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
+		drawCenterText(g, String.valueOf(tileRevenue), xMin, yMin);
 
 		// Draw productivity icon
-		g.drawImage(utils.images.productivity, centerX + 7 * tileSize / 16
-				- tileSize / 4, centerY - 3 * tileSize / 4, tileSize / 4,
-				tileSize / 4, null);
+		g.drawImage(utils.images.productivity, xMax, yMin, size, size, null);
 
-		// Find the center of the icon based on the calculated difference in x
-		// between the 2 icons
-		cornerX += 5 * tileSize / 8;
+		drawCenterText(g, String.valueOf(tileProductivity), xMax, yMin);
+	}
 
-		g.drawString(String.valueOf(tileProductivity), cornerX, cornerY);
+	private void drawCenterText(Graphics g, String str, int x, int y)
+	{
+		FontMetrics fm = g.getFontMetrics();
+		int width = fm.stringWidth(str);
+		int yOffset = (fm.getAscent() - fm.getDescent()) / 2;
+		
+		// width and yOffset center it to the point (x, y), but we need to
+		// center the text to the center of the image --> tileSize / 8
+		g.drawString(str, x - width / 2 + tileSize / 8, y + yOffset + tileSize
+				/ 8);
 
-		// Count the number of settlers and the number of soldiers on the tile
-		int settlerCount = 0;
-		int soldierCount = 0;
-		for (Unit u : unitsOnTile)
-		{
-			if (u instanceof Settler)
-				settlerCount++;
-			else
-				soldierCount++;
-		}
-
-		// Draw the settler units icon
-		g.drawImage(utils.images.settler, centerX + 7 * tileSize / 16
-				- tileSize / 4, centerY + 3 * tileSize / 4 - tileSize / 4,
-				tileSize / 4, tileSize / 4, null);
-
-		// Find the center of the icon based on the calculated difference in y
-		// between the 2 icons
-		cornerY += 5 * tileSize / 4;
-
-		g.drawString(String.valueOf(settlerCount), cornerX, cornerY);
-
-		// Draw the soldier units icon
-		g.drawImage(utils.images.soldier, centerX - 7 * tileSize / 16, centerY
-				+ 3 * tileSize / 4 - tileSize / 4, tileSize / 4, tileSize / 4,
-				null);
-
-		// Find the center of the icon based on the calculated difference in x
-		// between the 2 icons
-		cornerX -= 5 * tileSize / 8;
-
-		g.drawString(String.valueOf(soldierCount), cornerX, cornerY);
 	}
 }
