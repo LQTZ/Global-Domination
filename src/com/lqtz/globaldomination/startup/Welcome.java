@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputListener;
 
-import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Utils;
 import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 
@@ -31,18 +31,18 @@ import com.lqtz.globaldomination.graphics.ImageContentPane;
 public class Welcome extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	private Game game;
+	private Utils utils;
 	private JPanel panel;
 
 	/**
 	 * Welcome screen for links to info pages and new game
 	 * 
-	 * @param game
+	 * @param utils
 	 *            game object for loading res
 	 */
-	public Welcome(Game game)
+	public Welcome(Utils utils)
 	{
-		this.game = game;
+		this.utils = utils;
 
 		setUndecorated(true);
 		setSize(new Dimension(1000, 400));
@@ -51,14 +51,14 @@ public class Welcome extends JFrame
 		// Setup screen attributes
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Global Domination");
-		setContentPane(new ImageContentPane(game));
+		setContentPane(new ImageContentPane(utils));
 		addComponents();
 		setVisible(true);
 	}
 
 	private void addComponents()
 	{
-		panel = new WelcomePanel(game, this);
+		panel = new WelcomePanel(utils, this);
 		add(panel);
 		pack();
 	}
@@ -72,7 +72,7 @@ public class Welcome extends JFrame
 	public static void main(String[] args)
 	{
 		// new Game();
-		new Welcome(new Game());
+		new Welcome(new Utils());
 		// new GameWindow(new Game());
 	}
 
@@ -83,21 +83,21 @@ public class Welcome extends JFrame
 		private JLabel title2;
 		private int selected = -1;
 		private Font labelFont;
-		private Game game;
+		private Utils utils;
 		private JFrame frame;
 		private int[][] locations;
 		private String[] labels;
 
-		private WelcomePanel(Game game, JFrame frame)
+		private WelcomePanel(Utils utils, JFrame frame)
 		{
 			locations = new int[][] {new int[] {50, 310}, new int[] {200, 370},
 					new int[] {350, 310}, new int[] {500, 370},
 					new int[] {650, 310}, new int[] {800, 370}};
 			labels = new String[] {"new game", "settings", "load game",
 					"about", "how to play", "exit"};
-			this.game = game;
+			this.utils = utils;
 			this.frame = frame;
-			labelFont = this.game.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
+			labelFont = this.utils.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
 
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			setPreferredSize(getSize());
@@ -106,12 +106,12 @@ public class Welcome extends JFrame
 			title1 = new JLabel();
 			title1.setOpaque(false);
 			title1.setText("GLOBAL");
-			title1.setFont(this.game.fonts.goudy.deriveFont(Font.PLAIN, 72));
+			title1.setFont(this.utils.fonts.goudy.deriveFont(Font.PLAIN, 72));
 			title1.setForeground(new Color(204, 204, 204));
 			title2 = new JLabel();
 			title2.setOpaque(false);
 			title2.setText("DOMINATION");
-			title2.setFont(this.game.fonts.goudy.deriveFont(Font.PLAIN, 128));
+			title2.setFont(this.utils.fonts.goudy.deriveFont(Font.PLAIN, 128));
 			title2.setForeground(Color.WHITE);
 			add(Box.createVerticalStrut(50));
 			add(title1);
@@ -160,7 +160,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(game);
+					new GameWindow(utils);
 					break;
 				}
 				case 1: // Settings button
@@ -168,7 +168,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new Settings(game);
+					new Settings(utils);
 					break;
 				}
 				case 2: // New game button
@@ -176,7 +176,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(game);
+					new GameWindow(utils);
 					break;
 				}
 				case 3: // About button
@@ -187,7 +187,7 @@ public class Welcome extends JFrame
 					try
 					{
 						new InfoScreen(getClass().getResourceAsStream(
-								"/text/AboutText.txt"), "About", game);
+								"/text/AboutText.txt"), "About", utils);
 					}
 					catch (IOException e1)
 					{
@@ -203,7 +203,8 @@ public class Welcome extends JFrame
 					try
 					{
 						new InfoScreen(getClass().getResourceAsStream(
-								"/text/HowToPlayText.txt"), "How to Play", game);
+								"/text/HowToPlayText.txt"), "How to Play",
+								utils);
 					}
 					catch (IOException e1)
 					{

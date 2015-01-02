@@ -20,7 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 
-import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Utils;
 
 /**
  * 
@@ -49,14 +49,14 @@ public class InfoScreen extends BasicScreen
 	 *            path to the txt file with the text for the page
 	 * @param titleStr
 	 *            the title of the page
-	 * @param game
+	 * @param utils
 	 *            the game object for loading res
 	 * @throws IOException
 	 */
-	public InfoScreen(InputStream input, String titleStr, Game game)
+	public InfoScreen(InputStream input, String titleStr, Utils utils)
 			throws IOException
 	{
-		this(read(input), titleStr, game);
+		this(read(input), titleStr, utils);
 	}
 
 	/**
@@ -67,12 +67,12 @@ public class InfoScreen extends BasicScreen
 	 *            text to display in window
 	 * @param titleStr
 	 *            text to display in t he title
-	 * @param game
+	 * @param utils
 	 *            game object for loading res
 	 */
-	public InfoScreen(String text, String titleStr, Game game)
+	public InfoScreen(String text, String titleStr, Utils utils)
 	{
-		super(titleStr, game);
+		super(titleStr, utils);
 		bodyText = text;
 		createWindow();
 	}
@@ -82,15 +82,15 @@ public class InfoScreen extends BasicScreen
 		bodyTextArea = new JTextArea(bodyText);
 		bodyTextArea.setBackground(new Color(0, 0, 0, 0));
 		bodyTextArea.setForeground(Color.WHITE);
-		bodyTextArea.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 36));
+		bodyTextArea.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 36));
 		bodyTextArea.setOpaque(false);
 		bodyTextArea.setLineWrap(true);
 		bodyTextArea.setWrapStyleWord(true);
 		bodyTextArea.setEditable(false);
 		bodyTextArea.setFocusable(false);
 		bodyScrollPane = new JScrollPane(bodyTextArea);
-		bodyScrollPane.setPreferredSize(new Dimension(game.resolution.width,
-				game.resolution.height - 250));
+		bodyScrollPane.setPreferredSize(new Dimension(utils.resolution.width,
+				utils.resolution.height - 250));
 		bodyScrollPane.setOpaque(false);
 		bodyScrollPane.getViewport().setOpaque(false);
 
@@ -104,7 +104,7 @@ public class InfoScreen extends BasicScreen
 
 	protected JComponent createFoot()
 	{
-		footPanel = new InfoPanel(game, this);
+		footPanel = new InfoPanel(utils, this);
 		return footPanel;
 	}
 
@@ -123,16 +123,16 @@ public class InfoScreen extends BasicScreen
 		private static final long serialVersionUID = 1L;
 		private int selected = -1;
 		private Font labelFont;
-		private Game game;
+		private Utils utils;
 		private JFrame frame;
 
-		private InfoPanel(Game game, JFrame frame)
+		private InfoPanel(Utils utils, JFrame frame)
 		{
-			this.game = game;
+			this.utils = utils;
 			this.frame = frame;
-			labelFont = game.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
+			labelFont = utils.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
 
-			setPreferredSize(new Dimension(game.resolution.width, 100));
+			setPreferredSize(new Dimension(utils.resolution.width, 100));
 			setOpaque(false);
 
 			addMouseListener(this);
@@ -145,13 +145,14 @@ public class InfoScreen extends BasicScreen
 			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
-			g.drawString("back", game.resolution.width - 100, 65);
+			g.drawString("back", utils.resolution.width - 100, 65);
 			if (selected != -1)
 			{
 				g.setColor(new Color(240, 192, 48));
-				g.fillPolygon(new int[] {game.resolution.width - 115,
-						game.resolution.width - 115,
-						game.resolution.width - 105}, new int[] {60, 40, 50}, 3);
+				g.fillPolygon(new int[] {utils.resolution.width - 115,
+						utils.resolution.width - 115,
+						utils.resolution.width - 105}, new int[] {60, 40, 50},
+						3);
 			}
 		}
 
@@ -169,7 +170,7 @@ public class InfoScreen extends BasicScreen
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new Welcome(game);
+					new Welcome(utils);
 					break;
 				}
 			}
@@ -178,8 +179,8 @@ public class InfoScreen extends BasicScreen
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-			Rectangle itemRect = new Rectangle(game.resolution.width - 100, 35,
-					100, 30);
+			Rectangle itemRect = new Rectangle(utils.resolution.width - 100,
+					35, 100, 30);
 			if (itemRect.contains(e.getPoint()))
 			{
 				selected = 0;

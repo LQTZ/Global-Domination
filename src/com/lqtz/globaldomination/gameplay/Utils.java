@@ -14,7 +14,7 @@ import com.lqtz.globaldomination.io.Images;
  * @author Gandalf
  * 
  */
-public class Game
+public class Utils
 {
 	/**
 	 * Images to load
@@ -29,10 +29,12 @@ public class Game
 	public boolean fullScreen = false;
 	public Dimension resolution = new Dimension(1600, 900);
 
+	public final int DIM = 5;
+
 	/**
 	 * Load resources
 	 */
-	public Game()
+	public Utils()
 	{
 		// Import images
 		try

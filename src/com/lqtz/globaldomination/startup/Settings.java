@@ -27,7 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.event.MouseInputListener;
 import javax.swing.text.BadLocationException;
 
-import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Utils;
 
 /**
  * 
@@ -68,10 +68,10 @@ public class Settings extends BasicScreen implements ActionListener
 	private ArrayList<Dimension> possdims = new ArrayList<Dimension>();
 	private String[] dimstrs;
 
-	public Settings(Game game)
+	public Settings(Utils utils)
 	{
-		super("Settings", game);
-		labelFont = game.fonts.sourcesans.deriveFont(Font.PLAIN, 36);
+		super("Settings", utils);
+		labelFont = utils.fonts.sourcesans.deriveFont(Font.PLAIN, 36);
 		Dimension currdim = Toolkit.getDefaultToolkit().getScreenSize();
 		for (Dimension dim : dims)
 		{
@@ -108,16 +108,16 @@ public class Settings extends BasicScreen implements ActionListener
 		resText.setFont(labelFont);
 		resText.setForeground(Color.WHITE);
 		resSelect = new JComboBox<String>(dimstrs);
-		resSelect.setFont(game.fonts.sourcesans.deriveFont(Font.PLAIN, 24));
-		resSelect.setEnabled(!game.fullScreen);
-		if (game.fullScreen)
+		resSelect.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 24));
+		resSelect.setEnabled(!utils.fullScreen);
+		if (utils.fullScreen)
 		{
 			resSelect.setSelectedIndex(0);
 		}
 		else
 		{
-			resSelect.setSelectedItem(game.resolution.width + " x "
-					+ game.resolution.height);
+			resSelect.setSelectedItem(utils.resolution.width + " x "
+					+ utils.resolution.height);
 		}
 		resolution.add(resText);
 		resolution.add(resSelect);
@@ -138,7 +138,7 @@ public class Settings extends BasicScreen implements ActionListener
 		fsText.setForeground(Color.WHITE);
 		fsSelect = new JCheckBox();
 		fsSelect.setOpaque(false);
-		fsSelect.setSelected(game.fullScreen);
+		fsSelect.setSelected(utils.fullScreen);
 		fsSelect.addActionListener(this);
 		fullScreen.add(fsText);
 		fullScreen.add(fsSelect);
@@ -149,15 +149,15 @@ public class Settings extends BasicScreen implements ActionListener
 		bodyPanel.add(fullScreen);
 
 		// Disable expanding
-		resolution.setPreferredSize(new Dimension(game.resolution.width,
+		resolution.setPreferredSize(new Dimension(utils.resolution.width,
 				resolution.getPreferredSize().height));
 		resolution.setMaximumSize(resolution.getPreferredSize());
-		fullScreen.setPreferredSize(new Dimension(game.resolution.width,
+		fullScreen.setPreferredSize(new Dimension(utils.resolution.width,
 				fullScreen.getPreferredSize().height));
 		fullScreen.setMaximumSize(fullScreen.getPreferredSize());
 
 		// resNote must have positive size for modelToView to work
-		resNote.setSize(new Dimension(game.resolution.width, 36));
+		resNote.setSize(new Dimension(utils.resolution.width, 36));
 		Rectangle limRect = null;
 		try
 		{
@@ -169,7 +169,7 @@ public class Settings extends BasicScreen implements ActionListener
 			e.printStackTrace();
 		}
 		// Sets height so that it fits
-		resNote.setPreferredSize(new Dimension(game.resolution.width,
+		resNote.setPreferredSize(new Dimension(utils.resolution.width,
 				limRect.height + limRect.y));
 		resNote.setMaximumSize(resNote.getPreferredSize());
 
@@ -179,7 +179,7 @@ public class Settings extends BasicScreen implements ActionListener
 	@Override
 	protected JComponent createFoot()
 	{
-		footPanel = new SettingsPanel(game, this);
+		footPanel = new SettingsPanel(utils, this);
 		return footPanel;
 	}
 
@@ -195,16 +195,16 @@ public class Settings extends BasicScreen implements ActionListener
 		private static final long serialVersionUID = 1L;
 		private int selected = -1;
 		private Font labelFont;
-		private Game game;
+		private Utils utils;
 		private JFrame frame;
 
-		private SettingsPanel(Game game, JFrame frame)
+		private SettingsPanel(Utils utils, JFrame frame)
 		{
-			this.game = game;
+			this.utils = utils;
 			this.frame = frame;
-			labelFont = game.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
+			labelFont = utils.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
 
-			setPreferredSize(new Dimension(game.resolution.width, 100));
+			setPreferredSize(new Dimension(utils.resolution.width, 100));
 			setOpaque(false);
 
 			addMouseListener(this);
@@ -217,25 +217,25 @@ public class Settings extends BasicScreen implements ActionListener
 			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
-			g.drawString("apply", game.resolution.width - 300, 65);
-			g.drawString("back", game.resolution.width - 100, 65);
+			g.drawString("apply", utils.resolution.width - 300, 65);
+			g.drawString("back", utils.resolution.width - 100, 65);
 			g.setColor(new Color(240, 192, 48));
 			switch (selected)
 			{
 				case 0:
 				{
-					g.fillPolygon(new int[] {game.resolution.width - 115,
-							game.resolution.width - 115,
-							game.resolution.width - 105},
-							new int[] {60, 40, 50}, 3);
+					g.fillPolygon(new int[] {utils.resolution.width - 115,
+							utils.resolution.width - 115,
+							utils.resolution.width - 105}, new int[] {60, 40,
+							50}, 3);
 					break;
 				}
 				case 1:
 				{
-					g.fillPolygon(new int[] {game.resolution.width - 315,
-							game.resolution.width - 315,
-							game.resolution.width - 305},
-							new int[] {60, 40, 50}, 3);
+					g.fillPolygon(new int[] {utils.resolution.width - 315,
+							utils.resolution.width - 315,
+							utils.resolution.width - 305}, new int[] {60, 40,
+							50}, 3);
 				}
 			}
 		}
@@ -254,18 +254,18 @@ public class Settings extends BasicScreen implements ActionListener
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new Welcome(game);
+					new Welcome(utils);
 					break;
 				}
 				case 1: // Apply
 				{
-					game.fullScreen = fsSelect.isSelected();
-					game.resolution = possdims.get(Arrays.asList(dimstrs)
+					utils.fullScreen = fsSelect.isSelected();
+					utils.resolution = possdims.get(Arrays.asList(dimstrs)
 							.indexOf(resSelect.getSelectedItem()));
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new Settings(game);
+					new Settings(utils);
 					break;
 				}
 			}
@@ -274,9 +274,9 @@ public class Settings extends BasicScreen implements ActionListener
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-			Rectangle itemRect0 = new Rectangle(game.resolution.width - 100,
+			Rectangle itemRect0 = new Rectangle(utils.resolution.width - 100,
 					35, 100, 30);
-			Rectangle itemRect1 = new Rectangle(game.resolution.width - 300,
+			Rectangle itemRect1 = new Rectangle(utils.resolution.width - 300,
 					35, 100, 30);
 			if (itemRect0.contains(e.getPoint()))
 			{

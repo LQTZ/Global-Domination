@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Utils;
 
 /**
  * 
@@ -17,31 +17,31 @@ public class ImageContentPane extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	private Game game;
+	private Utils utils;
 
 	/**
 	 * Content pane for the GD UI (the background)
 	 * 
-	 * @param game
+	 * @param utils
 	 *            game object for loading res
 	 */
-	public ImageContentPane(Game game)
+	public ImageContentPane(Utils utils)
 	{
-		this.game = game;
+		this.utils = utils;
 	}
 
 	@Override
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		for (int i = 0; i < getWidth() / game.images.background.getWidth() + 1; i++)
+		for (int i = 0; i < getWidth() / utils.images.background.getWidth() + 1; i++)
 		{
 			for (int j = 0; j < getHeight()
-					/ game.images.background.getHeight() + 1; j++)
+					/ utils.images.background.getHeight() + 1; j++)
 			{
-				g.drawImage(game.images.background,
-						i * game.images.background.getWidth(), j
-								* game.images.background.getHeight(), null);
+				g.drawImage(utils.images.background, i
+						* utils.images.background.getWidth(), j
+						* utils.images.background.getHeight(), null);
 			}
 		}
 	}

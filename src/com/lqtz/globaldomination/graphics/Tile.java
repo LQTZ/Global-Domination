@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Utils;
 import com.lqtz.globaldomination.gameplay.Settler;
 import com.lqtz.globaldomination.gameplay.Unit;
 
@@ -73,7 +73,7 @@ public class Tile
 	private int centerX;
 	private int centerY;
 	private int tileSize;
-	private Game game;
+	private Utils utils;
 
 	/**
 	 * A Tile in the Map
@@ -91,11 +91,11 @@ public class Tile
 	 *            revenue Cities on the Tile would collect
 	 * @param productivity
 	 *            productivity Cities on the Tile would collect
-	 * @param game
+	 * @param utils
 	 *            Game object for loading res
 	 */
 	public Tile(int xCoord, int yCoord, int centerX, int centerY, int tileSize,
-			int revenue, int productivity, Game game)
+			int revenue, int productivity, Utils utils)
 	{
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
@@ -106,7 +106,7 @@ public class Tile
 		this.centerX = centerX;
 		this.centerY = centerY;
 		this.tileSize = tileSize;
-		this.game = game;
+		this.utils = utils;
 		this.isHighlighted = false;
 	}
 
@@ -132,14 +132,15 @@ public class Tile
 		// Draw the city (if applicable)
 		if (this.hasCity)
 		{
-			g.drawImage(game.images.city, (int) ((centerX - 7 * tileSize / 8)),
+			g.drawImage(utils.images.city,
+					(int) ((centerX - 7 * tileSize / 8)),
 					(int) (centerY - tileSize / 2),
 					(int) (this.tileSize * Math.sqrt(3)),
 					2 * 7 / 8 * this.tileSize, null);
 		}
 
 		// Draw revenue icon
-		g.drawImage(game.images.revenue, centerX - 7 * tileSize / 16, centerY
+		g.drawImage(utils.images.revenue, centerX - 7 * tileSize / 16, centerY
 				- 3 * tileSize / 4, tileSize / 4, tileSize / 4, null);
 
 		// Find the size of string in the font
@@ -150,15 +151,14 @@ public class Tile
 		int textWidth = (int) (rect.getWidth());
 
 		// Find the center of the icon
-		int cornerX = (int) (((centerX - 7 * tileSize / 16) + tileSize / 8) - 
-				(textWidth / 2));
-		int cornerY = (int) (((centerY - 3 * tileSize / 4 - (textHeight / 2)) +
-				tileSize / 8) + fm.getAscent());
+		int cornerX = (int) (((centerX - 7 * tileSize / 16) + tileSize / 8) - (textWidth / 2));
+		int cornerY = (int) (((centerY - 3 * tileSize / 4 - (textHeight / 2)) + tileSize / 8) + fm
+				.getAscent());
 
 		g.drawString(String.valueOf(tileRevenue), cornerX, cornerY);
 
 		// Draw productivity icon
-		g.drawImage(game.images.productivity, centerX + 7 * tileSize / 16
+		g.drawImage(utils.images.productivity, centerX + 7 * tileSize / 16
 				- tileSize / 4, centerY - 3 * tileSize / 4, tileSize / 4,
 				tileSize / 4, null);
 
@@ -180,9 +180,9 @@ public class Tile
 		}
 
 		// Draw the settler units icon
-		g.drawImage(game.images.settler, centerX + 7 * tileSize / 16 - tileSize
-				/ 4, centerY + 3 * tileSize / 4 - tileSize / 4, tileSize / 4,
-				tileSize / 4, null);
+		g.drawImage(utils.images.settler, centerX + 7 * tileSize / 16
+				- tileSize / 4, centerY + 3 * tileSize / 4 - tileSize / 4,
+				tileSize / 4, tileSize / 4, null);
 
 		// Find the center of the icon based on the calculated difference in y
 		// between the 2 icons
@@ -191,7 +191,7 @@ public class Tile
 		g.drawString(String.valueOf(settlerCount), cornerX, cornerY);
 
 		// Draw the soldier units icon
-		g.drawImage(game.images.soldier, centerX - 7 * tileSize / 16, centerY
+		g.drawImage(utils.images.soldier, centerX - 7 * tileSize / 16, centerY
 				+ 3 * tileSize / 4 - tileSize / 4, tileSize / 4, tileSize / 4,
 				null);
 

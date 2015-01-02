@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Utils;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 
 /**
@@ -28,7 +28,7 @@ public abstract class BasicScreen extends JFrame
 	private static final long serialVersionUID = 1L;
 
 	private String titleStr;
-	protected Game game;
+	protected Utils utils;
 
 	private JLabel titleLabel;
 	protected JComponent bodyComponent;
@@ -38,12 +38,12 @@ public abstract class BasicScreen extends JFrame
 	 * Basic fullscreen window
 	 * 
 	 * @param titleStr
-	 * @param game
+	 * @param utils
 	 */
-	public BasicScreen(String titleStr, Game game)
+	public BasicScreen(String titleStr, Utils utils)
 	{
 		this.titleStr = titleStr;
-		this.game = game;
+		this.utils = utils;
 	}
 
 	/**
@@ -51,9 +51,9 @@ public abstract class BasicScreen extends JFrame
 	 */
 	protected void createWindow()
 	{
-		setContentPane(new ImageContentPane(game));
+		setContentPane(new ImageContentPane(utils));
 
-		if (game.fullScreen)
+		if (utils.fullScreen)
 		{
 			// Removes buttons
 			setUndecorated(true);
@@ -72,7 +72,7 @@ public abstract class BasicScreen extends JFrame
 		}
 		else
 		{
-			getContentPane().setPreferredSize(game.resolution);
+			getContentPane().setPreferredSize(utils.resolution);
 			pack();
 			setResizable(false);
 			setLocationRelativeTo(null);
@@ -92,11 +92,11 @@ public abstract class BasicScreen extends JFrame
 
 		// Draw title
 		titleLabel = new JLabel(titleStr);
-		titleLabel.setPreferredSize(new Dimension(game.resolution.width, 150));
+		titleLabel.setPreferredSize(new Dimension(utils.resolution.width, 150));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBackground(new Color(0, 0, 0, 0));
 		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setFont(game.fonts.goudy.deriveFont(Font.PLAIN, 100));
+		titleLabel.setFont(utils.fonts.goudy.deriveFont(Font.PLAIN, 100));
 		titleLabel.setOpaque(false);
 		add(titleLabel, BorderLayout.NORTH);
 
