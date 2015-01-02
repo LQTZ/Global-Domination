@@ -1,7 +1,6 @@
 package com.lqtz.globaldomination.gameplay;
 
 import java.io.Serializable;
-import java.util.Random;
 
 import com.lqtz.globaldomination.graphics.Tile;
 

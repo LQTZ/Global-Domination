@@ -99,7 +99,7 @@ public class Tile
 		this.tileSize = tileSize;
 		this.utils = utils;
 		isHighlighted = false;
-		city = new City(this);
+		city = null;
 	}
 
 	protected void paint(Graphics g, Font font)
