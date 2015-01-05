@@ -3,6 +3,7 @@ package com.lqtz.globaldomination.gameplay;
 import java.util.ArrayList;
 
 import com.lqtz.globaldomination.graphics.Tile;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 
@@ -39,12 +40,94 @@ public class Soldier extends Unit
 	 * @param yCoord
 	 *            initial y-coordinate
 	 */
-	public Soldier(Nation nation, double healthPoints, int moveDistance,
-			double attackPower, double defendPower, int xCoord, int yCoord,
-			Utils utils)
+	public Soldier(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
-		super(nation, healthPoints, moveDistance, defendPower, xCoord, yCoord,
-				utils);
+		super(nation, level, xCoord, yCoord, utils);
+	}
+
+	@Override
+	protected void assignByLevel()
+	{
+		// Note: switch is used instead of simply writing a function to generate
+		// the values since it allows for greater flexibility (e.g.
+		// maxMoveDistance can flat out at 3 and level 10 can be
+		// disproportionately more OP than previous levels
+
+		// TODO make the constants realistic (current values of maxHealthPoints,
+		// attackPower, and defendPower were arbitrarily chosen)
+		switch (level)
+		{
+			case 1:
+			{
+				maxHealthPoints = 4;
+				defendPower = 3;
+				attackPower = 5;
+				maxMoveDistance = 1;
+			}
+			case 2:
+			{
+				maxHealthPoints = 6;
+				defendPower = 5;
+				attackPower = 7;
+				maxMoveDistance = 1;
+			}
+			case 3:
+			{
+				maxHealthPoints = 8;
+				defendPower = 7;
+				attackPower = 9;
+				maxMoveDistance = 2;
+			}
+			case 4:
+			{
+				maxHealthPoints = 10;
+				defendPower = 9;
+				attackPower = 11;
+				maxMoveDistance = 2;
+			}
+			case 5:
+			{
+				maxHealthPoints = 12;
+				defendPower = 11;
+				attackPower = 13;
+				maxMoveDistance = 3;
+			}
+			case 6:
+			{
+				maxHealthPoints = 14;
+				defendPower = 13;
+				attackPower = 15;
+				maxMoveDistance = 3;
+			}
+			case 7:
+			{
+				maxHealthPoints = 16;
+				defendPower = 15;
+				attackPower = 17;
+				maxMoveDistance = 3;
+			}
+			case 8:
+			{
+				maxHealthPoints = 18;
+				defendPower = 17;
+				attackPower = 19;
+				maxMoveDistance = 3;
+			}
+			case 9:
+			{
+				maxHealthPoints = 20;
+				defendPower = 19;
+				attackPower = 21;
+				maxMoveDistance = 3;
+			}
+			case 10:
+			{
+				maxHealthPoints = 22;
+				defendPower = 21;
+				attackPower = 23;
+				maxMoveDistance = 5;
+			}
+		}
 	}
 
 	/**
@@ -58,7 +141,7 @@ public class Soldier extends Unit
 		ArrayList<Unit> unitsToAttack = new ArrayList<Unit>();
 
 		// Determine whether or not tile is hostile
-		for (Unit u : tile.city.units)
+		for (Unit u : tile.units)
 		{
 			if (u.nation.nationality == nation.nationality)
 			{

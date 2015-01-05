@@ -2,6 +2,8 @@ package com.lqtz.globaldomination.gameplay;
 
 import java.util.ArrayList;
 
+import com.lqtz.globaldomination.io.Utils;
+
 /**
  * 
  * Object representing a nation (player) in the game
@@ -35,7 +37,7 @@ public class Nation
 	 * Nations this nation is enemies with
 	 */
 	public Nation[] enemies;
-	
+
 	private Utils utils;
 
 	/**
@@ -60,11 +62,9 @@ public class Nation
 	 * @param xCoord
 	 * @param yCoord
 	 */
-	public void addSoldier(double healthPoints, int moveDistance,
-			double attackPower, double defendPower, int xCoord, int yCoord)
+	public void addSoldier(int level, int xCoord, int yCoord)
 	{
-		Soldier s = new Soldier(this, healthPoints, moveDistance, attackPower,
-				defendPower, xCoord, yCoord, utils);
+		Soldier s = new Soldier(this, level, xCoord, yCoord, utils);
 		units.add(s);
 	}
 
@@ -77,11 +77,9 @@ public class Nation
 	 * @param xCoord
 	 * @param yCoord
 	 */
-	public void addSettler(double healthPoints, int moveDistance,
-			double defendPower, int xCoord, int yCoord)
+	public void addSettler(int level, int xCoord, int yCoord)
 	{
-		Settler s = new Settler(this, healthPoints, moveDistance, defendPower,
-				xCoord, yCoord, utils);
+		Settler s = new Settler(this, level, xCoord, yCoord, utils);
 		units.add(s);
 	}
 }

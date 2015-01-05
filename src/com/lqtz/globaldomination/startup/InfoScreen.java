@@ -20,7 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 
-import com.lqtz.globaldomination.gameplay.Utils;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 

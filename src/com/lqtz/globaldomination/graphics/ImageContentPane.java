@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import com.lqtz.globaldomination.gameplay.Utils;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 

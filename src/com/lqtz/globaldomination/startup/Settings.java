@@ -27,7 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.event.MouseInputListener;
 import javax.swing.text.BadLocationException;
 
-import com.lqtz.globaldomination.gameplay.Utils;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 

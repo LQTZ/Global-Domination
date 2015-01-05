@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-import com.lqtz.globaldomination.gameplay.Utils;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 

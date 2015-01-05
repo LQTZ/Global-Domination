@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputListener;
 
-import com.lqtz.globaldomination.gameplay.Utils;
 import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 

@@ -3,6 +3,7 @@ package com.lqtz.globaldomination.gameplay;
 import java.io.Serializable;
 
 import com.lqtz.globaldomination.graphics.Tile;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 
@@ -66,7 +67,12 @@ public abstract class Unit implements Serializable
 	 * Current y-coordinate on the map
 	 */
 	public int yCoord;
-	
+
+	/**
+	 * Unit level (hp and power depend on this)
+	 */
+	public int level;
+
 	protected Utils utils;
 
 	/**
@@ -85,21 +91,24 @@ public abstract class Unit implements Serializable
 	 * @param yCoord
 	 *            initial y-coordinate
 	 */
-	public Unit(Nation nation, double healthPoints, int moveDistance,
-			double defendPower, int xCoord, int yCoord, Utils utils)
+	public Unit(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
-		// Initialize fields
+		// Initialize passed fields
 		this.nation = nation;
-		this.maxHealthPoints = healthPoints;
-		this.currentHealthPoints = healthPoints;
-		this.maxMoveDistance = moveDistance;
-		this.defendPower = defendPower;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
+		this.level = level;
 		this.utils = utils;
 
-		// TODO make unit level
+		// Assign level based fields
+		assignByLevel();
+		
+		// Initialize "current" fields
+		currentHealthPoints = maxHealthPoints;
+		movesLeft = maxMoveDistance;
 	}
+
+	protected abstract void assignByLevel();
 
 	/**
 	 * Generate defenseHits value
@@ -110,8 +119,7 @@ public abstract class Unit implements Serializable
 	 */
 	public double defendDamage(Soldier soldier)
 	{
-		return defendPower + utils.random.nextGaussian()
-				* soldier.attackPower
+		return defendPower + utils.random.nextGaussian() * soldier.attackPower
 				/ ((defendPower + currentHealthPoints) / 2);
 	}
 
@@ -149,6 +157,6 @@ public abstract class Unit implements Serializable
 	public void delete()
 	{
 		nation.units.remove(this);
-		tile.city.units.remove(this);
+		tile.units.remove(this);
 	}
 }

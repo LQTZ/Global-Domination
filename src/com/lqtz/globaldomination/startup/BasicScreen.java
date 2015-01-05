@@ -13,8 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import com.lqtz.globaldomination.gameplay.Utils;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 

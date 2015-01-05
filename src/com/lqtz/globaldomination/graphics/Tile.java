@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import com.lqtz.globaldomination.gameplay.City;
-import com.lqtz.globaldomination.gameplay.Utils;
+import com.lqtz.globaldomination.gameplay.Unit;
+import com.lqtz.globaldomination.io.Utils;
 
 /**
  * 
@@ -38,7 +40,7 @@ public class Tile
 	public int tileProductivity;
 
 	/**
-	 * Whether there is a City on the Tile
+	 * The city on the Tile (null if no city)
 	 */
 	public City city;
 
@@ -62,6 +64,21 @@ public class Tile
 	 */
 	public boolean isSelected;
 
+	/**
+	 * The number of soldiers
+	 */
+	public int soldierCount = 0;
+
+	/**
+	 * The number of settlers
+	 */
+	public int settlerCount = 0;
+
+	/**
+	 * All the units on the tile
+	 */
+	public ArrayList<Unit> units;
+
 	private int centerX;
 	private int centerY;
 	private int tileSize;
@@ -71,8 +88,9 @@ public class Tile
 	 * A Tile in the Map
 	 * 
 	 * @param xCoord
+	 *            x-coordinate of the Tile on the map
 	 * @param yCoord
-	 * 
+	 *            y-coordinate of the Tile on the map
 	 * @param centerX
 	 *            x-coordinate of center of the hexagon
 	 * @param centerY
@@ -99,7 +117,8 @@ public class Tile
 		this.tileSize = tileSize;
 		this.utils = utils;
 		isHighlighted = false;
-		city = null;
+		// city = new City(this);
+		this.city = null;
 	}
 
 	protected void paint(Graphics g, Font font)
@@ -122,7 +141,7 @@ public class Tile
 		g.drawPolygon(hexagon);
 
 		int size = tileSize / 4;
-		
+
 		// Calculate coordinates of each corner
 		int xOffset = tileSize * 7 / 16;
 		int yOffset = tileSize * 3 / 4;
@@ -136,17 +155,17 @@ public class Tile
 		{
 			g.drawImage(utils.images.city, centerX - 2 * xOffset, centerY
 					- tileSize / 2, tileSize * 7 / 4, tileSize, null);
-
-			// Draw the settler units icon
-			g.drawImage(utils.images.settler, xMin, yMax, size, size, null);
-
-			drawCenterText(g, String.valueOf(city.settlerCount), xMin, yMax);
-
-			// Draw the soldier units icon
-			g.drawImage(utils.images.soldier, xMax, yMax, size, size, null);
-
-			drawCenterText(g, String.valueOf(city.soldierCount), xMax, yMax);
 		}
+
+		// Draw the settler units icon
+		g.drawImage(utils.images.settler, xMin, yMax, size, size, null);
+
+		drawCenterText(g, String.valueOf(settlerCount), xMin, yMax);
+
+		// Draw the soldier units icon
+		g.drawImage(utils.images.soldier, xMax, yMax, size, size, null);
+
+		drawCenterText(g, String.valueOf(soldierCount), xMax, yMax);
 
 		// Draw revenue icon
 		g.drawImage(utils.images.revenue, xMin, yMin, size, size, null);
@@ -164,7 +183,7 @@ public class Tile
 		FontMetrics fm = g.getFontMetrics();
 		int width = fm.stringWidth(str);
 		int yOffset = (fm.getAscent() - fm.getDescent()) / 2;
-		
+
 		// width and yOffset center it to the point (x, y), but we need to
 		// center the text to the center of the image --> tileSize / 8
 		g.drawString(str, x - width / 2 + tileSize / 8, y + yOffset + tileSize

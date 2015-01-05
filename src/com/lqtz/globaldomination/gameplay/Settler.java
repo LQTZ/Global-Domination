@@ -1,5 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
+import com.lqtz.globaldomination.io.Utils;
+
 /**
  * 
  * Settler type Unit
@@ -27,11 +29,53 @@ public class Settler extends Unit
 	 * @param yCoord
 	 *            initial y-coordinate
 	 */
-	public Settler(Nation nation, double healthPoints, int moveDistance,
-			double defendPower, int xCoord, int yCoord, Utils utils)
+	public Settler(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
-		super(nation, healthPoints, moveDistance, defendPower, xCoord, yCoord,
-				utils);
+		super(nation, level, xCoord, yCoord, utils);
+	}
+
+	@Override
+	protected void assignByLevel()
+	{
+		// Note: switch is used instead of simply writing a function to generate
+		// the values since it allows for greater flexibility (e.g.
+		// maxMoveDistance can flat out at 3 and level 5 can be
+		// disproportionately more OP than previous levels
+
+		// TODO make the constants realistic (current values of maxHealthPoints
+		// and defendPower were arbitrarily chosen)
+		switch (level)
+		{
+			case 1:
+			{
+				maxHealthPoints = 2;
+				defendPower = 1;
+				maxMoveDistance = 1;
+			}
+			case 2:
+			{
+				maxHealthPoints = 4;
+				defendPower = 3;
+				maxMoveDistance = 2;
+			}
+			case 3:
+			{
+				maxHealthPoints = 6;
+				defendPower = 5;
+				maxMoveDistance = 3;
+			}
+			case 4:
+			{
+				maxHealthPoints = 8;
+				defendPower = 7;
+				maxMoveDistance = 3;
+			}
+			case 5:
+			{
+				maxHealthPoints = 10;
+				maxMoveDistance = 3;
+			}
+		}
 	}
 
 	/**
