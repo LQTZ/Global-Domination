@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import com.lqtz.globaldomination.gameplay.City;
+import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Utils;
 
@@ -28,6 +29,8 @@ public class Tile
 	 * The Hexagon to represent the tile on the screen
 	 */
 	public Hexagon hexagon;
+
+	public Nationality nat = Nationality.NEUTRAL;
 
 	/**
 	 * Revenue Cities on the Tile would collect
@@ -128,11 +131,44 @@ public class Tile
 		// Fill hexagon based on its selected/highlighted status
 		Color fillColor;
 		if (isSelected)
+		{
 			fillColor = new Color(200, 235, 50, 200);
+		}
 		else if (isHighlighted)
+		{
 			fillColor = new Color(130, 140, 130);
+		}
 		else
-			fillColor = new Color(127, 127, 127, 200);
+		{
+			switch (nat)
+			{
+				case RED:
+				{
+					fillColor = new Color(255, 0, 0, 200);
+					break;
+				}
+				case YELLOW:
+				{
+					fillColor = new Color(255, 255, 0, 200);
+					break;
+				}
+				case GREEN:
+				{
+					fillColor = new Color(0, 255, 0, 200);
+					break;
+				}
+				case BLUE:
+				{
+					fillColor = new Color(0, 0, 255, 200);
+					break;
+				}
+				default:
+				{
+					fillColor = new Color(127, 127, 127, 200);
+					break;
+				}
+			}
+		}
 		g.setColor(fillColor);
 		g.fillPolygon(hexagon);
 

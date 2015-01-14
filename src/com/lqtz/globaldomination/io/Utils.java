@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.Random;
 
+import com.lqtz.globaldomination.gameplay.Game;
+
 /**
  * 
  * Object for loading res
@@ -28,6 +30,7 @@ public class Utils
 
 	public boolean fullScreen = true;
 	public Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
+	public Game game = null;
 
 	public final int DIM = 5;
 

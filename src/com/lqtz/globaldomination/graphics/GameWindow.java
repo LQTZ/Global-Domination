@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
+import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.io.Utils;
 
 /**
@@ -89,9 +90,9 @@ public class GameWindow extends JFrame
 		setTitle("Global Domination");
 		addComponents();
 
-		setVisible(true);
 		pack();
-		start();
+		utils.game = new Game(utils, this, mapPane.tiles);
+		setVisible(true);
 	}
 
 	/**
@@ -196,13 +197,5 @@ public class GameWindow extends JFrame
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
 		add(rightPanel, BorderLayout.EAST);
-	}
-
-	/**
-	 * Begins game
-	 */
-	private void start()
-	{
-
 	}
 }

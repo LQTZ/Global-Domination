@@ -9,5 +9,5 @@ package com.lqtz.globaldomination.gameplay;
  */
 public enum Nationality
 {
-	RED, GREEN, BLUE, YELLOW
+	RED, GREEN, BLUE, YELLOW, NEUTRAL
 }
