@@ -2,6 +2,7 @@ package com.lqtz.globaldomination.io;
 
 import java.awt.Dimension;
 import java.awt.FontFormatException;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.Random;
 
@@ -25,8 +26,8 @@ public class Utils
 	public Fonts fonts;
 	public Random random;
 
-	public boolean fullScreen = false;
-	public Dimension resolution = new Dimension(1600, 900);
+	public boolean fullScreen = true;
+	public Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
 
 	public final int DIM = 5;
 
