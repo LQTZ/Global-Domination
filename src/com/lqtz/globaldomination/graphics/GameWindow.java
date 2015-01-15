@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
@@ -36,17 +37,17 @@ public class GameWindow extends JFrame
 
 	// Declare components
 	private JPanel leftPanel; // Panel with units info pane and event log pane
-	private JTextPane unitsPane; // Units info pane
-	private JTextPane eventLogPane; // Event log pane
+	private AlphaJTextPane unitsPane; // Units info pane
+	private AlphaJTextPane eventLogPane; // Event log pane
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
 								// combat info pane
 	private GameScreen mapPane; // Map pane
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
-	private JPanel buttonsPane; // Pane with action buttons
+	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
 	private JPanel rightPanel; // Right panel
 	private JLabel infoBox; // Info box
-	private JTextPane infoPanel; // Pane with tile, city, and game info
+	private AlphaJTextPane infoPanel; // Pane with tile, city, and game info
 	private Utils utils;
 
 	/**
@@ -106,14 +107,14 @@ public class GameWindow extends JFrame
 		leftPanel = new JPanel(new BorderLayout());
 		leftPanel.setOpaque(false);
 
-		unitsPane = new JTextPane();
+		unitsPane = new AlphaJTextPane();
 		unitsPane.setBackground(new Color(64, 64, 64, 160));
 		unitsPane.setPreferredSize(new Dimension(200,
 				utils.resolution.height / 2));
 		unitsPane.setEditable(false);
 		unitsPane.setFocusable(false);
 
-		eventLogPane = new JTextPane();
+		eventLogPane = new AlphaJTextPane();
 		eventLogPane.setBackground(new Color(64, 64, 64, 160));
 		eventLogPane.setPreferredSize(new Dimension(200,
 				utils.resolution.height / 2));
@@ -136,7 +137,7 @@ public class GameWindow extends JFrame
 		controlPane.setOpaque(false);
 
 		// Creates buttons and add them to the buttonsPane
-		buttonsPane = new JPanel();
+		buttonsPane = new AlphaJPanel();
 		buttonsPane.setBackground(new Color(50, 50, 50, 210));
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
 		buttons = new JButton[5];
@@ -185,7 +186,7 @@ public class GameWindow extends JFrame
 		rightPanel = new JPanel((LayoutManager) new FlowLayout(
 				FlowLayout.TRAILING, 0, 0));
 		rightPanel.setOpaque(false);
-		infoPanel = new JTextPane();
+		infoPanel = new AlphaJTextPane();
 		infoPanel.setBackground(new Color(64, 64, 64, 160));
 		infoPanel.setPreferredSize(new Dimension(200, utils.resolution.height));
 		infoPanel.setEditable(false);
@@ -197,5 +198,41 @@ public class GameWindow extends JFrame
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
 		add(rightPanel, BorderLayout.EAST);
+	}
+	
+	private class AlphaJPanel extends JPanel
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AlphaJPanel()
+		{
+			setOpaque(false);
+		}
+		
+		@Override
+		protected void paintComponent(Graphics g)
+		{
+			 g.setColor(getBackground());
+		     g.fillRect(0, 0, getWidth(), getHeight());
+		     super.paintComponent(g);
+		}
+	}
+	
+	private class AlphaJTextPane extends JTextPane
+	{
+		private static final long serialVersionUID = 1L;
+
+		public AlphaJTextPane()
+		{
+			setOpaque(false);
+		}
+		
+		@Override
+		protected void paintComponent(Graphics g)
+		{
+			 g.setColor(getBackground());
+		     g.fillRect(0, 0, getWidth(), getHeight());
+		     super.paintComponent(g);
+		}
 	}
 }
