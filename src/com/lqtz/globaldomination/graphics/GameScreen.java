@@ -34,11 +34,6 @@ public class GameScreen extends JPanel implements MouseInputListener
 	public Tile highlightedTile;
 
 	/**
-	 * Tile currently selected (clicked)
-	 */
-	public Tile selectedTile;
-
-	/**
 	 * Map screen to draw tiles on
 	 * 
 	 * @param gw
@@ -121,15 +116,10 @@ public class GameScreen extends JPanel implements MouseInputListener
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		if (selectedTile != null)
-		{
-			selectedTile.isSelected = false;
-			selectedTile = null;
-		}
+		mouseMoved(e);
 		if (highlightedTile != null)
 		{
-			selectedTile = highlightedTile;
-			selectedTile.isSelected = true;
+			utils.game.selectTile(highlightedTile);
 		}
 		gw.repaint();
 	}

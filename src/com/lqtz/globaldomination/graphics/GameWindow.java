@@ -3,13 +3,11 @@ package com.lqtz.globaldomination.graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 import java.awt.Toolkit;
 
 import javax.swing.Box;
@@ -20,6 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.io.Utils;
@@ -45,7 +47,6 @@ public class GameWindow extends JFrame
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
-	private JPanel rightPanel; // Right panel
 	private JLabel infoBox; // Info box
 	private AlphaJTextPane infoPanel; // Pane with tile, city, and game info
 	private Utils utils;
@@ -66,9 +67,11 @@ public class GameWindow extends JFrame
 			// Removes buttons
 			setUndecorated(true);
 
+			GraphicsEnvironment ge = GraphicsEnvironment
+					.getLocalGraphicsEnvironment();
+
 			// Makes full screen
-			GraphicsDevice gd = GraphicsEnvironment
-					.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+			GraphicsDevice gd = ge.getDefaultScreenDevice();
 			if (gd.isFullScreenSupported())
 			{
 				gd.setFullScreenWindow(this);
@@ -90,6 +93,7 @@ public class GameWindow extends JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Ends the program when closed
 		setTitle("Global Domination");
 		addComponents();
+		initStyles();
 
 		pack();
 		utils.game = new Game(utils, this, mapPane.tiles);
@@ -113,6 +117,7 @@ public class GameWindow extends JFrame
 				utils.resolution.height / 2));
 		unitsPane.setEditable(false);
 		unitsPane.setFocusable(false);
+		unitsPane.setFont(utils.fonts.sourcesans);
 
 		eventLogPane = new AlphaJTextPane();
 		eventLogPane.setBackground(new Color(64, 64, 64, 160));
@@ -120,6 +125,7 @@ public class GameWindow extends JFrame
 				utils.resolution.height / 2));
 		eventLogPane.setEditable(false);
 		eventLogPane.setFocusable(false);
+		eventLogPane.setFont(utils.fonts.sourcesans);
 
 		leftPanel.add(unitsPane, BorderLayout.NORTH);
 		leftPanel.add(eventLogPane, BorderLayout.SOUTH);
@@ -183,23 +189,79 @@ public class GameWindow extends JFrame
 		centerPanel.add(controlPane, BorderLayout.SOUTH);
 
 		// Add Containers to the main right components (only the info panel)
-		rightPanel = new JPanel((LayoutManager) new FlowLayout(
-				FlowLayout.TRAILING, 0, 0));
-		rightPanel.setOpaque(false);
 		infoPanel = new AlphaJTextPane();
 		infoPanel.setBackground(new Color(64, 64, 64, 160));
 		infoPanel.setPreferredSize(new Dimension(200, utils.resolution.height));
 		infoPanel.setEditable(false);
 		infoPanel.setFocusable(false);
-		rightPanel
-				.setPreferredSize(new Dimension(200, utils.resolution.height));
-		rightPanel.add(infoPanel);
+		infoPanel.setFont(utils.fonts.sourcesans);
 
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
-		add(rightPanel, BorderLayout.EAST);
+		add(infoPanel, BorderLayout.EAST);
 	}
-	
+
+	private void initStyles()
+	{
+		Style body = unitsPane.addStyle("body", null);
+		StyleConstants.setForeground(body, Color.WHITE);
+		StyleConstants.setFontSize(body, 18);
+		Style head = unitsPane.addStyle("head", body);
+		StyleConstants.setBold(head, true);
+		StyleConstants.setUnderline(head, true);
+		StyleConstants.setFontSize(head, 24);
+		eventLogPane.addStyle("body", body);
+		eventLogPane.addStyle("head", head);
+		infoPanel.addStyle("body", body);
+		infoPanel.addStyle("head", head);
+
+		try
+		{
+			eventLogPane.getStyledDocument()
+					.insertString(0, "Event Log:", head);
+		}
+		catch (BadLocationException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			unitsPane.getStyledDocument().insertString(0, "Units:", head);
+		}
+		catch (BadLocationException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			infoPanel.getStyledDocument().insertString(0, "Game Info:", head);
+		}
+		catch (BadLocationException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Logs an event
+	 * 
+	 * @param s
+	 *            the event to be logged
+	 */
+	public void eventLog(String s)
+	{
+		StyledDocument doc = eventLogPane.getStyledDocument();
+		int start = doc.getLength();
+		try
+		{
+			doc.insertString(start, "\n" + s, doc.getStyle("body"));
+		}
+		catch (BadLocationException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 	private class AlphaJPanel extends JPanel
 	{
 		private static final long serialVersionUID = 1L;
@@ -208,16 +270,16 @@ public class GameWindow extends JFrame
 		{
 			setOpaque(false);
 		}
-		
+
 		@Override
 		protected void paintComponent(Graphics g)
 		{
-			 g.setColor(getBackground());
-		     g.fillRect(0, 0, getWidth(), getHeight());
-		     super.paintComponent(g);
+			g.setColor(getBackground());
+			g.fillRect(0, 0, getWidth(), getHeight());
+			super.paintComponent(g);
 		}
 	}
-	
+
 	private class AlphaJTextPane extends JTextPane
 	{
 		private static final long serialVersionUID = 1L;
@@ -226,13 +288,13 @@ public class GameWindow extends JFrame
 		{
 			setOpaque(false);
 		}
-		
+
 		@Override
 		protected void paintComponent(Graphics g)
 		{
-			 g.setColor(getBackground());
-		     g.fillRect(0, 0, getWidth(), getHeight());
-		     super.paintComponent(g);
+			g.setColor(getBackground());
+			g.fillRect(0, 0, getWidth(), getHeight());
+			super.paintComponent(g);
 		}
 	}
 }

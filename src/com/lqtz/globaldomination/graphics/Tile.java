@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.lqtz.globaldomination.gameplay.City;
 import com.lqtz.globaldomination.gameplay.Nationality;
@@ -86,6 +88,14 @@ public class Tile
 	private int centerY;
 	private int tileSize;
 	private Utils utils;
+	
+	/**
+	 * A {@code HashMap} that contains all possible colors. Each array of
+	 * colors has the following format:
+	 * 
+	 * <p><code>{normalColor, highlightedColor, selectedColor}</code>
+	 */
+	private Map<Nationality, Color[]> colors;
 
 	/**
 	 * A Tile in the Map
@@ -122,6 +132,19 @@ public class Tile
 		isHighlighted = false;
 		// city = new City(this);
 		this.city = null;
+		
+		colors = new HashMap<Nationality, Color[]>();
+		colors.put(Nationality.RED, new Color[] {new Color(255, 0, 0, 150),
+				new Color(255, 127, 127, 150), new Color(127, 0, 0)});
+		colors.put(Nationality.GREEN, new Color[] {new Color(0, 255, 0, 150),
+				new Color(127, 255, 127, 150), new Color(0, 127, 0)});
+		colors.put(Nationality.YELLOW, new Color[] {new Color(191, 191, 0, 150),
+				new Color(255, 255, 191, 150), new Color(127, 127, 0)});
+		colors.put(Nationality.BLUE, new Color[] {new Color(0, 0, 255, 150),
+				new Color(127, 127, 255, 150), new Color(0, 0, 200)});
+		colors.put(Nationality.NEUTRAL, new Color[] {
+				new Color(127, 127, 127, 150), new Color(191, 191, 191, 150),
+				new Color(63, 63, 63)});
 	}
 
 	protected void paint(Graphics g, Font font)
@@ -130,45 +153,17 @@ public class Tile
 
 		// Fill hexagon based on its selected/highlighted status
 		Color fillColor;
+		int colorState = 0;
 		if (isSelected)
 		{
-			fillColor = new Color(200, 235, 50, 200);
+			colorState = 2;
 		}
 		else if (isHighlighted)
 		{
-			fillColor = new Color(130, 140, 130);
+			colorState = 1;
 		}
-		else
-		{
-			switch (nat)
-			{
-				case RED:
-				{
-					fillColor = new Color(255, 0, 0, 200);
-					break;
-				}
-				case YELLOW:
-				{
-					fillColor = new Color(255, 255, 0, 200);
-					break;
-				}
-				case GREEN:
-				{
-					fillColor = new Color(0, 255, 0, 200);
-					break;
-				}
-				case BLUE:
-				{
-					fillColor = new Color(0, 0, 255, 200);
-					break;
-				}
-				default:
-				{
-					fillColor = new Color(127, 127, 127, 200);
-					break;
-				}
-			}
-		}
+		fillColor = colors.get(nat)[colorState];
+		
 		g.setColor(fillColor);
 		g.fillPolygon(hexagon);
 
