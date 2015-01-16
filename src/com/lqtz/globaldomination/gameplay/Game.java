@@ -32,8 +32,10 @@ public class Game implements Serializable
 		tiles[4][4].city = new City(tiles[4][4]);
 		
 		gw.eventLog("System> Testing 1 2 3 4 5 6 7 8 9");
-		gw.eventLog("System> Testing 1 2 3");
-		gw.eventLog("System> Testing 1 2 3");
+		for (int i = 0; i < 100; i++)
+		{
+			gw.eventLog("System> Testing #" + i);
+		}
 	}
 	
 	public void selectTile(Tile selectedTile)

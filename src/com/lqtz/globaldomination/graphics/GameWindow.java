@@ -13,13 +13,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.JViewport;
 import javax.swing.SwingConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
@@ -43,8 +46,10 @@ public class GameWindow extends JFrame
 
 	// Declare components
 	private JPanel leftPanel; // Panel with units info pane and event log pane
-	private AlphaJTextPane unitsPane; // Units info pane
-	private AlphaJTextPane eventLogPane; // Event log pane
+	private JTextPane unitsPane; // Units info pane
+	private JScrollPane unitsScroll;
+	private JTextPane eventLogPane; // Event log pane
+	private JScrollPane eventLogScroll;
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
 								// combat info pane
 	private GameScreen mapPane; // Map pane
@@ -52,7 +57,8 @@ public class GameWindow extends JFrame
 	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
 	private JLabel infoBox; // Info box
-	private AlphaJTextPane infoPanel; // Pane with tile, city, and game info
+	private JTextPane infoPanel; // Pane with tile, city, and game info
+	private JScrollPane infoScroll;
 	private Utils utils;
 
 	/**
@@ -116,24 +122,36 @@ public class GameWindow extends JFrame
 		leftPanel = new JPanel(new BorderLayout());
 		leftPanel.setOpaque(false);
 
-		unitsPane = new AlphaJTextPane();
-		unitsPane.setBackground(new Color(64, 64, 64, 160));
-		unitsPane.setPreferredSize(new Dimension(200,
-				utils.resolution.height / 2));
+		unitsPane = new JTextPane();
+		unitsPane.setOpaque(false);
 		unitsPane.setEditable(false);
 		unitsPane.setFocusable(false);
 		unitsPane.setFont(utils.fonts.sourcesans);
-
-		eventLogPane = new AlphaJTextPane();
-		eventLogPane.setBackground(new Color(64, 64, 64, 160));
-		eventLogPane.setPreferredSize(new Dimension(200,
+		unitsScroll = new JScrollPane();
+		unitsScroll.setViewport(new AlphaJViewport());
+		unitsScroll.setViewportView(unitsPane);
+		unitsScroll.setPreferredSize(new Dimension(200,
 				utils.resolution.height / 2));
+		unitsScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
+		unitsScroll.setOpaque(false);
+		unitsScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		eventLogPane = new JTextPane();
+		eventLogPane.setOpaque(false);
 		eventLogPane.setEditable(false);
 		eventLogPane.setFocusable(false);
 		eventLogPane.setFont(utils.fonts.sourcesans);
+		eventLogScroll = new JScrollPane();
+		eventLogScroll.setViewport(new AlphaJViewport());
+		eventLogScroll.setViewportView(eventLogPane);
+		eventLogScroll.setPreferredSize(new Dimension(200,
+				utils.resolution.height / 2));
+		eventLogScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
+		eventLogScroll.setOpaque(false);
+		eventLogScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		leftPanel.add(unitsPane, BorderLayout.NORTH);
-		leftPanel.add(eventLogPane, BorderLayout.SOUTH);
+		leftPanel.add(unitsScroll, BorderLayout.NORTH);
+		leftPanel.add(eventLogScroll, BorderLayout.SOUTH);
 
 		// Center components
 		centerPanel = new JPanel(new BorderLayout());
@@ -194,16 +212,23 @@ public class GameWindow extends JFrame
 		centerPanel.add(controlPane, BorderLayout.SOUTH);
 
 		// Add Containers to the main right components (only the info panel)
-		infoPanel = new AlphaJTextPane();
-		infoPanel.setBackground(new Color(64, 64, 64, 160));
-		infoPanel.setPreferredSize(new Dimension(200, utils.resolution.height));
+		infoPanel = new JTextPane();
+		infoPanel.setOpaque(false);
 		infoPanel.setEditable(false);
 		infoPanel.setFocusable(false);
 		infoPanel.setFont(utils.fonts.sourcesans);
+		infoScroll = new JScrollPane();
+		infoScroll.setViewport(new AlphaJViewport());
+		infoScroll.setViewportView(infoPanel);
+		infoScroll.setPreferredSize(new Dimension(200,
+				utils.resolution.height));
+		infoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
+		infoScroll.setOpaque(false);
+		infoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
-		add(infoPanel, BorderLayout.EAST);
+		add(infoScroll, BorderLayout.EAST);
 	}
 
 	private void initStyles()
@@ -273,7 +298,7 @@ public class GameWindow extends JFrame
 	public void eventLog(String s)
 	{
 		StyledDocument doc = eventLogPane.getStyledDocument();
-		int start = doc.getLength();
+		int start = "Event Log:".length();
 		try
 		{
 			doc.insertString(start, "\n" + s, doc.getStyle("body"));
@@ -282,6 +307,7 @@ public class GameWindow extends JFrame
 		{
 			e.printStackTrace();
 		}
+		eventLogPane.setCaretPosition(0);
 	}
 
 	private class AlphaJPanel extends JPanel
@@ -301,12 +327,12 @@ public class GameWindow extends JFrame
 			super.paintComponent(g);
 		}
 	}
-
-	private class AlphaJTextPane extends JTextPane
+	
+	private class AlphaJViewport extends JViewport
 	{
 		private static final long serialVersionUID = 1L;
 
-		public AlphaJTextPane()
+		public AlphaJViewport()
 		{
 			setOpaque(false);
 		}
