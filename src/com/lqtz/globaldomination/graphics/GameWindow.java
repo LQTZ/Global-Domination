@@ -9,6 +9,9 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -25,6 +28,7 @@ import javax.swing.text.StyledDocument;
 
 import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.io.Utils;
+import com.lqtz.globaldomination.startup.Welcome;
 
 /**
  * 
@@ -94,6 +98,7 @@ public class GameWindow extends JFrame
 		setTitle("Global Domination");
 		addComponents();
 		initStyles();
+		addButtonFunctionality();
 
 		pack();
 		utils.game = new Game(utils, this, mapPane.tiles);
@@ -147,17 +152,17 @@ public class GameWindow extends JFrame
 		buttonsPane.setBackground(new Color(50, 50, 50, 210));
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
 		buttons = new JButton[5];
-		String[] buttonText = new String[] {"Move Unit", "Settle",
-				"Upgrade City", "Upgrade Unit", "Attack"};
+		String[] buttonText = new String[] {"Move", "Settle", "Upgrade",
+				"Attack", "Pause"};
 		Color[] buttonColor = new Color[] {new Color(39, 78, 19),
 				new Color(116, 27, 71), new Color(11, 83, 148),
-				new Color(53, 28, 117), new Color(153, 0, 0)};
+				new Color(153, 0, 0), new Color(127, 127, 127)};
 		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 5; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]);
 			buttons[i].setFont(utils.fonts.sourcesans
-					.deriveFont(Font.PLAIN, 16));
+					.deriveFont(Font.PLAIN, 24));
 			buttonsPane.add(buttons[i]); // Add button
 
 			// Spacing
@@ -240,6 +245,23 @@ public class GameWindow extends JFrame
 		{
 			e.printStackTrace();
 		}
+	}
+
+	private void addButtonFunctionality()
+	{
+		// TODO Create Pause screen
+		buttons[4].addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				dispatchEvent(new WindowEvent(GameWindow.this,
+						WindowEvent.WINDOW_CLOSING));
+				utils.game = null;
+				new Welcome(utils);
+			}
+		});
 	}
 
 	/**
