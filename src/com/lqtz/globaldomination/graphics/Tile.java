@@ -139,7 +139,7 @@ public class Tile
 		colors.put(Nationality.GREEN, new Color[] {new Color(0, 255, 0, 150),
 				new Color(127, 255, 127, 150), new Color(0, 127, 0)});
 		colors.put(Nationality.YELLOW, new Color[] {new Color(191, 191, 0, 150),
-				new Color(255, 255, 191, 150), new Color(127, 127, 0)});
+				new Color(255, 255, 191, 150), new Color(63, 63, 0)});
 		colors.put(Nationality.BLUE, new Color[] {new Color(0, 0, 255, 150),
 				new Color(127, 127, 255, 150), new Color(0, 0, 200)});
 		colors.put(Nationality.NEUTRAL, new Color[] {
