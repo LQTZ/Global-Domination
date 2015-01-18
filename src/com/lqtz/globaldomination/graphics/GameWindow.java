@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -57,7 +58,7 @@ public class GameWindow extends JFrame
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
-	private JLabel infoBox; // Info box
+	protected JLabel infoBox; // Info box
 
 	private JPanel rightPanel;
 	private JTextPane tileInfoPane; // Pane with tile, city, and game info
@@ -66,6 +67,10 @@ public class GameWindow extends JFrame
 	private JScrollPane cityInfoScroll;
 	private JTextPane gameInfoPane; // Pane with tile, city, and game info
 	private JScrollPane gameInfoScroll;
+
+	public Style body;
+	public Style head;
+
 	private Utils utils;
 
 	/**
@@ -273,10 +278,10 @@ public class GameWindow extends JFrame
 
 	private void initStyles()
 	{
-		Style body = unitsPane.addStyle("body", null);
+		body = unitsPane.addStyle("body", null);
 		StyleConstants.setForeground(body, Color.WHITE);
 		StyleConstants.setFontSize(body, 18);
-		Style head = unitsPane.addStyle("head", body);
+		head = unitsPane.addStyle("head", body);
 		StyleConstants.setBold(head, true);
 		StyleConstants.setUnderline(head, true);
 		StyleConstants.setFontSize(head, 24);
@@ -310,6 +315,8 @@ public class GameWindow extends JFrame
 		{
 			tileInfoPane.getStyledDocument()
 					.insertString(0, "Tile Info:", head);
+			tileInfoPane.getStyledDocument().insertString(
+					"Tile Info:".length(), "\n(none)", body);
 		}
 		catch (BadLocationException e)
 		{
@@ -319,6 +326,8 @@ public class GameWindow extends JFrame
 		{
 			cityInfoPane.getStyledDocument()
 					.insertString(0, "City Info:", head);
+			cityInfoPane.getStyledDocument().insertString(
+					"City Info:".length(), "\n(none)", body);
 		}
 		catch (BadLocationException e)
 		{
@@ -371,6 +380,185 @@ public class GameWindow extends JFrame
 			e.printStackTrace();
 		}
 		eventLogPane.setCaretPosition(0);
+	}
+
+	/**
+	 * Updates text pane contents.
+	 * 
+	 * <p>
+	 * The {@code Map} should be of the form
+	 * <code>{paneName : newContents, paneName : newContents... }</code> Note
+	 * that the new contents can be both {@code String}s or
+	 * {@code StyledDocument}s.
+	 * 
+	 * <p>
+	 * The {@code paneName}s can be
+	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
+	 * 
+	 * <p>
+	 * <b>Note:</b> The strings or documents should not include the title.
+	 * 
+	 * <p>
+	 * Use the <code>eventLog</code> method to access the event log.
+	 * 
+	 * @param diffs
+	 *            the map
+	 */
+	public void updateTextPanes(Map<String, Object> diffs)
+			throws IllegalArgumentException
+	{
+		Object units = diffs.get("units");
+		Object tile = diffs.get("tile");
+		Object city = diffs.get("city");
+		Object game = diffs.get("game");
+
+		if (units == null)
+		{}
+		else if (units instanceof String)
+		{
+			StyledDocument doc = unitsPane.getStyledDocument();
+			try
+			{
+				doc.remove("Units:".length(),
+						doc.getLength() - "Units:".length());
+				doc.insertString("Units:".length(), "\n" + units, body);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if (units instanceof StyledDocument)
+		{
+			StyledDocument doc = (StyledDocument) units;
+			doc.addStyle("body", body);
+			doc.addStyle("head", head);
+			try
+			{
+				doc.insertString(0, "Units Info:\n", head);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+			unitsPane.setStyledDocument(doc);
+		}
+		else
+		{
+			throw new IllegalArgumentException(
+					"Was not passed String nor StyledDocument");
+		}
+		
+		if (tile == null)
+		{}
+		else if (tile instanceof String)
+		{
+			StyledDocument doc = tileInfoPane.getStyledDocument();
+			try
+			{
+				doc.remove("Tile Info:".length(),
+						doc.getLength() - "Tile Info:".length());
+				doc.insertString("Tile Info:".length(), "\n" + tile, body);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if (tile instanceof StyledDocument)
+		{
+			StyledDocument doc = (StyledDocument) tile;
+			doc.addStyle("body", body);
+			doc.addStyle("head", head);
+			try
+			{
+				doc.insertString(0, "Tile Info:\n", head);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+			tileInfoPane.setStyledDocument(doc);
+		}
+		else
+		{
+			throw new IllegalArgumentException(
+					"Was not passed String nor StyledDocument");
+		}
+		
+		if (city == null)
+		{}
+		else if (city instanceof String)
+		{
+			StyledDocument doc = cityInfoPane.getStyledDocument();
+			try
+			{
+				doc.remove("City Info:".length(),
+						doc.getLength() - "City Info:".length());
+				doc.insertString("City Info:".length(), "\n" + city, body);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if (city instanceof StyledDocument)
+		{
+			StyledDocument doc = (StyledDocument) city;
+			doc.addStyle("body", body);
+			doc.addStyle("head", head);
+			try
+			{
+				doc.insertString(0, "City Info:\n", head);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+			cityInfoPane.setStyledDocument(doc);
+		}
+		else
+		{
+			throw new IllegalArgumentException(
+					"Was not passed String nor StyledDocument");
+		}
+		
+		if (game == null)
+		{}
+		else if (game instanceof String)
+		{
+			StyledDocument doc = gameInfoPane.getStyledDocument();
+			try
+			{
+				doc.remove("Game Info:".length(),
+						doc.getLength() - "Game Info:".length());
+				doc.insertString("Game Info:".length(), "\n" + game, body);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if (game instanceof StyledDocument)
+		{
+			StyledDocument doc = (StyledDocument) game;
+			doc.addStyle("body", body);
+			doc.addStyle("head", head);
+			try
+			{
+				doc.insertString(0, "Game Info:\n", head);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+			gameInfoPane.setStyledDocument(doc);
+		}
+		else
+		{
+			throw new IllegalArgumentException(
+					"Was not passed String nor StyledDocument");
+		}
 	}
 
 	private class AlphaJPanel extends JPanel

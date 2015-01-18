@@ -121,10 +121,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 		{
 			utils.game.selectedTile.isSelected = false;
 		}
-		if (highlightedTile != null)
-		{
-			utils.game.selectTile(highlightedTile);
-		}
+		utils.game.selectTile(highlightedTile);
 		gw.repaint();
 	}
 
