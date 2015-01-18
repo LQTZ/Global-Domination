@@ -40,10 +40,6 @@ public class Game implements Serializable
 	
 	public void selectTile(Tile selectedTile)
 	{
-		if (this.selectedTile != null)
-		{
-			this.selectedTile.isSelected = false;
-		}
 		selectedTile.isSelected = true;
 		this.selectedTile = selectedTile;
 	}
