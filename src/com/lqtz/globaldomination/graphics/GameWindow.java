@@ -50,6 +50,7 @@ public class GameWindow extends JFrame
 	private JScrollPane unitsScroll;
 	private JTextPane eventLogPane; // Event log pane
 	private JScrollPane eventLogScroll;
+
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
 								// combat info pane
 	private GameScreen mapPane; // Map pane
@@ -57,8 +58,14 @@ public class GameWindow extends JFrame
 	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
 	private JLabel infoBox; // Info box
-	private JTextPane infoPanel; // Pane with tile, city, and game info
-	private JScrollPane infoScroll;
+
+	private JPanel rightPanel;
+	private JTextPane tileInfoPane; // Pane with tile, city, and game info
+	private JScrollPane tileInfoScroll;
+	private JTextPane cityInfoPane; // Pane with tile, city, and game info
+	private JScrollPane cityInfoScroll;
+	private JTextPane gameInfoPane; // Pane with tile, city, and game info
+	private JScrollPane gameInfoScroll;
 	private Utils utils;
 
 	/**
@@ -211,24 +218,57 @@ public class GameWindow extends JFrame
 		centerPanel.add(mapPane, BorderLayout.NORTH);
 		centerPanel.add(controlPane, BorderLayout.SOUTH);
 
-		// Add Containers to the main right components (only the info panel)
-		infoPanel = new JTextPane();
-		infoPanel.setOpaque(false);
-		infoPanel.setEditable(false);
-		infoPanel.setFocusable(false);
-		infoPanel.setFont(utils.fonts.sourcesans);
-		infoScroll = new JScrollPane();
-		infoScroll.setViewport(new AlphaJViewport());
-		infoScroll.setViewportView(infoPanel);
-		infoScroll.setPreferredSize(new Dimension(200,
-				utils.resolution.height));
-		infoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
-		infoScroll.setOpaque(false);
-		infoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		// Add Containers to the main right components
+		rightPanel = new JPanel(new BorderLayout());
+		rightPanel.setOpaque(false);
+
+		tileInfoPane = new JTextPane();
+		tileInfoPane.setOpaque(false);
+		tileInfoPane.setEditable(false);
+		tileInfoPane.setFocusable(false);
+		tileInfoPane.setFont(utils.fonts.sourcesans);
+		tileInfoScroll = new JScrollPane();
+		tileInfoScroll.setViewport(new AlphaJViewport());
+		tileInfoScroll.setViewportView(tileInfoPane);
+		tileInfoScroll.setPreferredSize(new Dimension(200,
+				utils.resolution.height / 3));
+		tileInfoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
+		tileInfoScroll.setOpaque(false);
+		tileInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		cityInfoPane = new JTextPane();
+		cityInfoPane.setOpaque(false);
+		cityInfoPane.setEditable(false);
+		cityInfoPane.setFocusable(false);
+		cityInfoPane.setFont(utils.fonts.sourcesans);
+		cityInfoScroll = new JScrollPane();
+		cityInfoScroll.setViewport(new AlphaJViewport());
+		cityInfoScroll.setViewportView(cityInfoPane);
+		cityInfoScroll.setPreferredSize(new Dimension(200,
+				utils.resolution.height / 3));
+		cityInfoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
+		cityInfoScroll.setOpaque(false);
+		cityInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		gameInfoPane = new JTextPane();
+		gameInfoPane.setOpaque(false);
+		gameInfoPane.setEditable(false);
+		gameInfoPane.setFocusable(false);
+		gameInfoPane.setFont(utils.fonts.sourcesans);
+		gameInfoScroll = new JScrollPane();
+		gameInfoScroll.setViewport(new AlphaJViewport());
+		gameInfoScroll.setViewportView(gameInfoPane);
+		gameInfoScroll.setPreferredSize(new Dimension(200,
+				utils.resolution.height / 3));
+		gameInfoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
+		gameInfoScroll.setOpaque(false);
+		gameInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+		rightPanel.add(tileInfoScroll, BorderLayout.NORTH);
+		rightPanel.add(cityInfoScroll, BorderLayout.CENTER);
+		rightPanel.add(gameInfoScroll, BorderLayout.SOUTH);
 
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
-		add(infoScroll, BorderLayout.EAST);
+		add(rightPanel, BorderLayout.EAST);
 	}
 
 	private void initStyles()
@@ -242,8 +282,12 @@ public class GameWindow extends JFrame
 		StyleConstants.setFontSize(head, 24);
 		eventLogPane.addStyle("body", body);
 		eventLogPane.addStyle("head", head);
-		infoPanel.addStyle("body", body);
-		infoPanel.addStyle("head", head);
+		tileInfoPane.addStyle("body", body);
+		tileInfoPane.addStyle("head", head);
+		cityInfoPane.addStyle("body", body);
+		cityInfoPane.addStyle("head", head);
+		gameInfoPane.addStyle("body", body);
+		gameInfoPane.addStyle("head", head);
 
 		try
 		{
@@ -264,7 +308,26 @@ public class GameWindow extends JFrame
 		}
 		try
 		{
-			infoPanel.getStyledDocument().insertString(0, "Game Info:", head);
+			tileInfoPane.getStyledDocument()
+					.insertString(0, "Tile Info:", head);
+		}
+		catch (BadLocationException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			cityInfoPane.getStyledDocument()
+					.insertString(0, "City Info:", head);
+		}
+		catch (BadLocationException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			gameInfoPane.getStyledDocument()
+					.insertString(0, "Game Info:", head);
 		}
 		catch (BadLocationException e)
 		{
@@ -327,7 +390,7 @@ public class GameWindow extends JFrame
 			super.paintComponent(g);
 		}
 	}
-	
+
 	private class AlphaJViewport extends JViewport
 	{
 		private static final long serialVersionUID = 1L;
