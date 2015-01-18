@@ -282,26 +282,18 @@ public class GameWindow extends JFrame
 
 	private void initStyles()
 	{
-		body = unitsPane.addStyle("body", null);
+		body = unitsPane.addStyle(null, null);
 		StyleConstants.setForeground(body, Color.WHITE);
 		StyleConstants.setFontSize(body, 18);
-		head = unitsPane.addStyle("head", body);
+		head = unitsPane.addStyle(null, body);
 		StyleConstants.setBold(head, true);
 		StyleConstants.setUnderline(head, true);
 		StyleConstants.setFontSize(head, 24);
-		eventLogPane.addStyle("body", body);
-		eventLogPane.addStyle("head", head);
-		tileInfoPane.addStyle("body", body);
-		tileInfoPane.addStyle("head", head);
-		cityInfoPane.addStyle("body", body);
-		cityInfoPane.addStyle("head", head);
-		gameInfoPane.addStyle("body", body);
-		gameInfoPane.addStyle("head", head);
 
 		unitImages = new Style[10];
 		for (int i = 0; i < unitImages.length; i++)
 		{
-			unitImages[i] = unitsPane.addStyle("unit" + i, null);
+			unitImages[i] = unitsPane.addStyle(null, null);
 			StyleConstants.setIcon(unitImages[i], new ImageIcon(
 					utils.images.units[i]));
 		}
@@ -385,7 +377,7 @@ public class GameWindow extends JFrame
 		int start = "Event Log:".length();
 		try
 		{
-			doc.insertString(start, "\n" + s, doc.getStyle("body"));
+			doc.insertString(start, "\n" + s, body);
 		}
 		catch (BadLocationException e)
 		{
@@ -443,8 +435,6 @@ public class GameWindow extends JFrame
 		else if (units instanceof StyledDocument)
 		{
 			StyledDocument doc = (StyledDocument) units;
-			doc.addStyle("body", body);
-			doc.addStyle("head", head);
 			try
 			{
 				doc.insertString(0, "Units:\n", head);
@@ -480,8 +470,6 @@ public class GameWindow extends JFrame
 		else if (tile instanceof StyledDocument)
 		{
 			StyledDocument doc = (StyledDocument) tile;
-			doc.addStyle("body", body);
-			doc.addStyle("head", head);
 			try
 			{
 				doc.insertString(0, "Tile Info:\n", head);
@@ -517,8 +505,6 @@ public class GameWindow extends JFrame
 		else if (city instanceof StyledDocument)
 		{
 			StyledDocument doc = (StyledDocument) city;
-			doc.addStyle("body", body);
-			doc.addStyle("head", head);
 			try
 			{
 				doc.insertString(0, "City Info:\n", head);
@@ -554,8 +540,6 @@ public class GameWindow extends JFrame
 		else if (game instanceof StyledDocument)
 		{
 			StyledDocument doc = (StyledDocument) game;
-			doc.addStyle("body", body);
-			doc.addStyle("head", head);
 			try
 			{
 				doc.insertString(0, "Game Info:\n", head);
