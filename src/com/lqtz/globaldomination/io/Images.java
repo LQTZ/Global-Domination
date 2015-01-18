@@ -44,6 +44,8 @@ public class Images
 	 */
 	public BufferedImage settler;
 
+	public BufferedImage[] units;
+
 	/**
 	 * Load images
 	 * 
@@ -62,6 +64,11 @@ public class Images
 				"/images/soldier.png"));
 		settler = ImageIO.read(getClass().getResourceAsStream(
 				"/images/settler.png"));
-
+		units = new BufferedImage[10];
+		for (int i = 0; i < units.length; i++)
+		{
+			units[i] = ImageIO.read(getClass().getResourceAsStream
+					("/images/units/level" + (i + 1) + ".png"));
+		}
 	}
 }

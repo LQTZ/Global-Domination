@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -70,8 +71,11 @@ public class GameWindow extends JFrame
 
 	public Style body;
 	public Style head;
+	public Style[] unitImages;
 
 	private Utils utils;
+	
+	public static final String IMAGE_STRING = "\0";
 
 	/**
 	 * Main game interface window
@@ -294,6 +298,14 @@ public class GameWindow extends JFrame
 		gameInfoPane.addStyle("body", body);
 		gameInfoPane.addStyle("head", head);
 
+		unitImages = new Style[10];
+		for (int i = 0; i < unitImages.length; i++)
+		{
+			unitImages[i] = unitsPane.addStyle("unit" + i, null);
+			StyleConstants.setIcon(unitImages[i], new ImageIcon(
+					utils.images.units[i]));
+		}
+
 		try
 		{
 			eventLogPane.getStyledDocument()
@@ -435,7 +447,7 @@ public class GameWindow extends JFrame
 			doc.addStyle("head", head);
 			try
 			{
-				doc.insertString(0, "Units Info:\n", head);
+				doc.insertString(0, "Units:\n", head);
 			}
 			catch (BadLocationException e)
 			{
@@ -448,7 +460,7 @@ public class GameWindow extends JFrame
 			throw new IllegalArgumentException(
 					"Was not passed String nor StyledDocument");
 		}
-		
+
 		if (tile == null)
 		{}
 		else if (tile instanceof String)
@@ -456,8 +468,8 @@ public class GameWindow extends JFrame
 			StyledDocument doc = tileInfoPane.getStyledDocument();
 			try
 			{
-				doc.remove("Tile Info:".length(),
-						doc.getLength() - "Tile Info:".length());
+				doc.remove("Tile Info:".length(), doc.getLength()
+						- "Tile Info:".length());
 				doc.insertString("Tile Info:".length(), "\n" + tile, body);
 			}
 			catch (BadLocationException e)
@@ -485,7 +497,7 @@ public class GameWindow extends JFrame
 			throw new IllegalArgumentException(
 					"Was not passed String nor StyledDocument");
 		}
-		
+
 		if (city == null)
 		{}
 		else if (city instanceof String)
@@ -493,8 +505,8 @@ public class GameWindow extends JFrame
 			StyledDocument doc = cityInfoPane.getStyledDocument();
 			try
 			{
-				doc.remove("City Info:".length(),
-						doc.getLength() - "City Info:".length());
+				doc.remove("City Info:".length(), doc.getLength()
+						- "City Info:".length());
 				doc.insertString("City Info:".length(), "\n" + city, body);
 			}
 			catch (BadLocationException e)
@@ -522,7 +534,7 @@ public class GameWindow extends JFrame
 			throw new IllegalArgumentException(
 					"Was not passed String nor StyledDocument");
 		}
-		
+
 		if (game == null)
 		{}
 		else if (game instanceof String)
@@ -530,8 +542,8 @@ public class GameWindow extends JFrame
 			StyledDocument doc = gameInfoPane.getStyledDocument();
 			try
 			{
-				doc.remove("Game Info:".length(),
-						doc.getLength() - "Game Info:".length());
+				doc.remove("Game Info:".length(), doc.getLength()
+						- "Game Info:".length());
 				doc.insertString("Game Info:".length(), "\n" + game, body);
 			}
 			catch (BadLocationException e)

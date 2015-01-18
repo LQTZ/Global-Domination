@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.StyledDocument;
+
 import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
@@ -52,7 +56,19 @@ public class Game implements Serializable
 		// TODO Implement this correctly
 		if (selectedTile != null)
 		{
-			diffs.put("units", String.valueOf(utils.random.nextGaussian()));
+			diffs.put("game", String.valueOf(utils.random.nextGaussian()));
+			StyledDocument doc = new DefaultStyledDocument();
+			try
+			{
+				doc.insertString(0, GameWindow.IMAGE_STRING,
+						gw.unitImages[utils.random.nextInt(10)]);
+				doc.insertString(1, "HI!", gw.body);
+			}
+			catch (BadLocationException e)
+			{
+				e.printStackTrace();
+			}
+			diffs.put("units", doc);
 		}
 		else
 		{
