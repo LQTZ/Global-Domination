@@ -32,7 +32,7 @@ public class Tile
 	 */
 	public Hexagon hexagon;
 
-	public Nationality nat = Nationality.NEUTRAL;
+	public Nationality nat;
 
 	/**
 	 * Revenue Cities on the Tile would collect
@@ -82,7 +82,7 @@ public class Tile
 	/**
 	 * All the units on the tile
 	 */
-	public ArrayList<Unit> units = new ArrayList<Unit>();
+	public ArrayList<Unit> units;
 
 	private int centerX;
 	private int centerY;
@@ -129,9 +129,12 @@ public class Tile
 		this.centerY = centerY;
 		this.tileSize = tileSize;
 		this.utils = utils;
-		isHighlighted = false;
-		// city = new City(this);
+
+		this.isHighlighted = false;
 		this.city = null;
+		nat = Nationality.NEUTRAL;
+		
+		units = new ArrayList<Unit>();
 		
 		colors = new HashMap<Nationality, Color[]>();
 		colors.put(Nationality.RED, new Color[] {new Color(255, 0, 0, 150),

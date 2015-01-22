@@ -99,6 +99,7 @@ public abstract class Unit implements Serializable
 		this.yCoord = yCoord;
 		this.level = level;
 		this.utils = utils;
+		
 
 		// Assign level based fields
 		assignByLevel();
