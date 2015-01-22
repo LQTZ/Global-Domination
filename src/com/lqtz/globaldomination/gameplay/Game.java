@@ -86,7 +86,8 @@ public class Game implements Serializable
 		// TODO Implement this correctly
 		if (selectedTile != null)
 		{
-			if ((selectedTile.soldiers.size() + selectedTile.settlers.size()) != 0)
+			if ((selectedTile.soldiers.size() + selectedTile.settlers.size())
+					!= 0)
 			{
 				StyledDocument doc = new DefaultStyledDocument();
 				try
@@ -94,14 +95,16 @@ public class Game implements Serializable
 					for (Soldier u : selectedTile.soldiers)
 					{
 						doc.insertString(doc.getLength(),
-								GameWindow.IMAGE_STRING, gw.unitImages[u.level]);
+								GameWindow.IMAGE_STRING,
+								gw.unitImages[u.level - 1]);
 						doc.insertString(doc.getLength(), " Soldier Unit\n",
 								gw.body);
 					}
 					for (Settler u : selectedTile.settlers)
 					{
 						doc.insertString(doc.getLength(),
-								GameWindow.IMAGE_STRING, gw.unitImages[u.level]);
+								GameWindow.IMAGE_STRING,
+								gw.unitImages[u.level - 1]);
 						doc.insertString(doc.getLength(), " Settler Unit\n",
 								gw.body);
 					}
@@ -118,8 +121,7 @@ public class Game implements Serializable
 			}
 
 			diffs.put("tile", "Revenue: " + selectedTile.tileRevenue
-					+ "\nProductivity: " + selectedTile.tileProductivity +
-					"\n");
+					+ "\nProductivity: " + selectedTile.tileProductivity + "\n");
 
 			// TODO finish
 		}
