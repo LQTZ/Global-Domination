@@ -124,6 +124,7 @@ public class GameWindow extends JFrame
 
 		pack();
 		utils.game = new Game(utils, this, mapPane.tiles);
+		utils.game.init();
 		utils.game.updateWindow();
 		setVisible(true);
 	}

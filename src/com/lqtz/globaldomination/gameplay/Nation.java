@@ -23,7 +23,7 @@ public class Nation
 	 * Units that belong to the nation
 	 */
 	public ArrayList<Unit> units;
-	
+
 	/**
 	 * Cities that belong to the nation
 	 */
@@ -56,7 +56,7 @@ public class Nation
 	{
 		this.nationality = nationality;
 		this.utils = utils;
-		
+
 		this.units = new ArrayList<Unit>();
 		this.cities = new ArrayList<City>();
 	}
@@ -75,7 +75,7 @@ public class Nation
 	{
 		Soldier s = new Soldier(this, level, xCoord, yCoord, utils);
 		units.add(s);
-		utils.game.tiles[xCoord][yCoord].units.add(s);
+		utils.game.tiles[xCoord][yCoord].soldiers.add(s);
 	}
 
 	/**
@@ -91,9 +91,9 @@ public class Nation
 	{
 		Settler s = new Settler(this, level, xCoord, yCoord, utils);
 		units.add(s);
-		utils.game.tiles[xCoord][yCoord].units.add(s);
+		utils.game.tiles[xCoord][yCoord].settlers.add(s);
 	}
-	
+
 	public void addCity(Tile t)
 	{
 		City c = new City(t);

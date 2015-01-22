@@ -99,11 +99,10 @@ public abstract class Unit implements Serializable
 		this.yCoord = yCoord;
 		this.level = level;
 		this.utils = utils;
-		
 
 		// Assign level based fields
 		assignByLevel();
-		
+
 		// Initialize "current" fields
 		currentHealthPoints = maxHealthPoints;
 		movesLeft = maxMoveDistance;
@@ -158,6 +157,13 @@ public abstract class Unit implements Serializable
 	public void delete()
 	{
 		nation.units.remove(this);
-		tile.units.remove(this);
+		if (this instanceof Settler)
+		{
+			tile.settlers.remove(this);
+		}
+		else
+		{
+			tile.soldiers.remove(this);
+		}
 	}
 }

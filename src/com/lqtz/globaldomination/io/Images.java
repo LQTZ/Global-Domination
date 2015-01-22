@@ -67,8 +67,8 @@ public class Images
 		units = new BufferedImage[10];
 		for (int i = 0; i < units.length; i++)
 		{
-			units[i] = ImageIO.read(getClass().getResourceAsStream
-					("/images/units/level" + (i + 1) + ".png"));
+			units[i] = ImageIO.read(getClass().getResourceAsStream(
+					"/images/units/level" + (i + 1) + ".png"));
 		}
 	}
 }

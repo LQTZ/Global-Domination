@@ -1,6 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
@@ -141,7 +142,14 @@ public class Soldier extends Unit
 		ArrayList<Unit> unitsToAttack = new ArrayList<Unit>();
 
 		// Determine whether or not tile is hostile
-		for (Unit u : tile.units)
+		for (Unit u : tile.soldiers)
+		{
+			if (u.nation.nationality == nation.nationality)
+			{
+				unitsToAttack.add(u);
+			}
+		}
+		for (Unit u : tile.settlers)
 		{
 			if (u.nation.nationality == nation.nationality)
 			{
@@ -152,17 +160,15 @@ public class Soldier extends Unit
 		// If there is an enemy to attack:
 		if (unitsToAttack.size() > 0)
 		{
-			// Order list from smallest to greatest defensive power
-			Unit u;
-			for (int i = 0; i < unitsToAttack.size(); i++)
+			unitsToAttack.sort(new Comparator<Unit>()
 			{
-				if (unitsToAttack.get(i).defendPower < unitsToAttack.get(0).defendPower)
+
+				@Override
+				public int compare(Unit o1, Unit o2)
 				{
-					u = unitsToAttack.get(i);
-					unitsToAttack.remove(unitsToAttack.get(i));
-					unitsToAttack.add(0, u);
+					return Double.compare(o1.defendPower, o2.defendPower);
 				}
-			}
+			});
 
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size()));

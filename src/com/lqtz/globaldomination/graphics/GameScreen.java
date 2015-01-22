@@ -84,9 +84,12 @@ public class GameScreen extends JPanel implements MouseInputListener
 		{
 			for (int j = 0; j < DIM; j++)
 			{
-				tiles[i][j] = new Tile(i, j, sizeFit * (1 + 2 * i + j) * 7 / 8
-						+ xOffset, height
-						- (sizeFit * (3 * j + 2) / 2 + yOffset), sizeFit,
+				tiles[i][j] = new Tile(
+						i,
+						j,
+						sizeFit * (1 + 2 * i + j) * 7 / 8 + xOffset,
+						height - (sizeFit * (3 * j + 2) / 2 + yOffset),
+						sizeFit,
 						(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
 						(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
 						utils);

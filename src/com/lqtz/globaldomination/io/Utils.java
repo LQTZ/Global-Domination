@@ -40,7 +40,7 @@ public class Utils
 	public Utils()
 	{
 		random = new Random();
-		
+
 		// Import images
 		try
 		{

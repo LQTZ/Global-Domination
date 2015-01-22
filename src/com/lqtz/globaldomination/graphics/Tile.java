@@ -10,7 +10,8 @@ import java.util.Map;
 
 import com.lqtz.globaldomination.gameplay.City;
 import com.lqtz.globaldomination.gameplay.Nationality;
-import com.lqtz.globaldomination.gameplay.Unit;
+import com.lqtz.globaldomination.gameplay.Settler;
+import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.io.Utils;
 
 /**
@@ -69,31 +70,20 @@ public class Tile
 	 */
 	public boolean isSelected;
 
-	/**
-	 * The number of soldiers
-	 */
-	public int soldierCount = 0;
-
-	/**
-	 * The number of settlers
-	 */
-	public int settlerCount = 0;
-
-	/**
-	 * All the units on the tile
-	 */
-	public ArrayList<Unit> units;
+	public ArrayList<Soldier> soldiers;
+	public ArrayList<Settler> settlers;
 
 	private int centerX;
 	private int centerY;
 	private int tileSize;
 	private Utils utils;
-	
+
 	/**
-	 * A {@code HashMap} that contains all possible colors. Each array of
-	 * colors has the following format:
+	 * A {@code HashMap} that contains all possible colors. Each array of colors
+	 * has the following format:
 	 * 
-	 * <p><code>{normalColor, highlightedColor, selectedColor}</code>
+	 * <p>
+	 * <code>{normalColor, highlightedColor, selectedColor}</code>
 	 */
 	private Map<Nationality, Color[]> colors;
 
@@ -133,16 +123,18 @@ public class Tile
 		this.isHighlighted = false;
 		this.city = null;
 		nat = Nationality.NEUTRAL;
-		
-		units = new ArrayList<Unit>();
-		
+
+		soldiers = new ArrayList<Soldier>();
+		settlers = new ArrayList<Settler>();
+
 		colors = new HashMap<Nationality, Color[]>();
 		colors.put(Nationality.RED, new Color[] {new Color(255, 0, 0, 150),
 				new Color(255, 127, 127, 150), new Color(127, 0, 0)});
 		colors.put(Nationality.GREEN, new Color[] {new Color(0, 255, 0, 150),
 				new Color(127, 255, 127, 150), new Color(0, 127, 0)});
-		colors.put(Nationality.YELLOW, new Color[] {new Color(191, 191, 0, 150),
-				new Color(255, 255, 191, 150), new Color(63, 63, 0)});
+		colors.put(Nationality.YELLOW, new Color[] {
+				new Color(191, 191, 0, 150), new Color(255, 255, 191, 150),
+				new Color(63, 63, 0)});
 		colors.put(Nationality.BLUE, new Color[] {new Color(0, 0, 255, 150),
 				new Color(127, 127, 255, 150), new Color(0, 0, 200)});
 		colors.put(Nationality.NEUTRAL, new Color[] {
@@ -166,7 +158,7 @@ public class Tile
 			colorState = 1;
 		}
 		fillColor = colors.get(nat)[colorState];
-		
+
 		g.setColor(fillColor);
 		g.fillPolygon(hexagon);
 
@@ -194,12 +186,12 @@ public class Tile
 		// Draw the settler units icon
 		g.drawImage(utils.images.settler, xMin, yMax, size, size, null);
 
-		drawCenterText(g, String.valueOf(settlerCount), xMin, yMax);
+		drawCenterText(g, String.valueOf(settlers.size()), xMin, yMax);
 
 		// Draw the soldier units icon
 		g.drawImage(utils.images.soldier, xMax, yMax, size, size, null);
 
-		drawCenterText(g, String.valueOf(soldierCount), xMax, yMax);
+		drawCenterText(g, String.valueOf(soldiers.size()), xMax, yMax);
 
 		// Draw revenue icon
 		g.drawImage(utils.images.revenue, xMin, yMin, size, size, null);
