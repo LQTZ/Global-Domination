@@ -82,7 +82,7 @@ public class Tile
 	/**
 	 * All the units on the tile
 	 */
-	public ArrayList<Unit> units;
+	public ArrayList<Unit> units = new ArrayList<Unit>();
 
 	private int centerX;
 	private int centerY;

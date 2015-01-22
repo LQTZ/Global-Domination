@@ -74,7 +74,7 @@ public class GameWindow extends JFrame
 	public Style[] unitImages;
 
 	private Utils utils;
-	
+
 	public static final String IMAGE_STRING = "\0";
 
 	/**
@@ -124,6 +124,7 @@ public class GameWindow extends JFrame
 
 		pack();
 		utils.game = new Game(utils, this, mapPane.tiles);
+		utils.game.updateWindow();
 		setVisible(true);
 	}
 
@@ -300,8 +301,8 @@ public class GameWindow extends JFrame
 
 		try
 		{
-			eventLogPane.getStyledDocument()
-					.insertString(0, "Event Log:", head);
+			eventLogPane.getStyledDocument().insertString(0, "Event Log:\n",
+					head);
 		}
 		catch (BadLocationException e)
 		{
@@ -309,7 +310,7 @@ public class GameWindow extends JFrame
 		}
 		try
 		{
-			unitsPane.getStyledDocument().insertString(0, "Units:", head);
+			unitsPane.getStyledDocument().insertString(0, "Units:\n", head);
 		}
 		catch (BadLocationException e)
 		{
@@ -317,10 +318,8 @@ public class GameWindow extends JFrame
 		}
 		try
 		{
-			tileInfoPane.getStyledDocument()
-					.insertString(0, "Tile Info:", head);
-			tileInfoPane.getStyledDocument().insertString(
-					"Tile Info:".length(), "\n(none)", body);
+			tileInfoPane.getStyledDocument().insertString(0, "Tile Info:\n",
+					head);
 		}
 		catch (BadLocationException e)
 		{
@@ -328,10 +327,8 @@ public class GameWindow extends JFrame
 		}
 		try
 		{
-			cityInfoPane.getStyledDocument()
-					.insertString(0, "City Info:", head);
-			cityInfoPane.getStyledDocument().insertString(
-					"City Info:".length(), "\n(none)", body);
+			cityInfoPane.getStyledDocument().insertString(0, "City Info:\n",
+					head);
 		}
 		catch (BadLocationException e)
 		{
@@ -339,8 +336,8 @@ public class GameWindow extends JFrame
 		}
 		try
 		{
-			gameInfoPane.getStyledDocument()
-					.insertString(0, "Game Info:", head);
+			gameInfoPane.getStyledDocument().insertString(0, "Game Info:\n",
+					head);
 		}
 		catch (BadLocationException e)
 		{
@@ -374,10 +371,10 @@ public class GameWindow extends JFrame
 	public void eventLog(String s)
 	{
 		StyledDocument doc = eventLogPane.getStyledDocument();
-		int start = "Event Log:".length();
+		int start = "Event Log:\n".length();
 		try
 		{
-			doc.insertString(start, "\n" + s, body);
+			doc.insertString(start, s + "\n", body);
 		}
 		catch (BadLocationException e)
 		{
@@ -400,7 +397,8 @@ public class GameWindow extends JFrame
 	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
 	 * 
 	 * <p>
-	 * <b>Note:</b> The strings or documents should not include the title.
+	 * <b>Note:</b> The strings or documents should not include the title. They
+	 * should contain newlines at the end.
 	 * 
 	 * <p>
 	 * Use the <code>eventLog</code> method to access the event log.
@@ -420,12 +418,13 @@ public class GameWindow extends JFrame
 		{}
 		else if (units instanceof String)
 		{
+			String str = (String) units;
 			StyledDocument doc = unitsPane.getStyledDocument();
 			try
 			{
-				doc.remove("Units:".length(),
-						doc.getLength() - "Units:".length());
-				doc.insertString("Units:".length(), "\n" + units, body);
+				doc.remove("Units:\n".length(),
+						doc.getLength() - "Units:\n".length());
+				doc.insertString("Units:\n".length(), str, body);
 			}
 			catch (BadLocationException e)
 			{
@@ -455,12 +454,13 @@ public class GameWindow extends JFrame
 		{}
 		else if (tile instanceof String)
 		{
+			String str = (String) tile;
 			StyledDocument doc = tileInfoPane.getStyledDocument();
 			try
 			{
-				doc.remove("Tile Info:".length(), doc.getLength()
-						- "Tile Info:".length());
-				doc.insertString("Tile Info:".length(), "\n" + tile, body);
+				doc.remove("Tile Info:\n".length(), doc.getLength()
+						- "Tile Info:\n".length());
+				doc.insertString("Tile Info:\n".length(), str, body);
 			}
 			catch (BadLocationException e)
 			{
@@ -490,12 +490,13 @@ public class GameWindow extends JFrame
 		{}
 		else if (city instanceof String)
 		{
+			String str = (String) city;
 			StyledDocument doc = cityInfoPane.getStyledDocument();
 			try
 			{
-				doc.remove("City Info:".length(), doc.getLength()
-						- "City Info:".length());
-				doc.insertString("City Info:".length(), "\n" + city, body);
+				doc.remove("City Info:\n".length(), doc.getLength()
+						- "City Info:\n".length());
+				doc.insertString("City Info:\n".length(), str, body);
 			}
 			catch (BadLocationException e)
 			{
@@ -525,12 +526,13 @@ public class GameWindow extends JFrame
 		{}
 		else if (game instanceof String)
 		{
+			String str = (String) game;
 			StyledDocument doc = gameInfoPane.getStyledDocument();
 			try
 			{
-				doc.remove("Game Info:".length(), doc.getLength()
-						- "Game Info:".length());
-				doc.insertString("Game Info:".length(), "\n" + game, body);
+				doc.remove("Game Info:\n".length(), doc.getLength()
+						- "Game Info:\n".length());
+				doc.insertString("Game Info:\n".length(), str, body);
 			}
 			catch (BadLocationException e)
 			{

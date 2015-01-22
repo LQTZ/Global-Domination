@@ -51,28 +51,61 @@ public class Game implements Serializable
 			selectedTile.isSelected = true;
 		}
 		this.selectedTile = selectedTile;
+
+		updateWindow();
+	}
+
+	public void updateWindow()
+	{
 		Map<String, Object> diffs = new HashMap<String, Object>();
 
 		// TODO Implement this correctly
 		if (selectedTile != null)
 		{
-			diffs.put("game", String.valueOf(utils.random.nextGaussian()));
-			StyledDocument doc = new DefaultStyledDocument();
-			try
+			if (selectedTile.units.size() != 0)
 			{
-				doc.insertString(0, GameWindow.IMAGE_STRING,
-						gw.unitImages[utils.random.nextInt(10)]);
-				doc.insertString(1, "HI!", gw.body);
+				StyledDocument doc = new DefaultStyledDocument();
+				try
+				{
+
+					for (Unit u : selectedTile.units)
+					{
+						doc.insertString(doc.getLength(),
+								GameWindow.IMAGE_STRING,
+								gw.unitImages[u.level]);
+						if (u instanceof Soldier)
+						{
+							doc.insertString(doc.getLength(),
+									" Soldier Unit\n", gw.body);
+						}
+						else
+						{
+							doc.insertString(doc.getLength(),
+									" Settler Unit\n", gw.body);
+						}
+					}
+				}
+				catch (BadLocationException e)
+				{
+					e.printStackTrace();
+				}
+				diffs.put("units", doc);
 			}
-			catch (BadLocationException e)
+			else
 			{
-				e.printStackTrace();
+				diffs.put("units", "(no units)\n");
 			}
-			diffs.put("units", doc);
+			
+			diffs.put("tile", "Productivity: " + selectedTile.tileProductivity
+					+ "\nRevenue: " + selectedTile.tileRevenue + "\n");
+			
+			// TODO finish
 		}
 		else
 		{
 			diffs.put("units", "(no tile selected)");
+			diffs.put("city", "(no tile selected)");
+			diffs.put("tile", "(no tile selected)");
 		}
 		gw.updateTextPanes(diffs);
 	}
