@@ -71,7 +71,8 @@ public class GameWindow extends JFrame
 
 	public Style body;
 	public Style head;
-	public Style[] unitImages;
+	public Style[] soldierImages;
+	public Style[] settlerImages;
 
 	private Utils utils;
 
@@ -292,12 +293,20 @@ public class GameWindow extends JFrame
 		StyleConstants.setUnderline(head, true);
 		StyleConstants.setFontSize(head, 24);
 
-		unitImages = new Style[10];
-		for (int i = 0; i < unitImages.length; i++)
+		soldierImages = new Style[10];
+		for (int i = 0; i < soldierImages.length; i++)
 		{
-			unitImages[i] = unitsPane.addStyle(null, null);
-			StyleConstants.setIcon(unitImages[i], new ImageIcon(
-					utils.images.units[i]));
+			soldierImages[i] = unitsPane.addStyle(null, null);
+			StyleConstants.setIcon(soldierImages[i], new ImageIcon(
+					utils.images.soldiers[i]));
+		}
+		
+		settlerImages = new Style[5];
+		for (int i = 0; i < settlerImages.length; i++)
+		{
+			settlerImages[i] = unitsPane.addStyle(null, null);
+			StyleConstants.setIcon(settlerImages[i], new ImageIcon(
+					utils.images.settlers[i]));
 		}
 
 		try

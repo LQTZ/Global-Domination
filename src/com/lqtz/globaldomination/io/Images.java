@@ -44,7 +44,8 @@ public class Images
 	 */
 	public BufferedImage settler;
 
-	public BufferedImage[] units;
+	public BufferedImage[] soldiers;
+	public BufferedImage[] settlers;
 
 	/**
 	 * Load images
@@ -64,11 +65,18 @@ public class Images
 				"/images/soldier.png"));
 		settler = ImageIO.read(getClass().getResourceAsStream(
 				"/images/settler.png"));
-		units = new BufferedImage[10];
-		for (int i = 0; i < units.length; i++)
+		soldiers = new BufferedImage[10];
+		for (int i = 0; i < soldiers.length; i++)
 		{
-			units[i] = ImageIO.read(getClass().getResourceAsStream(
-					"/images/units/level" + (i + 1) + ".png"));
+			soldiers[i] = ImageIO.read(getClass().getResourceAsStream(
+					"/images/soldier/level" + (i + 1) + ".png"));
+		}
+		
+		settlers = new BufferedImage[5];
+		for (int i = 0; i < settlers.length; i++)
+		{
+			settlers[i] = ImageIO.read(getClass().getResourceAsStream(
+					"/images/settler/level" + (i + 1) + ".png"));
 		}
 	}
 }

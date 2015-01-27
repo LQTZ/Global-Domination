@@ -96,7 +96,7 @@ public class Game implements Serializable
 					{
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
-								gw.unitImages[u.level - 1]);
+								gw.soldierImages[u.level - 1]);
 						doc.insertString(doc.getLength(), " Soldier Unit\n",
 								gw.body);
 					}
@@ -104,7 +104,7 @@ public class Game implements Serializable
 					{
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
-								gw.unitImages[u.level - 1]);
+								gw.settlerImages[u.level - 1]);
 						doc.insertString(doc.getLength(), " Settler Unit\n",
 								gw.body);
 					}
