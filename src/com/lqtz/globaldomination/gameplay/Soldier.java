@@ -1,6 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 import com.lqtz.globaldomination.graphics.Tile;
@@ -160,9 +161,8 @@ public class Soldier extends Unit
 		// If there is an enemy to attack:
 		if (unitsToAttack.size() > 0)
 		{
-			unitsToAttack.sort(new Comparator<Unit>()
+			Collections.sort(unitsToAttack, new Comparator<Unit>()
 			{
-
 				@Override
 				public int compare(Unit o1, Unit o2)
 				{
