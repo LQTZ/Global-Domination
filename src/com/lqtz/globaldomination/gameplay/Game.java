@@ -48,13 +48,6 @@ public class Game implements Serializable
 		blueNat.addCity(tiles[0][4]);
 		yellowNat.addCity(tiles[4][4]);
 
-		// // Init tile values
-		// for (Tile[] ta : tiles)
-		// for (Tile t : ta)
-		// {
-		//
-		// }
-
 		// Init units in cities
 		redNat.addSettler(1, 0, 0);
 		greenNat.addSettler(1, 4, 0);
