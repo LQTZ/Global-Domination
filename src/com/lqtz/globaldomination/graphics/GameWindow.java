@@ -199,15 +199,15 @@ public class GameWindow extends JFrame
 		{
 			buttons[i] = new JButton(buttonText[i]);
 			buttons[i].setFont(utils.fonts.sourcesans
-					.deriveFont(Font.PLAIN, 24));
+					.deriveFont(Font.PLAIN, 20));
 			buttonsPane.add(buttons[i]); // Add button
 
 			// Spacing
 			buttonsPane.add(Box.createHorizontalGlue());
 			buttons[i].setMargin(new Insets(5, 5, 5, 5));
-			buttons[i].setMinimumSize(new Dimension(120, 60));
-			buttons[i].setMaximumSize(new Dimension(120, 60));
-			buttons[i].setPreferredSize(new Dimension(120, 60));
+			buttons[i].setMinimumSize(new Dimension(100, 60));
+			buttons[i].setMaximumSize(new Dimension(100, 60));
+			buttons[i].setPreferredSize(new Dimension(100, 60));
 
 			// Colors of buttons
 			buttons[i].setBackground(buttonColor[i]); // Button color
