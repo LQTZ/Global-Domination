@@ -96,7 +96,7 @@ public class Nation
 
 	public void addCity(Tile t)
 	{
-		City c = new City(t);
+		City c = new City(t, this, utils);
 		cities.add(c);
 		t.nat = nationality;
 	}

@@ -435,8 +435,7 @@ public class GameWindow extends JFrame
 		Object game = diffs.get("game");
 
 		if (units == null)
-		{
-		}
+		{}
 		else if (units instanceof String)
 		{
 			String str = (String) units;
@@ -472,8 +471,7 @@ public class GameWindow extends JFrame
 		}
 
 		if (tile == null)
-		{
-		}
+		{}
 		else if (tile instanceof String)
 		{
 			String str = (String) tile;
@@ -509,8 +507,7 @@ public class GameWindow extends JFrame
 		}
 
 		if (city == null)
-		{
-		}
+		{}
 		else if (city instanceof String)
 		{
 			String str = (String) city;
@@ -546,8 +543,7 @@ public class GameWindow extends JFrame
 		}
 
 		if (game == null)
-		{
-		}
+		{}
 		else if (game instanceof String)
 		{
 			String str = (String) game;

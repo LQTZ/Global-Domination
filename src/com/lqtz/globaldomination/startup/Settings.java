@@ -34,7 +34,7 @@ import com.lqtz.globaldomination.io.Utils;
  * Settings screen
  * 
  * @author Gitdropcode
- *
+ * 
  */
 public class Settings extends BasicScreen implements ActionListener
 {

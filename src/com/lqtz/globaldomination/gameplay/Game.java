@@ -24,6 +24,7 @@ public class Game implements Serializable
 	public Tile[][] tiles;
 	public Tile selectedTile;
 	public ArrayList<CountdownTask> countdownTasks;
+	public Nation[] nations;
 
 	public Game(Utils utils, GameWindow gw, Tile[][] tiles)
 	{
@@ -47,6 +48,7 @@ public class Game implements Serializable
 		Nation greenNat = new Nation(Nationality.GREEN, utils);
 		Nation blueNat = new Nation(Nationality.BLUE, utils);
 		Nation yellowNat = new Nation(Nationality.YELLOW, utils);
+		nations = new Nation[] {redNat, greenNat, blueNat, yellowNat};
 
 		// Init cities
 		redNat.addCity(tiles[0][0]);
@@ -65,6 +67,8 @@ public class Game implements Serializable
 		{
 			gw.eventLog("System> Testing #" + i);
 		}
+		
+		redNat.cities.get(0).growUnit(UnitType.SETTLER, 1);
 	}
 
 	public void selectTile(Tile selectedTile)
@@ -103,8 +107,9 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.settlerImages[u.level - 1]);
-						doc.insertString(doc.getLength(), " Settler Unit "
-								+ u.nation.nationality.toStr() + "\n", gw.body);
+						doc.insertString(doc.getLength(), " Settler Unit ("
+								+ u.nation.nationality.toString() + ")\n",
+								gw.body);
 					}
 				}
 				catch (BadLocationException e)

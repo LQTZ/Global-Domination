@@ -71,7 +71,7 @@ public class Images
 			soldiers[i] = ImageIO.read(getClass().getResourceAsStream(
 					"/images/soldier/level" + (i + 1) + ".png"));
 		}
-		
+
 		settlers = new BufferedImage[5];
 		for (int i = 0; i < settlers.length; i++)
 		{

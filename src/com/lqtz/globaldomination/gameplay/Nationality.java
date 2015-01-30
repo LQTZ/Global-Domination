@@ -9,18 +9,25 @@ package com.lqtz.globaldomination.gameplay;
  */
 public enum Nationality
 {
-	RED("Red"), GREEN("Green"), BLUE("Blue"), YELLOW("Yellow"), NEUTRAL(
-			"Neutral");
+	RED, GREEN, BLUE, YELLOW, NEUTRAL;
 
-	private final String name;
-
-	private Nationality(String name)
+	@Override
+	public String toString()
 	{
-		this.name = name;
-	}
-
-	public String toStr()
-	{
-		return name;
+		switch (this)
+		{
+			case RED:
+				return "Red";
+			case GREEN:
+				return "Green";
+			case BLUE:
+				return "Blue";
+			case YELLOW:
+				return "Yellow";
+			case NEUTRAL:
+				return "Neutral";
+			default:
+				return "";
+		}
 	}
 }
