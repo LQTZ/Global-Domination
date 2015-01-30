@@ -3,7 +3,7 @@ package com.lqtz.globaldomination.gameplay;
 public abstract class CountdownTask implements Runnable
 {
 	private int moves;
-	
+
 	public CountdownTask(int moves)
 	{
 		this.moves = moves;
@@ -12,7 +12,7 @@ public abstract class CountdownTask implements Runnable
 			run();
 		}
 	}
-	
+
 	public void decrease()
 	{
 		moves--;
@@ -21,7 +21,7 @@ public abstract class CountdownTask implements Runnable
 			run();
 		}
 	}
-	
+
 	@Override
 	public abstract void run();
 }

@@ -1,6 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,18 +17,23 @@ public class Game implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	public Tile selectedTile = null;
-
 	private transient Utils utils;
 	private transient GameWindow gw;
 
+	public int turn;
 	public Tile[][] tiles;
+	public Tile selectedTile;
+	public ArrayList<CountdownTask> countdownTasks;
 
 	public Game(Utils utils, GameWindow gw, Tile[][] tiles)
 	{
 		this.tiles = tiles;
 		this.utils = utils;
 		this.gw = gw;
+
+		this.turn = 0;
+		this.selectedTile = null;
+		this.countdownTasks = new ArrayList<CountdownTask>();
 	}
 
 	/**
@@ -79,8 +85,7 @@ public class Game implements Serializable
 		// TODO Implement this correctly
 		if (selectedTile != null)
 		{
-			if ((selectedTile.soldiers.size() + selectedTile.settlers.size())
-					!= 0)
+			if ((selectedTile.soldiers.size() + selectedTile.settlers.size()) != 0)
 			{
 				StyledDocument doc = new DefaultStyledDocument();
 				try
@@ -98,8 +103,8 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.settlerImages[u.level - 1]);
-						doc.insertString(doc.getLength(), " Settler Unit\n",
-								gw.body);
+						doc.insertString(doc.getLength(), " Settler Unit "
+								+ u.nation.nationality.toStr() + "\n", gw.body);
 					}
 				}
 				catch (BadLocationException e)

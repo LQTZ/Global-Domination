@@ -188,14 +188,14 @@ public class GameWindow extends JFrame
 		buttonsPane = new AlphaJPanel();
 		buttonsPane.setBackground(new Color(50, 50, 50, 210));
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
-		buttons = new JButton[5];
+		buttons = new JButton[6];
 		String[] buttonText = new String[] {"Move", "Settle", "Upgrade",
-				"Attack", "Pause"};
+				"Attack", "Next", "Pause"};
 		Color[] buttonColor = new Color[] {new Color(39, 78, 19),
 				new Color(116, 27, 71), new Color(11, 83, 148),
-				new Color(153, 0, 0), new Color(127, 127, 127)};
+				new Color(153, 0, 0), new Color(127, 127, 127), Color.BLACK};
 		buttonsPane.add(Box.createHorizontalGlue());
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]);
 			buttons[i].setFont(utils.fonts.sourcesans
@@ -300,7 +300,7 @@ public class GameWindow extends JFrame
 			StyleConstants.setIcon(soldierImages[i], new ImageIcon(
 					utils.images.soldiers[i]));
 		}
-		
+
 		settlerImages = new Style[5];
 		for (int i = 0; i < settlerImages.length; i++)
 		{
@@ -357,8 +357,18 @@ public class GameWindow extends JFrame
 
 	private void addButtonFunctionality()
 	{
-		// TODO Create Pause screen
 		buttons[4].addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				utils.game.turn++;
+				eventLog("Turn #: " + utils.game.turn);
+			}
+		});
+
+		// TODO Create Pause screen
+		buttons[5].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -425,7 +435,8 @@ public class GameWindow extends JFrame
 		Object game = diffs.get("game");
 
 		if (units == null)
-		{}
+		{
+		}
 		else if (units instanceof String)
 		{
 			String str = (String) units;
@@ -461,7 +472,8 @@ public class GameWindow extends JFrame
 		}
 
 		if (tile == null)
-		{}
+		{
+		}
 		else if (tile instanceof String)
 		{
 			String str = (String) tile;
@@ -497,7 +509,8 @@ public class GameWindow extends JFrame
 		}
 
 		if (city == null)
-		{}
+		{
+		}
 		else if (city instanceof String)
 		{
 			String str = (String) city;
@@ -533,7 +546,8 @@ public class GameWindow extends JFrame
 		}
 
 		if (game == null)
-		{}
+		{
+		}
 		else if (game instanceof String)
 		{
 			String str = (String) game;

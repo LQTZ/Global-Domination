@@ -9,5 +9,18 @@ package com.lqtz.globaldomination.gameplay;
  */
 public enum Nationality
 {
-	RED, GREEN, BLUE, YELLOW, NEUTRAL
+	RED("Red"), GREEN("Green"), BLUE("Blue"), YELLOW("Yellow"), NEUTRAL(
+			"Neutral");
+
+	private final String name;
+
+	private Nationality(String name)
+	{
+		this.name = name;
+	}
+
+	public String toStr()
+	{
+		return name;
+	}
 }
