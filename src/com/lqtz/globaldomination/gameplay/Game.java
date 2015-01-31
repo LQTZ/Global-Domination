@@ -20,7 +20,7 @@ public class Game implements Serializable
 	private transient Utils utils;
 	private transient GameWindow gw;
 
-	public int turn;
+	public Nationality turn;
 	public Tile[][] tiles;
 	public Tile selectedTile;
 	public ArrayList<CountdownTask> countdownTasks;
@@ -32,7 +32,7 @@ public class Game implements Serializable
 		this.utils = utils;
 		this.gw = gw;
 
-		this.turn = 0;
+		this.turn = Nationality.RED;
 		this.selectedTile = null;
 		this.countdownTasks = new ArrayList<CountdownTask>();
 	}
@@ -135,5 +135,52 @@ public class Game implements Serializable
 			diffs.put("tile", "(no tile selected)");
 		}
 		gw.updateTextPanes(diffs);
+		
+		gw.infoBox(turn + " to move");
+	}
+	
+	public void nextTurn()
+	{
+		switch (turn)
+		{
+			case RED:
+			{
+				turn = Nationality.YELLOW;
+				break;
+			}
+			case YELLOW:
+			{
+				turn = Nationality.GREEN;
+				break;
+			}
+			case GREEN:
+			{
+				turn = Nationality.BLUE;
+				break;
+			}
+			case BLUE:
+			{
+				turn = Nationality.RED;
+				break;
+			}
+			default:
+				break;
+		}
+		gw.eventLog("Turn #: " + utils.game.turn);
+		
+		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();
+		
+		for (CountdownTask t : countdownTasks)
+		{
+			t.decrease();
+			if (!t.hasRun)
+			{
+				newTaskList.add(t);
+			}
+		}
+		
+		countdownTasks = newTaskList;
+		
+		utils.game.updateWindow();
 	}
 }

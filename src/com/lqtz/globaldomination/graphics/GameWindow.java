@@ -59,7 +59,7 @@ public class GameWindow extends JFrame
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
-	protected JLabel infoBox; // Info box
+	private JLabel infoBox; // Info box
 
 	private JPanel rightPanel;
 	private JTextPane tileInfoPane; // Pane with tile, city, and game info
@@ -362,8 +362,7 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				utils.game.turn++;
-				eventLog("Turn #: " + utils.game.turn);
+				utils.game.nextTurn();
 			}
 		});
 
@@ -401,6 +400,11 @@ public class GameWindow extends JFrame
 			e.printStackTrace();
 		}
 		eventLogPane.setCaretPosition(0);
+	}
+	
+	public void infoBox(String s)
+	{
+		infoBox.setText(s);
 	}
 
 	/**
