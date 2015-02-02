@@ -7,7 +7,7 @@ public abstract class CountdownTask implements Runnable
 
 	public CountdownTask(int moves)
 	{
-		this.moves = moves;
+		this.moves = moves * 4;
 		if (moves == 0)
 		{
 			run();

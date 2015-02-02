@@ -62,12 +62,7 @@ public class Game implements Serializable
 		blueNat.addSettler(1, 0, 4);
 		yellowNat.addSettler(1, 4, 4);
 
-		gw.eventLog("System> Testing 1 2 3 4 5 6 7 8 9");
-		for (int i = 0; i < 100; i++)
-		{
-			gw.eventLog("System> Testing #" + i);
-		}
-		
+		// Test
 		redNat.cities.get(0).growUnit(UnitType.SETTLER, 1);
 	}
 
