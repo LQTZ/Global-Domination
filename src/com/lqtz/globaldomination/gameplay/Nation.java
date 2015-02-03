@@ -100,6 +100,7 @@ public class Nation
 	{
 		City c = new City(t, this, utils);
 		cities.add(c);
+		t.city = c;
 		t.nat = nationality;
 	}
 }

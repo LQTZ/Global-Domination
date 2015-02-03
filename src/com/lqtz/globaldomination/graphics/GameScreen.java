@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -159,7 +160,23 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	@Override
 	public void mouseClicked(MouseEvent e)
-	{}
+	{
+		if (e.getClickCount() >= 2 && utils.game.selectedTile.city != null)
+		{
+			String[] possibilities = new String[16];
+			possibilities[0] = "--";
+
+			for (int i = 1; i < 6; i++)
+				possibilities[i] = "Settler Level " + String.valueOf(i);
+			for (int i = 6; i < 16; i++)
+				possibilities[i] = "Soldier Level " + String.valueOf(i - 5);
+
+			String s = (String) JOptionPane.showInputDialog(gw,
+					"Which unit would you like your city to work on "
+							+ "right now?", null, JOptionPane.PLAIN_MESSAGE,
+					null, possibilities, "--");
+		}
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent e)

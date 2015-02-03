@@ -5,10 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -91,22 +88,9 @@ public class GameWindow extends JFrame
 
 		if (utils.fullScreen)
 		{
-			// Removes buttons
+			setExtendedState(JFrame.MAXIMIZED_BOTH);
 			setUndecorated(true);
-
-			GraphicsEnvironment ge = GraphicsEnvironment
-					.getLocalGraphicsEnvironment();
-
-			// Makes full screen
-			GraphicsDevice gd = ge.getDefaultScreenDevice();
-			if (gd.isFullScreenSupported())
-			{
-				gd.setFullScreenWindow(this);
-			}
-			else
-			{
-				setSize(Toolkit.getDefaultToolkit().getScreenSize());
-			}
+			setAlwaysOnTop(true);
 		}
 		else
 		{
@@ -401,7 +385,7 @@ public class GameWindow extends JFrame
 		}
 		eventLogPane.setCaretPosition(0);
 	}
-	
+
 	public void infoBox(String s)
 	{
 		infoBox.setText(s);

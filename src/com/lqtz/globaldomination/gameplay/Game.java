@@ -130,10 +130,10 @@ public class Game implements Serializable
 			diffs.put("tile", "(no tile selected)");
 		}
 		gw.updateTextPanes(diffs);
-		
+
 		gw.infoBox(turn + " to move");
 	}
-	
+
 	public void nextTurn()
 	{
 		switch (turn)
@@ -162,9 +162,9 @@ public class Game implements Serializable
 				break;
 		}
 		gw.eventLog("Turn #: " + utils.game.turn);
-		
+
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();
-		
+
 		for (CountdownTask t : countdownTasks)
 		{
 			t.decrease();
@@ -173,9 +173,9 @@ public class Game implements Serializable
 				newTaskList.add(t);
 			}
 		}
-		
+
 		countdownTasks = newTaskList;
-		
+
 		utils.game.updateWindow();
 	}
 }
