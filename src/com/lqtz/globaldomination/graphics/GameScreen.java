@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import com.lqtz.globaldomination.gameplay.UnitType;
 import com.lqtz.globaldomination.io.Utils;
 
 /**
@@ -163,18 +164,54 @@ public class GameScreen extends JPanel implements MouseInputListener
 	{
 		if (e.getClickCount() >= 2 && utils.game.selectedTile.city != null)
 		{
+			// Create array of possibilities
 			String[] possibilities = new String[16];
 			possibilities[0] = "--";
-
 			for (int i = 1; i < 6; i++)
 				possibilities[i] = "Settler Level " + String.valueOf(i);
 			for (int i = 6; i < 16; i++)
 				possibilities[i] = "Soldier Level " + String.valueOf(i - 5);
 
+			// Display growUnit selection dialog
 			String s = (String) JOptionPane.showInputDialog(gw,
 					"Which unit would you like your city to work on "
 							+ "right now?", null, JOptionPane.PLAIN_MESSAGE,
 					null, possibilities, "--");
+
+			// Check for null string
+			if (s == null)
+				return;
+
+			String utString = s.substring(0, 7);
+			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
+					s.length()));
+
+			if (!(utString == utils.game.selectedTile.city.growUnitType
+					.toString() && ul != utils.game.selectedTile.city.growUnitLevel))
+			{
+				if (!(utils.game.countdownTasks.get(utils.game.countdownTasks
+						.size() - 1).hasRun))
+				{
+					utils.game.countdownTasks.get(utils.game.countdownTasks
+							.size()).hasRun = true;
+				}
+
+				switch (utString)
+				{
+					case "Settler":
+					{
+						utils.game.selectedTile.city.growUnit(UnitType.SETTLER,
+								ul);
+						break;
+					}
+					case "Soldier":
+					{
+						utils.game.selectedTile.city.growUnit(UnitType.SOLDIER,
+								ul);
+						break;
+					}
+				}
+			}
 		}
 	}
 

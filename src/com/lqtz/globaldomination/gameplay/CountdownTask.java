@@ -18,7 +18,7 @@ public abstract class CountdownTask implements Runnable
 	public void decrease()
 	{
 		moves--;
-		if (moves == 0)
+		if (!hasRun && moves == 0)
 		{
 			run();
 			hasRun = true;

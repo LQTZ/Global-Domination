@@ -9,6 +9,9 @@ public class City
 
 	public Nation nation;
 	public Tile tile;
+	public boolean isGrowing = false;
+	public UnitType growUnitType;
+	public int growUnitLevel;
 
 	public City(Tile tile, Nation nation, Utils utils)
 	{
@@ -16,10 +19,15 @@ public class City
 
 		this.tile = tile;
 		this.nation = nation;
+		
+		this.growUnitType = null;
+		this.growUnitLevel = -1;
 	}
 
 	public void growUnit(final UnitType ut, final int level)
 	{
+		growUnitType = ut;
+		growUnitLevel = level;
 		utils.game.countdownTasks.add(new CountdownTask(level * 2)
 		{
 			@Override
@@ -33,6 +41,8 @@ public class City
 				{
 					nation.addSoldier(level, tile.xCoord, tile.yCoord);
 				}
+				growUnitType = null;
+				growUnitLevel = -1;
 			}
 		});
 	}
