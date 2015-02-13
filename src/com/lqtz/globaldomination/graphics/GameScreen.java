@@ -162,9 +162,16 @@ public class GameScreen extends JPanel implements MouseInputListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		if (e.getClickCount() >= 2 && utils.game.selectedTile != null &&
-				utils.game.selectedTile.city != null)
+		if (e.getClickCount() >= 2 && utils.game.selectedTile != null
+				&& utils.game.selectedTile.city != null)
 		{
+			if (utils.game.selectedTile.city.isGrowing)
+			{
+				JOptionPane.showMessageDialog(gw,
+						"The city is already growing a unit.",
+						"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			// Create array of possibilities
 			String[] possibilities = new String[16];
 			possibilities[0] = "--";
@@ -187,20 +194,14 @@ public class GameScreen extends JPanel implements MouseInputListener
 			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
 					s.length()));
 
-			if (!utils.game.selectedTile.city.isGrowing)
+			int confirm = JOptionPane.showConfirmDialog(gw,
+					"You are about to grow a unit. This cannot be"
+							+ " cancelled.", "Grow Unit Confirmation",
+					JOptionPane.OK_CANCEL_OPTION);
+			if (confirm == JOptionPane.OK_OPTION)
 			{
-				JOptionPane.showConfirmDialog(gw,
-						"You are about to grow a unit. This cannot be"
-								+ " cancelled.", "Grow Unit Confirmation",
-						JOptionPane.OK_CANCEL_OPTION);
 				utils.game.selectedTile.city.growUnit(
 						UnitType.fromString(utString), ul);
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(gw,
-						"The city is already growing a unit.",
-						"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		utils.game.updateWindow();
