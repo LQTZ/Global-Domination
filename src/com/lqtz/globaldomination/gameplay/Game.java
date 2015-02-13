@@ -73,8 +73,6 @@ public class Game implements Serializable
 			selectedTile.isSelected = true;
 		}
 		this.selectedTile = selectedTile;
-
-		updateWindow();
 	}
 
 	public void updateWindow()
@@ -151,6 +149,8 @@ public class Game implements Serializable
 		gw.updateTextPanes(diffs);
 
 		gw.infoBox(turn + " to move");
+		
+		gw.repaint();
 	}
 
 	public void nextTurn()
@@ -194,7 +194,5 @@ public class Game implements Serializable
 		}
 
 		countdownTasks = newTaskList;
-
-		utils.game.updateWindow();
 	}
 }

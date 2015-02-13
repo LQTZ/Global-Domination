@@ -127,7 +127,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 			utils.game.selectedTile.isSelected = false;
 		}
 		utils.game.selectTile(highlightedTile);
-		gw.repaint();
+		utils.game.updateWindow();
 	}
 
 	@Override
@@ -156,13 +156,14 @@ public class GameScreen extends JPanel implements MouseInputListener
 				}
 			}
 		}
-		gw.repaint();
+		utils.game.updateWindow();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		if (e.getClickCount() >= 2 && utils.game.selectedTile.city != null)
+		if (e.getClickCount() >= 2 && utils.game.selectedTile != null &&
+				utils.game.selectedTile.city != null)
 		{
 			// Create array of possibilities
 			String[] possibilities = new String[16];
@@ -202,6 +203,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 						"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
 			}
 		}
+		utils.game.updateWindow();
 	}
 
 	@Override

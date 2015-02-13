@@ -49,7 +49,6 @@ public class City
 				growUnitLevel = -1;
 			}
 		});
-		utils.game.updateWindow();
 	}
 	
 	public void stopGrowing()

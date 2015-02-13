@@ -76,7 +76,6 @@ public class Nation
 		Soldier s = new Soldier(this, level, xCoord, yCoord, utils);
 		units.add(s);
 		utils.game.tiles[xCoord][yCoord].soldiers.add(s);
-		utils.game.updateWindow();
 	}
 
 	/**
@@ -93,7 +92,6 @@ public class Nation
 		Settler s = new Settler(this, level, xCoord, yCoord, utils);
 		units.add(s);
 		utils.game.tiles[xCoord][yCoord].settlers.add(s);
-		utils.game.updateWindow();
 	}
 
 	public void addCity(Tile t)

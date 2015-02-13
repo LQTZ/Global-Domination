@@ -347,6 +347,7 @@ public class GameWindow extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				utils.game.nextTurn();
+				utils.game.updateWindow();
 			}
 		});
 
