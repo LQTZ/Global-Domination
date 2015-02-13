@@ -16,4 +16,17 @@ public enum UnitType
 		}
 		return null;
 	}
+	
+	public static UnitType fromString(String s)
+	{
+		switch(s)
+		{
+			case "Settler":
+				return SETTLER;
+			case "Soldier":
+				return SOLDIER;
+			default:
+				return null;
+		}
+	}
 }

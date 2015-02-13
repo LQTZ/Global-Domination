@@ -28,11 +28,15 @@ public class City
 	{
 		growUnitType = ut;
 		growUnitLevel = level;
+		isGrowing = true;
+		
 		utils.game.countdownTasks.add(new CountdownTask(level * 2)
 		{
 			@Override
 			public void run()
 			{
+				City.this.stopGrowing();
+				
 				if (ut == UnitType.SETTLER)
 				{
 					nation.addSettler(level, tile.xCoord, tile.yCoord);
@@ -45,5 +49,11 @@ public class City
 				growUnitLevel = -1;
 			}
 		});
+		utils.game.updateWindow();
+	}
+	
+	public void stopGrowing()
+	{
+		isGrowing = false;
 	}
 }

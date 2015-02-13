@@ -175,8 +175,8 @@ public class GameScreen extends JPanel implements MouseInputListener
 			// Display growUnit selection dialog
 			String s = (String) JOptionPane.showInputDialog(gw,
 					"Which unit would you like your city to work on "
-							+ "right now?", null, JOptionPane.PLAIN_MESSAGE,
-					null, possibilities, "--");
+							+ "right now?", "Grow Unit",
+					JOptionPane.PLAIN_MESSAGE, null, possibilities, "--");
 
 			// Check for null string
 			if ((s == null) || (s == "--"))
@@ -186,31 +186,20 @@ public class GameScreen extends JPanel implements MouseInputListener
 			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
 					s.length()));
 
-			if (!(utString == utils.game.selectedTile.city.growUnitType
-					.toString() && ul != utils.game.selectedTile.city.growUnitLevel))
+			if (!utils.game.selectedTile.city.isGrowing)
 			{
-				if (!(utils.game.countdownTasks.get(utils.game.countdownTasks
-						.size() - 1).hasRun))
-				{
-					utils.game.countdownTasks.get(utils.game.countdownTasks
-							.size()).hasRun = true;
-				}
-
-				switch (utString)
-				{
-					case "Settler":
-					{
-						utils.game.selectedTile.city.growUnit(UnitType.SETTLER,
-								ul);
-						break;
-					}
-					case "Soldier":
-					{
-						utils.game.selectedTile.city.growUnit(UnitType.SOLDIER,
-								ul);
-						break;
-					}
-				}
+				JOptionPane.showConfirmDialog(gw,
+						"You are about to grow a unit. This cannot be"
+								+ " cancelled.", "Grow Unit Confirmation",
+						JOptionPane.OK_CANCEL_OPTION);
+				utils.game.selectedTile.city.growUnit(
+						UnitType.fromString(utString), ul);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(gw,
+						"The city is already growing a unit.",
+						"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

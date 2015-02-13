@@ -121,6 +121,25 @@ public class Game implements Serializable
 			diffs.put("tile", "Revenue: " + selectedTile.tileRevenue
 					+ "\nProductivity: " + selectedTile.tileProductivity + "\n");
 
+			if (selectedTile.city != null)
+			{
+
+				if (selectedTile.city.isGrowing)
+				{
+					diffs.put("city", "Is growing a level "
+							+ selectedTile.city.growUnitLevel + " "
+							+ selectedTile.city.growUnitType + " unit\n");
+				}
+				else
+				{
+					diffs.put("city", "This tile has a city.");
+				}
+			}
+			else
+			{
+				diffs.put("city", "(no city)");
+			}
+
 			// TODO finish
 		}
 		else
