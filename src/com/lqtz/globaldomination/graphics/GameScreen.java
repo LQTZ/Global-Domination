@@ -179,7 +179,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 					null, possibilities, "--");
 
 			// Check for null string
-			if (s == null)
+			if ((s == null) || (s == "--"))
 				return;
 
 			String utString = s.substring(0, 7);
