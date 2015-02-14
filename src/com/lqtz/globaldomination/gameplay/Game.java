@@ -63,7 +63,7 @@ public class Game implements Serializable
 		yellowNat.addSettler(1, 4, 4);
 
 		// Test
-		redNat.cities.get(0).growUnit(UnitType.SETTLER, 1);
+//		redNat.cities.get(0).growUnit(UnitType.SETTLER, 1);
 	}
 
 	public void selectTile(Tile selectedTile)

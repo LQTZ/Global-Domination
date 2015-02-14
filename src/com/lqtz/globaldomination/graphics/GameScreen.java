@@ -133,6 +133,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
+		// Highlight tile being moused over
 		if (highlightedTile != null)
 		{
 			if (highlightedTile.hexagon.contains(e.getPoint()))
@@ -156,15 +157,30 @@ public class GameScreen extends JPanel implements MouseInputListener
 				}
 			}
 		}
+
 		utils.game.updateWindow();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
+		// City growunit popup if double-click on a city tile
 		if (e.getClickCount() >= 2 && utils.game.selectedTile != null
 				&& utils.game.selectedTile.city != null)
 		{
+			// Make sure city belongs to current player (cannot be in previous
+			// if because null pointer exception if selectedTile is null)
+			if (utils.game.selectedTile.nat != utils.game.turn)
+			{
+				JOptionPane.showMessageDialog(gw, String.join("",
+						"This city is ",
+						utils.game.selectedTile.nat.toString(),
+						", you cannot grow units here."), "Cannot Grow Unit",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			// Make sure city not busy
 			if (utils.game.selectedTile.city.isGrowing)
 			{
 				JOptionPane.showMessageDialog(gw,
@@ -172,6 +188,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 						"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+
 			// Create array of possibilities
 			String[] possibilities = new String[16];
 			possibilities[0] = "--";
