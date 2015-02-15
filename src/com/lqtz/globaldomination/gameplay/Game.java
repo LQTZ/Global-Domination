@@ -66,6 +66,9 @@ public class Game implements Serializable
 		tiles[0][0].settlers.get(0).move(tiles[0][1]);
 		yellowNat.addSoldier(1, 4, 4);
 		tiles[4][4].soldiers.get(0).move(tiles[4][3]);
+		blueNat.addSoldier(1, 0, 4);
+		tiles[0][4].soldiers.get(0).move(tiles[2][4]); // Should not work; too
+														// far
 	}
 
 	public void selectTile(Tile selectedTile)
@@ -94,7 +97,8 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.soldierImages[u.level - 1]);
-						doc.insertString(doc.getLength(), " Soldier Unit\n",
+						doc.insertString(doc.getLength(), " Soldier Unit ("
+								+ u.nation.nationality.toString() + ")\n",
 								gw.body);
 					}
 					for (Settler u : selectedTile.settlers)
