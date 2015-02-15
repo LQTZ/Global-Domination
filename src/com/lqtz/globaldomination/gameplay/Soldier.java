@@ -177,14 +177,14 @@ public class Soldier extends Unit
 		// Determine whether or not tile is hostile
 		for (Unit u : tile.soldiers)
 		{
-			if (u.nation.nationality == nation.nationality)
+			if (u.nation.nationality != nation.nationality)
 			{
 				unitsToAttack.add(u);
 			}
 		}
 		for (Unit u : tile.settlers)
 		{
-			if (u.nation.nationality == nation.nationality)
+			if (u.nation.nationality != nation.nationality)
 			{
 				unitsToAttack.add(u);
 			}
@@ -203,7 +203,7 @@ public class Soldier extends Unit
 			});
 
 			// Attack the greatest defensive power
-			attackUnit(unitsToAttack.get(unitsToAttack.size()));
+			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
 		}
 	}
 
@@ -212,24 +212,27 @@ public class Soldier extends Unit
 	 * enemy unit is dead, if not tells enemy unit to hit self based on enemy
 	 * unit defenseHits, checks if self is dead
 	 * 
-	 * @param unit
+	 * @param defender
 	 *            unit to attack
 	 */
-	public void attackUnit(Unit unit)
+	public void attackUnit(Unit defender)
 	{
-		double attackHits = attackPower + utils.random.nextGaussian()
-				* unit.defendPower / ((attackPower + currentHealthPoints) / 2);
-		unit.currentHealthPoints -= attackHits;
+		// Attack hits
+		defender.currentHealthPoints -= generateHits(attackPower, defender);
 
-		if (unit.currentHealthPoints <= 0)
-			unit.delete();
-		else
+		// Check for kill
+		if (defender.currentHealthPoints <= 0)
 		{
-			double recievedHits = unit.defendDamage(this);
-			currentHealthPoints -= recievedHits;
-
-			if (currentHealthPoints <= 0)
-				delete();
+			defender.delete();
+			return;
 		}
+
+		// Recieved hits
+		currentHealthPoints -= defender
+				.generateHits(defender.defendPower, this);
+
+		// Check for kill
+		if (currentHealthPoints <= 0)
+			delete();
 	}
 }

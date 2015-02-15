@@ -97,16 +97,28 @@ public abstract class Unit implements Serializable
 	public abstract int move(Tile tile);
 
 	/**
-	 * Generate defenseHits value
+	 * Randomly generate hits to hit an enemy Unit with in a fight
 	 * 
-	 * @param soldier
-	 *            soldier defending from
-	 * @return defenseHits to pass to attacker's attackUnit method
+	 * @param power
+	 *            power level being used against enemy Unit
+	 * @param againstUnit
+	 *            enemy unit
+	 * @return hits to hit enemy Unit with
 	 */
-	public double defendDamage(Soldier soldier)
+	public double generateHits(double power, Unit againstUnit)
 	{
-		return defendPower + utils.random.nextGaussian() * soldier.attackPower
-				/ ((defendPower + currentHealthPoints) / 2);
+		double thisEffectivePower = power * currentHealthPoints
+				/ maxHealthPoints;
+		double attackerEffectivePower = againstUnit.defendPower
+				* againstUnit.currentHealthPoints / againstUnit.maxHealthPoints;
+
+		double hits = thisEffectivePower * thisEffectivePower
+				/ attackerEffectivePower * utils.random.nextDouble();
+
+		if (hits < 0)
+			return 0;
+		else
+			return hits;
 	}
 
 	/**

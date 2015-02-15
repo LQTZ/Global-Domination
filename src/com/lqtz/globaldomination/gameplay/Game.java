@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
@@ -61,14 +62,50 @@ public class Game implements Serializable
 		greenNat.addSettler(1, 4, 0);
 		blueNat.addSettler(1, 0, 4);
 		yellowNat.addSettler(1, 4, 4);
+		
+		// TMP
+		test();
+	}
 
-		// Test
+	/**
+	 * Temporary method for running tests on GD
+	 */
+	private void test()
+	{
+		// Move red settler unit up one
 		tiles[0][0].settlers.get(0).move(tiles[0][1]);
-		yellowNat.addSoldier(1, 4, 4);
-		tiles[4][4].soldiers.get(0).move(tiles[4][3]);
-		blueNat.addSoldier(1, 0, 4);
-		tiles[0][4].soldiers.get(0).move(tiles[2][4]); // Should not work; too
-														// far
+
+		// Add red soldier and blue soldier
+		nations[0].addSoldier(4, 0, 0);
+		nations[2].addSoldier(4, 0, 4);
+
+		// Move red soldier up 2 and blue soldier down 1
+		tiles[0][0].soldiers.get(0).move(tiles[0][2]);
+		tiles[0][4].soldiers.get(0).move(tiles[0][3]);
+
+		// Red soldier attack blue soldier
+		tiles[0][2].soldiers.get(0).attackTile(tiles[0][3]);
+
+		// Display hp or unit dead
+		try
+		{
+			JOptionPane.showMessageDialog(gw, String
+					.valueOf(tiles[0][2].soldiers.get(0).currentHealthPoints));
+		}
+		catch (IndexOutOfBoundsException e)
+		{
+			JOptionPane.showMessageDialog(gw, "Unit dead");
+		}
+
+		try
+		{
+			JOptionPane.showMessageDialog(gw, String
+					.valueOf(tiles[0][3].soldiers.get(0).currentHealthPoints));
+		}
+		catch (IndexOutOfBoundsException e)
+		{
+			JOptionPane.showMessageDialog(gw, "Unit dead");
+		}
 	}
 
 	public void selectTile(Tile selectedTile)
