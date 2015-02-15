@@ -161,9 +161,6 @@ public class Soldier extends Unit
 		tile = toTile;
 		tile.soldiers.add(this);
 
-		// Update window
-		utils.game.updateWindow();
-
 		return 0;
 	}
 

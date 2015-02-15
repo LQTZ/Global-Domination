@@ -107,10 +107,7 @@ public class Settler extends Unit
 		// Add new one
 		tile = toTile;
 		tile.settlers.add(this);
-		
-		// Update window
-		utils.game.updateWindow();
-		
+
 		return 0;
 	}
 

@@ -93,6 +93,7 @@ public abstract class Unit implements Serializable
 	}
 
 	protected abstract void assignByLevel();
+
 	public abstract int move(Tile tile);
 
 	/**

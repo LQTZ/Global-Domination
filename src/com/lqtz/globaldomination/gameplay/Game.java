@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
@@ -152,7 +151,7 @@ public class Game implements Serializable
 		gw.updateTextPanes(diffs);
 
 		gw.infoBox(turn + " to move");
-		
+
 		gw.repaint();
 	}
 
