@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyledDocument;
@@ -63,7 +64,9 @@ public class Game implements Serializable
 		yellowNat.addSettler(1, 4, 4);
 
 		// Test
-//		redNat.cities.get(0).growUnit(UnitType.SETTLER, 1);
+		tiles[0][0].settlers.get(0).move(tiles[0][1]);
+		yellowNat.addSoldier(1, 4, 4);
+		tiles[4][4].soldiers.get(0).move(tiles[4][3]);
 	}
 
 	public void selectTile(Tile selectedTile)

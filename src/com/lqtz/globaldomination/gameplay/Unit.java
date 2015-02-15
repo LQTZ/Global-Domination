@@ -22,11 +22,6 @@ public abstract class Unit implements Serializable
 	public Nation nation;
 
 	/**
-	 * Position on map (x and y coordinates)
-	 */
-	public int[] position;
-
-	/**
 	 * The tile the unit is currently on
 	 */
 	public Tile tile;
@@ -59,16 +54,6 @@ public abstract class Unit implements Serializable
 	public double defendPower;
 
 	/**
-	 * Current x-coordinate on the map
-	 */
-	public int xCoord;
-
-	/**
-	 * Current y-coordinate on the map
-	 */
-	public int yCoord;
-
-	/**
 	 * Unit level (hp and power depend on this)
 	 */
 	public int level;
@@ -95,8 +80,6 @@ public abstract class Unit implements Serializable
 	{
 		// Initialize passed fields
 		this.nation = nation;
-		this.xCoord = xCoord;
-		this.yCoord = yCoord;
 		this.level = level;
 		this.utils = utils;
 
@@ -104,11 +87,13 @@ public abstract class Unit implements Serializable
 		assignByLevel();
 
 		// Initialize "current" fields
+		tile = utils.game.tiles[xCoord][yCoord];
 		currentHealthPoints = maxHealthPoints;
 		movesLeft = maxMoveDistance;
 	}
 
 	protected abstract void assignByLevel();
+	public abstract int move(Tile tile);
 
 	/**
 	 * Generate defenseHits value
@@ -121,34 +106,6 @@ public abstract class Unit implements Serializable
 	{
 		return defendPower + utils.random.nextGaussian() * soldier.attackPower
 				/ ((defendPower + currentHealthPoints) / 2);
-	}
-
-	/**
-	 * Move to a certain tile
-	 * 
-	 * @param tile
-	 *            tile to move to
-	 * @return Whether or not move was legal (-2 if the unit has maxed out moves
-	 *         for the turn, -1 if the tiles are not adjacent, and 0 if move
-	 *         successful)
-	 */
-	public int move(Tile tile)
-	{
-		// Check if unit has maxed out moves for the turn
-		if (movesLeft <= 0)
-			return -2;
-
-		// Check if tile is not adjacent
-		else if (!((Math.abs((this.tile.xCoord - tile.xCoord)) <= 1) && (Math
-				.abs((this.tile.xCoord - tile.xCoord)) <= 1)))
-			return -1;
-
-		// If move is legal, switch the unit's tile to the new tile
-		else
-		{
-			this.tile = tile;
-			return 0;
-		}
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package com.lqtz.globaldomination.gameplay;
 
+import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
 /**
@@ -32,6 +33,7 @@ public class Settler extends Unit
 	public Settler(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
 		super(nation, level, xCoord, yCoord, utils);
+		utils.game.tiles[xCoord][yCoord].settlers.add(this);
 	}
 
 	@Override
@@ -76,6 +78,40 @@ public class Settler extends Unit
 				maxMoveDistance = 3;
 			}
 		}
+	}
+
+	/**
+	 * Move to a certain tile
+	 * 
+	 * @param toTile
+	 *            tile to move to
+	 * @return Whether or not move was legal (-2 if the unit has maxed out moves
+	 *         for the turn, -1 if the tiles are not adjacent, and 0 if move
+	 *         successful)
+	 */
+	public int move(Tile toTile)
+	{
+		// Check if unit has maxed out moves for the turn
+		if (movesLeft <= 0)
+			return -2;
+
+		// Make sure tile is not adjacent
+		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+				|| (Math.abs(tile.xCoord - toTile.xCoord) > 1))
+			return -1;
+
+		// Delete the old one
+		tile.settlers.remove(this);
+		nation.units.remove(this);
+
+		// Add new one
+		tile = toTile;
+		tile.settlers.add(this);
+		
+		// Update window
+		utils.game.updateWindow();
+		
+		return 0;
 	}
 
 	/**
