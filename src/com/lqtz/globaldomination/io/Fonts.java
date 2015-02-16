@@ -4,13 +4,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 
-/**
- *
- * Loads fonts
- *
- * @author Gitdropcode
- *
- */
 public class Fonts
 {
 	/**
@@ -28,9 +21,9 @@ public class Fonts
 
 	/**
 	 * Load fonts
-	 *
-	 * @throws FontFormatException
-	 * @throws IOException
+	 * 
+	 * @throws FontFormatException error loading fonts
+	 * @throws IOException error loading fonts
 	 */
 	public Fonts() throws FontFormatException, IOException
 	{

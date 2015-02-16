@@ -9,6 +9,8 @@ public abstract class Unit implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
+	protected Utils utils;
+
 	/**
 	 * {@code Nation} of the {@code Unit}
 	 */
@@ -52,8 +54,6 @@ public abstract class Unit implements Serializable
 	 */
 	public int level;
 
-	protected Utils utils;
-
 	/**
 	 * Initialize the unit
 	 *
@@ -86,7 +86,19 @@ public abstract class Unit implements Serializable
 
 	protected abstract void assignByLevel();
 
+	/**
+	 * Move the {@code Unit} to a specific {@code Tile} if legal
+	 * 
+	 * @param tile
+	 *            {@code Tile} to move to
+	 * @return exit status (see implementations)
+	 */
 	public abstract int move(Tile tile);
+
+	/**
+	 * Remove all references to the {@code Unit} (kill it)
+	 */
+	public abstract void delete();
 
 	/**
 	 * Randomly generate hits to hit an enemy {@code Unit} with in a fight
@@ -111,21 +123,5 @@ public abstract class Unit implements Serializable
 			return 0;
 		else
 			return hits;
-	}
-
-	/**
-	 * Removes all references to the {@code Unit}
-	 */
-	public void delete()
-	{
-		nation.units.remove(this);
-		if (this instanceof Settler)
-		{
-			tile.settlers.remove(this);
-		}
-		else
-		{
-			tile.soldiers.remove(this);
-		}
 	}
 }

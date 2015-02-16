@@ -79,6 +79,10 @@ public class GameWindow extends JFrame
 	 */
 	public Style[] settlerImages;
 
+	/**
+	 * {@code null} character used for the {@code String} part of icons in text
+	 * panes
+	 */
 	public static final String IMAGE_STRING = "\0";
 
 	/**
@@ -393,6 +397,12 @@ public class GameWindow extends JFrame
 		eventLogPane.setCaretPosition(0);
 	}
 
+	/**
+	 * Set the text of {@code infoBox}
+	 * 
+	 * @param s
+	 *            text to set {@code infoBox} to
+	 */
 	public void infoBox(String s)
 	{
 		infoBox.setText(s);
@@ -420,6 +430,8 @@ public class GameWindow extends JFrame
 	 *
 	 * @param diffs
 	 *            {@code diffs} map
+	 * @throws IllegalArgumentException
+	 *             invalid value for {@code diffs}
 	 */
 	public void updateTextPanes(Map<String, Object> diffs)
 			throws IllegalArgumentException

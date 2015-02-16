@@ -8,13 +8,6 @@ import java.util.Random;
 
 import com.lqtz.globaldomination.gameplay.Game;
 
-/**
- *
- * Object for loading res
- *
- * @author Gandalf
- *
- */
 public class Utils
 {
 	/**
@@ -26,12 +19,30 @@ public class Utils
 	 * Fonts to load
 	 */
 	public Fonts fonts;
+
+	/**
+	 * Random number generator
+	 */
 	public Random random;
 
+	/**
+	 * Whether or not to display the game in full-screen
+	 */
 	public boolean fullScreen = true;
+
+	/**
+	 * Screen resolution
+	 */
 	public Dimension resolution = Toolkit.getDefaultToolkit().getScreenSize();
+
+	/**
+	 * {@code Game} object to be added once the {@code Game} is instantiated
+	 */
 	public Game game = null;
 
+	/**
+	 * Length and width of the board
+	 */
 	public final int DIM = 5;
 
 	/**

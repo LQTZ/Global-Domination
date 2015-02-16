@@ -8,6 +8,21 @@ public class Settler extends Unit
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Whether or not the {@code Settler} is building a {@code City}
+	 */
+	public boolean isBuilding = false;
+
+	/**
+	 * Number of turns it takes for the {@code Settler} to build a {@code City}
+	 */
+	public int turnsToCity;
+
+	/**
+	 * {@code CountdownTask} that builds the {@code City}
+	 */
+	public CountdownTask cityBuilder;
+
+	/**
 	 * {@code Settler} {@code Unit}
 	 *
 	 * @param nation
@@ -44,29 +59,33 @@ public class Settler extends Unit
 				maxHealthPoints = 2;
 				defendPower = 1;
 				maxMoveDistance = 1;
+				turnsToCity = 3;
 			}
 			case 2:
 			{
 				maxHealthPoints = 4;
 				defendPower = 3;
 				maxMoveDistance = 2;
+				turnsToCity = 3;
 			}
 			case 3:
 			{
 				maxHealthPoints = 6;
 				defendPower = 5;
 				maxMoveDistance = 3;
+				turnsToCity = 2;
 			}
 			case 4:
 			{
 				maxHealthPoints = 8;
 				defendPower = 7;
-				maxMoveDistance = 3;
+				turnsToCity = 2;
 			}
 			case 5:
 			{
 				maxHealthPoints = 10;
 				maxMoveDistance = 3;
+				turnsToCity = 1;
 			}
 		}
 	}
@@ -84,6 +103,8 @@ public class Settler extends Unit
 	@Override
 	public int move(Tile toTile)
 	{
+		// TODO Check if building city, and if so, do not allow settler to move
+
 		// Check if unit has maxed out moves for the turn
 		if (movesLeft <= 0)
 			return -2;
@@ -107,12 +128,35 @@ public class Settler extends Unit
 	/**
 	 * Create a {@code City} object on the {@code Tile} the {@code Settler} is
 	 * on
-	 *
-	 * @return number of turns it will take to build the {@code City}
 	 */
-	public int buildCity()
+	public void buildCity()
 	{
-		// TODO create method once City class exists
-		return 0;
+		isBuilding = true;
+
+		utils.game.countdownTasks.add(new CountdownTask(turnsToCity)
+		{
+			@Override
+			public void run()
+			{
+				isBuilding = false;
+				nation.addCity(tile);
+			}
+		});
+	}
+
+	/**
+	 * Finish building the {@code City}
+	 */
+	public void stopGrowing()
+	{
+		isBuilding = false;
+	}
+
+	@Override
+	public void delete()
+	{
+		nation.units.remove(this);
+		tile.settlers.remove(this);
+		utils.game.countdownTasks.remove(cityBuilder);
 	}
 }

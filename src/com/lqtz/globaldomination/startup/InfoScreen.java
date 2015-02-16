@@ -40,6 +40,8 @@ public class InfoScreen extends BasicScreen
 	 *            title of the page
 	 * @param utils
 	 *            GD {@code Utils} utility
+	 * @throws IOException
+	 *             error loading body text
 	 */
 	public InfoScreen(InputStream input, String titleStr, Utils utils)
 			throws IOException

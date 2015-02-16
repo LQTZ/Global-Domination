@@ -18,7 +18,7 @@ public class City
 	public Tile tile;
 
 	/**
-	 * Whether or not the {@code City} is growing a unit
+	 * Whether or not the {@code City} is growing a {@code Unit}
 	 */
 	public boolean isGrowing = false;
 

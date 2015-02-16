@@ -103,6 +103,9 @@ public class Game implements Serializable
 		// Move red settler unit up one
 		tiles[0][0].settlers.get(0).move(tiles[0][1]);
 
+		// Build a city on that square
+		tiles[0][1].settlers.get(0).buildCity();
+
 		// Add red soldier and blue soldier
 		nations[0].addSoldier(4, 0, 0);
 		nations[2].addSoldier(4, 0, 4);

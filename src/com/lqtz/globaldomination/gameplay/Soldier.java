@@ -185,13 +185,13 @@ public class Soldier extends Unit
 		if (unitsToAttack.size() > 0)
 		{
 			Collections.sort(unitsToAttack, new Comparator<Unit>()
-					{
+			{
 				@Override
 				public int compare(Unit o1, Unit o2)
 				{
 					return Double.compare(o1.defendPower, o2.defendPower);
 				}
-					});
+			});
 
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
@@ -225,5 +225,12 @@ public class Soldier extends Unit
 		// Check for kill
 		if (currentHealthPoints <= 0)
 			delete();
+	}
+
+	@Override
+	public void delete()
+	{
+		nation.units.remove(this);
+		tile.soldiers.remove(this);
 	}
 }

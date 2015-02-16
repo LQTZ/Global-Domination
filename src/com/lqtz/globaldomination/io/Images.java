@@ -5,13 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-/**
- *
- * Loads images
- *
- * @author Gitdropcode
- *
- */
 public class Images
 {
 	/**
@@ -44,13 +37,21 @@ public class Images
 	 */
 	public BufferedImage settler;
 
+	/**
+	 * Soldier icons
+	 */
 	public BufferedImage[] soldiers;
+
+	/**
+	 * Settler icons
+	 */
 	public BufferedImage[] settlers;
 
 	/**
 	 * Load images
-	 *
+	 * 
 	 * @throws IOException
+	 *             error loading images
 	 */
 	public Images() throws IOException
 	{
