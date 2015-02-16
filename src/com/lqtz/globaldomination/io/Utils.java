@@ -9,11 +9,11 @@ import java.util.Random;
 import com.lqtz.globaldomination.gameplay.Game;
 
 /**
- * 
+ *
  * Object for loading res
- * 
+ *
  * @author Gandalf
- * 
+ *
  */
 public class Utils
 {

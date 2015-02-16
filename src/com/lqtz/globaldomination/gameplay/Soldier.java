@@ -7,13 +7,6 @@ import java.util.Comparator;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Soldier type Unit
- * 
- * @author Gandalf
- * 
- */
 public class Soldier extends Unit
 {
 	private static final long serialVersionUID = 1L;
@@ -25,22 +18,18 @@ public class Soldier extends Unit
 	public double attackPower;
 
 	/**
-	 * Initialize the Soldier
-	 * 
+	 * {@code Soldier} {@code Unit}
+	 *
 	 * @param nation
-	 *            nation of the unit
-	 * @param healthPoints
-	 *            max (starting) health points
-	 * @param moveDistance
-	 *            number of tiles the unit can move per turn
-	 * @param attackPower
-	 *            attack power (variable in the attack odds formula
-	 * @param defendPower
-	 *            defense power (variable in the defense odds formula)
+	 *            {@code Nation} the {@code Soldier} belongs to
+	 * @param level
+	 *            {@code level} of the {@code Soldier} to grow
 	 * @param xCoord
-	 *            initial x-coordinate
+	 *            initial x-coordinate to put the {@code Soldier} on
 	 * @param yCoord
-	 *            initial y-coordinate
+	 *            initial y-coordinate to put the {@code Soldier} on
+	 * @param utils
+	 *            GD {@code Utils} utility
 	 */
 	public Soldier(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
@@ -134,14 +123,16 @@ public class Soldier extends Unit
 	}
 
 	/**
-	 * Move to a certain tile
-	 * 
-	 * @param tile
-	 *            tile to move to
-	 * @return Whether or not move was legal (-2 if the unit has maxed out moves
-	 *         for the turn, -1 if the tiles are not adjacent, and 0 if move
+	 * Move to a certain {@code Tile}
+	 *
+	 * @param toTile
+	 *            {@code Tile} to move to
+	 * @return Whether or not {@code move()} was legal (-2 if the
+	 *         {@code Soldier} has maxed out moves for the turn, -1 if the
+	 *         {@code Tile}s are not adjacent, and 0 if {@code move()}
 	 *         successful)
 	 */
+	@Override
 	public int move(Tile toTile)
 	{
 		// Check if unit has maxed out moves for the turn
@@ -165,10 +156,10 @@ public class Soldier extends Unit
 	}
 
 	/**
-	 * Attack a tile
-	 * 
+	 * Attack a {@code Tile}
+	 *
 	 * @param tile
-	 *            tile to attack
+	 *            {@code Tile} to attack
 	 */
 	public void attackTile(Tile tile)
 	{
@@ -194,13 +185,13 @@ public class Soldier extends Unit
 		if (unitsToAttack.size() > 0)
 		{
 			Collections.sort(unitsToAttack, new Comparator<Unit>()
-			{
+					{
 				@Override
 				public int compare(Unit o1, Unit o2)
 				{
 					return Double.compare(o1.defendPower, o2.defendPower);
 				}
-			});
+					});
 
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
@@ -208,12 +199,12 @@ public class Soldier extends Unit
 	}
 
 	/**
-	 * Attacks a specific unit (hits enemy unit based on attackHits, checks if
-	 * enemy unit is dead, if not tells enemy unit to hit self based on enemy
-	 * unit defenseHits, checks if self is dead
-	 * 
+	 * Attacks (hits) a specific enemy {@code Unit}, checks if enemy
+	 * {@code Unit} is dead, if not gets enemy {@code Unit} to hit back, and
+	 * checks if self is dead
+	 *
 	 * @param defender
-	 *            unit to attack
+	 *            {@code Unit} to attack
 	 */
 	public void attackUnit(Unit defender)
 	{

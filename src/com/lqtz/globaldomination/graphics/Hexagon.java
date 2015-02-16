@@ -2,28 +2,20 @@ package com.lqtz.globaldomination.graphics;
 
 import java.awt.Polygon;
 
-/**
- * 
- * A hexagon (almost regular, but not quite, since <code>java.awt.Polygon</code>
- * only accepts ints)
- * 
- * @author Gitdropcode
- * 
- */
 public class Hexagon extends Polygon
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Hexagon Polygon to represent map tiles
-	 * 
+	 * Hexagon-shaped {@code Polygon} to represent map {@code Tile}s
+	 *
 	 * @param centerY
 	 *            x-coordinate of center
 	 * @param centerX
 	 *            y-coordinate of center
 	 * @param size
-	 *            radius of circle the hexagon is inscribed in (must be a
-	 *            multiple of 8 for polygon constructor to work)
+	 *            radius of circle the {@code Hexagon} is inscribed in (must be
+	 *            a multiple of 8 for {@code Polygon} constructor to work)
 	 */
 	public Hexagon(int centerX, int centerY, int size)
 	{

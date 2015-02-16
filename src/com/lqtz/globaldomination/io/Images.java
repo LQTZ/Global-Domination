@@ -6,11 +6,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * 
+ *
  * Loads images
- * 
+ *
  * @author Gitdropcode
- * 
+ *
  */
 public class Images
 {
@@ -49,7 +49,7 @@ public class Images
 
 	/**
 	 * Load images
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public Images() throws IOException

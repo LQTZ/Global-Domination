@@ -5,15 +5,10 @@ import java.util.ArrayList;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Object representing a nation (player) in the game
- * 
- * @author Gandalf
- * 
- */
 public class Nation
 {
+	private Utils utils;
+
 	/**
 	 * Nationality of the nation
 	 */
@@ -44,13 +39,13 @@ public class Nation
 	 */
 	public Nation[] enemies;
 
-	private Utils utils;
-
 	/**
-	 * Creates new nation
-	 * 
+	 * Object representing a {@code Nation} (player) in the game
+	 *
 	 * @param nationality
 	 *            nationality of the nation
+	 * @param utils
+	 *            GD {@code Utils} utility
 	 */
 	public Nation(Nationality nationality, Utils utils)
 	{
@@ -63,13 +58,13 @@ public class Nation
 
 	/**
 	 * Add a soldier to the Nation's units list
-	 * 
-	 * @param healthPoints
-	 * @param moveDistance
-	 * @param attackPower
-	 * @param defendPower
+	 *
+	 * @param level
+	 *            {@code level} of the {@code Soldier}
 	 * @param xCoord
+	 *            x-coordinate of the {@code Soldier}'s placement in the map
 	 * @param yCoord
+	 *            y-coordinate of the {@code Soldier}'s placement in the map
 	 */
 	public void addSoldier(int level, int xCoord, int yCoord)
 	{
@@ -79,12 +74,13 @@ public class Nation
 
 	/**
 	 * Add a settler to the Nation's units list
-	 * 
-	 * @param healthPoints
-	 * @param moveDistance
-	 * @param defendPower
+	 *
+	 * @param level
+	 *            {@code level} of the {@code Settler}
 	 * @param xCoord
+	 *            x-coordinate of the {@code Settler}'s placement in the map
 	 * @param yCoord
+	 *            y-coordinate of the {@code Settler}'s placement in the map
 	 */
 	public void addSettler(int level, int xCoord, int yCoord)
 	{
@@ -92,6 +88,12 @@ public class Nation
 		units.add(s);
 	}
 
+	/**
+	 * Add a {@code City}
+	 *
+	 * @param t
+	 *            {@code Tile} to put the {@code City} on
+	 */
 	public void addCity(Tile t)
 	{
 		City c = new City(t, this, utils);

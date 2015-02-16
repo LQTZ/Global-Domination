@@ -17,16 +17,44 @@ import com.lqtz.globaldomination.io.Utils;
 public class Game implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-
 	private transient Utils utils;
 	private transient GameWindow gw;
 
+	/**
+	 * {@code Nationality} of the player whose turn it is currently
+	 */
 	public Nationality turn;
+
+	/**
+	 * Map of {@code Tile}s
+	 */
 	public Tile[][] tiles;
+
+	/**
+	 * Currently selected (clicked) {@code Tile}
+	 */
 	public Tile selectedTile;
+
+	/**
+	 * {@code CountdownTask}s currently running
+	 */
 	public ArrayList<CountdownTask> countdownTasks;
+
+	/**
+	 * All Nations currently in the game
+	 */
 	public Nation[] nations;
 
+	/**
+	 * A GD game
+	 *
+	 * @param utils
+	 *            GD {@code Utils} utility
+	 * @param gw
+	 *            {@code GameWindow} {@code JFrame} to play on
+	 * @param tiles
+	 *            map of {@code Tile}s
+	 */
 	public Game(Utils utils, GameWindow gw, Tile[][] tiles)
 	{
 		this.tiles = tiles;
@@ -62,7 +90,7 @@ public class Game implements Serializable
 		greenNat.addSettler(1, 4, 0);
 		blueNat.addSettler(1, 0, 4);
 		yellowNat.addSettler(1, 4, 4);
-		
+
 		// TMP
 		test();
 	}
@@ -108,15 +136,24 @@ public class Game implements Serializable
 		}
 	}
 
-	public void selectTile(Tile selectedTile)
+	/**
+	 * Change {@code selectedTile}
+	 *
+	 * @param tileToSelect
+	 *            new selected {@code Tile}
+	 */
+	public void selectTile(Tile tileToSelect)
 	{
-		if (selectedTile != null)
+		if (tileToSelect != null)
 		{
-			selectedTile.isSelected = true;
+			tileToSelect.isSelected = true;
 		}
-		this.selectedTile = selectedTile;
+		this.selectedTile = tileToSelect;
 	}
 
+	/**
+	 * Update {@code gw}
+	 */
 	public void updateWindow()
 	{
 		Map<String, Object> diffs = new HashMap<String, Object>();
@@ -196,6 +233,9 @@ public class Game implements Serializable
 		gw.repaint();
 	}
 
+	/**
+	 * Switch to the next player's turn
+	 */
 	public void nextTurn()
 	{
 		switch (turn)

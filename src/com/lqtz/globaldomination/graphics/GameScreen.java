@@ -11,38 +11,31 @@ import javax.swing.event.MouseInputListener;
 import com.lqtz.globaldomination.gameplay.UnitType;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Game screen - where tiles are drawn
- * 
- * @author Gitdropcode
- * 
- */
 public class GameScreen extends JPanel implements MouseInputListener
 {
 	private static final long serialVersionUID = 1L;
 	private Utils utils;
-	private Font tileFont;
 	private GameWindow gw;
+	private Font tileFont;
 
 	/**
-	 * All the tiles on the map
+	 * All the {@code Tile}s on the map
 	 */
 	public Tile[][] tiles;
 
 	/**
-	 * Tile currently being moused over
+	 * {@code Tile} currently being moused over
 	 */
 	public Tile highlightedTile;
 
 	/**
-	 * Map screen to draw tiles on
-	 * 
+	 * Map {@code JPanel} to draw {@code Tile}s on
+	 *
 	 * @param gw
-	 *            GameWindow object for repainting on
-	 * 
+	 *            {@code GameWindow} for painting on
+	 *
 	 * @param utils
-	 *            Game object for loading res
+	 *            GD {@code Utils} utility
 	 */
 	public GameScreen(GameWindow gw, Utils utils)
 	{
@@ -55,12 +48,12 @@ public class GameScreen extends JPanel implements MouseInputListener
 	}
 
 	/**
-	 * Adds all the Hexagons
-	 * 
+	 * Add all the {@code Hexagon}s
+	 *
 	 * @param width
-	 *            width of the panel
+	 *            width of the {@code GameScreen}
 	 * @param height
-	 *            height of the panel
+	 *            height of the {@code GameScreen}
 	 */
 	public void addTiles(int width, int height)
 	{
@@ -71,13 +64,13 @@ public class GameScreen extends JPanel implements MouseInputListener
 		// Size needed to fit tiles vertically / 8
 		double sizeFitY = height / (1.5 * DIM + 0.5) / 8.0;
 		// Best size for tiles
-		int sizeFit = (int) (8 * (int) Math.min(sizeFitX, sizeFitY));
+		int sizeFit = 8 * (int) Math.min(sizeFitX, sizeFitY);
 
 		// Create font size
 		tileFont = utils.fonts.sourcesans.deriveFont(Font.PLAIN, sizeFit / 6);
 
 		// Center tiles
-		int xOffset = (int) ((width - sizeFit * (3 * DIM - 1) * 7 / 8) / 2);
+		int xOffset = (width - sizeFit * (3 * DIM - 1) * 7 / 8) / 2;
 		int yOffset = (int) ((height - sizeFit * (1.5 * DIM + 0.5)) / 2);
 		tiles = new Tile[DIM][DIM];
 
@@ -101,8 +94,8 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	@Override
 	/**
-	 * Paints all the Hexagons in the GameScreen
-	 * 
+	 * Paints all the {@code Hexagon}s in the {@code GameScreen}
+	 *
 	 * @param g
 	 *            graphics device for painting
 	 */
@@ -201,7 +194,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 			String s = (String) JOptionPane.showInputDialog(gw,
 					"Which unit would you like your city to work on "
 							+ "right now?", "Grow Unit",
-					JOptionPane.PLAIN_MESSAGE, null, possibilities, "--");
+							JOptionPane.PLAIN_MESSAGE, null, possibilities, "--");
 
 			// Check for null string
 			if ((s == null) || (s == "--"))
@@ -214,7 +207,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 			int confirm = JOptionPane.showConfirmDialog(gw,
 					"You are about to grow a unit. This cannot be"
 							+ " cancelled.", "Grow Unit Confirmation",
-					JOptionPane.OK_CANCEL_OPTION);
+							JOptionPane.OK_CANCEL_OPTION);
 			if (confirm == JOptionPane.OK_OPTION)
 			{
 				utils.game.selectedTile.city.growUnit(

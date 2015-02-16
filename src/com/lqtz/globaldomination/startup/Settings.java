@@ -24,18 +24,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 import javax.swing.event.MouseInputListener;
 import javax.swing.text.BadLocationException;
 
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Settings screen
- * 
- * @author Gitdropcode
- * 
- */
 public class Settings extends BasicScreen implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
@@ -68,6 +62,12 @@ public class Settings extends BasicScreen implements ActionListener
 	private ArrayList<Dimension> possdims = new ArrayList<Dimension>();
 	private String[] dimstrs;
 
+	/**
+	 * Settings screen
+	 *
+	 * @param utils
+	 *            GD {@code Utils} utility
+	 */
 	public Settings(Utils utils)
 	{
 		super("Settings", utils);
@@ -251,7 +251,7 @@ public class Settings extends BasicScreen implements ActionListener
 				}
 				case 0: // Welcome
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					new Welcome(utils);
@@ -262,7 +262,7 @@ public class Settings extends BasicScreen implements ActionListener
 					utils.fullScreen = fsSelect.isSelected();
 					utils.resolution = possdims.get(Arrays.asList(dimstrs)
 							.indexOf(resSelect.getSelectedItem()));
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					new Settings(utils);

@@ -6,13 +6,6 @@ import javax.swing.JPanel;
 
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Content pane with image background
- * 
- * @author Gitdropcode
- * 
- */
 public class ImageContentPane extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -21,9 +14,9 @@ public class ImageContentPane extends JPanel
 
 	/**
 	 * Content pane for the GD UI (the background)
-	 * 
+	 *
 	 * @param utils
-	 *            game object for loading res
+	 *            GD {@code Utils} utility
 	 */
 	public ImageContentPane(Utils utils)
 	{

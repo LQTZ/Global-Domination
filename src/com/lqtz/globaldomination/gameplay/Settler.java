@@ -3,32 +3,23 @@ package com.lqtz.globaldomination.gameplay;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Settler type Unit
- * 
- * @author Gandalf
- * 
- */
 public class Settler extends Unit
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Initialize the Settler
-	 * 
+	 * {@code Settler} {@code Unit}
+	 *
 	 * @param nation
-	 *            nation of the unit
-	 * @param healthPoints
-	 *            max (starting) health points
-	 * @param moveDistance
-	 *            number of tiles the unit can move per turn
-	 * @param defendPower
-	 *            defense power (variable in the defense odds formula)
+	 *            {@code Nation} the {@code Settler} belongs to
+	 * @param level
+	 *            {@code level} of the {@code Settler} to grow
 	 * @param xCoord
-	 *            initial x-coordinate
+	 *            initial x-coordinate to put the {@code Settler} on
 	 * @param yCoord
-	 *            initial y-coordinate
+	 *            initial y-coordinate to put the {@code Settler} on
+	 * @param utils
+	 *            GD {@code Utils} utility
 	 */
 	public Settler(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
@@ -81,14 +72,16 @@ public class Settler extends Unit
 	}
 
 	/**
-	 * Move to a certain tile
-	 * 
+	 * Move to a certain {@code Tile}
+	 *
 	 * @param toTile
-	 *            tile to move to
-	 * @return Whether or not move was legal (-2 if the unit has maxed out moves
-	 *         for the turn, -1 if the tiles are not adjacent, and 0 if move
+	 *            {@code Tile} to move to
+	 * @return Whether or not {@code move()} was legal (-2 if the
+	 *         {@code Settler} has maxed out moves for the turn, -1 if the
+	 *         {@code Tile}s are not adjacent, and 0 if {@code move()}
 	 *         successful)
 	 */
+	@Override
 	public int move(Tile toTile)
 	{
 		// Check if unit has maxed out moves for the turn
@@ -112,9 +105,10 @@ public class Settler extends Unit
 	}
 
 	/**
-	 * Create a City object on the tile the Settler is on
-	 * 
-	 * @return number of turns it will take to build the city
+	 * Create a {@code City} object on the {@code Tile} the {@code Settler} is
+	 * on
+	 *
+	 * @return number of turns it will take to build the {@code City}
 	 */
 	public int buildCity()
 	{

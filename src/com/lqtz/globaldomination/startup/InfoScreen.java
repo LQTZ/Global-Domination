@@ -17,41 +17,29 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Class for about page
- * 
- * @author Gandalf
- * 
- */
 public class InfoScreen extends BasicScreen
 {
 	private static final long serialVersionUID = 1L;
-
 	private JTextArea bodyTextArea;
 	private JScrollPane bodyScrollPane;
 	private InfoPanel footPanel;
-
-	/**
-	 * Text to display in body (read from file)
-	 */
 	private String bodyText;
 
 	/**
 	 * Read the text for the page
-	 * 
-	 * @param path
-	 *            path to the txt file with the text for the page
+	 *
+	 * @param input
+	 *            {@code InputStream} of the .txt file with the page's body text
 	 * @param titleStr
-	 *            the title of the page
+	 *            title of the page
 	 * @param utils
-	 *            the game object for loading res
-	 * @throws IOException
+	 *            GD {@code Utils} utility
 	 */
 	public InfoScreen(InputStream input, String titleStr, Utils utils)
 			throws IOException
@@ -62,13 +50,13 @@ public class InfoScreen extends BasicScreen
 	/**
 	 * Screen with only a header, a body, and an exit button (e.g. the about
 	 * page)
-	 * 
+	 *
 	 * @param text
 	 *            text to display in window
 	 * @param titleStr
-	 *            text to display in t he title
+	 *            text to display in the title
 	 * @param utils
-	 *            game object for loading res
+	 *            GD {@code Utils} utility
 	 */
 	public InfoScreen(String text, String titleStr, Utils utils)
 	{
@@ -77,6 +65,7 @@ public class InfoScreen extends BasicScreen
 		createWindow();
 	}
 
+	@Override
 	protected JComponent createBody()
 	{
 		bodyTextArea = new JTextArea(bodyText);
@@ -102,6 +91,7 @@ public class InfoScreen extends BasicScreen
 		return bodyScrollPane;
 	}
 
+	@Override
 	protected JComponent createFoot()
 	{
 		footPanel = new InfoPanel(utils, this);
@@ -167,7 +157,7 @@ public class InfoScreen extends BasicScreen
 				}
 				case 0: // Welcome
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					new Welcome(utils);

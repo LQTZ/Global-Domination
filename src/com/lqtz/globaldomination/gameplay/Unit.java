@@ -5,56 +5,50 @@ import java.io.Serializable;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Unit in the game
- * 
- * @author Gandalf
- * 
- */
 public abstract class Unit implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Nation of the unit
+	 * {@code Nation} of the {@code Unit}
 	 */
 	public Nation nation;
 
 	/**
-	 * The tile the unit is currently on
+	 * {@code Tile} the {@code Unit} is currently on
 	 */
 	public Tile tile;
 
 	/**
-	 * Maximum number of health points the unit can have (also the starting hp
-	 * level)
+	 * Maximum number of health points the {@code Unit} can have (also the
+	 * starting hp {@code level})
 	 */
 	public double maxHealthPoints;
 
 	/**
-	 * The number of health points the unit currently has
+	 * Number of health points the {@code Unit} currently has
 	 */
 	public double currentHealthPoints;
 
 	/**
-	 * The number of tiles the unit can move per turn
+	 * Number of {@code Tile}s the {@code Unit} can move per turn
 	 */
 	public int maxMoveDistance;
 
 	/**
-	 * The number of tiles the unit has left to move on the current turn
+	 * Number of {@code Tile}s the {@code Unit} has left to move on the current
+	 * turn
 	 */
 	public int movesLeft;
 
 	/**
-	 * The power the unit uses when defending (a variable in the defense odds
-	 * formula)
+	 * Power the {@code Unit} uses when defending (a variable in the defense
+	 * odds formula)
 	 */
 	public double defendPower;
 
 	/**
-	 * Unit level (hp and power depend on this)
+	 * {@code Unit} {@code level} (hp and power depend on this)
 	 */
 	public int level;
 
@@ -62,19 +56,17 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Initialize the unit
-	 * 
+	 *
 	 * @param nation
 	 *            nation of the Unit
-	 * @param healthPoints
-	 *            max (starting) health points
-	 * @param moveDistance
-	 *            number of tiles the unit can move per turn
-	 * @param defendPower
-	 *            defense power (variable in the defense odds formula)
+	 * @param level
+	 *            {@code Unit} {@code level} to base other fields on
 	 * @param xCoord
 	 *            initial x-coordinate
 	 * @param yCoord
 	 *            initial y-coordinate
+	 * @param utils
+	 *            GD {@code Utils} utility
 	 */
 	public Unit(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
@@ -97,13 +89,13 @@ public abstract class Unit implements Serializable
 	public abstract int move(Tile tile);
 
 	/**
-	 * Randomly generate hits to hit an enemy Unit with in a fight
-	 * 
+	 * Randomly generate hits to hit an enemy {@code Unit} with in a fight
+	 *
 	 * @param power
-	 *            power level being used against enemy Unit
+	 *            power {@code level} being used against enemy {@code Unit}
 	 * @param againstUnit
-	 *            enemy unit
-	 * @return hits to hit enemy Unit with
+	 *            enemy {@code Unit}
+	 * @return hits to hit enemy {@code Unit} with
 	 */
 	public double generateHits(double power, Unit againstUnit)
 	{
@@ -122,7 +114,7 @@ public abstract class Unit implements Serializable
 	}
 
 	/**
-	 * Removes all references to the unit
+	 * Removes all references to the {@code Unit}
 	 */
 	public void delete()
 	{

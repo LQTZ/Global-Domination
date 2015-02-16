@@ -5,11 +5,11 @@ import java.awt.FontFormatException;
 import java.io.IOException;
 
 /**
- * 
+ *
  * Loads fonts
- * 
+ *
  * @author Gitdropcode
- * 
+ *
  */
 public class Fonts
 {
@@ -28,7 +28,7 @@ public class Fonts
 
 	/**
 	 * Load fonts
-	 * 
+	 *
 	 * @throws FontFormatException
 	 * @throws IOException
 	 */

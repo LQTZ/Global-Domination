@@ -17,6 +17,13 @@ public enum UnitType
 		return null;
 	}
 
+	/**
+	 * Get {@code UnitType} from a {@code String}
+	 *
+	 * @param s
+	 *            {@code String} to translate
+	 * @return {@code UnitType} the {@code String} represents
+	 */
 	public static UnitType fromString(String s)
 	{
 		switch (s)

@@ -14,98 +14,97 @@ import com.lqtz.globaldomination.gameplay.Settler;
 import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * A hexagonal tile in the GD map
- * 
- * @author Gandalf
- * 
- */
 public class Tile
 {
-	// /**
-	// * Max number of units that can fit on a file
-	// */
-	// private static final int maxUnitCapacity = 50;
+	private Utils utils;
+	private int centerX;
+	private int centerY;
+	private int tileSize;
 
 	/**
-	 * The Hexagon to represent the tile on the screen
+	 * {@code Hexagon} to represent the {@code Tile} on the screen
 	 */
 	public Hexagon hexagon;
 
+	/**
+	 * {@code Nationality} of the {@code Tile}
+	 */
 	public Nationality nat;
 
 	/**
-	 * Revenue Cities on the Tile would collect
+	 * Revenue {@code City}s on the {@code Tile} would collect
 	 */
 	public int tileRevenue;
 
 	/**
-	 * Productivity Cities on the Tile would collect
+	 * Productivity {@code City}s on the {@code Tile} would collect
 	 */
 	public int tileProductivity;
 
 	/**
-	 * The city on the Tile (null if no city)
+	 * {@code City} on the {@code Tile} (null if no city)
 	 */
 	public City city;
 
 	/**
-	 * Tile's x-coordinate in the map
+	 * {@code Tile}'s x-coordinate in the map
 	 */
 	public int xCoord;
 
 	/**
-	 * Tile's y-coordinate in the map
+	 * {@code Tile}'s y-coordinate in the map
 	 */
 	public int yCoord;
 
 	/**
-	 * Whether or not the Tile is currently being moused over
+	 * Whether or not the {@code Tile} is currently being moused over
 	 */
 	public boolean isHighlighted;
 
 	/**
-	 * Whether or not the Tile currently selected (clicked)
+	 * Whether or not the {@code Tile} currently selected (clicked)
 	 */
 	public boolean isSelected;
 
-	public ArrayList<Soldier> soldiers;
+	/**
+	 * All the {@code Settler}s on the {@code Tile}
+	 */
 	public ArrayList<Settler> settlers;
 
-	private int centerX;
-	private int centerY;
-	private int tileSize;
-	private Utils utils;
+	/**
+	 * All the {@code Soldier}s on the {@code Tile}
+	 */
+	public ArrayList<Soldier> soldiers;
 
 	/**
-	 * A {@code HashMap} that contains all possible colors. Each array of colors
+	 * {@code HashMap} that contains all possible colors. Each array of colors
 	 * has the following format:
-	 * 
+	 *
 	 * <p>
 	 * <code>{normalColor, highlightedColor, selectedColor}</code>
 	 */
 	private Map<Nationality, Color[]> colors;
 
 	/**
-	 * A Tile in the Map
-	 * 
+	 * A {@code Tile} in the Map
+	 *
 	 * @param xCoord
-	 *            x-coordinate of the Tile on the map
+	 *            x-coordinate of the {@code Tile} on the map
 	 * @param yCoord
-	 *            y-coordinate of the Tile on the map
+	 *            y-coordinate of the {@code Tile} on the map
 	 * @param centerX
-	 *            x-coordinate of center of the hexagon
+	 *            x-coordinate of center of the {@code Hexagon}
 	 * @param centerY
-	 *            y-coordinate of center of the hexagon
+	 *            y-coordinate of center of the {@code Hexagon}
 	 * @param tileSize
-	 *            radius of circumscribed circle (multiple of 8) of the hexagon
+	 *            radius of circumscribed circle (multiple of 8) of the
+	 *            {@code Hexagon}
 	 * @param revenue
-	 *            revenue Cities on the Tile would collect
+	 *            revenue Cities on the {@code Tile} would collect
 	 * @param productivity
-	 *            productivity Cities on the Tile would collect
+	 *            productivity Cities on the {@code Tile} would collect
 	 * @param utils
-	 *            Game object for loading res
+	 *            GD {@code Utils} utility
 	 */
 	public Tile(int xCoord, int yCoord, int centerX, int centerY, int tileSize,
 			int revenue, int productivity, Utils utils)

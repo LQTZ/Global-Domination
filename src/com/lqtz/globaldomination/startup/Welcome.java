@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.MouseInputListener;
 
@@ -21,13 +22,6 @@ import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Welcome screen
- * 
- * @author Gitdropcode
- * 
- */
 public class Welcome extends JFrame
 {
 	private static final long serialVersionUID = 1L;
@@ -36,9 +30,9 @@ public class Welcome extends JFrame
 
 	/**
 	 * Welcome screen for links to info pages and new game
-	 * 
+	 *
 	 * @param utils
-	 *            game object for loading res
+	 *            GD {@code Utils} utility
 	 */
 	public Welcome(Utils utils)
 	{
@@ -64,16 +58,14 @@ public class Welcome extends JFrame
 	}
 
 	/**
-	 * 
 	 * Start Global Domination
-	 * 
+	 *
 	 * @param args
+	 *            command-line arguments (unused)
 	 */
 	public static void main(String[] args)
 	{
-		// new Game();
 		new Welcome(new Utils());
-		// new GameWindow(new Game());
 	}
 
 	private class WelcomePanel extends JPanel implements MouseInputListener
@@ -157,7 +149,7 @@ public class Welcome extends JFrame
 				}
 				case 0: // New game button
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					new GameWindow(utils);
@@ -165,7 +157,7 @@ public class Welcome extends JFrame
 				}
 				case 1: // Settings button
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					new Settings(utils);
@@ -173,7 +165,7 @@ public class Welcome extends JFrame
 				}
 				case 2: // New game button
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					new GameWindow(utils);
@@ -181,7 +173,7 @@ public class Welcome extends JFrame
 				}
 				case 3: // About button
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					try
@@ -197,7 +189,7 @@ public class Welcome extends JFrame
 				}
 				case 4:
 				{
-					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
 					try

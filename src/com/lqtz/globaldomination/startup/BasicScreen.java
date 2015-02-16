@@ -16,29 +16,23 @@ import javax.swing.SwingConstants;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * 
- * Class for a basic window with title
- * 
- * @author Gitdropcode
- * 
- */
 public abstract class BasicScreen extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-
-	private String titleStr;
 	protected Utils utils;
-
+	private String titleStr;
 	private JLabel titleLabel;
+
 	protected JComponent bodyComponent;
 	protected JComponent footComponent;
 
 	/**
-	 * Basic fullscreen window
-	 * 
+	 * Basic fullscreen {@code JFrame}
+	 *
 	 * @param titleStr
+	 *            {@code String} for the title text
 	 * @param utils
+	 *            GD {@code Utils} utility
 	 */
 	public BasicScreen(String titleStr, Utils utils)
 	{
@@ -47,7 +41,7 @@ public abstract class BasicScreen extends JFrame
 	}
 
 	/**
-	 * Creates window. Not automatically called.
+	 * Creates window; not automatically called
 	 */
 	protected void createWindow()
 	{

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -32,32 +33,24 @@ import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.io.Utils;
 import com.lqtz.globaldomination.startup.Welcome;
 
-/**
- * 
- * Class for the game window
- * 
- * @author Gitdropcode
- * 
- */
 public class GameWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
+	private Utils utils;
 
-	// Declare components
+	// Components
 	private JPanel leftPanel; // Panel with units info pane and event log pane
 	private JTextPane unitsPane; // Units info pane
 	private JScrollPane unitsScroll;
 	private JTextPane eventLogPane; // Event log pane
 	private JScrollPane eventLogScroll;
-
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
-								// combat info pane
+	// combat info pane
 	private GameScreen mapPane; // Map pane
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JButton[] buttons; // Action buttons themselves
 	private JLabel infoBox; // Info box
-
 	private JPanel rightPanel;
 	private JTextPane tileInfoPane; // Pane with tile, city, and game info
 	private JScrollPane tileInfoScroll;
@@ -66,20 +59,33 @@ public class GameWindow extends JFrame
 	private JTextPane gameInfoPane; // Pane with tile, city, and game info
 	private JScrollPane gameInfoScroll;
 
+	/**
+	 * {@code Style} for the body text
+	 */
 	public Style body;
-	public Style head;
-	public Style[] soldierImages;
-	public Style[] settlerImages;
 
-	private Utils utils;
+	/**
+	 * {@code Style} for the head text
+	 */
+	public Style head;
+
+	/**
+	 * {@code Style} for the soldier images
+	 */
+	public Style[] soldierImages;
+
+	/**
+	 * {@code Style} for the settler images
+	 */
+	public Style[] settlerImages;
 
 	public static final String IMAGE_STRING = "\0";
 
 	/**
 	 * Main game interface window
-	 * 
+	 *
 	 * @param utils
-	 *            game object for loading res
+	 *            GD {@code Utils} utility
 	 */
 	public GameWindow(Utils utils)
 	{
@@ -88,7 +94,7 @@ public class GameWindow extends JFrame
 
 		if (utils.fullScreen)
 		{
-			setExtendedState(JFrame.MAXIMIZED_BOTH);
+			setExtendedState(Frame.MAXIMIZED_BOTH);
 			setUndecorated(true);
 			setAlwaysOnTop(true);
 		}
@@ -368,7 +374,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Logs an event
-	 * 
+	 *
 	 * @param s
 	 *            the event to be logged
 	 */
@@ -394,26 +400,26 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Updates text pane contents.
-	 * 
+	 *
 	 * <p>
 	 * The {@code Map} should be of the form
 	 * <code>{paneName : newContents, paneName : newContents... }</code> Note
 	 * that the new contents can be both {@code String}s or
 	 * {@code StyledDocument}s.
-	 * 
+	 *
 	 * <p>
 	 * The {@code paneName}s can be
 	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
-	 * 
+	 *
 	 * <p>
 	 * <b>Note:</b> The strings or documents should not include the title. They
 	 * should contain newlines at the end.
-	 * 
+	 *
 	 * <p>
 	 * Use the <code>eventLog</code> method to access the event log.
-	 * 
+	 *
 	 * @param diffs
-	 *            the map
+	 *            {@code diffs} map
 	 */
 	public void updateTextPanes(Map<String, Object> diffs)
 			throws IllegalArgumentException
