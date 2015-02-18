@@ -165,10 +165,10 @@ public class GameScreen extends JPanel implements MouseInputListener
 			// if because null pointer exception if selectedTile is null)
 			if (utils.game.selectedTile.nat != utils.game.turn)
 			{
-				JOptionPane.showMessageDialog(gw, String.join("",
-						"This city is ",
-						utils.game.selectedTile.nat.toString(),
-						", you cannot grow units here."), "Cannot Grow Unit",
+				JOptionPane.showMessageDialog(gw,
+						"This city is " +
+						utils.game.selectedTile.nat +
+						", you cannot grow units here.", "Cannot Grow Unit",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
