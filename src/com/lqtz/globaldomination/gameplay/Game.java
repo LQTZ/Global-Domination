@@ -18,7 +18,7 @@ public class Game implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
-	private transient GameWindow gw;
+	public transient GameWindow gw;
 
 	/**
 	 * {@code Nationality} of the player whose turn it is currently
