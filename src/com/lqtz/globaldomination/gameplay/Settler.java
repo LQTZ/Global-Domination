@@ -133,7 +133,7 @@ public class Settler extends Unit
 	{
 		isBuilding = true;
 
-		utils.game.countdownTasks.add(new CountdownTask(turnsToCity)
+		cityBuilder = new CountdownTask(turnsToCity)
 		{
 			@Override
 			public void run()
@@ -141,7 +141,8 @@ public class Settler extends Unit
 				isBuilding = false;
 				nation.addCity(tile);
 			}
-		});
+		};
+		utils.game.countdownTasks.add(cityBuilder);
 	}
 
 	/**
