@@ -154,6 +154,15 @@ public class Game implements Serializable
 		this.selectedTile = tileToSelect;
 	}
 
+	public void selectUnit(Unit u)
+	{
+		// TODO finish implementation
+		if (u != null)
+		{
+			u.delete();
+		}
+	}
+
 	/**
 	 * Update {@code gw}
 	 */

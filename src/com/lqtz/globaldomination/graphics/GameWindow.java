@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 import javax.swing.JViewport;
 import javax.swing.SwingConstants;
 import javax.swing.text.BadLocationException;
@@ -41,7 +42,7 @@ public class GameWindow extends JFrame
 	private JPanel leftPanel; // Panel with units info pane and event log pane
 	private ClickableTextPane unitsPane; // Units info pane
 	private JScrollPane unitsScroll;
-	private ClickableTextPane eventLogPane; // Event log pane
+	private JTextPane eventLogPane; // Event log pane
 	private JScrollPane eventLogScroll;
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
 	// combat info pane
@@ -51,11 +52,11 @@ public class GameWindow extends JFrame
 	private JButton[] buttons; // Action buttons themselves
 	private JLabel infoBox; // Info box
 	private JPanel rightPanel;
-	private ClickableTextPane tileInfoPane; // Pane with tile, city, and game info
+	private JTextPane tileInfoPane; // Pane with tile, city, and game info
 	private JScrollPane tileInfoScroll;
-	private ClickableTextPane cityInfoPane; // Pane with tile, city, and game info
+	private JTextPane cityInfoPane; // Pane with tile, city, and game info
 	private JScrollPane cityInfoScroll;
-	private ClickableTextPane gameInfoPane; // Pane with tile, city, and game info
+	private JTextPane gameInfoPane; // Pane with tile, city, and game info
 	private JScrollPane gameInfoScroll;
 
 	/**
