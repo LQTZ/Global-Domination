@@ -222,12 +222,12 @@ public class Game implements Serializable
 				}
 				else
 				{
-					diffs.put("city", "This tile has a city.");
+					diffs.put("city", "This tile has a city.\n");
 				}
 			}
 			else
 			{
-				diffs.put("city", "(no city)");
+				diffs.put("city", "(no city)\n");
 			}
 
 			// TODO finish
