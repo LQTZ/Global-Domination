@@ -166,7 +166,7 @@ public class Game implements Serializable
 	 */
 	public void selectTile(Tile tileToSelect)
 	{
-		selectedUnit = null;
+//		selectedUnit = null;
 		if (selectedTile != null)
 		{
 			selectedTile.isSelected = false;
@@ -178,9 +178,15 @@ public class Game implements Serializable
 		this.selectedTile = tileToSelect;
 	}
 
-	public void selectUnit(Unit u)
+	/**
+	 * Change {@code selectedUnit}
+	 * 
+	 * @param unitToSelect
+	 *            new selected {@code Unit}
+	 */
+	public void selectUnit(Unit unitToSelect)
 	{
-		selectedUnit = u;
+		selectedUnit = unitToSelect;
 	}
 
 	/**

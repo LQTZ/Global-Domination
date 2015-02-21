@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.gameplay.UnitType;
 import com.lqtz.globaldomination.io.Utils;
 
@@ -161,10 +162,9 @@ public class GameScreen extends JPanel implements MouseInputListener
 			// if because null pointer exception if selectedTile is null)
 			if (utils.game.selectedTile.nat != utils.game.turn)
 			{
-				JOptionPane.showMessageDialog(gw,
-						"This city is " +
-						utils.game.selectedTile.nat +
-						", you cannot grow units here.", "Cannot Grow Unit",
+				JOptionPane.showMessageDialog(gw, "This city is "
+						+ utils.game.selectedTile.nat
+						+ ", you cannot grow units here.", "Cannot Grow Unit",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -190,7 +190,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 			String s = (String) JOptionPane.showInputDialog(gw,
 					"Which unit would you like your city to work on "
 							+ "right now?", "Grow Unit",
-							JOptionPane.PLAIN_MESSAGE, null, possibilities, "--");
+					JOptionPane.PLAIN_MESSAGE, null, possibilities, "--");
 
 			// Check for null string
 			if ((s == null) || (s == "--"))
@@ -203,13 +203,23 @@ public class GameScreen extends JPanel implements MouseInputListener
 			int confirm = JOptionPane.showConfirmDialog(gw,
 					"You are about to grow a unit. This cannot be"
 							+ " cancelled.", "Grow Unit Confirmation",
-							JOptionPane.OK_CANCEL_OPTION);
+					JOptionPane.OK_CANCEL_OPTION);
 			if (confirm == JOptionPane.OK_OPTION)
 			{
 				utils.game.selectedTile.city.growUnit(
 						UnitType.fromString(utString), ul);
 			}
 		}
+
+		// If move
+		if (utils.game.moveSelected
+				&& utils.game.selectedUnit != null
+				&& (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality || utils.game.selectedTile.nat == Nationality.NEUTRAL))
+		{
+			utils.game.selectedUnit.move(utils.game.selectedTile);
+			utils.game.moveSelected = false;
+		}
+
 		utils.game.updateWindow();
 	}
 

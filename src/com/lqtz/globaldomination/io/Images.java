@@ -47,6 +47,9 @@ public class Images
 	 */
 	public BufferedImage[] settlers;
 
+	/**
+	 * Pointer icon (yellow triangle next to selected things)
+	 */
 	public BufferedImage pointer;
 
 	/**

@@ -121,6 +121,9 @@ public class Settler extends Unit
 		// Add new one
 		tile = toTile;
 		tile.settlers.add(this);
+		
+		// Decrement movesLeft
+		movesLeft--;
 
 		return 0;
 	}

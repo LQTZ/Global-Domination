@@ -152,6 +152,9 @@ public class Soldier extends Unit
 		tile = toTile;
 		tile.soldiers.add(this);
 
+		// Decrement movesLeft
+		movesLeft--;
+
 		return 0;
 	}
 
