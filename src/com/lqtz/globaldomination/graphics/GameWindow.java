@@ -149,7 +149,7 @@ public class GameWindow extends JFrame
 		unitsScroll.setOpaque(false);
 		unitsScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		eventLogPane = new ClickableTextPane(utils);
+		eventLogPane = new JTextPane();
 		eventLogPane.setOpaque(false);
 		eventLogPane.setEditable(false);
 		eventLogPane.setFocusable(false);
@@ -228,7 +228,7 @@ public class GameWindow extends JFrame
 		rightPanel = new JPanel(new BorderLayout());
 		rightPanel.setOpaque(false);
 
-		tileInfoPane = new ClickableTextPane(utils);
+		tileInfoPane = new JTextPane();
 		tileInfoPane.setOpaque(false);
 		tileInfoPane.setEditable(false);
 		tileInfoPane.setFocusable(false);
@@ -241,7 +241,7 @@ public class GameWindow extends JFrame
 		tileInfoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
 		tileInfoScroll.setOpaque(false);
 		tileInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		cityInfoPane = new ClickableTextPane(utils);
+		cityInfoPane = new JTextPane();
 		cityInfoPane.setOpaque(false);
 		cityInfoPane.setEditable(false);
 		cityInfoPane.setFocusable(false);
@@ -254,7 +254,7 @@ public class GameWindow extends JFrame
 		cityInfoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
 		cityInfoScroll.setOpaque(false);
 		cityInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		gameInfoPane = new ClickableTextPane(utils);
+		gameInfoPane = new JTextPane();
 		gameInfoPane.setOpaque(false);
 		gameInfoPane.setEditable(false);
 		gameInfoPane.setFocusable(false);
