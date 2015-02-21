@@ -34,6 +34,8 @@ public class Game implements Serializable
 	 * Currently selected (clicked) {@code Tile}
 	 */
 	public Tile selectedTile;
+	
+	public Unit selectedUnit;
 
 	/**
 	 * {@code CountdownTask}s currently running
@@ -147,6 +149,11 @@ public class Game implements Serializable
 	 */
 	public void selectTile(Tile tileToSelect)
 	{
+		selectedUnit = null;
+		if (selectedTile != null)
+		{
+			selectedTile.isSelected = false;
+		}
 		if (tileToSelect != null)
 		{
 			tileToSelect.isSelected = true;
@@ -156,11 +163,7 @@ public class Game implements Serializable
 
 	public void selectUnit(Unit u)
 	{
-		// TODO finish implementation
-		if (u != null)
-		{
-			u.delete();
-		}
+		selectedUnit = u;
 	}
 
 	/**
@@ -180,6 +183,13 @@ public class Game implements Serializable
 				{
 					for (Soldier u : selectedTile.soldiers)
 					{
+						if (u.equals(selectedUnit))
+						{
+							doc.insertString(doc.getLength(),
+									GameWindow.IMAGE_STRING,
+									gw.pointer);
+							doc.insertString(doc.getLength(), " ", gw.body);
+						}
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.soldierImages[u.level - 1]);
@@ -189,6 +199,13 @@ public class Game implements Serializable
 					}
 					for (Settler u : selectedTile.settlers)
 					{
+						if (u.equals(selectedUnit))
+						{
+							doc.insertString(doc.getLength(),
+									GameWindow.IMAGE_STRING,
+									gw.pointer);
+							doc.insertString(doc.getLength(), " ", gw.body);
+						}
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.settlerImages[u.level - 1]);

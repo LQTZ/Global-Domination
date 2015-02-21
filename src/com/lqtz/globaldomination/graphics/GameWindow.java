@@ -78,6 +78,8 @@ public class GameWindow extends JFrame
 	 * {@code Style} for the settler images
 	 */
 	public Style[] settlerImages;
+	
+	public Style pointer;
 
 	/**
 	 * {@code null} character used for the {@code String} part of icons in text
@@ -302,6 +304,9 @@ public class GameWindow extends JFrame
 			StyleConstants.setIcon(settlerImages[i], new ImageIcon(
 					utils.images.settlers[i]));
 		}
+		
+		pointer = unitsPane.addStyle(null, null);
+		StyleConstants.setIcon(pointer, new ImageIcon(utils.images.pointer));
 
 		try
 		{

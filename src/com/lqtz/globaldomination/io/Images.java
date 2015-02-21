@@ -47,6 +47,8 @@ public class Images
 	 */
 	public BufferedImage[] settlers;
 
+	public BufferedImage pointer;
+
 	/**
 	 * Load images
 	 * 
@@ -79,5 +81,8 @@ public class Images
 			settlers[i] = ImageIO.read(getClass().getResourceAsStream(
 					"/images/settler/level" + (i + 1) + ".png"));
 		}
+
+		pointer = ImageIO.read(getClass().getResourceAsStream(
+				"/images/pointer.png"));
 	}
 }

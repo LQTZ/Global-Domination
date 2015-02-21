@@ -40,21 +40,40 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 
 		int soldIndex = -1;
 		int settIndex = -1;
+		// Whether currently in a gap between a pointer and the unit image
+		boolean inGap = false;
 		int location = viewToModel(e.getPoint());
-
+		
+		// Tell if selection is beyond last unit
+		if (location == doc.getLength())
+		{
+			utils.game.selectUnit(null);
+			utils.game.updateWindow();
+			return;
+		}
+		
 		for (int i = 0; i < (location + 1); i++)
 		{
-			if (styleImageIn(doc.getCharacterElement(i).getAttributes(),
-					utils.game.gw.soldierImages))
+			AttributeSet sty = doc.getCharacterElement(i).getAttributes();
+			if (styleImageIn(sty, utils.game.gw.soldierImages))
 			{
 				soldIndex++;
+				inGap = false;
 			}
-			else if (styleImageIn(doc.getCharacterElement(i).getAttributes(),
-					utils.game.gw.settlerImages))
+			else if (styleImageIn(sty, utils.game.gw.settlerImages))
 			{
 				settIndex++;
+				inGap = false;
 			}
+			else if (styleImageIn(sty,
+					new AttributeSet[] {utils.game.gw.pointer}))
+			{
+				inGap = true;
+			}	
 		}
+		
+		settIndex += (inGap ? 1 : 0);
+		soldIndex += (inGap ? 1 : 0);
 
 		if (settIndex == -1)
 		{
