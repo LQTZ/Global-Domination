@@ -29,7 +29,10 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import com.lqtz.globaldomination.gameplay.CountdownTask;
 import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Settler;
+import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Utils;
 import com.lqtz.globaldomination.startup.Welcome;
 
@@ -78,7 +81,7 @@ public class GameWindow extends JFrame
 	 * {@code Style} for the settler images
 	 */
 	public Style[] settlerImages;
-	
+
 	public Style pointer;
 
 	/**
@@ -187,9 +190,6 @@ public class GameWindow extends JFrame
 		buttons = new JButton[6];
 		String[] buttonText = new String[] {"Move", "Settle", "Upgrade",
 				"Attack", "Next", "Pause"};
-		Color[] buttonColor = new Color[] {new Color(39, 78, 19),
-				new Color(116, 27, 71), new Color(11, 83, 148),
-				new Color(153, 0, 0), new Color(127, 127, 127), Color.BLACK};
 		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 6; i++)
 		{
@@ -206,8 +206,10 @@ public class GameWindow extends JFrame
 			buttons[i].setPreferredSize(new Dimension(100, 60));
 
 			// Colors of buttons
-			buttons[i].setBackground(buttonColor[i]); // Button color
+			buttons[i].setBackground(utils.inactiveButtonColors // Button color
+					.get(buttonText[i]));
 			buttons[i].setForeground(Color.WHITE); // Text color
+			buttons[i].setFocusPainted(false); // Eliminate inner focus border
 			buttons[i].setOpaque(true);
 		}
 		buttonsPane.setPreferredSize(new Dimension(
@@ -304,7 +306,7 @@ public class GameWindow extends JFrame
 			StyleConstants.setIcon(settlerImages[i], new ImageIcon(
 					utils.images.settlers[i]));
 		}
-		
+
 		pointer = unitsPane.addStyle(null, null);
 		StyleConstants.setIcon(pointer, new ImageIcon(utils.images.pointer));
 
@@ -356,6 +358,101 @@ public class GameWindow extends JFrame
 
 	private void addButtonFunctionality()
 	{
+		// Move button
+		buttons[0].addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (utils.game.moveSelected)
+				{
+					buttons[0].setBackground(utils.inactiveButtonColors
+							.get(buttons[0].getText()));
+				}
+				else
+				{
+					buttons[0].setBackground(utils.activeButtonColors
+							.get(buttons[0].getText()));
+				}
+
+				utils.game.moveSelected = !utils.game.moveSelected;
+			}
+		});
+
+		// Settle button
+		buttons[1].addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (utils.game.moveSelected)
+				{
+					buttons[0].setBackground(utils.inactiveButtonColors
+							.get(buttons[0].getText()));
+				}
+				else
+				{
+					buttons[0].setBackground(utils.activeButtonColors
+							.get(buttons[0].getText()));
+				}
+
+				utils.game.moveSelected = !utils.game.moveSelected;
+
+				// Make sure there is a settler selected
+				if (!(utils.game.selectedUnit instanceof Settler))
+					return;
+
+				((Settler) utils.game.selectedUnit).buildCity();
+			}
+		});
+
+		// Upgrade button
+		buttons[2].addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				// Make sure there is a unit selected
+				if (!(utils.game.selectedUnit instanceof Unit))
+					return;
+
+				utils.game.countdownTasks.add(new CountdownTask(
+						(utils.game.selectedUnit.level + 1) * 2)
+				{
+					@Override
+					public void run()
+					{
+						// TODO Auto-generated method stub
+					}
+				});
+			}
+		});
+
+		// Attack button
+		buttons[3].addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (utils.game.attackSelected)
+				{
+					buttons[3].setBackground(utils.inactiveButtonColors
+							.get(buttons[3].getText()));
+				}
+				else
+				{
+					buttons[3].setBackground(utils.activeButtonColors
+							.get(buttons[3].getText()));
+				}
+
+				utils.game.attackSelected = !utils.game.attackSelected;
+			}
+		});
+
+		// Next button
 		buttons[4].addActionListener(new ActionListener()
 		{
 			@Override
@@ -366,6 +463,7 @@ public class GameWindow extends JFrame
 			}
 		});
 
+		// Pause button
 		// TODO Create Pause screen
 		buttons[5].addActionListener(new ActionListener()
 		{

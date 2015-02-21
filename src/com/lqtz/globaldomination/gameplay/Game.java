@@ -18,6 +18,10 @@ public class Game implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
+
+	/**
+	 * {@code GameWindow} to display the game
+	 */
 	public transient GameWindow gw;
 
 	/**
@@ -34,8 +38,21 @@ public class Game implements Serializable
 	 * Currently selected (clicked) {@code Tile}
 	 */
 	public Tile selectedTile;
-	
+
+	/**
+	 * Currently selected (clicked) {@code Unit}
+	 */
 	public Unit selectedUnit;
+
+	/**
+	 * Move button has been clicked
+	 */
+	public boolean moveSelected = false;
+
+	/**
+	 * Attack button has been clicked
+	 */
+	public boolean attackSelected = false;
 
 	/**
 	 * {@code CountdownTask}s currently running
@@ -186,8 +203,7 @@ public class Game implements Serializable
 						if (u.equals(selectedUnit))
 						{
 							doc.insertString(doc.getLength(),
-									GameWindow.IMAGE_STRING,
-									gw.pointer);
+									GameWindow.IMAGE_STRING, gw.pointer);
 							doc.insertString(doc.getLength(), " ", gw.body);
 						}
 						doc.insertString(doc.getLength(),
@@ -202,8 +218,7 @@ public class Game implements Serializable
 						if (u.equals(selectedUnit))
 						{
 							doc.insertString(doc.getLength(),
-									GameWindow.IMAGE_STRING,
-									gw.pointer);
+									GameWindow.IMAGE_STRING, gw.pointer);
 							doc.insertString(doc.getLength(), " ", gw.body);
 						}
 						doc.insertString(doc.getLength(),
