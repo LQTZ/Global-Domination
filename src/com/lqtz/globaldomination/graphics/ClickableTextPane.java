@@ -88,7 +88,7 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 				Soldier clickedSoldier = utils.game.selectedTile.soldiers
 						.get(soldIndex);
 				// Make sure unit belongs to nation whose turn it is
-				if (clickedSoldier.nation.nationality == utils.game.turn)
+				if (clickedSoldier.nation.nationality == utils.game.turnNationality)
 					utils.game.selectUnit(clickedSoldier);
 			}
 		}
@@ -97,7 +97,7 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 			Settler clickedSettler = utils.game.selectedTile.settlers
 					.get(settIndex);
 			// Make sure unit belongs to nation whose turn it is
-			if (clickedSettler.nation.nationality == utils.game.turn)
+			if (clickedSettler.nation.nationality == utils.game.turnNationality)
 				utils.game.selectUnit(clickedSettler);
 		}
 

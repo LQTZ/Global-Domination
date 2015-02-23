@@ -161,7 +161,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 		{
 			// Make sure city belongs to current player (cannot be in previous
 			// if because null pointer exception if selectedTile is null)
-			if (utils.game.selectedTile.nat != utils.game.turn)
+			if (utils.game.selectedTile.nat != utils.game.turnNationality)
 			{
 				JOptionPane.showMessageDialog(gw, "This city is "
 						+ utils.game.selectedTile.nat
