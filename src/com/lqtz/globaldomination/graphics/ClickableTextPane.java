@@ -8,6 +8,8 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import com.lqtz.globaldomination.gameplay.Settler;
+import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.io.Utils;
 
 public class ClickableTextPane extends JTextPane implements MouseListener
@@ -43,7 +45,7 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 		// Whether currently in a gap between a pointer and the unit image
 		boolean inGap = false;
 		int location = viewToModel(e.getPoint());
-		
+
 		// Tell if selection is beyond last unit
 		if (location == doc.getLength())
 		{
@@ -51,7 +53,7 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 			utils.game.updateWindow();
 			return;
 		}
-		
+
 		for (int i = 0; i < (location + 1); i++)
 		{
 			AttributeSet sty = doc.getCharacterElement(i).getAttributes();
@@ -69,9 +71,9 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 					new AttributeSet[] {utils.game.gw.pointer}))
 			{
 				inGap = true;
-			}	
+			}
 		}
-		
+
 		settIndex += (inGap ? 1 : 0);
 		soldIndex += (inGap ? 1 : 0);
 
@@ -83,16 +85,22 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 			}
 			else
 			{
-				utils.game.selectUnit(utils.game.selectedTile.soldiers
-						.get(soldIndex));
+				Soldier clickedSoldier = utils.game.selectedTile.soldiers
+						.get(soldIndex);
+				// Make sure unit belongs to nation whose turn it is
+				if (clickedSoldier.nation.nationality == utils.game.turn)
+					utils.game.selectUnit(clickedSoldier);
 			}
 		}
 		else
 		{
-			utils.game.selectUnit(utils.game.selectedTile.settlers
-					.get(settIndex));
+			Settler clickedSettler = utils.game.selectedTile.settlers
+					.get(settIndex);
+			// Make sure unit belongs to nation whose turn it is
+			if (clickedSettler.nation.nationality == utils.game.turn)
+				utils.game.selectUnit(clickedSettler);
 		}
-		
+
 		utils.game.updateWindow();
 	}
 
@@ -103,8 +111,10 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 	/**
 	 * Check using the icon if a style is in an array of styles.
 	 * 
-	 * @param a the style
-	 * @param aList the array of styles
+	 * @param a
+	 *            the style
+	 * @param aList
+	 *            the array of styles
 	 * @return whether the style icon is in the array of styles
 	 */
 	private boolean styleImageIn(AttributeSet a, AttributeSet[] aList)

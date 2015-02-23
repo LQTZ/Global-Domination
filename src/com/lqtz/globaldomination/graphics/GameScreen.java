@@ -154,7 +154,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		// City growunit popup if double-click on a city tile
+		// If double-click on a city tile, growunit popup
 		if (e.getClickCount() >= 2 && utils.game.selectedTile != null
 				&& utils.game.selectedTile.city != null)
 		{
@@ -218,6 +218,9 @@ public class GameScreen extends JPanel implements MouseInputListener
 		{
 			utils.game.selectedUnit.move(utils.game.selectedTile);
 			utils.game.moveSelected = false;
+			utils.game.selectUnit(null);
+			utils.game.gw.buttons[0].setBackground(utils.inactiveButtonColors
+					.get((utils.game.gw.buttons[0].getText())));
 		}
 
 		utils.game.updateWindow();

@@ -152,6 +152,9 @@ public class Soldier extends Unit
 		tile = toTile;
 		tile.soldiers.add(this);
 
+		// Change tile nationality (settlers do not do this; they are neutral)
+		tile.nat = nation.nationality;
+
 		// Decrement movesLeft
 		movesLeft--;
 

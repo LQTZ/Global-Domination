@@ -52,7 +52,6 @@ public class GameWindow extends JFrame
 	private GameScreen mapPane; // Map pane
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel buttonsPane; // Pane with action buttons
-	private JButton[] buttons; // Action buttons themselves
 	private JLabel infoBox; // Info box
 	private JPanel rightPanel;
 	private JTextPane tileInfoPane; // Pane with tile, city, and game info
@@ -61,6 +60,8 @@ public class GameWindow extends JFrame
 	private JScrollPane cityInfoScroll;
 	private JTextPane gameInfoPane; // Pane with tile, city, and game info
 	private JScrollPane gameInfoScroll;
+
+	protected JButton[] buttons; // Action buttons themselves
 
 	/**
 	 * {@code Style} for the body text
@@ -370,7 +371,7 @@ public class GameWindow extends JFrame
 					buttons[0].setBackground(utils.inactiveButtonColors
 							.get(buttons[0].getText()));
 				}
-				else
+				else if (utils.game.selectedUnit != null)
 				{
 					buttons[0].setBackground(utils.activeButtonColors
 							.get(buttons[0].getText()));
