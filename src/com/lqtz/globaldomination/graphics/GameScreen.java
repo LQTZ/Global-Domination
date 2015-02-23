@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.gameplay.Nationality;
+import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.gameplay.UnitType;
 import com.lqtz.globaldomination.io.Utils;
 
@@ -221,6 +222,22 @@ public class GameScreen extends JPanel implements MouseInputListener
 			utils.game.selectUnit(null);
 			utils.game.gw.buttons[0].setBackground(utils.inactiveButtonColors
 					.get((utils.game.gw.buttons[0].getText())));
+		}
+
+		// If attack
+		if (utils.game.attackSelected
+				&& utils.game.selectedUnit != null
+				&& utils.game.selectedUnit instanceof Soldier
+				&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
+				&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
+		{
+			((Soldier) utils.game.selectedUnit)
+					.attackTile(utils.game.selectedTile);
+			utils.game.moveSelected = false;
+			utils.game.selectUnit(null);
+			utils.game.gw.buttons[3].setBackground(utils.inactiveButtonColors
+					.get((utils.game.gw.buttons[3].getText())));
+
 		}
 
 		utils.game.updateWindow();
