@@ -19,7 +19,7 @@ public class Soldier extends Unit
 
 	/**
 	 * {@code Soldier} {@code Unit}
-	 *
+	 * 
 	 * @param nation
 	 *            {@code Nation} the {@code Soldier} belongs to
 	 * @param level
@@ -124,7 +124,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Move to a certain {@code Tile}
-	 *
+	 * 
 	 * @param toTile
 	 *            {@code Tile} to move to
 	 * @return Whether or not {@code move()} was legal (-2 if the
@@ -163,7 +163,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Attack a {@code Tile}
-	 *
+	 * 
 	 * @param tile
 	 *            {@code Tile} to attack
 	 */
@@ -208,7 +208,7 @@ public class Soldier extends Unit
 	 * Attacks (hits) a specific enemy {@code Unit}, checks if enemy
 	 * {@code Unit} is dead, if not gets enemy {@code Unit} to hit back, and
 	 * checks if self is dead
-	 *
+	 * 
 	 * @param defender
 	 *            {@code Unit} to attack
 	 */
@@ -238,5 +238,7 @@ public class Soldier extends Unit
 	{
 		nation.units.remove(this);
 		tile.soldiers.remove(this);
+		if (tile.soldiers.isEmpty())
+			tile.nat = Nationality.NEUTRAL;
 	}
 }

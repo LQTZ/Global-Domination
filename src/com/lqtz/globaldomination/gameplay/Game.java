@@ -14,7 +14,8 @@ import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Game implements Serializable {
+public class Game implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
 
@@ -78,7 +79,8 @@ public class Game implements Serializable {
 	 * @param tiles
 	 *            map of {@code Tile}s
 	 */
-	public Game(Utils utils, GameWindow gw, Tile[][] tiles) {
+	public Game(Utils utils, GameWindow gw, Tile[][] tiles)
+	{
 		this.tiles = tiles;
 		this.utils = utils;
 		this.gw = gw;
@@ -92,13 +94,14 @@ public class Game implements Serializable {
 	 * Initiates game. Necessary because {@code utils.game} reference must be
 	 * established before initiation.
 	 */
-	public void init() {
+	public void init()
+	{
 		// Init nations
 		Nation redNat = new Nation(Nationality.RED, utils);
 		Nation greenNat = new Nation(Nationality.GREEN, utils);
 		Nation blueNat = new Nation(Nationality.BLUE, utils);
 		Nation yellowNat = new Nation(Nationality.YELLOW, utils);
-		nations = new Nation[] { redNat, greenNat, blueNat, yellowNat };
+		nations = new Nation[] {redNat, greenNat, blueNat, yellowNat};
 
 		// Init cities
 		redNat.addCity(tiles[0][0]);
@@ -121,7 +124,8 @@ public class Game implements Serializable {
 	/**
 	 * Temporary method for running tests on GD
 	 */
-	private void test() {
+	private void test()
+	{
 		// Move red settler unit up one
 		tiles[0][0].settlers.get(0).move(tiles[0][1]);
 
@@ -140,17 +144,23 @@ public class Game implements Serializable {
 		tiles[0][2].soldiers.get(0).attackTile(tiles[0][3]);
 
 		// Display hp or unit dead
-		try {
+		try
+		{
 			JOptionPane.showMessageDialog(gw, String
 					.valueOf(tiles[0][2].soldiers.get(0).currentHealthPoints));
-		} catch (IndexOutOfBoundsException e) {
+		}
+		catch (IndexOutOfBoundsException e)
+		{
 			JOptionPane.showMessageDialog(gw, "Unit dead");
 		}
 
-		try {
+		try
+		{
 			JOptionPane.showMessageDialog(gw, String
 					.valueOf(tiles[0][3].soldiers.get(0).currentHealthPoints));
-		} catch (IndexOutOfBoundsException e) {
+		}
+		catch (IndexOutOfBoundsException e)
+		{
 			JOptionPane.showMessageDialog(gw, "Unit dead");
 		}
 	}
@@ -161,12 +171,15 @@ public class Game implements Serializable {
 	 * @param tileToSelect
 	 *            new selected {@code Tile}
 	 */
-	public void selectTile(Tile tileToSelect) {
+	public void selectTile(Tile tileToSelect)
+	{
 		// selectedUnit = null;
-		if (selectedTile != null) {
+		if (selectedTile != null)
+		{
 			selectedTile.isSelected = false;
 		}
-		if (tileToSelect != null) {
+		if (tileToSelect != null)
+		{
 			tileToSelect.isSelected = true;
 		}
 		this.selectedTile = tileToSelect;
@@ -178,23 +191,31 @@ public class Game implements Serializable {
 	 * @param unitToSelect
 	 *            new selected {@code Unit}
 	 */
-	public void selectUnit(Unit unitToSelect) {
+	public void selectUnit(Unit unitToSelect)
+	{
 		selectedUnit = unitToSelect;
+		utils.game.gw.buttons[0].setEnabled(true);
 	}
 
 	/**
 	 * Update {@code gw}
 	 */
-	public void updateWindow() {
+	public void updateWindow()
+	{
 		Map<String, Object> diffs = new HashMap<String, Object>();
 
 		// TODO Implement this correctly
-		if (selectedTile != null) {
-			if ((selectedTile.soldiers.size() + selectedTile.settlers.size()) != 0) {
+		if (selectedTile != null)
+		{
+			if ((selectedTile.soldiers.size() + selectedTile.settlers.size()) != 0)
+			{
 				StyledDocument doc = new DefaultStyledDocument();
-				try {
-					for (Soldier u : selectedTile.soldiers) {
-						if (u.equals(selectedUnit)) {
+				try
+				{
+					for (Soldier u : selectedTile.soldiers)
+					{
+						if (u.equals(selectedUnit))
+						{
 							doc.insertString(doc.getLength(),
 									GameWindow.IMAGE_STRING, gw.pointer);
 							doc.insertString(doc.getLength(), " ", gw.body);
@@ -206,8 +227,10 @@ public class Game implements Serializable {
 								+ u.nation.nationality.toString() + ")\n",
 								gw.body);
 					}
-					for (Settler u : selectedTile.settlers) {
-						if (u.equals(selectedUnit)) {
+					for (Settler u : selectedTile.settlers)
+					{
+						if (u.equals(selectedUnit))
+						{
 							doc.insertString(doc.getLength(),
 									GameWindow.IMAGE_STRING, gw.pointer);
 							doc.insertString(doc.getLength(), " ", gw.body);
@@ -219,32 +242,44 @@ public class Game implements Serializable {
 								+ u.nation.nationality.toString() + ")\n",
 								gw.body);
 					}
-				} catch (BadLocationException e) {
+				}
+				catch (BadLocationException e)
+				{
 					e.printStackTrace();
 				}
 				diffs.put("units", doc);
-			} else {
+			}
+			else
+			{
 				diffs.put("units", "(no units)\n");
 			}
 
 			diffs.put("tile", "Revenue: " + selectedTile.tileRevenue
 					+ "\nProductivity: " + selectedTile.tileProductivity + "\n");
 
-			if (selectedTile.city != null) {
+			if (selectedTile.city != null)
+			{
 
-				if (selectedTile.city.isGrowing) {
+				if (selectedTile.city.isGrowing)
+				{
 					diffs.put("city", "Is growing a level "
 							+ selectedTile.city.growUnitLevel + " "
 							+ selectedTile.city.growUnitType + " unit\n");
-				} else {
+				}
+				else
+				{
 					diffs.put("city", "This tile has a city.\n");
 				}
-			} else {
+			}
+			else
+			{
 				diffs.put("city", "(no city)\n");
 			}
 
 			// TODO finish
-		} else {
+		}
+		else
+		{
 			diffs.put("units", "(no tile selected)");
 			diffs.put("city", "(no tile selected)");
 			diffs.put("tile", "(no tile selected)");
@@ -287,13 +322,12 @@ public class Game implements Serializable {
 				break;
 		}
 
-		// Increment turnNum and if new turn log 
+		// Increment turnNum and if new turn log
 		utils.game.turnNum += 0.25;
 		if (utils.game.turnNum == (int) utils.game.turnNum)
 			gw.eventLog("Turn #: " + (int) utils.game.turnNum);
-		
 
-		// Check for CountdownTests 
+		// Check for CountdownTests
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();
 		for (CountdownTask t : countdownTasks)
 		{

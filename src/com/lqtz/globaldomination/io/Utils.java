@@ -48,14 +48,9 @@ public class Utils
 	public final int DIM = 5;
 
 	/**
-	 * {@code Color}s of the {@code GameWindow} buttons when they are inactive
+	 * {@code Color}s of the {@code GameWindow} buttons
 	 */
-	public final HashMap<String, Color> inactiveButtonColors;
-
-	/**
-	 * {@code Color}s of the {@code GameWindow} buttons when they are active
-	 */
-	public final HashMap<String, Color> activeButtonColors;
+	public final HashMap<String, Color> buttonColors;
 
 	/**
 	 * Load resources
@@ -92,17 +87,12 @@ public class Utils
 		}
 
 		// Inactive button colors
-		inactiveButtonColors = new HashMap<String, Color>();
-		inactiveButtonColors.put("Move", new Color(39, 78, 19));
-		inactiveButtonColors.put("Settle", new Color(116, 27, 71));
-		inactiveButtonColors.put("Upgrade", new Color(11, 83, 148));
-		inactiveButtonColors.put("Attack", new Color(153, 0, 0));
-		inactiveButtonColors.put("Next", new Color(127, 127, 127));
-		inactiveButtonColors.put("Pause", Color.BLACK);
-
-		// Active button colors (only applies to Move and Attack buttons)
-		activeButtonColors = new HashMap<String, Color>();
-		activeButtonColors.put("Move", new Color(20, 41, 10));
-		activeButtonColors.put("Attack", new Color(115, 0, 0));
+		buttonColors = new HashMap<String, Color>();
+		buttonColors.put("Move", new Color(39, 78, 19));
+		buttonColors.put("Settle", new Color(116, 27, 71));
+		buttonColors.put("Upgrade", new Color(11, 83, 148));
+		buttonColors.put("Attack", new Color(153, 0, 0));
+		buttonColors.put("Next", new Color(127, 127, 127));
+		buttonColors.put("Pause", Color.BLACK);
 	}
 }

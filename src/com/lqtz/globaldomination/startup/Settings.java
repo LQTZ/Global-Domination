@@ -64,7 +64,7 @@ public class Settings extends BasicScreen implements ActionListener
 
 	/**
 	 * Settings screen
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */

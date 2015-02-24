@@ -61,7 +61,7 @@ public class GameWindow extends JFrame
 	private JTextPane gameInfoPane; // Pane with tile, city, and game info
 	private JScrollPane gameInfoScroll;
 
-	protected JButton[] buttons; // Action buttons themselves
+	public JButton[] buttons; // Action buttons themselves
 
 	/**
 	 * {@code Style} for the body text
@@ -93,7 +93,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Main game interface window
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -207,12 +207,17 @@ public class GameWindow extends JFrame
 			buttons[i].setPreferredSize(new Dimension(100, 60));
 
 			// Colors of buttons
-			buttons[i].setBackground(utils.inactiveButtonColors // Button color
+			buttons[i].setBackground(utils.buttonColors // Button color
 					.get(buttonText[i]));
 			buttons[i].setForeground(Color.WHITE); // Text color
 			buttons[i].setFocusPainted(false); // Eliminate inner focus border
 			buttons[i].setOpaque(true);
 		}
+		buttons[0].setEnabled(false);
+		buttons[1].setEnabled(false);
+		buttons[2].setEnabled(false);
+		buttons[3].setEnabled(false);
+		
 		buttonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
 
@@ -366,17 +371,6 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if (utils.game.moveSelected)
-				{
-					buttons[0].setBackground(utils.inactiveButtonColors
-							.get(buttons[0].getText()));
-				}
-				else if (utils.game.selectedUnit != null)
-				{
-					buttons[0].setBackground(utils.activeButtonColors
-							.get(buttons[0].getText()));
-				}
-
 				utils.game.moveSelected = !utils.game.moveSelected;
 			}
 		});
@@ -388,17 +382,6 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if (utils.game.moveSelected)
-				{
-					buttons[0].setBackground(utils.inactiveButtonColors
-							.get(buttons[0].getText()));
-				}
-				else
-				{
-					buttons[0].setBackground(utils.activeButtonColors
-							.get(buttons[0].getText()));
-				}
-
 				utils.game.moveSelected = !utils.game.moveSelected;
 
 				// Make sure there is a settler selected
@@ -438,17 +421,6 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if (utils.game.attackSelected)
-				{
-					buttons[3].setBackground(utils.inactiveButtonColors
-							.get(buttons[3].getText()));
-				}
-				else
-				{
-					buttons[3].setBackground(utils.activeButtonColors
-							.get(buttons[3].getText()));
-				}
-
 				utils.game.attackSelected = !utils.game.attackSelected;
 			}
 		});
@@ -482,7 +454,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Logs an event
-	 *
+	 * 
 	 * @param s
 	 *            the event to be logged
 	 */
@@ -514,24 +486,24 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Updates text pane contents.
-	 *
+	 * 
 	 * <p>
 	 * The {@code Map} should be of the form
 	 * <code>{paneName : newContents, paneName : newContents... }</code> Note
 	 * that the new contents can be both {@code String}s or
 	 * {@code StyledDocument}s.
-	 *
+	 * 
 	 * <p>
 	 * The {@code paneName}s can be
 	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
-	 *
+	 * 
 	 * <p>
 	 * <b>Note:</b> The strings or documents should not include the title. They
 	 * should contain newlines at the end.
-	 *
+	 * 
 	 * <p>
 	 * Use the <code>eventLog</code> method to access the event log.
-	 *
+	 * 
 	 * @param diffs
 	 *            {@code diffs} map
 	 * @throws IllegalArgumentException

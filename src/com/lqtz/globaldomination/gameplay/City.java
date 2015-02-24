@@ -34,7 +34,7 @@ public class City
 
 	/**
 	 * {@code City} on a {@code Tile} that grows {@code Unit}s
-	 *
+	 * 
 	 * @param tile
 	 *            {@code Tile} the {@code City} is on
 	 * @param nation
@@ -56,7 +56,7 @@ public class City
 	/**
 	 * Grow a unit in the city (dispatch a {@code CountdownTask} that creates a
 	 * unit)
-	 *
+	 * 
 	 * @param ut
 	 *            {@code UnitType} of the {@code Unit} to grow
 	 * @param level

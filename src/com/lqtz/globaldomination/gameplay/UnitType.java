@@ -19,7 +19,7 @@ public enum UnitType
 
 	/**
 	 * Get {@code UnitType} from a {@code String}
-	 *
+	 * 
 	 * @param s
 	 *            {@code String} to translate
 	 * @return {@code UnitType} the {@code String} represents

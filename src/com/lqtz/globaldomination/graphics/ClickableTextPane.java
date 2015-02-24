@@ -89,7 +89,13 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 						.get(soldIndex);
 				// Make sure unit belongs to nation whose turn it is
 				if (clickedSoldier.nation.nationality == utils.game.turnNationality)
+				{
 					utils.game.selectUnit(clickedSoldier);
+				}
+				else
+				{
+					utils.game.selectUnit(null);
+				}
 			}
 		}
 		else

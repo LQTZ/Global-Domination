@@ -24,7 +24,7 @@ public class Settler extends Unit
 
 	/**
 	 * {@code Settler} {@code Unit}
-	 *
+	 * 
 	 * @param nation
 	 *            {@code Nation} the {@code Settler} belongs to
 	 * @param level
@@ -92,7 +92,7 @@ public class Settler extends Unit
 
 	/**
 	 * Move to a certain {@code Tile}
-	 *
+	 * 
 	 * @param toTile
 	 *            {@code Tile} to move to
 	 * @return Whether or not {@code move()} was legal (-2 if the
@@ -121,7 +121,7 @@ public class Settler extends Unit
 		// Add new one
 		tile = toTile;
 		tile.settlers.add(this);
-		
+
 		// Decrement movesLeft
 		movesLeft--;
 

@@ -32,10 +32,10 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Map {@code JPanel} to draw {@code Tile}s on
-	 *
+	 * 
 	 * @param gw
 	 *            {@code GameWindow} for painting on
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -51,7 +51,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Add all the {@code Hexagon}s
-	 *
+	 * 
 	 * @param width
 	 *            width of the {@code GameScreen}
 	 * @param height
@@ -214,20 +214,17 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 		// If move
 		if (utils.game.moveSelected
-				&& utils.game.selectedUnit != null
 				&& (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality || utils.game.selectedTile.nat == Nationality.NEUTRAL))
 		{
 			utils.game.selectedUnit.move(utils.game.selectedTile);
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			utils.game.gw.buttons[0].setBackground(utils.inactiveButtonColors
+			utils.game.gw.buttons[0].setBackground(utils.buttonColors
 					.get((utils.game.gw.buttons[0].getText())));
 		}
 
 		// If attack
 		if (utils.game.attackSelected
-				&& utils.game.selectedUnit != null
-				&& utils.game.selectedUnit instanceof Soldier
 				&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
 				&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
 		{
@@ -235,7 +232,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 					.attackTile(utils.game.selectedTile);
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			utils.game.gw.buttons[3].setBackground(utils.inactiveButtonColors
+			utils.game.gw.buttons[3].setBackground(utils.buttonColors
 					.get((utils.game.gw.buttons[3].getText())));
 
 		}

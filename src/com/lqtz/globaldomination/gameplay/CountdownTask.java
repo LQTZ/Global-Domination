@@ -12,7 +12,7 @@ public abstract class CountdownTask implements Runnable
 	/**
 	 * Runnable that waits a certain number of turns then executes its
 	 * {@code run()} method (to be overridden)
-	 *
+	 * 
 	 * @param moves
 	 *            number of moves to wait before executing {@code run()}
 	 */

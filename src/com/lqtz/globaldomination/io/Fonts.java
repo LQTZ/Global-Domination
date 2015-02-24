@@ -22,8 +22,10 @@ public class Fonts
 	/**
 	 * Load fonts
 	 * 
-	 * @throws FontFormatException error loading fonts
-	 * @throws IOException error loading fonts
+	 * @throws FontFormatException
+	 *             error loading fonts
+	 * @throws IOException
+	 *             error loading fonts
 	 */
 	public Fonts() throws FontFormatException, IOException
 	{
