@@ -195,6 +195,12 @@ public class Game implements Serializable
 	{
 		selectedUnit = unitToSelect;
 		utils.game.gw.buttons[0].setEnabled(true);
+		if (selectedUnit instanceof Settler)
+			utils.game.gw.buttons[1].setEnabled(true);
+		else
+			// Soldiers
+			utils.game.gw.buttons[3].setEnabled(true);
+		utils.game.gw.buttons[2].setEnabled(true); // TODO make upgrade work
 	}
 
 	/**

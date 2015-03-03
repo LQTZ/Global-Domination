@@ -22,6 +22,11 @@ public abstract class Unit implements Serializable
 	public Tile tile;
 
 	/**
+	 * {@code UnitType} of the {@code Unit}
+	 */
+	public UnitType unitType;
+
+	/**
 	 * Maximum number of health points the {@code Unit} can have (also the
 	 * starting hp {@code level})
 	 */
@@ -96,11 +101,6 @@ public abstract class Unit implements Serializable
 	public abstract int move(Tile tile);
 
 	/**
-	 * Remove all references to the {@code Unit} (kill it)
-	 */
-	public abstract void delete();
-
-	/**
 	 * Randomly generate hits to hit an enemy {@code Unit} with in a fight
 	 * 
 	 * @param power
@@ -124,4 +124,21 @@ public abstract class Unit implements Serializable
 		else
 			return hits;
 	}
+
+	/**
+	 * Remove all references to the {@code Unit} (kill it) (To be
+	 * {@code Override}d to add {@code UnitType} specific code)
+	 */
+	public void delete()
+	{
+		// Log unit death (note that coordinates are shifted by one to index
+		// coordinates at 1
+		utils.game.gw.eventLog("A " + this.nation.nationality.toString() + " "
+				+ unitType.toString() + " unit was killed on Tile "
+				+ (tile.xCoord + 1) + ", " + (tile.yCoord + 1));
+
+		// Remove references to the object
+		nation.units.remove(this);
+	}
+
 }

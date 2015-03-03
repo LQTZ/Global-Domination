@@ -34,6 +34,7 @@ public class Soldier extends Unit
 	public Soldier(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
 		super(nation, level, xCoord, yCoord, utils);
+		unitType = UnitType.SOLDIER;
 		utils.game.tiles[xCoord][yCoord].soldiers.add(this);
 	}
 
@@ -148,6 +149,10 @@ public class Soldier extends Unit
 		tile.soldiers.remove(this);
 		nation.units.remove(this);
 
+		// Check if Nation has abandoned Tile
+		if (tile.soldiers.size() + tile.settlers.size() < 1)
+			tile.nat = Nationality.NEUTRAL;
+
 		// Add new one
 		tile = toTile;
 		tile.soldiers.add(this);
@@ -236,7 +241,7 @@ public class Soldier extends Unit
 	@Override
 	public void delete()
 	{
-		nation.units.remove(this);
+		super.delete();
 		tile.soldiers.remove(this);
 		if (tile.soldiers.isEmpty())
 			tile.nat = Nationality.NEUTRAL;

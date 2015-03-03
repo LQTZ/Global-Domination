@@ -39,6 +39,7 @@ public class Settler extends Unit
 	public Settler(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
 		super(nation, level, xCoord, yCoord, utils);
+		unitType = UnitType.SETTLER;
 		utils.game.tiles[xCoord][yCoord].settlers.add(this);
 	}
 
@@ -159,7 +160,7 @@ public class Settler extends Unit
 	@Override
 	public void delete()
 	{
-		nation.units.remove(this);
+		super.delete();
 		tile.settlers.remove(this);
 		utils.game.countdownTasks.remove(cityBuilder);
 	}
