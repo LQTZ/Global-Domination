@@ -140,5 +140,4 @@ public abstract class Unit implements Serializable
 		// Remove references to the object
 		nation.units.remove(this);
 	}
-
 }

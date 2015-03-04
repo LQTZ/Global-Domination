@@ -163,5 +163,8 @@ public class Settler extends Unit
 		super.delete();
 		tile.settlers.remove(this);
 		utils.game.countdownTasks.remove(cityBuilder);
+
+		if (tile.soldiers.isEmpty() && tile.settlers.isEmpty())
+			tile.nat = Nationality.NEUTRAL;
 	}
 }
