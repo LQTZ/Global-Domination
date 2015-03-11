@@ -36,8 +36,7 @@ import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Utils;
 import com.lqtz.globaldomination.startup.Welcome;
 
-public class GameWindow extends JFrame
-{
+public class GameWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Utils utils;
 
@@ -97,19 +96,15 @@ public class GameWindow extends JFrame
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public GameWindow(Utils utils)
-	{
+	public GameWindow(Utils utils) {
 		this.utils = utils;
 		setContentPane(new ImageContentPane(utils));
 
-		if (utils.fullScreen)
-		{
+		if (utils.fullScreen) {
 			setExtendedState(Frame.MAXIMIZED_BOTH);
 			setUndecorated(true);
 			setAlwaysOnTop(true);
-		}
-		else
-		{
+		} else {
 			getContentPane().setPreferredSize(utils.resolution);
 			pack();
 			setResizable(false);
@@ -133,8 +128,7 @@ public class GameWindow extends JFrame
 	/**
 	 * Adds components to frame
 	 */
-	private void addComponents()
-	{
+	private void addComponents() {
 		setLayout(new BorderLayout());
 
 		// Left components
@@ -188,12 +182,11 @@ public class GameWindow extends JFrame
 		buttonsPane = new AlphaJPanel();
 		buttonsPane.setBackground(new Color(50, 50, 50, 210));
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
-		buttons = new JButton[6];
-		String[] buttonText = new String[] {"Move", "Settle", "Upgrade",
-				"Attack", "Next", "Pause"};
+		buttons = new JButton[5];
+		String[] buttonText = new String[] { "Move", "Settle", "Attack",
+				"Next", "Pause" };
 		buttonsPane.add(Box.createHorizontalGlue());
-		for (int i = 0; i < 6; i++)
-		{
+		for (int i = 0; i < 5; i++) {
 			buttons[i] = new JButton(buttonText[i]);
 			buttons[i].setFont(utils.fonts.sourcesans
 					.deriveFont(Font.PLAIN, 20));
@@ -216,8 +209,7 @@ public class GameWindow extends JFrame
 		buttons[0].setEnabled(false);
 		buttons[1].setEnabled(false);
 		buttons[2].setEnabled(false);
-		buttons[3].setEnabled(false);
-		
+
 		buttonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
 
@@ -287,8 +279,7 @@ public class GameWindow extends JFrame
 		add(rightPanel, BorderLayout.EAST);
 	}
 
-	private void initStyles()
-	{
+	private void initStyles() {
 		body = unitsPane.addStyle(null, null);
 		StyleConstants.setForeground(body, Color.WHITE);
 		StyleConstants.setFontSize(body, 18);
@@ -298,16 +289,14 @@ public class GameWindow extends JFrame
 		StyleConstants.setFontSize(head, 24);
 
 		soldierImages = new Style[10];
-		for (int i = 0; i < soldierImages.length; i++)
-		{
+		for (int i = 0; i < soldierImages.length; i++) {
 			soldierImages[i] = unitsPane.addStyle(null, null);
 			StyleConstants.setIcon(soldierImages[i], new ImageIcon(
 					utils.images.soldiers[i]));
 		}
 
 		settlerImages = new Style[5];
-		for (int i = 0; i < settlerImages.length; i++)
-		{
+		for (int i = 0; i < settlerImages.length; i++) {
 			settlerImages[i] = unitsPane.addStyle(null, null);
 			StyleConstants.setIcon(settlerImages[i], new ImageIcon(
 					utils.images.settlers[i]));
@@ -316,72 +305,52 @@ public class GameWindow extends JFrame
 		pointer = unitsPane.addStyle(null, null);
 		StyleConstants.setIcon(pointer, new ImageIcon(utils.images.pointer));
 
-		try
-		{
+		try {
 			eventLogPane.getStyledDocument().insertString(0, "Event Log:\n",
 					head);
-		}
-		catch (BadLocationException e)
-		{
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		try
-		{
+		try {
 			unitsPane.getStyledDocument().insertString(0, "Units:\n", head);
-		}
-		catch (BadLocationException e)
-		{
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		try
-		{
+		try {
 			tileInfoPane.getStyledDocument().insertString(0, "Tile Info:\n",
 					head);
-		}
-		catch (BadLocationException e)
-		{
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		try
-		{
+		try {
 			cityInfoPane.getStyledDocument().insertString(0, "City Info:\n",
 					head);
-		}
-		catch (BadLocationException e)
-		{
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
-		try
-		{
+		try {
 			gameInfoPane.getStyledDocument().insertString(0, "Game Info:\n",
 					head);
-		}
-		catch (BadLocationException e)
-		{
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void addButtonFunctionality()
-	{
+	private void addButtonFunctionality() {
 		// Move button
-		buttons[0].addActionListener(new ActionListener()
-		{
+		buttons[0].addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				utils.game.moveSelected = !utils.game.moveSelected;
 			}
 		});
 
 		// Settle button
-		buttons[1].addActionListener(new ActionListener()
-		{
+		buttons[1].addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				utils.game.moveSelected = !utils.game.moveSelected;
 
 				// Make sure there is a settler selected
@@ -392,45 +361,41 @@ public class GameWindow extends JFrame
 			}
 		});
 
-		// Upgrade button
-		buttons[2].addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				// Make sure there is a unit selected
-				if (!(utils.game.selectedUnit instanceof Unit))
-					return;
-
-				utils.game.countdownTasks.add(new CountdownTask(
-						(utils.game.selectedUnit.level + 1) * 2)
-				{
-					@Override
-					public void run()
-					{
-						// TODO Auto-generated method stub
-					}
-				});
-			}
-		});
+		// // Upgrade button
+		// buttons[2].addActionListener(new ActionListener()
+		// {
+		//
+		// @Override
+		// public void actionPerformed(ActionEvent e)
+		// {
+		// // Make sure there is a unit selected
+		// if (!(utils.game.selectedUnit instanceof Unit))
+		// return;
+		//
+		// utils.game.countdownTasks.add(new CountdownTask(
+		// (utils.game.selectedUnit.level + 1) * 2)
+		// {
+		// @Override
+		// public void run()
+		// {
+		// // TODO Auto-generated method stub
+		// }
+		// });
+		// }
+		// });
 
 		// Attack button
-		buttons[3].addActionListener(new ActionListener()
-		{
+		buttons[2].addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				utils.game.attackSelected = !utils.game.attackSelected;
 			}
 		});
 
 		// Next button
-		buttons[4].addActionListener(new ActionListener()
-		{
+		buttons[3].addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				utils.game.nextTurn();
 				utils.game.updateWindow();
 			}
@@ -438,11 +403,9 @@ public class GameWindow extends JFrame
 
 		// Pause button
 		// TODO Create Pause screen
-		buttons[5].addActionListener(new ActionListener()
-		{
+		buttons[4].addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e) {
 				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				dispatchEvent(new WindowEvent(GameWindow.this,
 						WindowEvent.WINDOW_CLOSING));
@@ -458,16 +421,12 @@ public class GameWindow extends JFrame
 	 * @param s
 	 *            the event to be logged
 	 */
-	public void eventLog(String s)
-	{
+	public void eventLog(String s) {
 		StyledDocument doc = eventLogPane.getStyledDocument();
 		int start = "Event Log:\n".length();
-		try
-		{
+		try {
 			doc.insertString(start, s + "\n", body);
-		}
-		catch (BadLocationException e)
-		{
+		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
 		eventLogPane.setCaretPosition(0);
@@ -479,8 +438,7 @@ public class GameWindow extends JFrame
 	 * @param s
 	 *            text to set {@code infoBox} to
 	 */
-	public void infoBox(String s)
-	{
+	public void infoBox(String s) {
 		infoBox.setText(s);
 	}
 
@@ -510,188 +468,133 @@ public class GameWindow extends JFrame
 	 *             invalid value for {@code diffs}
 	 */
 	public void updateTextPanes(Map<String, Object> diffs)
-			throws IllegalArgumentException
-	{
+			throws IllegalArgumentException {
 		Object units = diffs.get("units");
 		Object tile = diffs.get("tile");
 		Object city = diffs.get("city");
 		Object game = diffs.get("game");
 
-		if (units == null)
-		{}
-		else if (units instanceof String)
-		{
+		if (units == null) {
+		} else if (units instanceof String) {
 			String str = (String) units;
 			StyledDocument doc = unitsPane.getStyledDocument();
-			try
-			{
+			try {
 				doc.remove("Units:\n".length(),
 						doc.getLength() - "Units:\n".length());
 				doc.insertString("Units:\n".length(), str, body);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (units instanceof StyledDocument)
-		{
+		} else if (units instanceof StyledDocument) {
 			StyledDocument doc = (StyledDocument) units;
-			try
-			{
+			try {
 				doc.insertString(0, "Units:\n", head);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
 			unitsPane.setStyledDocument(doc);
-		}
-		else
-		{
+		} else {
 			throw new IllegalArgumentException(
 					"Was not passed String nor StyledDocument");
 		}
 
-		if (tile == null)
-		{}
-		else if (tile instanceof String)
-		{
+		if (tile == null) {
+		} else if (tile instanceof String) {
 			String str = (String) tile;
 			StyledDocument doc = tileInfoPane.getStyledDocument();
-			try
-			{
+			try {
 				doc.remove("Tile Info:\n".length(), doc.getLength()
 						- "Tile Info:\n".length());
 				doc.insertString("Tile Info:\n".length(), str, body);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (tile instanceof StyledDocument)
-		{
+		} else if (tile instanceof StyledDocument) {
 			StyledDocument doc = (StyledDocument) tile;
-			try
-			{
+			try {
 				doc.insertString(0, "Tile Info:\n", head);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
 			tileInfoPane.setStyledDocument(doc);
-		}
-		else
-		{
+		} else {
 			throw new IllegalArgumentException(
 					"Was not passed String nor StyledDocument");
 		}
 
-		if (city == null)
-		{}
-		else if (city instanceof String)
-		{
+		if (city == null) {
+		} else if (city instanceof String) {
 			String str = (String) city;
 			StyledDocument doc = cityInfoPane.getStyledDocument();
-			try
-			{
+			try {
 				doc.remove("City Info:\n".length(), doc.getLength()
 						- "City Info:\n".length());
 				doc.insertString("City Info:\n".length(), str, body);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (city instanceof StyledDocument)
-		{
+		} else if (city instanceof StyledDocument) {
 			StyledDocument doc = (StyledDocument) city;
-			try
-			{
+			try {
 				doc.insertString(0, "City Info:\n", head);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
 			cityInfoPane.setStyledDocument(doc);
-		}
-		else
-		{
+		} else {
 			throw new IllegalArgumentException(
 					"Was not passed String nor StyledDocument");
 		}
 
-		if (game == null)
-		{}
-		else if (game instanceof String)
-		{
+		if (game == null) {
+		} else if (game instanceof String) {
 			String str = (String) game;
 			StyledDocument doc = gameInfoPane.getStyledDocument();
-			try
-			{
+			try {
 				doc.remove("Game Info:\n".length(), doc.getLength()
 						- "Game Info:\n".length());
 				doc.insertString("Game Info:\n".length(), str, body);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (game instanceof StyledDocument)
-		{
+		} else if (game instanceof StyledDocument) {
 			StyledDocument doc = (StyledDocument) game;
-			try
-			{
+			try {
 				doc.insertString(0, "Game Info:\n", head);
-			}
-			catch (BadLocationException e)
-			{
+			} catch (BadLocationException e) {
 				e.printStackTrace();
 			}
 			gameInfoPane.setStyledDocument(doc);
-		}
-		else
-		{
+		} else {
 			throw new IllegalArgumentException(
 					"Was not passed String nor StyledDocument");
 		}
 	}
 
-	private class AlphaJPanel extends JPanel
-	{
+	private class AlphaJPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 
-		public AlphaJPanel()
-		{
+		public AlphaJPanel() {
 			setOpaque(false);
 		}
 
 		@Override
-		protected void paintComponent(Graphics g)
-		{
+		protected void paintComponent(Graphics g) {
 			g.setColor(getBackground());
 			g.fillRect(0, 0, getWidth(), getHeight());
 			super.paintComponent(g);
 		}
 	}
 
-	private class AlphaJViewport extends JViewport
-	{
+	private class AlphaJViewport extends JViewport {
 		private static final long serialVersionUID = 1L;
 
-		public AlphaJViewport()
-		{
+		public AlphaJViewport() {
 			setOpaque(false);
 		}
 
 		@Override
-		protected void paintComponent(Graphics g)
-		{
+		protected void paintComponent(Graphics g) {
 			g.setColor(getBackground());
 			g.fillRect(0, 0, getWidth(), getHeight());
 			super.paintComponent(g);
