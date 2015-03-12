@@ -52,10 +52,10 @@ public class GameWindow extends JFrame
 	private AlphaJPanel buttonsPane; // Pane with action buttons
 	private JLabel infoBox; // Info box
 	private JPanel rightPanel;
+	private JTextPane selectedUnitInfoPane; // Pane with selected unit's info
+	private JScrollPane selectedUnitInfoScroll;
 	private JTextPane tileInfoPane; // Pane with tile, city, and game info
 	private JScrollPane tileInfoScroll;
-	private JTextPane gameInfoPane; // Pane with tile, city, and game info
-	private JScrollPane gameInfoScroll;
 
 	/**
 	 * Action {@code JButton}s of the {@code GameWindow}
@@ -239,6 +239,22 @@ public class GameWindow extends JFrame
 		rightPanel = new JPanel(new BorderLayout());
 		rightPanel.setOpaque(false);
 
+		selectedUnitInfoPane = new JTextPane();
+		selectedUnitInfoPane.setOpaque(false);
+		selectedUnitInfoPane.setEditable(false);
+		selectedUnitInfoPane.setFocusable(false);
+		selectedUnitInfoPane.setFont(utils.fonts.sourcesans);
+		selectedUnitInfoScroll = new JScrollPane();
+		selectedUnitInfoScroll.setViewport(new AlphaJViewport());
+		selectedUnitInfoScroll.setViewportView(selectedUnitInfoPane);
+		selectedUnitInfoScroll.setPreferredSize(new Dimension(200,
+				utils.resolution.height / 2));
+		selectedUnitInfoScroll.getViewport().setBackground(
+				new Color(64, 64, 64, 160));
+		selectedUnitInfoScroll.setOpaque(false);
+		selectedUnitInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0,
+				0, 0));
+
 		tileInfoPane = new JTextPane();
 		tileInfoPane.setOpaque(false);
 		tileInfoPane.setEditable(false);
@@ -253,22 +269,8 @@ public class GameWindow extends JFrame
 		tileInfoScroll.setOpaque(false);
 		tileInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-		gameInfoPane = new JTextPane();
-		gameInfoPane.setOpaque(false);
-		gameInfoPane.setEditable(false);
-		gameInfoPane.setFocusable(false);
-		gameInfoPane.setFont(utils.fonts.sourcesans);
-		gameInfoScroll = new JScrollPane();
-		gameInfoScroll.setViewport(new AlphaJViewport());
-		gameInfoScroll.setViewportView(gameInfoPane);
-		gameInfoScroll.setPreferredSize(new Dimension(200,
-				utils.resolution.height / 2));
-		gameInfoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
-		gameInfoScroll.setOpaque(false);
-		gameInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-		rightPanel.add(tileInfoScroll, BorderLayout.NORTH);
-		rightPanel.add(gameInfoScroll, BorderLayout.SOUTH);
+		rightPanel.add(selectedUnitInfoScroll, BorderLayout.NORTH);
+		rightPanel.add(tileInfoScroll, BorderLayout.SOUTH);
 
 		add(leftPanel, BorderLayout.WEST);
 		add(centerPanel, BorderLayout.CENTER);
@@ -332,8 +334,8 @@ public class GameWindow extends JFrame
 		}
 		try
 		{
-			gameInfoPane.getStyledDocument().insertString(0, "Game Info:\n",
-					head);
+			selectedUnitInfoPane.getStyledDocument().insertString(0,
+					"Selected Unit Info:\n", head);
 		}
 		catch (BadLocationException e)
 		{
@@ -470,7 +472,7 @@ public class GameWindow extends JFrame
 	{
 		Object units = diffs.get("units");
 		Object tile = diffs.get("tile");
-		Object game = diffs.get("game");
+		Object selectedUnit = diffs.get("selectedUnit");
 
 		if (units != null)
 		{
@@ -546,35 +548,36 @@ public class GameWindow extends JFrame
 			}
 		}
 
-		if (game != null)
+		if (selectedUnit != null)
 		{
-			if (game instanceof String)
+			if (selectedUnit instanceof String)
 			{
-				String str = (String) game;
-				StyledDocument doc = gameInfoPane.getStyledDocument();
+				String str = (String) selectedUnit;
+				StyledDocument doc = selectedUnitInfoPane.getStyledDocument();
 				try
 				{
-					doc.remove("Game Info:\n".length(), doc.getLength()
-							- "Game Info:\n".length());
-					doc.insertString("Game Info:\n".length(), str, body);
+					doc.remove("Selected Unit Info:\n".length(),
+							doc.getLength() - "Selected Unit Info:\n".length());
+					doc.insertString("Selected Unit Info:\n".length(), str,
+							body);
 				}
 				catch (BadLocationException e)
 				{
 					e.printStackTrace();
 				}
 			}
-			else if (game instanceof StyledDocument)
+			else if (selectedUnit instanceof StyledDocument)
 			{
-				StyledDocument doc = (StyledDocument) game;
+				StyledDocument doc = (StyledDocument) selectedUnit;
 				try
 				{
-					doc.insertString(0, "Game Info:\n", head);
+					doc.insertString(0, "Selected Unit Info:\n", head);
 				}
 				catch (BadLocationException e)
 				{
 					e.printStackTrace();
 				}
-				gameInfoPane.setStyledDocument(doc);
+				selectedUnitInfoPane.setStyledDocument(doc);
 			}
 			else
 			{

@@ -152,7 +152,7 @@ public class Soldier extends Unit
 		// Check if own Nation has abandoned Tile
 		if (tile.soldiers.size() + tile.settlers.size() < 1)
 			tile.nat = Nationality.NEUTRAL;
-		
+
 		// Check for foreign city flip
 		if (toTile.city != null)
 			if (toTile.city.nation.nationality != nation.nationality)
@@ -251,7 +251,7 @@ public class Soldier extends Unit
 	{
 		super.delete();
 		tile.soldiers.remove(this);
-		
+
 		if (tile.soldiers.isEmpty() && tile.settlers.isEmpty())
 			tile.nat = Nationality.NEUTRAL;
 	}

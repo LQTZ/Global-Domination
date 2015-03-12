@@ -236,7 +236,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 					.get((utils.game.gw.buttons[3].getText())));
 
 		}
-		
+
 		utils.game.selectedUnit = null;
 		utils.game.updateWindow();
 	}

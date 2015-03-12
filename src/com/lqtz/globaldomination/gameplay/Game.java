@@ -292,6 +292,34 @@ public class Game implements Serializable
 			diffs.put("units", "(no tile selected)");
 			diffs.put("tile", "(no tile selected)");
 		}
+
+		if (selectedUnit != null)
+		{
+			String unitInfoStr = "";
+
+			unitInfoStr = unitInfoStr + "Level:\t"
+					+ String.valueOf(selectedUnit.level) + "\n\n";
+			unitInfoStr = unitInfoStr + "Current Health Points:\t"
+					+ String.valueOf(selectedUnit.currentHealthPoints) + "\n\n";
+			unitInfoStr = unitInfoStr + "Max Health Points:\t"
+					+ String.valueOf(selectedUnit.maxHealthPoints) + "\n\n";
+			unitInfoStr = unitInfoStr + "Moves Left:\t"
+					+ String.valueOf(selectedUnit.movesLeft) + "\n\n";
+			unitInfoStr = unitInfoStr + "Defend Power:\t"
+					+ String.valueOf(selectedUnit.defendPower) + "\n\n";
+
+			if (selectedUnit instanceof Soldier)
+			{
+				unitInfoStr = unitInfoStr + "Attack Power:\t"
+						+ String.valueOf(((Soldier) selectedUnit).attackPower)
+						+ "\n\n";
+			}
+
+			diffs.put("selectedUnit", unitInfoStr);
+		}
+		else
+			diffs.put("selectedUnit", "(no unit selected)");
+
 		gw.updateTextPanes(diffs);
 
 		gw.infoBox(turnNationality + " to move");
