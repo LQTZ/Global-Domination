@@ -118,7 +118,7 @@ public class Game implements Serializable
 		gw.eventLog("Turn #: " + (int) utils.game.turnNum);
 
 		// Temp
-//		test();
+		// test();
 	}
 
 	/**
@@ -259,35 +259,37 @@ public class Game implements Serializable
 				diffs.put("units", "(no units)\n");
 			}
 
-			diffs.put("tile", "Revenue: " + selectedTile.tileRevenue
-					+ "\nProductivity: " + selectedTile.tileProductivity + "\n");
+			String tileInfoStr = "";
 
+			// City
 			if (selectedTile.city != null)
 			{
+				tileInfoStr = tileInfoStr + "Has a "
+						+ utils.game.selectedTile.nat.toString() + " city.\n";
 
+				// Unit being grown
 				if (selectedTile.city.isGrowing)
 				{
-					diffs.put("city", "Is growing a level "
+					tileInfoStr = tileInfoStr + "The city is growing a level "
 							+ selectedTile.city.growUnitLevel + " "
-							+ selectedTile.city.growUnitType + " unit\n");
+							+ selectedTile.city.growUnitType + " unit\n";
 				}
-				else
-				{
-					diffs.put("city", "This tile has a city.\n");
-				}
-			}
-			else
-			{
-				diffs.put("city", "(no city)\n");
+				tileInfoStr = tileInfoStr + "\n";
 			}
 
-			// TODO finish
-			// TODO FIX!
+			// Number of units
+			tileInfoStr = tileInfoStr + "Has "
+					+ String.valueOf(utils.game.selectedTile.settlers.size())
+					+ " settlers,\n";
+			tileInfoStr = tileInfoStr + "and "
+					+ String.valueOf(utils.game.selectedTile.soldiers.size())
+					+ " soldiers.";
+
+			diffs.put("tile", tileInfoStr);
 		}
 		else
 		{
 			diffs.put("units", "(no tile selected)");
-			diffs.put("city", "(no tile selected)");
 			diffs.put("tile", "(no tile selected)");
 		}
 		gw.updateTextPanes(diffs);

@@ -57,8 +57,6 @@ public class GameWindow extends JFrame
 	private JTextPane gameInfoPane; // Pane with tile, city, and game info
 	private JScrollPane gameInfoScroll;
 
-	private String tileInfoPaneStr; // Text in the tile info pane
-
 	/**
 	 * Action {@code JButton}s of the {@code GameWindow}
 	 */
@@ -472,7 +470,6 @@ public class GameWindow extends JFrame
 	{
 		Object units = diffs.get("units");
 		Object tile = diffs.get("tile");
-		Object city = diffs.get("city");
 		Object game = diffs.get("game");
 
 		if (units != null)
@@ -514,28 +511,6 @@ public class GameWindow extends JFrame
 
 		if (tile != null)
 		{
-			String newTileInfoPaneStr = "";
-			if (utils.game.selectedTile != null)
-			{
-				// Whether or not there is a city
-				if (utils.game.selectedTile.city != null)
-				{
-					newTileInfoPaneStr = newTileInfoPaneStr + "Has a "
-							+ utils.game.selectedTile.nat.toString()
-							+ " city.\n\n";
-				}
-
-				// Number of units
-				newTileInfoPaneStr = newTileInfoPaneStr
-						+ "Has "
-						+ String.valueOf(utils.game.selectedTile.settlers
-								.size()) + " settlers,\n";
-				newTileInfoPaneStr = newTileInfoPaneStr
-						+ "and "
-						+ String.valueOf(utils.game.selectedTile.soldiers
-								.size()) + " soldiers.";
-			}
-
 			if (tile instanceof String)
 			{
 				String str = (String) tile;
@@ -544,8 +519,7 @@ public class GameWindow extends JFrame
 				{
 					doc.remove("Tile Info:\n".length(), doc.getLength()
 							- "Tile Info:\n".length());
-					doc.insertString("Tile Info:\n".length(),
-							newTileInfoPaneStr, body);
+					doc.insertString("Tile Info:\n".length(), str, body);
 				}
 				catch (BadLocationException e)
 				{
@@ -557,7 +531,7 @@ public class GameWindow extends JFrame
 				StyledDocument doc = (StyledDocument) tile;
 				try
 				{
-					doc.insertString(0, newTileInfoPaneStr, head);
+					doc.insertString(0, "Tile Info:\n", head);
 				}
 				catch (BadLocationException e)
 				{
@@ -570,9 +544,6 @@ public class GameWindow extends JFrame
 				throw new IllegalArgumentException(
 						"Was not passed String nor StyledDocument");
 			}
-
-			// Update tileInfoPaneStr
-			tileInfoPaneStr = newTileInfoPaneStr;
 		}
 
 		if (game != null)
