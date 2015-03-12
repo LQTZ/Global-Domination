@@ -117,8 +117,8 @@ public class Game implements Serializable
 
 		gw.eventLog("Turn #: " + (int) utils.game.turnNum);
 
-		// TMP
-		test();
+		// Temp
+//		test();
 	}
 
 	/**
@@ -173,7 +173,6 @@ public class Game implements Serializable
 	 */
 	public void selectTile(Tile tileToSelect)
 	{
-		// selectedUnit = null;
 		if (selectedTile != null)
 		{
 			selectedTile.isSelected = false;
@@ -283,6 +282,7 @@ public class Game implements Serializable
 			}
 
 			// TODO finish
+			// TODO FIX!
 		}
 		else
 		{

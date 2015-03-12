@@ -86,7 +86,7 @@ public class Utils
 			e.printStackTrace();
 		}
 
-		// Inactive button colors
+		// Button colors
 		buttonColors = new HashMap<String, Color>();
 		buttonColors.put("Move", new Color(39, 78, 19));
 		buttonColors.put("Settle", new Color(116, 27, 71));
