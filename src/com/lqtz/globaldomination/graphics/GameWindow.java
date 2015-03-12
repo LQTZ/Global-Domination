@@ -57,6 +57,8 @@ public class GameWindow extends JFrame
 	private JTextPane gameInfoPane; // Pane with tile, city, and game info
 	private JScrollPane gameInfoScroll;
 
+	private String tileInfoPaneStr; // Text in the tile info pane
+
 	/**
 	 * Action {@code JButton}s of the {@code GameWindow}
 	 */
@@ -473,148 +475,141 @@ public class GameWindow extends JFrame
 		Object city = diffs.get("city");
 		Object game = diffs.get("game");
 
-		if (units == null)
-		{}
-		else if (units instanceof String)
+		if (units != null)
 		{
-			String str = (String) units;
-			StyledDocument doc = unitsPane.getStyledDocument();
-			try
+			if (units instanceof String)
 			{
-				doc.remove("Units:\n".length(),
-						doc.getLength() - "Units:\n".length());
-				doc.insertString("Units:\n".length(), str, body);
+				String str = (String) units;
+				StyledDocument doc = unitsPane.getStyledDocument();
+				try
+				{
+					doc.remove("Units:\n".length(), doc.getLength()
+							- "Units:\n".length());
+					doc.insertString("Units:\n".length(), str, body);
+				}
+				catch (BadLocationException e)
+				{
+					e.printStackTrace();
+				}
 			}
-			catch (BadLocationException e)
+			else if (units instanceof StyledDocument)
 			{
-				e.printStackTrace();
+				StyledDocument doc = (StyledDocument) units;
+				try
+				{
+					doc.insertString(0, "Units:\n", head);
+				}
+				catch (BadLocationException e)
+				{
+					e.printStackTrace();
+				}
+				unitsPane.setStyledDocument(doc);
 			}
-		}
-		else if (units instanceof StyledDocument)
-		{
-			StyledDocument doc = (StyledDocument) units;
-			try
+			else
 			{
-				doc.insertString(0, "Units:\n", head);
+				throw new IllegalArgumentException(
+						"Was not passed String nor StyledDocument");
 			}
-			catch (BadLocationException e)
-			{
-				e.printStackTrace();
-			}
-			unitsPane.setStyledDocument(doc);
-		}
-		else
-		{
-			throw new IllegalArgumentException(
-					"Was not passed String nor StyledDocument");
-		}
-
-		if (tile == null)
-		{}
-		else if (tile instanceof String)
-		{
-			String str = (String) tile;
-			StyledDocument doc = tileInfoPane.getStyledDocument();
-			try
-			{
-				doc.remove("Tile Info:\n".length(), doc.getLength()
-						- "Tile Info:\n".length());
-				doc.insertString("Tile Info:\n".length(), str, body);
-			}
-			catch (BadLocationException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else if (tile instanceof StyledDocument)
-		{
-			StyledDocument doc = (StyledDocument) tile;
-			try
-			{
-				doc.insertString(0, "Tile Info:\n", head);
-			}
-			catch (BadLocationException e)
-			{
-				e.printStackTrace();
-			}
-			tileInfoPane.setStyledDocument(doc);
-		}
-		else
-		{
-			throw new IllegalArgumentException(
-					"Was not passed String nor StyledDocument");
 		}
 
-		if (city == null)
-		{}
-		else if (city instanceof String)
+		if (tile != null)
 		{
-			String str = (String) city;
-			StyledDocument doc = tileInfoPane.getStyledDocument();
-			try
+			String newTileInfoPaneStr = "";
+			if (utils.game.selectedTile != null)
 			{
-				doc.remove("City Info:\n".length(), doc.getLength()
-						- "City Info:\n".length());
-				doc.insertString("City Info:\n".length(), str, body);
+				// Whether or not there is a city
+				if (utils.game.selectedTile.city != null)
+				{
+					newTileInfoPaneStr = newTileInfoPaneStr + "Has a "
+							+ utils.game.selectedTile.nat.toString()
+							+ " city.\n\n";
+				}
+
+				// Number of units
+				newTileInfoPaneStr = newTileInfoPaneStr
+						+ "Has "
+						+ String.valueOf(utils.game.selectedTile.settlers
+								.size()) + " settlers,\n";
+				newTileInfoPaneStr = newTileInfoPaneStr
+						+ "and "
+						+ String.valueOf(utils.game.selectedTile.soldiers
+								.size()) + " soldiers.";
 			}
-			catch (BadLocationException e)
+
+			if (tile instanceof String)
 			{
-				e.printStackTrace();
+				String str = (String) tile;
+				StyledDocument doc = tileInfoPane.getStyledDocument();
+				try
+				{
+					doc.remove("Tile Info:\n".length(), doc.getLength()
+							- "Tile Info:\n".length());
+					doc.insertString("Tile Info:\n".length(),
+							newTileInfoPaneStr, body);
+				}
+				catch (BadLocationException e)
+				{
+					e.printStackTrace();
+				}
 			}
-		}
-		else if (city instanceof StyledDocument)
-		{
-			StyledDocument doc = (StyledDocument) city;
-			try
+			else if (tile instanceof StyledDocument)
 			{
-				doc.insertString(0, "City Info:\n", head);
+				StyledDocument doc = (StyledDocument) tile;
+				try
+				{
+					doc.insertString(0, newTileInfoPaneStr, head);
+				}
+				catch (BadLocationException e)
+				{
+					e.printStackTrace();
+				}
+				tileInfoPane.setStyledDocument(doc);
 			}
-			catch (BadLocationException e)
+			else
 			{
-				e.printStackTrace();
+				throw new IllegalArgumentException(
+						"Was not passed String nor StyledDocument");
 			}
-			tileInfoPane.setStyledDocument(doc);
-		}
-		else
-		{
-			throw new IllegalArgumentException(
-					"Was not passed String nor StyledDocument");
+
+			// Update tileInfoPaneStr
+			tileInfoPaneStr = newTileInfoPaneStr;
 		}
 
-		if (game == null)
-		{}
-		else if (game instanceof String)
+		if (game != null)
 		{
-			String str = (String) game;
-			StyledDocument doc = gameInfoPane.getStyledDocument();
-			try
+			if (game instanceof String)
 			{
-				doc.remove("Game Info:\n".length(), doc.getLength()
-						- "Game Info:\n".length());
-				doc.insertString("Game Info:\n".length(), str, body);
+				String str = (String) game;
+				StyledDocument doc = gameInfoPane.getStyledDocument();
+				try
+				{
+					doc.remove("Game Info:\n".length(), doc.getLength()
+							- "Game Info:\n".length());
+					doc.insertString("Game Info:\n".length(), str, body);
+				}
+				catch (BadLocationException e)
+				{
+					e.printStackTrace();
+				}
 			}
-			catch (BadLocationException e)
+			else if (game instanceof StyledDocument)
 			{
-				e.printStackTrace();
+				StyledDocument doc = (StyledDocument) game;
+				try
+				{
+					doc.insertString(0, "Game Info:\n", head);
+				}
+				catch (BadLocationException e)
+				{
+					e.printStackTrace();
+				}
+				gameInfoPane.setStyledDocument(doc);
 			}
-		}
-		else if (game instanceof StyledDocument)
-		{
-			StyledDocument doc = (StyledDocument) game;
-			try
+			else
 			{
-				doc.insertString(0, "Game Info:\n", head);
+				throw new IllegalArgumentException(
+						"Was not passed String nor StyledDocument");
 			}
-			catch (BadLocationException e)
-			{
-				e.printStackTrace();
-			}
-			gameInfoPane.setStyledDocument(doc);
-		}
-		else
-		{
-			throw new IllegalArgumentException(
-					"Was not passed String nor StyledDocument");
 		}
 	}
 
