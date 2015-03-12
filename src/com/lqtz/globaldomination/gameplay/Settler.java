@@ -105,7 +105,7 @@ public class Settler extends Unit
 	public int move(Tile toTile)
 	{
 		// TODO Check if building city, and if so, do not allow settler to move
-
+		
 		// Check if unit has maxed out moves for the turn
 		if (movesLeft <= 0)
 			return -2;
@@ -144,6 +144,10 @@ public class Settler extends Unit
 			{
 				isBuilding = false;
 				nation.addCity(tile);
+				utils.game.gw.eventLog("A new " + nation.nationality.toString()
+						+ " was built on Tile " + (tile.xCoord + 1) + ", "
+						+ (tile.yCoord + 1));
+				delete();
 			}
 		};
 		utils.game.countdownTasks.add(cityBuilder);

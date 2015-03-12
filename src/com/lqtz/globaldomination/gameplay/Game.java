@@ -308,6 +308,14 @@ public class Game implements Serializable
 			unitInfoStr = unitInfoStr + "Defend Power:\t"
 					+ String.valueOf(selectedUnit.defendPower) + "\n\n";
 
+			if (selectedUnit instanceof Settler
+					&& ((Settler) selectedUnit).isBuilding)
+			{
+				unitInfoStr = unitInfoStr + "Will finish city in "
+						+ String.valueOf(((Settler) selectedUnit).turnsToCity)
+						+ " turn.\n\n";
+			}
+
 			if (selectedUnit instanceof Soldier)
 			{
 				unitInfoStr = unitInfoStr + "Attack Power:\t"

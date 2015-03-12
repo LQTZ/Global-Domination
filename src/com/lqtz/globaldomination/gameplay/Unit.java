@@ -134,7 +134,7 @@ public abstract class Unit implements Serializable
 		// Log unit death (note that coordinates are shifted by one to index
 		// coordinates at 1
 		utils.game.gw.eventLog("A " + this.nation.nationality.toString() + " "
-				+ unitType.toString() + " unit was killed on Tile "
+				+ unitType.toString() + " unit died on Tile "
 				+ (tile.xCoord + 1) + ", " + (tile.yCoord + 1));
 
 		// Remove references to the object
