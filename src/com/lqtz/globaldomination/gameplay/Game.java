@@ -384,4 +384,15 @@ public class Game implements Serializable
 
 		countdownTasks = newTaskList;
 	}
+	
+	/**
+	 * Call this when deserialized.
+	 * @param utils
+	 * @param gw
+	 */
+	public void onDeserialization(Utils utils, GameWindow gw)
+	{
+		this.utils = utils;
+		this.gw = gw;
+	}
 }

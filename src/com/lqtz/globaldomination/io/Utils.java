@@ -4,11 +4,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontFormatException;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Random;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+
 import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.graphics.GameWindow;
 
 public class Utils
 {
@@ -41,6 +50,8 @@ public class Utils
 	 * {@code Game} object to be added once the {@code Game} is instantiated
 	 */
 	public Game game = null;
+	
+	public GameWindow gw = null;
 
 	/**
 	 * Length and width of the board
@@ -93,5 +104,108 @@ public class Utils
 		buttonColors.put("Attack", new Color(153, 0, 0));
 		buttonColors.put("Next", new Color(127, 127, 127));
 		buttonColors.put("Pause", Color.BLACK);
+	}
+
+	/**
+	 * Serializes {@code Game} object.
+	 * 
+	 * @return whether successful
+	 */
+	public boolean serializeGame()
+	{
+		JFileChooser fc = new JFileChooser();
+		fc.addChoosableFileFilter(new GDMFilter());
+		int returnVal = fc.showSaveDialog(gw);
+		if (returnVal == JFileChooser.APPROVE_OPTION)
+		{
+			try
+			{
+				FileOutputStream fos = new FileOutputStream(
+						fc.getSelectedFile());
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(game);
+				oos.close();
+				fos.close();
+				return true;
+			}
+			catch (Exception e)
+			{
+				return false;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Deserializes {@code Game} object.
+	 * 
+	 * @return {@code Game} object or {@code null}
+	 */
+	public Game deserializeGame()
+	{
+		JFileChooser fc = new JFileChooser();
+		fc.addChoosableFileFilter(new GDMFilter());
+		int returnVal = fc.showOpenDialog(gw);
+		if (returnVal == JFileChooser.APPROVE_OPTION)
+		{
+			try
+			{
+				FileInputStream fis = new FileInputStream(
+						fc.getSelectedFile());
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				Game game = (Game) ois.readObject();
+				game.onDeserialization(this, gw);
+				ois.close();
+				fis.close();
+				return game;
+			}
+			catch (Exception e)
+			{
+				return null;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Filters only {@code .gdm} files and directories.
+	 * 
+	 * @author Daniel
+	 *
+	 */
+	private class GDMFilter extends FileFilter
+	{
+		public boolean accept(File f)
+		{
+			if (f.isDirectory())
+			{
+				return true;
+			}
+			if (extension(f) == "gdm")
+			{
+				return true;
+			}
+			return false;
+		}
+
+		private String extension(File f)
+		{
+			String n = f.getName();
+			int i = n.lastIndexOf('.') + 1;
+			if (i > 0 && i < n.length())
+			{
+				return n.substring(i).toLowerCase();
+			}
+			else
+			{
+				return "";
+			}
+		}
+
+		@Override
+		public String getDescription()
+		{
+			return "Global Domination Files";
+		}
 	}
 }

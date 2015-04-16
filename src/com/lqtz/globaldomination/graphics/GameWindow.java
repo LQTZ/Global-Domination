@@ -102,6 +102,7 @@ public class GameWindow extends JFrame
 	public GameWindow(Utils utils)
 	{
 		this.utils = utils;
+		utils.gw = this;
 		setContentPane(new ImageContentPane(utils));
 
 		if (utils.fullScreen)
