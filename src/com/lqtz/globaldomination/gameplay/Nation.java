@@ -1,13 +1,15 @@
 package com.lqtz.globaldomination.gameplay;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Nation
+public class Nation implements Serializable
 {
-	private Utils utils;
+	private static final long serialVersionUID = 1L;
+	private transient Utils utils;
 
 	/**
 	 * Nationality of the nation
@@ -100,5 +102,10 @@ public class Nation
 		cities.add(c);
 		t.city = c;
 		t.nat = nationality;
+	}
+	
+	public void onDeserialization(Utils utils)
+	{
+		this.utils = utils;
 	}
 }

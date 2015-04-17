@@ -103,7 +103,8 @@ public class Utils
 		buttonColors.put("Settle", new Color(116, 27, 71));
 		buttonColors.put("Attack", new Color(153, 0, 0));
 		buttonColors.put("Next", new Color(127, 127, 127));
-		buttonColors.put("Pause", Color.BLACK);
+		buttonColors.put("Exit", Color.BLACK);
+		buttonColors.put("Save", new Color(0, 0, 180));
 	}
 
 	/**
@@ -115,13 +116,14 @@ public class Utils
 	{
 		JFileChooser fc = new JFileChooser();
 		fc.addChoosableFileFilter(new GDMFilter());
+		fc.setAcceptAllFileFilterUsed(false);
 		int returnVal = fc.showSaveDialog(gw);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 		{
 			try
 			{
-				FileOutputStream fos = new FileOutputStream(
-						fc.getSelectedFile());
+				String n = fc.getSelectedFile().getAbsolutePath() + ".gdm";
+				FileOutputStream fos = new FileOutputStream(n);
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				oos.writeObject(game);
 				oos.close();
@@ -139,12 +141,14 @@ public class Utils
 	/**
 	 * Deserializes {@code Game} object.
 	 * 
-	 * @return {@code Game} object or {@code null}
+	 * @return {@code Game} object or {@code null} if cancelled
+	 * @throws if file is bad
 	 */
-	public Game deserializeGame()
+	public Game deserializeGame() throws IOException
 	{
 		JFileChooser fc = new JFileChooser();
 		fc.addChoosableFileFilter(new GDMFilter());
+		fc.setAcceptAllFileFilterUsed(false);
 		int returnVal = fc.showOpenDialog(gw);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 		{
@@ -153,7 +157,7 @@ public class Utils
 				FileInputStream fis = new FileInputStream(
 						fc.getSelectedFile());
 				ObjectInputStream ois = new ObjectInputStream(fis);
-				Game game = (Game) ois.readObject();
+				game = (Game) ois.readObject();
 				game.onDeserialization(this, gw);
 				ois.close();
 				fis.close();
@@ -161,7 +165,8 @@ public class Utils
 			}
 			catch (Exception e)
 			{
-				return null;
+				e.printStackTrace();
+				throw new IOException("Corrupted or outdated file.");
 			}
 		}
 		return null;
@@ -181,7 +186,7 @@ public class Utils
 			{
 				return true;
 			}
-			if (extension(f) == "gdm")
+			if (extension(f).equals("gdm"))
 			{
 				return true;
 			}

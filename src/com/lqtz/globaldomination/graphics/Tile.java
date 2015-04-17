@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +13,12 @@ import com.lqtz.globaldomination.gameplay.City;
 import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.gameplay.Settler;
 import com.lqtz.globaldomination.gameplay.Soldier;
+import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Tile
+public class Tile implements Serializable
 {
-	private Utils utils;
+	private transient Utils utils;
 	private int centerX;
 	private int centerY;
 	private int tileSize;
@@ -131,14 +133,13 @@ public class Tile
 				new Color(255, 127, 127, 150), new Color(127, 0, 0)});
 		colors.put(Nationality.GREEN, new Color[] {new Color(0, 255, 0, 150),
 				new Color(127, 255, 127, 150), new Color(0, 127, 0)});
-		colors.put(Nationality.YELLOW, new Color[] {
-				new Color(191, 191, 0, 150), new Color(255, 255, 191, 150),
-				new Color(63, 63, 0)});
+		colors.put(Nationality.YELLOW, new Color[] {new Color(191, 191, 0, 150),
+				new Color(255, 255, 191, 150), new Color(63, 63, 0)});
 		colors.put(Nationality.BLUE, new Color[] {new Color(0, 0, 255, 150),
 				new Color(127, 127, 255, 150), new Color(0, 0, 200)});
-		colors.put(Nationality.NEUTRAL, new Color[] {
-				new Color(127, 127, 127, 150), new Color(191, 191, 191, 150),
-				new Color(63, 63, 63)});
+		colors.put(Nationality.NEUTRAL,
+				new Color[] {new Color(127, 127, 127, 150),
+						new Color(191, 191, 191, 150), new Color(63, 63, 63)});
 	}
 
 	protected void paint(Graphics g, Font font)
@@ -178,8 +179,8 @@ public class Tile
 		// Draw city-related icons
 		if (city != null)
 		{
-			g.drawImage(utils.images.city, centerX - 2 * xOffset, centerY
-					- tileSize / 2, tileSize * 7 / 4, tileSize, null);
+			g.drawImage(utils.images.city, centerX - 2 * xOffset,
+					centerY - tileSize / 2, tileSize * 7 / 4, tileSize, null);
 		}
 
 		// Draw the settler units icon
@@ -211,8 +212,21 @@ public class Tile
 
 		// width and yOffset center it to the point (x, y), but we need to
 		// center the text to the center of the image --> tileSize / 8
-		g.drawString(str, x - width / 2 + tileSize / 8, y + yOffset + tileSize
-				/ 8);
+		g.drawString(str, x - width / 2 + tileSize / 8,
+				y + yOffset + tileSize / 8);
 
+	}
+
+	public void onDeserialization(Utils utils)
+	{
+		this.utils = utils;
+		if (city != null)
+		{
+			city.onDeserialization(utils);
+		}
+		for (Unit u : settlers)
+		{
+			u.onDeserialization(utils);
+		}
 	}
 }

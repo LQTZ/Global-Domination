@@ -1,7 +1,10 @@
 package com.lqtz.globaldomination.gameplay;
 
-public abstract class CountdownTask implements Runnable
+import java.io.Serializable;
+
+public abstract class CountdownTask implements Runnable, Serializable
 {
+	private static final long serialVersionUID = 1L;
 	private int moves;
 
 	/**

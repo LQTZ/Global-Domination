@@ -1,8 +1,9 @@
 package com.lqtz.globaldomination.graphics;
 
 import java.awt.Polygon;
+import java.io.Serializable;
 
-public class Hexagon extends Polygon
+public class Hexagon extends Polygon implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 

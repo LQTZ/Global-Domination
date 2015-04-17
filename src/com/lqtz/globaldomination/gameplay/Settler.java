@@ -139,6 +139,8 @@ public class Settler extends Unit
 
 		cityBuilder = new CountdownTask(turnsToCity)
 		{
+			private static final long serialVersionUID = 1L;
+			
 			@Override
 			public void run()
 			{

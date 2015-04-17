@@ -9,7 +9,7 @@ public abstract class Unit implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	protected Utils utils;
+	protected transient Utils utils;
 
 	/**
 	 * {@code Nation} of the {@code Unit}
@@ -139,5 +139,10 @@ public abstract class Unit implements Serializable
 
 		// Remove references to the object
 		nation.units.remove(this);
+	}
+	
+	public void onDeserialization(Utils utils)
+	{
+		this.utils = utils;
 	}
 }

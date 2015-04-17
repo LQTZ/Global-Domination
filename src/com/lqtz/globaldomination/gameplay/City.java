@@ -1,11 +1,14 @@
 package com.lqtz.globaldomination.gameplay;
 
+import java.io.Serializable;
+
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class City
+public class City implements Serializable
 {
-	private Utils utils;
+	private static final long serialVersionUID = 1L;
+	private transient Utils utils;
 
 	/**
 	 * {@code Nation} of the {@code City}
@@ -70,6 +73,8 @@ public class City
 
 		utils.game.countdownTasks.add(new CountdownTask(level * 2)
 		{
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public void run()
 			{
@@ -95,5 +100,10 @@ public class City
 	public void stopGrowing()
 	{
 		isGrowing = false;
+	}
+	
+	public void onDeserialization(Utils utils)
+	{
+		this.utils = utils;
 	}
 }

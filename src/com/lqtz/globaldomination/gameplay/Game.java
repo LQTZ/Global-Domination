@@ -42,12 +42,12 @@ public class Game implements Serializable
 	/**
 	 * Currently selected (clicked) {@code Tile}
 	 */
-	public Tile selectedTile;
+	public transient Tile selectedTile;
 
 	/**
 	 * Currently selected (clicked) {@code Unit}
 	 */
-	public Unit selectedUnit;
+	public transient Unit selectedUnit;
 
 	/**
 	 * Move button has been clicked
@@ -394,5 +394,16 @@ public class Game implements Serializable
 	{
 		this.utils = utils;
 		this.gw = gw;
+		for (Tile[] tt: tiles)
+		{
+			for (Tile t : tt)
+			{
+				t.onDeserialization(utils);
+			}
+		}
+		for (Nation n : nations)
+		{
+			n.onDeserialization(utils);
+		}
 	}
 }

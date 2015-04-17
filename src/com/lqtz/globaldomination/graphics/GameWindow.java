@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -19,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -99,7 +101,7 @@ public class GameWindow extends JFrame
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public GameWindow(Utils utils)
+	public GameWindow(Utils utils, boolean newGame)
 	{
 		this.utils = utils;
 		utils.gw = this;
@@ -127,7 +129,51 @@ public class GameWindow extends JFrame
 		addButtonFunctionality();
 
 		pack();
-		utils.game = new Game(utils, this, mapPane.tiles);
+		if (newGame)
+		{
+
+			utils.game = new Game(utils, this, mapPane.tiles);
+		}
+		else
+		{
+			boolean bad = true;
+			Game game = null;
+			try
+			{
+				game = utils.deserializeGame();
+				bad = false;
+			}
+			catch (IOException e)
+			{}
+
+			while (bad)
+			{
+				JOptionPane.showMessageDialog(this,
+						"The file may be corrupted or be outdated.", "Bad File",
+						JOptionPane.ERROR_MESSAGE);
+				try
+				{
+					game = utils.deserializeGame();
+					bad = false;
+				}
+				catch (IOException e)
+				{}
+			}
+
+			if (game == null)
+			{
+				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				dispatchEvent(new WindowEvent(GameWindow.this,
+						WindowEvent.WINDOW_CLOSING));
+				utils.game = null;
+				new Welcome(utils);
+				return;
+			}
+			else
+			{
+				utils.game = game;
+			}
+		}
 		utils.game.init();
 		utils.game.updateWindow();
 		setVisible(true);
@@ -152,8 +198,8 @@ public class GameWindow extends JFrame
 		unitsScroll = new JScrollPane();
 		unitsScroll.setViewport(new AlphaJViewport());
 		unitsScroll.setViewportView(unitsPane);
-		unitsScroll.setPreferredSize(new Dimension(200,
-				utils.resolution.height / 2));
+		unitsScroll.setPreferredSize(
+				new Dimension(200, utils.resolution.height / 2));
 		unitsScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
 		unitsScroll.setOpaque(false);
 		unitsScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -166,8 +212,8 @@ public class GameWindow extends JFrame
 		eventLogScroll = new JScrollPane();
 		eventLogScroll.setViewport(new AlphaJViewport());
 		eventLogScroll.setViewportView(eventLogPane);
-		eventLogScroll.setPreferredSize(new Dimension(200,
-				utils.resolution.height / 2));
+		eventLogScroll.setPreferredSize(
+				new Dimension(200, utils.resolution.height / 2));
 		eventLogScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
 		eventLogScroll.setOpaque(false);
 		eventLogScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -191,15 +237,15 @@ public class GameWindow extends JFrame
 		buttonsPane = new AlphaJPanel();
 		buttonsPane.setBackground(new Color(50, 50, 50, 210));
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
-		buttons = new JButton[5];
+		buttons = new JButton[6];
 		String[] buttonText = new String[] {"Move", "Settle", "Attack", "Next",
-				"Pause"};
+				"Exit", "Save"};
 		buttonsPane.add(Box.createHorizontalGlue());
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]);
-			buttons[i].setFont(utils.fonts.sourcesans
-					.deriveFont(Font.PLAIN, 20));
+			buttons[i]
+					.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
 			buttonsPane.add(buttons[i]); // Add button
 
 			// Spacing
@@ -220,14 +266,15 @@ public class GameWindow extends JFrame
 		buttons[1].setEnabled(false);
 		buttons[2].setEnabled(false);
 
-		buttonsPane.setPreferredSize(new Dimension(
-				utils.resolution.width - 400, 100));
+		buttonsPane.setPreferredSize(
+				new Dimension(utils.resolution.width - 400, 100));
 
 		// Set up the info box and pane to go below the action buttons
 		infoBox = new JLabel("<Player to move will be displayed here>",
 				SwingConstants.CENTER);
 		infoBox.setForeground(Color.WHITE);
-		infoBox.setPreferredSize(new Dimension(utils.resolution.width - 400, 50));
+		infoBox.setPreferredSize(
+				new Dimension(utils.resolution.width - 400, 50));
 		infoBox.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);
@@ -248,13 +295,13 @@ public class GameWindow extends JFrame
 		selectedUnitInfoScroll = new JScrollPane();
 		selectedUnitInfoScroll.setViewport(new AlphaJViewport());
 		selectedUnitInfoScroll.setViewportView(selectedUnitInfoPane);
-		selectedUnitInfoScroll.setPreferredSize(new Dimension(200,
-				utils.resolution.height / 2));
-		selectedUnitInfoScroll.getViewport().setBackground(
-				new Color(64, 64, 64, 160));
+		selectedUnitInfoScroll.setPreferredSize(
+				new Dimension(200, utils.resolution.height / 2));
+		selectedUnitInfoScroll.getViewport()
+				.setBackground(new Color(64, 64, 64, 160));
 		selectedUnitInfoScroll.setOpaque(false);
-		selectedUnitInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0,
-				0, 0));
+		selectedUnitInfoScroll
+				.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
 		tileInfoPane = new JTextPane();
 		tileInfoPane.setOpaque(false);
@@ -264,8 +311,8 @@ public class GameWindow extends JFrame
 		tileInfoScroll = new JScrollPane();
 		tileInfoScroll.setViewport(new AlphaJViewport());
 		tileInfoScroll.setViewportView(tileInfoPane);
-		tileInfoScroll.setPreferredSize(new Dimension(200,
-				utils.resolution.height / 2));
+		tileInfoScroll.setPreferredSize(
+				new Dimension(200, utils.resolution.height / 2));
 		tileInfoScroll.getViewport().setBackground(new Color(64, 64, 64, 160));
 		tileInfoScroll.setOpaque(false);
 		tileInfoScroll.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -292,16 +339,16 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < soldierImages.length; i++)
 		{
 			soldierImages[i] = unitsPane.addStyle(null, null);
-			StyleConstants.setIcon(soldierImages[i], new ImageIcon(
-					utils.images.soldiers[i]));
+			StyleConstants.setIcon(soldierImages[i],
+					new ImageIcon(utils.images.soldiers[i]));
 		}
 
 		settlerImages = new Style[5];
 		for (int i = 0; i < settlerImages.length; i++)
 		{
 			settlerImages[i] = unitsPane.addStyle(null, null);
-			StyleConstants.setIcon(settlerImages[i], new ImageIcon(
-					utils.images.settlers[i]));
+			StyleConstants.setIcon(settlerImages[i],
+					new ImageIcon(utils.images.settlers[i]));
 		}
 
 		pointer = unitsPane.addStyle(null, null);
@@ -409,6 +456,23 @@ public class GameWindow extends JFrame
 				new Welcome(utils);
 			}
 		});
+		
+		buttons[5].addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				boolean suc = utils.serializeGame();
+				if (suc)
+				{
+					setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+					dispatchEvent(new WindowEvent(GameWindow.this,
+							WindowEvent.WINDOW_CLOSING));
+					utils.game = null;
+					new Welcome(utils);
+				}
+			}
+		});
 	}
 
 	/**
@@ -483,8 +547,8 @@ public class GameWindow extends JFrame
 				StyledDocument doc = unitsPane.getStyledDocument();
 				try
 				{
-					doc.remove("Units:\n".length(), doc.getLength()
-							- "Units:\n".length());
+					doc.remove("Units:\n".length(),
+							doc.getLength() - "Units:\n".length());
 					doc.insertString("Units:\n".length(), str, body);
 				}
 				catch (BadLocationException e)
@@ -520,8 +584,8 @@ public class GameWindow extends JFrame
 				StyledDocument doc = tileInfoPane.getStyledDocument();
 				try
 				{
-					doc.remove("Tile Info:\n".length(), doc.getLength()
-							- "Tile Info:\n".length());
+					doc.remove("Tile Info:\n".length(),
+							doc.getLength() - "Tile Info:\n".length());
 					doc.insertString("Tile Info:\n".length(), str, body);
 				}
 				catch (BadLocationException e)
