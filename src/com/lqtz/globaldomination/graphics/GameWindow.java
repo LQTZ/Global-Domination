@@ -265,9 +265,7 @@ public class GameWindow extends JFrame
 			buttons[i].setFocusPainted(false); // Eliminate inner focus border
 			buttons[i].setOpaque(true);
 		}
-		buttons[0].setEnabled(false);
-		buttons[1].setEnabled(false);
-		buttons[2].setEnabled(false);
+		disableButtons();
 
 		buttonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
@@ -398,7 +396,6 @@ public class GameWindow extends JFrame
 		// Move button
 		buttons[0].addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -409,7 +406,6 @@ public class GameWindow extends JFrame
 		// Settle button
 		buttons[1].addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -654,6 +650,13 @@ public class GameWindow extends JFrame
 		}
 	}
 
+	public void disableButtons()
+	{
+		buttons[0].setEnabled(false);
+		buttons[1].setEnabled(false);
+		buttons[2].setEnabled(false);
+	}
+	
 	private class AlphaJPanel extends JPanel
 	{
 		private static final long serialVersionUID = 1L;

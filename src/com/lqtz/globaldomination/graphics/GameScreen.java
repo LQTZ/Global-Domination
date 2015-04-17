@@ -223,6 +223,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 			utils.game.selectedUnit.move(utils.game.selectedTile);
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
+			gw.disableButtons();
 		}
 
 		// If attack
@@ -234,9 +235,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 					.attackTile(utils.game.selectedTile);
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			utils.game.gw.buttons[3].setBackground(utils.buttonColors
-					.get((utils.game.gw.buttons[3].getText())));
-
+			gw.disableButtons();
 		}
 
 		utils.game.selectedUnit = null;

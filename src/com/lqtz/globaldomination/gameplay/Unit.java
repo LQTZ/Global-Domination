@@ -139,6 +139,9 @@ public abstract class Unit implements Serializable
 
 		// Remove references to the object
 		nation.units.remove(this);
+		
+		if (tile.soldiers.isEmpty() && tile.settlers.isEmpty())
+			tile.nat = Nationality.NEUTRAL;
 	}
 	
 	public void onDeserialization(Utils utils)

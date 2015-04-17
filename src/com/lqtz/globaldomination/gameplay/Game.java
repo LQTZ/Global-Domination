@@ -198,8 +198,7 @@ public class Game implements Serializable
 			utils.game.gw.buttons[1].setEnabled(true);
 		else
 			// Soldiers
-			utils.game.gw.buttons[3].setEnabled(true);
-		utils.game.gw.buttons[2].setEnabled(true); // TODO make upgrade work
+			utils.game.gw.buttons[2].setEnabled(true);
 	}
 
 	/**
@@ -373,15 +372,16 @@ public class Game implements Serializable
 
 		// Check for CountdownTests
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();
-		for (CountdownTask t : countdownTasks)
+		for (int i = 0; i < countdownTasks.size(); i++)
 		{
+			CountdownTask t = countdownTasks.get(i);
 			t.decrease();
 			if (!t.hasRun)
 			{
 				newTaskList.add(t);
 			}
+			
 		}
-
 		countdownTasks = newTaskList;
 	}
 	
