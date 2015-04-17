@@ -18,6 +18,7 @@ import com.lqtz.globaldomination.io.Utils;
 
 public class Tile implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
 	private int centerX;
 	private int centerY;
@@ -61,12 +62,12 @@ public class Tile implements Serializable
 	/**
 	 * Whether or not the {@code Tile} is currently being moused over
 	 */
-	public boolean isHighlighted;
+	public transient boolean isHighlighted;
 
 	/**
 	 * Whether or not the {@code Tile} currently selected (clicked)
 	 */
-	public boolean isSelected;
+	public transient boolean isSelected;
 
 	/**
 	 * All the {@code Settler}s on the {@code Tile}

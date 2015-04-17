@@ -115,8 +115,9 @@ public class Utils
 	public boolean serializeGame()
 	{
 		JFileChooser fc = new JFileChooser();
-		fc.addChoosableFileFilter(new GDMFilter());
-		fc.setAcceptAllFileFilterUsed(false);
+		GDMFilter ff = new GDMFilter();
+		fc.addChoosableFileFilter(ff);
+		fc.setFileFilter(ff);
 		int returnVal = fc.showSaveDialog(gw);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 		{
@@ -147,8 +148,9 @@ public class Utils
 	public Game deserializeGame() throws IOException
 	{
 		JFileChooser fc = new JFileChooser();
-		fc.addChoosableFileFilter(new GDMFilter());
-		fc.setAcceptAllFileFilterUsed(false);
+		GDMFilter ff = new GDMFilter();
+		fc.addChoosableFileFilter(ff);
+		fc.setFileFilter(ff);
 		int returnVal = fc.showOpenDialog(gw);
 		if (returnVal == JFileChooser.APPROVE_OPTION)
 		{

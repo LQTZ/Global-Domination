@@ -57,7 +57,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 	 * @param height
 	 *            height of the {@code GameScreen}
 	 */
-	public void addTiles(int width, int height)
+	public void init(int width, int height, boolean addTiles)
 	{
 		final int DIM = utils.DIM;
 
@@ -71,25 +71,28 @@ public class GameScreen extends JPanel implements MouseInputListener
 		// Create font size
 		tileFont = utils.fonts.sourcesans.deriveFont(Font.PLAIN, sizeFit / 6);
 
-		// Center tiles
-		int xOffset = (width - sizeFit * (3 * DIM - 1) * 7 / 8) / 2;
-		int yOffset = (int) ((height - sizeFit * (1.5 * DIM + 0.5)) / 2);
-		tiles = new Tile[DIM][DIM];
-
-		// Add tiles
-		for (int i = 0; i < DIM; i++)
+		if (addTiles)
 		{
-			for (int j = 0; j < DIM; j++)
+			// Center tiles
+			int xOffset = (width - sizeFit * (3 * DIM - 1) * 7 / 8) / 2;
+			int yOffset = (int) ((height - sizeFit * (1.5 * DIM + 0.5)) / 2);
+			tiles = new Tile[DIM][DIM];
+
+			// Add tiles
+			for (int i = 0; i < DIM; i++)
 			{
-				tiles[i][j] = new Tile(
-						i,
-						j,
-						sizeFit * (1 + 2 * i + j) * 7 / 8 + xOffset,
-						height - (sizeFit * (3 * j + 2) / 2 + yOffset),
-						sizeFit,
-						(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
-						(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
-						utils);
+				for (int j = 0; j < DIM; j++)
+				{
+					tiles[i][j] = new Tile(
+							i,
+							j,
+							sizeFit * (1 + 2 * i + j) * 7 / 8 + xOffset,
+							height - (sizeFit * (3 * j + 2) / 2 + yOffset),
+							sizeFit,
+							(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
+							(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
+							utils);
+				}
 			}
 		}
 	}
@@ -155,6 +158,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
+		mousePressed(e);
 		// If double-click on a city tile, growunit popup
 		if (e.getClickCount() >= 2 && utils.game.selectedTile != null
 				&& utils.game.selectedTile.city != null)
@@ -219,8 +223,6 @@ public class GameScreen extends JPanel implements MouseInputListener
 			utils.game.selectedUnit.move(utils.game.selectedTile);
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			utils.game.gw.buttons[0].setBackground(utils.buttonColors
-					.get((utils.game.gw.buttons[0].getText())));
 		}
 
 		// If attack
