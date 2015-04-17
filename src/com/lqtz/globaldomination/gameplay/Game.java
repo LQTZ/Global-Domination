@@ -339,6 +339,36 @@ public class Game implements Serializable
 	 */
 	public void nextTurn()
 	{
+		Nationality win = tiles[0][0].nat;
+		for (Tile[] tt : tiles)
+		{
+			for (Tile t : tt)
+			{
+				if (win != null)
+				{
+					if (t.nat != win)
+					{
+						win = null;
+					}
+				}
+			}
+		}
+		if (win != null)
+		{
+			if (win == Nationality.NEUTRAL)
+			{
+				JOptionPane.showMessageDialog(gw, "All units dead.", "Draw",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(gw, win.toString() + " wins!",
+						"Game Over", JOptionPane.INFORMATION_MESSAGE);
+			}
+			gw.exit();
+			return;
+		}
+
 		switch (turnNationality)
 		{
 			case RED:
@@ -380,13 +410,14 @@ public class Game implements Serializable
 			{
 				newTaskList.add(t);
 			}
-			
+
 		}
 		countdownTasks = newTaskList;
 	}
-	
+
 	/**
 	 * Call this when deserialized.
+	 * 
 	 * @param utils
 	 * @param gw
 	 */
@@ -394,7 +425,7 @@ public class Game implements Serializable
 	{
 		this.utils = utils;
 		this.gw = gw;
-		for (Tile[] tt: tiles)
+		for (Tile[] tt : tiles)
 		{
 			for (Tile t : tt)
 			{

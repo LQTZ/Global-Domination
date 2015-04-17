@@ -165,11 +165,7 @@ public class GameWindow extends JFrame
 
 			if (game == null)
 			{
-				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				dispatchEvent(new WindowEvent(GameWindow.this,
-						WindowEvent.WINDOW_CLOSING));
-				utils.game = null;
-				new Welcome(utils);
+				exit();
 				return;
 			}
 			else
@@ -447,11 +443,7 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				dispatchEvent(new WindowEvent(GameWindow.this,
-						WindowEvent.WINDOW_CLOSING));
-				utils.game = null;
-				new Welcome(utils);
+				exit();
 			}
 		});
 
@@ -463,11 +455,7 @@ public class GameWindow extends JFrame
 				boolean suc = utils.serializeGame();
 				if (suc)
 				{
-					setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-					dispatchEvent(new WindowEvent(GameWindow.this,
-							WindowEvent.WINDOW_CLOSING));
-					utils.game = null;
-					new Welcome(utils);
+					exit();
 				}
 			}
 		});
@@ -657,6 +645,14 @@ public class GameWindow extends JFrame
 		buttons[2].setEnabled(false);
 	}
 	
+	public void exit()
+	{
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		dispatchEvent(new WindowEvent(GameWindow.this,
+				WindowEvent.WINDOW_CLOSING));
+		utils.game = null;
+		new Welcome(utils);
+	}
 	private class AlphaJPanel extends JPanel
 	{
 		private static final long serialVersionUID = 1L;
