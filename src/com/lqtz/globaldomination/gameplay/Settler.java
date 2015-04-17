@@ -112,13 +112,18 @@ public class Settler extends Unit
 
 		// Make sure tile is not adjacent
 		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
-				|| (Math.abs(tile.xCoord - toTile.xCoord) > 1))
+				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
+				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
 			return -1;
-
+		
 		// Delete the old one
 		tile.settlers.remove(this);
 		nation.units.remove(this);
 
+		if (tile.soldiers.size() + tile.settlers.size() < 1)
+			tile.nat = Nationality.NEUTRAL;
+		
 		// Add new one
 		tile = toTile;
 		tile.settlers.add(this);
@@ -139,6 +144,8 @@ public class Settler extends Unit
 
 		cityBuilder = new CountdownTask(turnsToCity)
 		{
+			private static final long serialVersionUID = 1L;
+			
 			@Override
 			public void run()
 			{
@@ -167,8 +174,5 @@ public class Settler extends Unit
 		super.delete();
 		tile.settlers.remove(this);
 		utils.game.countdownTasks.remove(cityBuilder);
-
-		if (tile.soldiers.isEmpty() && tile.settlers.isEmpty())
-			tile.nat = Nationality.NEUTRAL;
 	}
 }

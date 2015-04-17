@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -19,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -38,6 +40,8 @@ public class GameWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	private Utils utils;
+
+	private boolean newGame;
 
 	// Components
 	private JPanel leftPanel; // Panel with units info pane and event log pane
@@ -99,9 +103,11 @@ public class GameWindow extends JFrame
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public GameWindow(Utils utils)
+	public GameWindow(Utils utils, boolean newGame)
 	{
 		this.utils = utils;
+		this.newGame = newGame;
+		utils.gw = this;
 		setContentPane(new ImageContentPane(utils));
 
 		if (utils.fullScreen)
@@ -126,8 +132,48 @@ public class GameWindow extends JFrame
 		addButtonFunctionality();
 
 		pack();
-		utils.game = new Game(utils, this, mapPane.tiles);
-		utils.game.init();
+		if (newGame)
+		{
+			utils.game = new Game(utils, this, mapPane.tiles);
+			utils.game.init();
+		}
+		else
+		{
+			boolean bad = true;
+			Game game = null;
+			try
+			{
+				game = utils.deserializeGame();
+				bad = false;
+			}
+			catch (IOException e)
+			{}
+
+			while (bad)
+			{
+				JOptionPane.showMessageDialog(this,
+						"The file may be corrupted or be outdated.",
+						"Bad File", JOptionPane.ERROR_MESSAGE);
+				try
+				{
+					game = utils.deserializeGame();
+					bad = false;
+				}
+				catch (IOException e)
+				{}
+			}
+
+			if (game == null)
+			{
+				exit();
+				return;
+			}
+			else
+			{
+				utils.game = game;
+				mapPane.tiles = game.tiles;
+			}
+		}
 		utils.game.updateWindow();
 		setVisible(true);
 	}
@@ -181,8 +227,8 @@ public class GameWindow extends JFrame
 		mapPane.setBackground(new Color(0, 0, 0, 0));
 		mapPane.setPreferredSize(new Dimension(utils.resolution.width - 400,
 				utils.resolution.height - 150));
-		mapPane.addTiles(utils.resolution.width - 400,
-				utils.resolution.height - 150);
+		mapPane.init(utils.resolution.width - 400,
+				utils.resolution.height - 150, newGame);
 		controlPane = new JPanel(new BorderLayout());
 		controlPane.setOpaque(false);
 
@@ -190,11 +236,11 @@ public class GameWindow extends JFrame
 		buttonsPane = new AlphaJPanel();
 		buttonsPane.setBackground(new Color(50, 50, 50, 210));
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
-		buttons = new JButton[5];
+		buttons = new JButton[6];
 		String[] buttonText = new String[] {"Move", "Settle", "Attack", "Next",
-				"Pause"};
+				"Exit", "Save"};
 		buttonsPane.add(Box.createHorizontalGlue());
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			buttons[i] = new JButton(buttonText[i]);
 			buttons[i].setFont(utils.fonts.sourcesans
@@ -215,9 +261,7 @@ public class GameWindow extends JFrame
 			buttons[i].setFocusPainted(false); // Eliminate inner focus border
 			buttons[i].setOpaque(true);
 		}
-		buttons[0].setEnabled(false);
-		buttons[1].setEnabled(false);
-		buttons[2].setEnabled(false);
+		disableButtons();
 
 		buttonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
@@ -348,7 +392,6 @@ public class GameWindow extends JFrame
 		// Move button
 		buttons[0].addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -359,7 +402,6 @@ public class GameWindow extends JFrame
 		// Settle button
 		buttons[1].addActionListener(new ActionListener()
 		{
-
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
@@ -401,11 +443,20 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				dispatchEvent(new WindowEvent(GameWindow.this,
-						WindowEvent.WINDOW_CLOSING));
-				utils.game = null;
-				new Welcome(utils);
+				exit();
+			}
+		});
+
+		buttons[5].addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				boolean suc = utils.serializeGame();
+				if (suc)
+				{
+					exit();
+				}
 			}
 		});
 	}
@@ -587,6 +638,21 @@ public class GameWindow extends JFrame
 		}
 	}
 
+	public void disableButtons()
+	{
+		buttons[0].setEnabled(false);
+		buttons[1].setEnabled(false);
+		buttons[2].setEnabled(false);
+	}
+	
+	public void exit()
+	{
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		dispatchEvent(new WindowEvent(GameWindow.this,
+				WindowEvent.WINDOW_CLOSING));
+		utils.game = null;
+		new Welcome(utils);
+	}
 	private class AlphaJPanel extends JPanel
 	{
 		private static final long serialVersionUID = 1L;

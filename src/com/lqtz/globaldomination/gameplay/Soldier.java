@@ -142,7 +142,9 @@ public class Soldier extends Unit
 
 		// Make sure tile is not adjacent
 		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
-				|| (Math.abs(tile.xCoord - toTile.xCoord) > 1))
+				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
+				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
 			return -1;
 
 		// Delete the old one
@@ -251,8 +253,5 @@ public class Soldier extends Unit
 	{
 		super.delete();
 		tile.soldiers.remove(this);
-
-		if (tile.soldiers.isEmpty() && tile.settlers.isEmpty())
-			tile.nat = Nationality.NEUTRAL;
 	}
 }

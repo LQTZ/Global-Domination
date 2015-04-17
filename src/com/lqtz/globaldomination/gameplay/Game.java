@@ -42,12 +42,12 @@ public class Game implements Serializable
 	/**
 	 * Currently selected (clicked) {@code Tile}
 	 */
-	public Tile selectedTile;
+	public transient Tile selectedTile;
 
 	/**
 	 * Currently selected (clicked) {@code Unit}
 	 */
-	public Unit selectedUnit;
+	public transient Unit selectedUnit;
 
 	/**
 	 * Move button has been clicked
@@ -198,8 +198,7 @@ public class Game implements Serializable
 			utils.game.gw.buttons[1].setEnabled(true);
 		else
 			// Soldiers
-			utils.game.gw.buttons[3].setEnabled(true);
-		utils.game.gw.buttons[2].setEnabled(true); // TODO make upgrade work
+			utils.game.gw.buttons[2].setEnabled(true);
 	}
 
 	/**
@@ -340,6 +339,36 @@ public class Game implements Serializable
 	 */
 	public void nextTurn()
 	{
+		Nationality win = tiles[0][0].nat;
+		for (Tile[] tt : tiles)
+		{
+			for (Tile t : tt)
+			{
+				if (win != null)
+				{
+					if (t.nat != win)
+					{
+						win = null;
+					}
+				}
+			}
+		}
+		if (win != null)
+		{
+			if (win == Nationality.NEUTRAL)
+			{
+				JOptionPane.showMessageDialog(gw, "All units dead.", "Draw",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(gw, win.toString() + " wins!",
+						"Game Over", JOptionPane.INFORMATION_MESSAGE);
+			}
+			gw.exit();
+			return;
+		}
+
 		switch (turnNationality)
 		{
 			case RED:
@@ -373,15 +402,39 @@ public class Game implements Serializable
 
 		// Check for CountdownTests
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();
-		for (CountdownTask t : countdownTasks)
+		for (int i = 0; i < countdownTasks.size(); i++)
 		{
+			CountdownTask t = countdownTasks.get(i);
 			t.decrease();
 			if (!t.hasRun)
 			{
 				newTaskList.add(t);
 			}
-		}
 
+		}
 		countdownTasks = newTaskList;
+	}
+
+	/**
+	 * Call this when deserialized.
+	 * 
+	 * @param utils
+	 * @param gw
+	 */
+	public void onDeserialization(Utils utils, GameWindow gw)
+	{
+		this.utils = utils;
+		this.gw = gw;
+		for (Tile[] tt : tiles)
+		{
+			for (Tile t : tt)
+			{
+				t.onDeserialization(utils);
+			}
+		}
+		for (Nation n : nations)
+		{
+			n.onDeserialization(utils);
+		}
 	}
 }

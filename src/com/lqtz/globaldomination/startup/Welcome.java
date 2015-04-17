@@ -152,7 +152,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(utils);
+					new GameWindow(utils, true);
 					break;
 				}
 				case 1: // Settings button
@@ -168,7 +168,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(utils);
+					new GameWindow(utils, false);
 					break;
 				}
 				case 3: // About button
