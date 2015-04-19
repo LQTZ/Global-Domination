@@ -447,6 +447,7 @@ public class GameWindow extends JFrame
 			}
 		});
 
+		// Save button
 		buttons[5].addActionListener(new ActionListener()
 		{
 			@Override

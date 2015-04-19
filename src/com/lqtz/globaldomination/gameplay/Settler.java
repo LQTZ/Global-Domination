@@ -105,7 +105,7 @@ public class Settler extends Unit
 	public int move(Tile toTile)
 	{
 		// TODO Check if building city, and if so, do not allow settler to move
-		
+
 		// Check if unit has maxed out moves for the turn
 		if (movesLeft <= 0)
 			return -2;
@@ -116,14 +116,17 @@ public class Settler extends Unit
 				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
 				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
 			return -1;
-		
+
 		// Delete the old one
 		tile.settlers.remove(this);
 		nation.units.remove(this);
 
-		if (tile.soldiers.size() + tile.settlers.size() < 1)
+		if (tile.soldiers.size() + tile.settlers.size() == 0
+				&& tile.city == null)
+		{
 			tile.nat = Nationality.NEUTRAL;
-		
+		}
+
 		// Add new one
 		tile = toTile;
 		tile.settlers.add(this);
@@ -145,7 +148,7 @@ public class Settler extends Unit
 		cityBuilder = new CountdownTask(turnsToCity)
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void run()
 			{

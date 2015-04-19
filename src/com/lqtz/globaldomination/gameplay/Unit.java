@@ -131,17 +131,18 @@ public abstract class Unit implements Serializable
 	 */
 	public void delete()
 	{
-		// Log unit death (note that coordinates are shifted by one to index
-		// coordinates at 1
+		// Log unit death
 		utils.game.gw.eventLog("A " + this.nation.nationality.toString() + " "
 				+ unitType.toString() + " unit died on Tile "
 				+ (tile.xCoord + 1) + ", " + (tile.yCoord + 1));
 
 		// Remove references to the object
 		nation.units.remove(this);
-		
-		if (tile.soldiers.isEmpty() && tile.settlers.isEmpty())
+		if (tile.soldiers.size() + tile.settlers.size() == 0
+				&& tile.city == null)
+		{
 			tile.nat = Nationality.NEUTRAL;
+		}
 	}
 	
 	public void onDeserialization(Utils utils)
