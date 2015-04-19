@@ -104,18 +104,26 @@ public class Settler extends Unit
 	@Override
 	public int move(Tile toTile)
 	{
-		// TODO Check if building city, and if so, do not allow settler to move
+		// Check if building city
+		if (isBuilding)
+		{
+			return -3;
+		}
 
 		// Check if unit has maxed out moves for the turn
 		if (movesLeft <= 0)
+		{
 			return -2;
+		}
 
 		// Make sure tile is not adjacent
-		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
 				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
 				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		{
 			return -1;
+		}
 
 		// Delete the old one
 		tile.settlers.remove(this);
