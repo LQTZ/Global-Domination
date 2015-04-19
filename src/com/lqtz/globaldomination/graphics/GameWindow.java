@@ -238,7 +238,7 @@ public class GameWindow extends JFrame
 		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
 		buttons = new JButton[6];
 		String[] buttonText = new String[] {"Move", "Settle", "Attack", "Next",
-				"Exit", "Save"};
+				"Save", "Exit"};
 		buttonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 6; i++)
 		{
@@ -436,28 +436,24 @@ public class GameWindow extends JFrame
 			}
 		});
 
-		// Pause button
-		// TODO Create Pause screen
+		// Save button
 		buttons[4].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				exit();
+				utils.serializeGame();
 			}
 		});
 
-		// Save button
+		// Pause button
+		// TODO Create Pause screen
 		buttons[5].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				boolean suc = utils.serializeGame();
-				if (suc)
-				{
-					exit();
-				}
+				exit();
 			}
 		});
 	}
@@ -645,7 +641,7 @@ public class GameWindow extends JFrame
 		buttons[1].setEnabled(false);
 		buttons[2].setEnabled(false);
 	}
-	
+
 	public void exit()
 	{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -654,6 +650,7 @@ public class GameWindow extends JFrame
 		utils.game = null;
 		new Welcome(utils);
 	}
+
 	private class AlphaJPanel extends JPanel
 	{
 		private static final long serialVersionUID = 1L;
