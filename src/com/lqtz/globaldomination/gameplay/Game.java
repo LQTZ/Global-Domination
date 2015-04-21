@@ -124,6 +124,7 @@ public class Game implements Serializable
 	/**
 	 * Temporary method for running tests on GD
 	 */
+	@SuppressWarnings("unused")
 	private void test()
 	{
 		// Move red settler unit up one
