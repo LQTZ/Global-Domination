@@ -32,6 +32,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.gameplay.Settler;
 import com.lqtz.globaldomination.io.Utils;
 import com.lqtz.globaldomination.startup.Welcome;
@@ -269,6 +270,8 @@ public class GameWindow extends JFrame
 		// Set up the info box and pane to go below the action buttons
 		infoBox = new JLabel("<Player to move will be displayed here>",
 				SwingConstants.CENTER);
+		infoBox.setOpaque(true);
+		infoBox.setBackground(new Color(0, 0, 0, 0));
 		infoBox.setForeground(Color.WHITE);
 		infoBox.setPreferredSize(new Dimension(utils.resolution.width - 400, 50));
 		infoBox.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
@@ -488,6 +491,11 @@ public class GameWindow extends JFrame
 	public void infoBox(String s)
 	{
 		infoBox.setText(s);
+	}
+	
+	public void newTurn(Nationality n)
+	{
+		infoBox.setBackground(utils.infoBoxColors.get(n));
 	}
 
 	/**

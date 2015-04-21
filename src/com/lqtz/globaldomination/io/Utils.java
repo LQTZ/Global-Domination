@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.graphics.GameWindow;
 
 public class Utils
@@ -62,6 +63,8 @@ public class Utils
 	 * {@code Color}s of the {@code GameWindow} buttons
 	 */
 	public final HashMap<String, Color> buttonColors;
+	
+	public final HashMap<Nationality, Color> infoBoxColors;
 
 	/**
 	 * Load resources
@@ -105,6 +108,12 @@ public class Utils
 		buttonColors.put("Next", new Color(127, 127, 127));
 		buttonColors.put("Exit", Color.BLACK);
 		buttonColors.put("Save", new Color(0, 0, 180));
+		
+		infoBoxColors = new HashMap<Nationality, Color>();
+		infoBoxColors.put(Nationality.RED, new Color(255, 0, 0, 100));
+		infoBoxColors.put(Nationality.GREEN, new Color(0, 255, 0, 100));
+		infoBoxColors.put(Nationality.YELLOW, new Color(191, 191, 0, 100));
+		infoBoxColors.put(Nationality.BLUE, new Color(0, 0, 255, 100));
 	}
 
 	/**

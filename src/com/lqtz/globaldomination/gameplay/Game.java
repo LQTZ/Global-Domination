@@ -116,7 +116,7 @@ public class Game implements Serializable
 		yellowNat.addSettler(1, 4, 4);
 
 		gw.eventLog("Turn #: " + (int) utils.game.turnNum);
-
+		gw.newTurn(turnNationality);
 		// Temp
 		// test();
 	}
@@ -394,6 +394,8 @@ public class Game implements Serializable
 			default:
 				break;
 		}
+		
+		gw.newTurn(turnNationality);
 
 		// Increment turnNum and if new turn log
 		utils.game.turnNum += 0.25;
