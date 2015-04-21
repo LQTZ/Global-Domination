@@ -54,7 +54,9 @@ public class GameWindow extends JFrame
 								// combat info pane
 	private GameScreen mapPane; // Map pane
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
-	private AlphaJPanel buttonsPane; // Pane with action buttons
+	private AlphaJPanel unitButtonsPane; // Pane with action buttons
+	private AlphaJPanel tileButtonsPane; // Pane with action buttons
+	private AlphaJPanel miscButtonsPane; // Pane with action buttons
 	private JLabel infoBox; // Info box
 	private JPanel rightPanel;
 	private JTextPane selectedUnitInfoPane; // Pane with selected unit's info
@@ -65,7 +67,9 @@ public class GameWindow extends JFrame
 	/**
 	 * Action {@code JButton}s of the {@code GameWindow}
 	 */
-	public JButton[] buttons;
+	public JButton[] unitButtons;
+	public JButton[] tileButtons;
+	public JButton[] miscButtons;
 
 	/**
 	 * {@code Style} for the body text
@@ -234,38 +238,42 @@ public class GameWindow extends JFrame
 		controlPane.setOpaque(false);
 
 		// Creates buttons and add them to the buttonsPane
-		buttonsPane = new AlphaJPanel();
-		buttonsPane.setBackground(new Color(50, 50, 50, 210));
-		buttonsPane.setLayout(new BoxLayout(buttonsPane, BoxLayout.LINE_AXIS));
-		buttons = new JButton[6];
-		String[] buttonText = new String[] {"Move", "Settle", "Attack", "Next",
-				"Save", "Exit"};
-		buttonsPane.add(Box.createHorizontalGlue());
+		String[] unitButtonText = new String[] {"Move", "Attack", "Settle"};
+		String[] tileButtonText = new String[] {"Grow"};
+		String[] miscButtonText = new String[] {"Next", "Save", "Exit"};
+		
+		unitButtonsPane = new AlphaJPanel();
+		unitButtonsPane.setBackground(new Color(50, 50, 50, 210));
+		unitButtonsPane.setLayout(new BoxLayout(miscButtonsPane, BoxLayout.LINE_AXIS));
+		unitButtons = new JButton[6];
+		unitButtonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 6; i++)
 		{
-			buttons[i] = new JButton(buttonText[i]);
-			buttons[i].setFont(utils.fonts.sourcesans
+			unitButtons[i] = new JButton(unitButtonText[i]);
+			unitButtons[i].setFont(utils.fonts.sourcesans
 					.deriveFont(Font.PLAIN, 20));
-			buttonsPane.add(buttons[i]); // Add button
+			unitButtonsPane.add(unitButtons[i]); // Add button
 
 			// Spacing
-			buttonsPane.add(Box.createHorizontalGlue());
-			buttons[i].setMargin(new Insets(5, 5, 5, 5));
-			buttons[i].setMinimumSize(new Dimension(100, 60));
-			buttons[i].setMaximumSize(new Dimension(100, 60));
-			buttons[i].setPreferredSize(new Dimension(100, 60));
+			unitButtonsPane.add(Box.createHorizontalGlue());
+			unitButtons[i].setMargin(new Insets(5, 5, 5, 5));
+			unitButtons[i].setMinimumSize(new Dimension(100, 60));
+			unitButtons[i].setMaximumSize(new Dimension(100, 60));
+			unitButtons[i].setPreferredSize(new Dimension(100, 60));
 
 			// Colors of buttons
-			buttons[i].setBackground(utils.buttonColors // Button color
-					.get(buttonText[i]));
-			buttons[i].setForeground(Color.WHITE); // Text color
-			buttons[i].setFocusPainted(false); // Eliminate inner focus border
-			buttons[i].setOpaque(true);
+			unitButtons[i].setBackground(utils.buttonColors // Button color
+					.get(unitButtonText[i]));
+			unitButtons[i].setForeground(Color.WHITE); // Text color
+			unitButtons[i].setFocusPainted(false); // Eliminate inner focus border
+			unitButtons[i].setOpaque(true);
 		}
-		disableButtons();
 
-		buttonsPane.setPreferredSize(new Dimension(
+		unitButtonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
+		
+		unitButtonsPane.setVisible(false);
+		tileButtonsPane.setVisible(false);
 
 		// Set up the info box and pane to go below the action buttons
 		infoBox = new JLabel("<Player to move will be displayed here>",
@@ -275,7 +283,9 @@ public class GameWindow extends JFrame
 		infoBox.setForeground(Color.WHITE);
 		infoBox.setPreferredSize(new Dimension(utils.resolution.width - 400, 50));
 		infoBox.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
-		controlPane.add(buttonsPane, BorderLayout.NORTH);
+		controlPane.add(unitButtonsPane, BorderLayout.NORTH);
+		controlPane.add(tileButtonsPane, BorderLayout.NORTH);
+		controlPane.add(miscButtonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);
 
 		// Add Containers to the main center panel
@@ -393,7 +403,7 @@ public class GameWindow extends JFrame
 	private void addButtonFunctionality()
 	{
 		// Move button
-		buttons[0].addActionListener(new ActionListener()
+		unitButtons[0].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -403,7 +413,7 @@ public class GameWindow extends JFrame
 		});
 
 		// Settle button
-		buttons[1].addActionListener(new ActionListener()
+		unitButtons[1].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -419,7 +429,7 @@ public class GameWindow extends JFrame
 		});
 
 		// Attack button
-		buttons[2].addActionListener(new ActionListener()
+		unitButtons[2].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -429,7 +439,7 @@ public class GameWindow extends JFrame
 		});
 
 		// Next button
-		buttons[3].addActionListener(new ActionListener()
+		unitButtons[3].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -440,7 +450,7 @@ public class GameWindow extends JFrame
 		});
 
 		// Save button
-		buttons[4].addActionListener(new ActionListener()
+		unitButtons[4].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -451,7 +461,7 @@ public class GameWindow extends JFrame
 
 		// Pause button
 		// TODO Create Pause screen
-		buttons[5].addActionListener(new ActionListener()
+		unitButtons[5].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -645,9 +655,9 @@ public class GameWindow extends JFrame
 
 	public void disableButtons()
 	{
-		buttons[0].setEnabled(false);
-		buttons[1].setEnabled(false);
-		buttons[2].setEnabled(false);
+		unitButtons[0].setEnabled(false);
+		unitButtons[1].setEnabled(false);
+		unitButtons[2].setEnabled(false);
 	}
 
 	public void exit()

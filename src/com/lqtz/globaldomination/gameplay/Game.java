@@ -194,12 +194,12 @@ public class Game implements Serializable
 	public void selectUnit(Unit unitToSelect)
 	{
 		selectedUnit = unitToSelect;
-		utils.game.gw.buttons[0].setEnabled(true);
+		utils.game.gw.unitButtons[0].setEnabled(true);
 		if (selectedUnit instanceof Settler)
-			utils.game.gw.buttons[1].setEnabled(true);
+			utils.game.gw.unitButtons[1].setEnabled(true);
 		else
 			// Soldiers
-			utils.game.gw.buttons[2].setEnabled(true);
+			utils.game.gw.unitButtons[2].setEnabled(true);
 	}
 
 	/**
