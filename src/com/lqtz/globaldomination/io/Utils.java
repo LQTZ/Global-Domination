@@ -105,6 +105,7 @@ public class Utils
 		buttonColors.put("Move", new Color(39, 78, 19));
 		buttonColors.put("Settle", new Color(116, 27, 71));
 		buttonColors.put("Attack", new Color(153, 0, 0));
+		buttonColors.put("Grow", new Color(96, 0, 0));
 		buttonColors.put("Next", new Color(127, 127, 127));
 		buttonColors.put("Exit", Color.BLACK);
 		buttonColors.put("Save", new Color(0, 0, 180));

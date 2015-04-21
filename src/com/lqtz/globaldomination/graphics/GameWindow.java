@@ -244,10 +244,10 @@ public class GameWindow extends JFrame
 		
 		unitButtonsPane = new AlphaJPanel();
 		unitButtonsPane.setBackground(new Color(50, 50, 50, 210));
-		unitButtonsPane.setLayout(new BoxLayout(miscButtonsPane, BoxLayout.LINE_AXIS));
-		unitButtons = new JButton[6];
+		unitButtonsPane.setLayout(new BoxLayout(unitButtonsPane, BoxLayout.LINE_AXIS));
+		unitButtons = new JButton[3];
 		unitButtonsPane.add(Box.createHorizontalGlue());
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			unitButtons[i] = new JButton(unitButtonText[i]);
 			unitButtons[i].setFont(utils.fonts.sourcesans
@@ -270,6 +270,66 @@ public class GameWindow extends JFrame
 		}
 
 		unitButtonsPane.setPreferredSize(new Dimension(
+				utils.resolution.width - 400, 100));
+		
+		tileButtonsPane = new AlphaJPanel();
+		tileButtonsPane.setBackground(new Color(50, 50, 50, 210));
+		tileButtonsPane.setLayout(new BoxLayout(tileButtonsPane, BoxLayout.LINE_AXIS));
+		tileButtons = new JButton[1];
+		tileButtonsPane.add(Box.createHorizontalGlue());
+		for (int i = 0; i < 1; i++)
+		{
+			tileButtons[i] = new JButton(tileButtonText[i]);
+			tileButtons[i].setFont(utils.fonts.sourcesans
+					.deriveFont(Font.PLAIN, 20));
+			tileButtonsPane.add(tileButtons[i]); // Add button
+
+			// Spacing
+			tileButtonsPane.add(Box.createHorizontalGlue());
+			tileButtons[i].setMargin(new Insets(5, 5, 5, 5));
+			tileButtons[i].setMinimumSize(new Dimension(100, 60));
+			tileButtons[i].setMaximumSize(new Dimension(100, 60));
+			tileButtons[i].setPreferredSize(new Dimension(100, 60));
+
+			// Colors of buttons
+			tileButtons[i].setBackground(utils.buttonColors // Button color
+					.get(tileButtonText[i]));
+			tileButtons[i].setForeground(Color.WHITE); // Text color
+			tileButtons[i].setFocusPainted(false); // Eliminate inner focus border
+			tileButtons[i].setOpaque(true);
+		}
+
+		tileButtonsPane.setPreferredSize(new Dimension(
+				utils.resolution.width - 400, 100));
+		
+		miscButtonsPane = new AlphaJPanel();
+		miscButtonsPane.setBackground(new Color(50, 50, 50, 210));
+		miscButtonsPane.setLayout(new BoxLayout(miscButtonsPane, BoxLayout.LINE_AXIS));
+		miscButtons = new JButton[3];
+		miscButtonsPane.add(Box.createHorizontalGlue());
+		for (int i = 0; i < 3; i++)
+		{
+			miscButtons[i] = new JButton(miscButtonText[i]);
+			miscButtons[i].setFont(utils.fonts.sourcesans
+					.deriveFont(Font.PLAIN, 20));
+			miscButtonsPane.add(miscButtons[i]); // Add button
+
+			// Spacing
+			miscButtonsPane.add(Box.createHorizontalGlue());
+			miscButtons[i].setMargin(new Insets(5, 5, 5, 5));
+			miscButtons[i].setMinimumSize(new Dimension(100, 60));
+			miscButtons[i].setMaximumSize(new Dimension(100, 60));
+			miscButtons[i].setPreferredSize(new Dimension(100, 60));
+
+			// Colors of buttons
+			miscButtons[i].setBackground(utils.buttonColors // Button color
+					.get(miscButtonText[i]));
+			miscButtons[i].setForeground(Color.WHITE); // Text color
+			miscButtons[i].setFocusPainted(false); // Eliminate inner focus border
+			miscButtons[i].setOpaque(true);
+		}
+
+		miscButtonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
 		
 		unitButtonsPane.setVisible(false);
@@ -418,12 +478,6 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				utils.game.moveSelected = !utils.game.moveSelected;
-
-				// Make sure there is a settler selected
-				if (!(utils.game.selectedUnit instanceof Settler))
-					return;
-
 				((Settler) utils.game.selectedUnit).buildCity();
 			}
 		});
@@ -439,7 +493,7 @@ public class GameWindow extends JFrame
 		});
 
 		// Next button
-		unitButtons[3].addActionListener(new ActionListener()
+		miscButtons[0].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -450,7 +504,7 @@ public class GameWindow extends JFrame
 		});
 
 		// Save button
-		unitButtons[4].addActionListener(new ActionListener()
+		miscButtons[1].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -461,7 +515,7 @@ public class GameWindow extends JFrame
 
 		// Pause button
 		// TODO Create Pause screen
-		unitButtons[5].addActionListener(new ActionListener()
+		miscButtons[2].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -653,11 +707,41 @@ public class GameWindow extends JFrame
 		}
 	}
 
-	public void disableButtons()
+	/**
+	 * Change the visible button pane
+	 * 
+	 * 0 - misc
+	 * 1 - unit
+	 * 2 - tile
+	 * 
+	 * @param n
+	 */
+	public void togglePane(int n)
 	{
-		unitButtons[0].setEnabled(false);
-		unitButtons[1].setEnabled(false);
-		unitButtons[2].setEnabled(false);
+		switch(n)
+		{
+			case 0:
+			{
+				miscButtonsPane.setVisible(true);
+				unitButtonsPane.setVisible(false);
+				tileButtonsPane.setVisible(false);
+				break;
+			}
+			case 1:
+			{
+				miscButtonsPane.setVisible(false);
+				unitButtonsPane.setVisible(true);
+				tileButtonsPane.setVisible(false);
+				break;
+			}
+			case 2:
+			{
+				miscButtonsPane.setVisible(false);
+				unitButtonsPane.setVisible(false);
+				tileButtonsPane.setVisible(true);
+				break;
+			}
+		}
 	}
 
 	public void exit()

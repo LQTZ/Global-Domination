@@ -159,62 +159,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 	public void mouseClicked(MouseEvent e)
 	{
 		mousePressed(e);
-		// If double-click on a city tile, growunit popup
-		if (e.getClickCount() >= 2 && utils.game.selectedTile != null
-				&& utils.game.selectedTile.city != null)
-		{
-			// Make sure city belongs to current player
-			if (utils.game.selectedTile.nat != utils.game.turnNationality)
-			{
-				JOptionPane.showMessageDialog(gw, "This city is "
-						+ utils.game.selectedTile.nat
-						+ ", you cannot grow units here.", "Cannot Grow Unit",
-						JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			// Make sure city not busy
-			if (utils.game.selectedTile.city.isGrowing)
-			{
-				JOptionPane.showMessageDialog(gw,
-						"The city is already growing a unit.",
-						"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			// Create array of possibilities
-			String[] possibilities = new String[16];
-			possibilities[0] = "--";
-			for (int i = 1; i < 6; i++)
-				possibilities[i] = "Settler Level " + String.valueOf(i);
-			for (int i = 6; i < 16; i++)
-				possibilities[i] = "Soldier Level " + String.valueOf(i - 5);
-
-			// Display growUnit selection dialog
-			String s = (String) JOptionPane.showInputDialog(gw,
-					"Which unit would you like your city to work on "
-							+ "right now?", "Grow Unit",
-					JOptionPane.PLAIN_MESSAGE, null, possibilities, "--");
-
-			// Check for null string
-			if ((s == null) || (s == "--"))
-				return;
-
-			String utString = s.substring(0, 7);
-			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
-					s.length()));
-
-			int confirm = JOptionPane.showConfirmDialog(gw,
-					"You are about to grow a unit. This cannot be"
-							+ " cancelled.", "Grow Unit Confirmation",
-					JOptionPane.OK_CANCEL_OPTION);
-			if (confirm == JOptionPane.OK_OPTION)
-			{
-				utils.game.selectedTile.city.growUnit(
-						UnitType.fromString(utString), ul);
-			}
-		}
-
+		
 		// If move
 		if (utils.game.moveSelected
 				&& utils.game.selectedTile != null
@@ -223,7 +168,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 			utils.game.selectedUnit.move(utils.game.selectedTile);
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			gw.disableButtons();
+			gw.togglePane(0);
 		}
 
 		// If attack
@@ -235,7 +180,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 					.attackTile(utils.game.selectedTile);
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			gw.disableButtons();
+			gw.togglePane(0);
 		}
 
 		utils.game.selectedUnit = null;
