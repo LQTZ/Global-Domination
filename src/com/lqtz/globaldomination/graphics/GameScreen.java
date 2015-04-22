@@ -131,8 +131,12 @@ public class GameScreen extends JPanel implements MouseInputListener
 			gw.togglePane(0);
 		}
 
+		gw.eventLog(String.valueOf(utils.game.selectedTile != null));
+		gw.eventLog(String.valueOf(utils.game.selectedUnit != null));
+		
 		// If attack
 		if (utils.game.attackSelected
+				&& utils.game.selectedTile != null
 				&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
 				&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
 		{

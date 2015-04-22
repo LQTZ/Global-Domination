@@ -470,17 +470,18 @@ public class GameWindow extends JFrame
 		});
 
 		// Settle button
-		unitButtons[1].addActionListener(new ActionListener()
+		unitButtons[2].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				eventLog("HAIIII");
 				((Settler) utils.game.selectedUnit).buildCity();
 			}
 		});
 
 		// Attack button
-		unitButtons[2].addActionListener(new ActionListener()
+		unitButtons[1].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
