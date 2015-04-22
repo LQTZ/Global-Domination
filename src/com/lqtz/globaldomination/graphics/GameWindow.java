@@ -475,7 +475,6 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				eventLog("HAIIII");
 				((Settler) utils.game.selectedUnit).buildCity();
 			}
 		});

@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -125,10 +126,30 @@ public class GameScreen extends JPanel implements MouseInputListener
 				&& utils.game.selectedTile != null
 				&& (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality || utils.game.selectedTile.nat == Nationality.NEUTRAL))
 		{
-			utils.game.selectedUnit.move(utils.game.selectedTile);
+			int status = utils.game.selectedUnit.move(utils.game.selectedTile);
+			gw.eventLog("Move status: "+ status);
+			if (status == -3)
+			{
+				JOptionPane.showMessageDialog(utils.gw,
+						"This unit is building.",
+						"Building", JOptionPane.ERROR_MESSAGE);
+			}
+			else if (status == -2)
+			{
+				JOptionPane.showMessageDialog(utils.gw,
+						"This unit has moved too much this turn.",
+						"Too Much Moving", JOptionPane.ERROR_MESSAGE);
+			}
+			else if (status == -1)
+			{
+				JOptionPane.showMessageDialog(utils.gw,
+						"This tile is not adjacent.",
+						"Bad Tile", JOptionPane.ERROR_MESSAGE);
+			}
+			
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			gw.togglePane(0);
+			utils.game.selectTile(null);
 		}
 
 		gw.eventLog(String.valueOf(utils.game.selectedTile != null));

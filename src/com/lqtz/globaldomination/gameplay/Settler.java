@@ -1,5 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
+import javax.swing.JOptionPane;
+
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
@@ -151,6 +153,14 @@ public class Settler extends Unit
 	 */
 	public void buildCity()
 	{
+		if (isBuilding)
+		{
+			JOptionPane.showMessageDialog(utils.gw,
+					"This unit is already building.",
+					"Already Building", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		isBuilding = true;
 
 		cityBuilder = new CountdownTask(turnsToCity)
