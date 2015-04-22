@@ -202,14 +202,14 @@ public class Game implements Serializable
 		if (selectedUnit instanceof Settler)
 		{
 			gw.togglePane(1);
-			utils.game.gw.unitButtons[2].setEnabled(false);
-			utils.game.gw.unitButtons[1].setEnabled(true);
+			utils.game.gw.unitButtons[1].setEnabled(false);
+			utils.game.gw.unitButtons[2].setEnabled(true);
 		}
 		else if (selectedUnit instanceof Soldier)
 		{
 			gw.togglePane(1);
-			utils.game.gw.unitButtons[1].setEnabled(false);
-			utils.game.gw.unitButtons[2].setEnabled(true);
+			utils.game.gw.unitButtons[2].setEnabled(false);
+			utils.game.gw.unitButtons[1].setEnabled(true);
 		}
 		else
 		{

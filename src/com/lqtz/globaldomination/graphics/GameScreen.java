@@ -4,13 +4,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.gameplay.Soldier;
-import com.lqtz.globaldomination.gameplay.UnitType;
 import com.lqtz.globaldomination.io.Utils;
 
 public class GameScreen extends JPanel implements MouseInputListener
@@ -121,6 +119,31 @@ public class GameScreen extends JPanel implements MouseInputListener
 	{
 		mouseMoved(e);
 		utils.game.selectTile(highlightedTile);
+
+		// If move
+		if (utils.game.moveSelected
+				&& utils.game.selectedTile != null
+				&& (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality || utils.game.selectedTile.nat == Nationality.NEUTRAL))
+		{
+			utils.game.selectedUnit.move(utils.game.selectedTile);
+			utils.game.moveSelected = false;
+			utils.game.selectUnit(null);
+			gw.togglePane(0);
+		}
+
+		// If attack
+		if (utils.game.attackSelected
+				&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
+				&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
+		{
+			((Soldier) utils.game.selectedUnit)
+					.attackTile(utils.game.selectedTile);
+			utils.game.moveSelected = false;
+			utils.game.selectUnit(null);
+			gw.togglePane(0);
+		}
+
+		utils.game.selectedUnit = null;
 		utils.game.updateWindow();
 	}
 
@@ -157,35 +180,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	@Override
 	public void mouseClicked(MouseEvent e)
-	{
-		mousePressed(e);
-		
-		// If move
-		if (utils.game.moveSelected
-				&& utils.game.selectedTile != null
-				&& (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality || utils.game.selectedTile.nat == Nationality.NEUTRAL))
-		{
-			utils.game.selectedUnit.move(utils.game.selectedTile);
-			utils.game.moveSelected = false;
-			utils.game.selectUnit(null);
-			gw.togglePane(0);
-		}
-
-		// If attack
-		if (utils.game.attackSelected
-				&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
-				&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
-		{
-			((Soldier) utils.game.selectedUnit)
-					.attackTile(utils.game.selectedTile);
-			utils.game.moveSelected = false;
-			utils.game.selectUnit(null);
-			gw.togglePane(0);
-		}
-
-		utils.game.selectedUnit = null;
-		utils.game.updateWindow();
-	}
+	{}
 
 	@Override
 	public void mouseEntered(MouseEvent e)

@@ -57,6 +57,7 @@ public class GameWindow extends JFrame
 	private AlphaJPanel unitButtonsPane; // Pane with action buttons
 	private AlphaJPanel tileButtonsPane; // Pane with action buttons
 	private AlphaJPanel miscButtonsPane; // Pane with action buttons
+	private AlphaJPanel buttonsPane;
 	private JLabel infoBox; // Info box
 	private JPanel rightPanel;
 	private JTextPane selectedUnitInfoPane; // Pane with selected unit's info
@@ -331,9 +332,6 @@ public class GameWindow extends JFrame
 
 		miscButtonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
-		
-		unitButtonsPane.setVisible(false);
-		tileButtonsPane.setVisible(false);
 
 		// Set up the info box and pane to go below the action buttons
 		infoBox = new JLabel("<Player to move will be displayed here>",
@@ -343,9 +341,8 @@ public class GameWindow extends JFrame
 		infoBox.setForeground(Color.WHITE);
 		infoBox.setPreferredSize(new Dimension(utils.resolution.width - 400, 50));
 		infoBox.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
-		controlPane.add(unitButtonsPane, BorderLayout.NORTH);
-		controlPane.add(tileButtonsPane, BorderLayout.NORTH);
-		controlPane.add(miscButtonsPane, BorderLayout.NORTH);
+		buttonsPane = miscButtonsPane;
+		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);
 
 		// Add Containers to the main center panel
@@ -521,6 +518,15 @@ public class GameWindow extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				exit();
+			}
+		});
+		
+		tileButtons[0].addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				utils.game.growUnit();
 			}
 		});
 	}
@@ -718,30 +724,28 @@ public class GameWindow extends JFrame
 	 */
 	public void togglePane(int n)
 	{
+		controlPane.remove(buttonsPane);
 		switch(n)
 		{
 			case 0:
 			{
-				miscButtonsPane.setVisible(true);
-				unitButtonsPane.setVisible(false);
-				tileButtonsPane.setVisible(false);
+				buttonsPane = miscButtonsPane;
 				break;
 			}
 			case 1:
 			{
-				miscButtonsPane.setVisible(false);
-				unitButtonsPane.setVisible(true);
-				tileButtonsPane.setVisible(false);
+				buttonsPane = unitButtonsPane;
 				break;
 			}
 			case 2:
 			{
-				miscButtonsPane.setVisible(false);
-				unitButtonsPane.setVisible(false);
-				tileButtonsPane.setVisible(true);
+				buttonsPane = tileButtonsPane;
 				break;
 			}
 		}
+		controlPane.add(buttonsPane);
+		controlPane.revalidate();
+		eventLog(String.valueOf(n));
 	}
 
 	public void exit()
