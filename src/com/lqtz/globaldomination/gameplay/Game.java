@@ -71,7 +71,7 @@ public class Game implements Serializable
 
 	/**
 	 * A GD game
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @param gw
@@ -168,7 +168,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedTile}
-	 * 
+	 *
 	 * @param tileToSelect
 	 *            new selected {@code Tile}
 	 */
@@ -192,7 +192,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedUnit}
-	 * 
+	 *
 	 * @param unitToSelect
 	 *            new selected {@code Unit}
 	 */
@@ -217,25 +217,28 @@ public class Game implements Serializable
 		}
 	}
 
-	public void growUnit()
+	//
+
+	/**
+	 * Grow a unit selected by a {@code JOptionPane}
+	 * 
+	 * @return Error value (-1 if city belongs to someone else, -2 if city
+	 *         already building something)
+	 */
+	public int growUnit()
 	{
+		// TODO Make growUnit() actually work
+
 		// Make sure city belongs to current player
 		if (selectedTile.nat != turnNationality)
 		{
-			JOptionPane.showMessageDialog(gw,
-					"This city is " + selectedTile.nat
-							+ ", you cannot grow units here.",
-					"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
-			return;
+			return -1;
 		}
 
 		// Make sure city not busy
 		if (selectedTile.city.isGrowing)
 		{
-			JOptionPane.showMessageDialog(gw,
-					"The city is already growing a unit.", "Cannot Grow Unit",
-					JOptionPane.ERROR_MESSAGE);
-			return;
+			return -2;
 		}
 
 		// Create array of possibilities
@@ -249,25 +252,27 @@ public class Game implements Serializable
 		// Display growUnit selection dialog
 		String s = (String) JOptionPane.showInputDialog(gw,
 				"Which unit would you like your city to work on "
-						+ "right now?",
-				"Grow Unit", JOptionPane.PLAIN_MESSAGE, null, possibilities,
-				"--");
+						+ "right now?", "Grow Unit", JOptionPane.PLAIN_MESSAGE,
+				null, possibilities, "--");
 
 		// Check for null string
-		if ((s == null) || (s == "--"))
-			return;
-
-		String utString = s.substring(0, 7);
-		int ul = Integer
-				.parseInt(s.substring("Settler Level ".length(), s.length()));
-
-		int confirm = JOptionPane.showConfirmDialog(gw,
-				"You are about to grow a unit. This cannot be" + " cancelled.",
-				"Grow Unit Confirmation", JOptionPane.OK_CANCEL_OPTION);
-		if (confirm == JOptionPane.OK_OPTION)
+		if (!((s == null) || (s == "--")))
 		{
-			selectedTile.city.growUnit(UnitType.fromString(utString), ul);
+			String utString = s.substring(0, 7);
+			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
+					s.length()));
+
+			int confirm = JOptionPane.showConfirmDialog(gw,
+					"You are about to grow a unit. This cannot be"
+							+ " cancelled.", "Grow Unit Confirmation",
+					JOptionPane.OK_CANCEL_OPTION);
+			if (confirm == JOptionPane.OK_OPTION)
+			{
+				selectedTile.city.growUnit(UnitType.fromString(utString), ul);
+			}
 		}
+
+		return 0;
 	}
 
 	/**
@@ -280,8 +285,7 @@ public class Game implements Serializable
 		// TODO Implement this correctly
 		if (selectedTile != null)
 		{
-			if ((selectedTile.soldiers.size()
-					+ selectedTile.settlers.size()) != 0)
+			if ((selectedTile.soldiers.size() + selectedTile.settlers.size()) != 0)
 			{
 				StyledDocument doc = new DefaultStyledDocument();
 				try
@@ -297,10 +301,8 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.soldierImages[u.level - 1]);
-						doc.insertString(doc.getLength(),
-								" Soldier Unit ("
-										+ u.nation.nationality.toString()
-										+ ")\n",
+						doc.insertString(doc.getLength(), " Soldier Unit ("
+								+ u.nation.nationality.toString() + ")\n",
 								gw.body);
 					}
 					for (Settler u : selectedTile.settlers)
@@ -314,10 +316,8 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.settlerImages[u.level - 1]);
-						doc.insertString(doc.getLength(),
-								" Settler Unit ("
-										+ u.nation.nationality.toString()
-										+ ")\n",
+						doc.insertString(doc.getLength(), " Settler Unit ("
+								+ u.nation.nationality.toString() + ")\n",
 								gw.body);
 					}
 				}
@@ -493,7 +493,7 @@ public class Game implements Serializable
 
 	/**
 	 * Call this when deserialized.
-	 * 
+	 *
 	 * @param utils
 	 * @param gw
 	 */

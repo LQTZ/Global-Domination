@@ -61,7 +61,7 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Initialize the unit
-	 * 
+	 *
 	 * @param nation
 	 *            nation of the Unit
 	 * @param level
@@ -93,7 +93,7 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Move the {@code Unit} to a specific {@code Tile} if legal
-	 * 
+	 *
 	 * @param tile
 	 *            {@code Tile} to move to
 	 * @return exit status (see implementations)
@@ -102,7 +102,7 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Randomly generate hits to hit an enemy {@code Unit} with in a fight
-	 * 
+	 *
 	 * @param power
 	 *            power {@code level} being used against enemy {@code Unit}
 	 * @param againstUnit
@@ -144,7 +144,7 @@ public abstract class Unit implements Serializable
 			tile.nat = Nationality.NEUTRAL;
 		}
 	}
-	
+
 	public void onDeserialization(Utils utils)
 	{
 		this.utils = utils;

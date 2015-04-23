@@ -19,7 +19,7 @@ public class Soldier extends Unit
 
 	/**
 	 * {@code Soldier} {@code Unit}
-	 * 
+	 *
 	 * @param nation
 	 *            {@code Nation} the {@code Soldier} belongs to
 	 * @param level
@@ -125,7 +125,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Move to a certain {@code Tile}
-	 * 
+	 *
 	 * @param toTile
 	 *            {@code Tile} to move to
 	 * @return Whether or not {@code move()} was legal (-2 if the
@@ -136,16 +136,20 @@ public class Soldier extends Unit
 	@Override
 	public int move(Tile toTile)
 	{
-		// Check if unit has maxed out moves for the turn
-		if (movesLeft <= 0)
-			return -2;
-
-		// Make sure tile is not adjacent
-		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+		// Check if tile is not adjacent
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
 				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
 				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		{
 			return -1;
+		}
+
+		// Check if unit has maxed out moves for the turn
+		if (movesLeft <= 0)
+		{
+			return -2;
+		}
 
 		// Delete the old one
 		tile.soldiers.remove(this);
@@ -181,7 +185,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Attack a {@code Tile}
-	 * 
+	 *
 	 * @param tile
 	 *            {@code Tile} to attack
 	 */
@@ -209,13 +213,13 @@ public class Soldier extends Unit
 		if (unitsToAttack.size() > 0)
 		{
 			Collections.sort(unitsToAttack, new Comparator<Unit>()
-			{
+					{
 				@Override
 				public int compare(Unit o1, Unit o2)
 				{
 					return Double.compare(o1.defendPower, o2.defendPower);
 				}
-			});
+					});
 
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
@@ -226,7 +230,7 @@ public class Soldier extends Unit
 	 * Attacks (hits) a specific enemy {@code Unit}, checks if enemy
 	 * {@code Unit} is dead, if not gets enemy {@code Unit} to hit back, and
 	 * checks if self is dead
-	 * 
+	 *
 	 * @param defender
 	 *            {@code Unit} to attack
 	 */

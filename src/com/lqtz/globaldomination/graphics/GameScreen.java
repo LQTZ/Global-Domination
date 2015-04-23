@@ -31,10 +31,10 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Map {@code JPanel} to draw {@code Tile}s on
-	 * 
+	 *
 	 * @param gw
 	 *            {@code GameWindow} for painting on
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -50,7 +50,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Add all the {@code Hexagon}s
-	 * 
+	 *
 	 * @param width
 	 *            width of the {@code GameScreen}
 	 * @param height
@@ -122,50 +122,75 @@ public class GameScreen extends JPanel implements MouseInputListener
 		utils.game.selectTile(highlightedTile);
 
 		// If move
-		if (utils.game.moveSelected
-				&& utils.game.selectedTile != null
-				&& (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality || utils.game.selectedTile.nat == Nationality.NEUTRAL))
+		if (utils.game.moveSelected && utils.game.selectedTile != null)
 		{
-			int status = utils.game.selectedUnit.move(utils.game.selectedTile);
-			gw.eventLog("Move status: "+ status);
-			if (status == -3)
+			if (utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
+					&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
 			{
 				JOptionPane.showMessageDialog(utils.gw,
-						"This unit is building.",
-						"Building", JOptionPane.ERROR_MESSAGE);
+						"You cannot move to an enemy tile.", "Bad Tile",
+						JOptionPane.ERROR_MESSAGE);
 			}
-			else if (status == -2)
-			{
-				JOptionPane.showMessageDialog(utils.gw,
-						"This unit has moved too much this turn.",
-						"Too Much Moving", JOptionPane.ERROR_MESSAGE);
-			}
-			else if (status == -1)
-			{
-				JOptionPane.showMessageDialog(utils.gw,
-						"This tile is not adjacent.",
-						"Bad Tile", JOptionPane.ERROR_MESSAGE);
-			}
-			
-			utils.game.moveSelected = false;
-			utils.game.selectUnit(null);
-			utils.game.selectTile(null);
-		}
 
-		gw.eventLog(String.valueOf(utils.game.selectedTile != null));
-		gw.eventLog(String.valueOf(utils.game.selectedUnit != null));
-		
-		// If attack
-		if (utils.game.attackSelected
-				&& utils.game.selectedTile != null
-				&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
-				&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
-		{
-			((Soldier) utils.game.selectedUnit)
-					.attackTile(utils.game.selectedTile);
+			else
+			{
+				int status = utils.game.selectedUnit
+						.move(utils.game.selectedTile);
+				gw.eventLog("Move status: " + status);
+				switch (status)
+				{
+					case -1:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"You cannot move to a non-adjacent tile.",
+								"Bad Tile", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+
+					case -2:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"This unit is exhausted, you cannot move it.",
+								"Too Much Moving", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+
+					case -3:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"This Settler is building, you "
+										+ "cannot interupt its building.",
+										"Building", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+				}
+			}
+
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
 			gw.togglePane(0);
+		}
+
+		// If attack
+		if (utils.game.attackSelected && utils.game.selectedTile != null)
+		{
+			if (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality
+					|| utils.game.selectedTile.nat == Nationality.NEUTRAL)
+			{
+				JOptionPane.showMessageDialog(utils.gw,
+						"You cannot attack a friendly tile.", "Bad Tile",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			else
+			{
+				((Soldier) utils.game.selectedUnit)
+				.attackTile(utils.game.selectedTile);
+
+				utils.game.moveSelected = false;
+				utils.game.selectUnit(null);
+				gw.togglePane(0);
+			}
 		}
 
 		utils.game.selectedUnit = null;

@@ -1,7 +1,5 @@
 package com.lqtz.globaldomination.gameplay;
 
-import javax.swing.JOptionPane;
-
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
@@ -26,7 +24,7 @@ public class Settler extends Unit
 
 	/**
 	 * {@code Settler} {@code Unit}
-	 * 
+	 *
 	 * @param nation
 	 *            {@code Nation} the {@code Settler} belongs to
 	 * @param level
@@ -95,21 +93,25 @@ public class Settler extends Unit
 
 	/**
 	 * Move to a certain {@code Tile}
-	 * 
+	 *
 	 * @param toTile
 	 *            {@code Tile} to move to
-	 * @return Whether or not {@code move()} was legal (-2 if the
-	 *         {@code Settler} has maxed out moves for the turn, -1 if the
-	 *         {@code Tile}s are not adjacent, and 0 if {@code move()}
-	 *         successful)
+	 * @return Whether or not {@code move()} was legal (-4 if the
+	 *         {@code Settler} is on a {@code City}, -3 if the {@code Settler}
+	 *         is building, -2 if the {@code Settler} has maxed out moves for
+	 *         the turn, -1 if the {@code Tile}s are not adjacent, and 0 if
+	 *         {@code move()} successful)
 	 */
 	@Override
 	public int move(Tile toTile)
 	{
-		// Check if building city
-		if (isBuilding)
+		// Check if tile is not adjacent
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
+				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
 		{
-			return -3;
+			return -1;
 		}
 
 		// Check if unit has maxed out moves for the turn
@@ -118,13 +120,10 @@ public class Settler extends Unit
 			return -2;
 		}
 
-		// Make sure tile is not adjacent
-		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
-				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
-				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
-				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		// Check if building city
+		if (isBuilding)
 		{
-			return -1;
+			return -3;
 		}
 
 		// Delete the old one
@@ -150,17 +149,23 @@ public class Settler extends Unit
 	/**
 	 * Create a {@code City} object on the {@code Tile} the {@code Settler} is
 	 * on
+	 *
+	 * @return Error status (-1: {@code isBuilding}, 0: successful)
 	 */
-	public void buildCity()
+	public int buildCity()
 	{
+		// Check if building
 		if (isBuilding)
 		{
-			JOptionPane.showMessageDialog(utils.gw,
-					"This unit is already building.",
-					"Already Building", JOptionPane.ERROR_MESSAGE);
-			return;
+			return -1;
 		}
-		
+
+		// Check if on city
+		if (tile.city != null)
+		{
+			return -2;
+		}
+
 		isBuilding = true;
 
 		cityBuilder = new CountdownTask(turnsToCity)
@@ -179,6 +184,7 @@ public class Settler extends Unit
 			}
 		};
 		utils.game.countdownTasks.add(cityBuilder);
+		return 0;
 	}
 
 	/**

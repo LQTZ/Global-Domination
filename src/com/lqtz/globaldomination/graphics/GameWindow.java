@@ -51,7 +51,7 @@ public class GameWindow extends JFrame
 	private JTextPane eventLogPane; // Event log pane
 	private JScrollPane eventLogScroll;
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
-								// combat info pane
+	// combat info pane
 	private GameScreen mapPane; // Map pane
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel unitButtonsPane; // Pane with action buttons
@@ -105,7 +105,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Main game interface window
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -242,17 +242,18 @@ public class GameWindow extends JFrame
 		String[] unitButtonText = new String[] {"Move", "Attack", "Settle"};
 		String[] tileButtonText = new String[] {"Grow"};
 		String[] miscButtonText = new String[] {"Next", "Save", "Exit"};
-		
+
 		unitButtonsPane = new AlphaJPanel();
 		unitButtonsPane.setBackground(new Color(50, 50, 50, 210));
-		unitButtonsPane.setLayout(new BoxLayout(unitButtonsPane, BoxLayout.LINE_AXIS));
+		unitButtonsPane.setLayout(new BoxLayout(unitButtonsPane,
+				BoxLayout.LINE_AXIS));
 		unitButtons = new JButton[3];
 		unitButtonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 3; i++)
 		{
 			unitButtons[i] = new JButton(unitButtonText[i]);
-			unitButtons[i].setFont(utils.fonts.sourcesans
-					.deriveFont(Font.PLAIN, 20));
+			unitButtons[i].setFont(utils.fonts.sourcesans.deriveFont(
+					Font.PLAIN, 20));
 			unitButtonsPane.add(unitButtons[i]); // Add button
 
 			// Spacing
@@ -266,23 +267,25 @@ public class GameWindow extends JFrame
 			unitButtons[i].setBackground(utils.buttonColors // Button color
 					.get(unitButtonText[i]));
 			unitButtons[i].setForeground(Color.WHITE); // Text color
-			unitButtons[i].setFocusPainted(false); // Eliminate inner focus border
+			unitButtons[i].setFocusPainted(false); // Eliminate inner focus
+			// border
 			unitButtons[i].setOpaque(true);
 		}
 
 		unitButtonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
-		
+
 		tileButtonsPane = new AlphaJPanel();
 		tileButtonsPane.setBackground(new Color(50, 50, 50, 210));
-		tileButtonsPane.setLayout(new BoxLayout(tileButtonsPane, BoxLayout.LINE_AXIS));
+		tileButtonsPane.setLayout(new BoxLayout(tileButtonsPane,
+				BoxLayout.LINE_AXIS));
 		tileButtons = new JButton[1];
 		tileButtonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 1; i++)
 		{
 			tileButtons[i] = new JButton(tileButtonText[i]);
-			tileButtons[i].setFont(utils.fonts.sourcesans
-					.deriveFont(Font.PLAIN, 20));
+			tileButtons[i].setFont(utils.fonts.sourcesans.deriveFont(
+					Font.PLAIN, 20));
 			tileButtonsPane.add(tileButtons[i]); // Add button
 
 			// Spacing
@@ -296,23 +299,25 @@ public class GameWindow extends JFrame
 			tileButtons[i].setBackground(utils.buttonColors // Button color
 					.get(tileButtonText[i]));
 			tileButtons[i].setForeground(Color.WHITE); // Text color
-			tileButtons[i].setFocusPainted(false); // Eliminate inner focus border
+			tileButtons[i].setFocusPainted(false); // Eliminate inner focus
+			// border
 			tileButtons[i].setOpaque(true);
 		}
 
 		tileButtonsPane.setPreferredSize(new Dimension(
 				utils.resolution.width - 400, 100));
-		
+
 		miscButtonsPane = new AlphaJPanel();
 		miscButtonsPane.setBackground(new Color(50, 50, 50, 210));
-		miscButtonsPane.setLayout(new BoxLayout(miscButtonsPane, BoxLayout.LINE_AXIS));
+		miscButtonsPane.setLayout(new BoxLayout(miscButtonsPane,
+				BoxLayout.LINE_AXIS));
 		miscButtons = new JButton[3];
 		miscButtonsPane.add(Box.createHorizontalGlue());
 		for (int i = 0; i < 3; i++)
 		{
 			miscButtons[i] = new JButton(miscButtonText[i]);
-			miscButtons[i].setFont(utils.fonts.sourcesans
-					.deriveFont(Font.PLAIN, 20));
+			miscButtons[i].setFont(utils.fonts.sourcesans.deriveFont(
+					Font.PLAIN, 20));
 			miscButtonsPane.add(miscButtons[i]); // Add button
 
 			// Spacing
@@ -326,7 +331,8 @@ public class GameWindow extends JFrame
 			miscButtons[i].setBackground(utils.buttonColors // Button color
 					.get(miscButtonText[i]));
 			miscButtons[i].setForeground(Color.WHITE); // Text color
-			miscButtons[i].setFocusPainted(false); // Eliminate inner focus border
+			miscButtons[i].setFocusPainted(false); // Eliminate inner focus
+			// border
 			miscButtons[i].setOpaque(true);
 		}
 
@@ -475,7 +481,25 @@ public class GameWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				((Settler) utils.game.selectedUnit).buildCity();
+				int buildStatus = ((Settler) utils.game.selectedUnit)
+						.buildCity();
+				switch (buildStatus)
+				{
+					case -1:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"This Settler is already building.",
+								"Already Building", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+					case -2:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"This Settler is already on a city.",
+								"Already On City", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+				}
 			}
 		});
 
@@ -520,20 +544,41 @@ public class GameWindow extends JFrame
 				exit();
 			}
 		});
-		
+
+		// Grow unit button
 		tileButtons[0].addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				utils.game.growUnit();
+				int growStatus = utils.game.growUnit();
+
+				switch (growStatus)
+				{
+					case -1:
+					{
+						JOptionPane.showMessageDialog(utils.gw, "This city is "
+								+ utils.game.selectedTile.nat
+								+ ", you cannot grow units here.",
+								"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+
+					case -2:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"The city is already growing a unit.",
+								"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+				}
 			}
 		});
 	}
 
 	/**
 	 * Logs an event
-	 * 
+	 *
 	 * @param s
 	 *            the event to be logged
 	 */
@@ -554,7 +599,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Set the text of {@code infoBox}
-	 * 
+	 *
 	 * @param s
 	 *            text to set {@code infoBox} to
 	 */
@@ -562,7 +607,7 @@ public class GameWindow extends JFrame
 	{
 		infoBox.setText(s);
 	}
-	
+
 	public void newTurn(Nationality n)
 	{
 		infoBox.setBackground(utils.infoBoxColors.get(n));
@@ -570,24 +615,24 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Updates text pane contents.
-	 * 
+	 *
 	 * <p>
 	 * The {@code Map} should be of the form
 	 * <code>{paneName : newContents, paneName : newContents... }</code> Note
 	 * that the new contents can be both {@code String}s or
 	 * {@code StyledDocument}s.
-	 * 
+	 *
 	 * <p>
 	 * The {@code paneName}s can be
 	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
-	 * 
+	 *
 	 * <p>
 	 * <b>Note:</b> The strings or documents should not include the title. They
 	 * should contain newlines at the end.
-	 * 
+	 *
 	 * <p>
 	 * Use the <code>eventLog</code> method to access the event log.
-	 * 
+	 *
 	 * @param diffs
 	 *            {@code diffs} map
 	 * @throws IllegalArgumentException
@@ -715,17 +760,15 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Change the visible button pane
-	 * 
-	 * 0 - misc
-	 * 1 - unit
-	 * 2 - tile
-	 * 
+	 *
+	 * 0 - misc 1 - unit 2 - tile
+	 *
 	 * @param n
 	 */
 	public void togglePane(int n)
 	{
 		controlPane.remove(buttonsPane);
-		switch(n)
+		switch (n)
 		{
 			case 0:
 			{
