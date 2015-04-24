@@ -61,6 +61,7 @@ public class Settler extends Unit
 				defendPower = 1;
 				maxMoveDistance = 1;
 				turnsToCity = 3;
+				break;
 			}
 			case 2:
 			{
@@ -68,6 +69,7 @@ public class Settler extends Unit
 				defendPower = 3;
 				maxMoveDistance = 2;
 				turnsToCity = 3;
+				break;
 			}
 			case 3:
 			{
@@ -75,18 +77,21 @@ public class Settler extends Unit
 				defendPower = 5;
 				maxMoveDistance = 3;
 				turnsToCity = 2;
+				break;
 			}
 			case 4:
 			{
 				maxHealthPoints = 8;
 				defendPower = 7;
 				turnsToCity = 2;
+				break;
 			}
 			case 5:
 			{
 				maxHealthPoints = 10;
 				maxMoveDistance = 3;
 				turnsToCity = 1;
+				break;
 			}
 		}
 	}

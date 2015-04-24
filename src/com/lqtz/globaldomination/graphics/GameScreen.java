@@ -122,7 +122,8 @@ public class GameScreen extends JPanel implements MouseInputListener
 		utils.game.selectTile(highlightedTile);
 
 		// If move
-		if (utils.game.moveSelected && utils.game.selectedTile != null)
+		if (utils.game.moveSelected && utils.game.selectedTile != null
+				&& utils.game.selectedUnit != null)
 		{
 			if (utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
 					&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
@@ -168,7 +169,6 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 			utils.game.moveSelected = false;
 			utils.game.selectUnit(null);
-			gw.togglePane(0);
 		}
 
 		// If attack
@@ -189,7 +189,6 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 				utils.game.moveSelected = false;
 				utils.game.selectUnit(null);
-				gw.togglePane(0);
 			}
 		}
 

@@ -56,6 +56,7 @@ public class Soldier extends Unit
 				defendPower = 3;
 				attackPower = 5;
 				maxMoveDistance = 1;
+				break;
 			}
 			case 2:
 			{
@@ -63,6 +64,7 @@ public class Soldier extends Unit
 				defendPower = 5;
 				attackPower = 7;
 				maxMoveDistance = 1;
+				break;
 			}
 			case 3:
 			{
@@ -70,6 +72,7 @@ public class Soldier extends Unit
 				defendPower = 7;
 				attackPower = 9;
 				maxMoveDistance = 2;
+				break;
 			}
 			case 4:
 			{
@@ -77,6 +80,7 @@ public class Soldier extends Unit
 				defendPower = 9;
 				attackPower = 11;
 				maxMoveDistance = 2;
+				break;
 			}
 			case 5:
 			{
@@ -84,6 +88,7 @@ public class Soldier extends Unit
 				defendPower = 11;
 				attackPower = 13;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 6:
 			{
@@ -91,6 +96,7 @@ public class Soldier extends Unit
 				defendPower = 13;
 				attackPower = 15;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 7:
 			{
@@ -98,6 +104,7 @@ public class Soldier extends Unit
 				defendPower = 15;
 				attackPower = 17;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 8:
 			{
@@ -105,6 +112,7 @@ public class Soldier extends Unit
 				defendPower = 17;
 				attackPower = 19;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 9:
 			{
@@ -112,6 +120,7 @@ public class Soldier extends Unit
 				defendPower = 19;
 				attackPower = 21;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 10:
 			{
@@ -119,6 +128,7 @@ public class Soldier extends Unit
 				defendPower = 21;
 				attackPower = 23;
 				maxMoveDistance = 5;
+				break;
 			}
 		}
 	}

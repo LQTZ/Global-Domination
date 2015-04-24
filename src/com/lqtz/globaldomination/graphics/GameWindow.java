@@ -472,6 +472,7 @@ public class GameWindow extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				utils.game.moveSelected = !utils.game.moveSelected;
+				utils.game.updateWindow();
 			}
 		});
 
@@ -483,6 +484,7 @@ public class GameWindow extends JFrame
 			{
 				int buildStatus = ((Settler) utils.game.selectedUnit)
 						.buildCity();
+				eventLog("Turns: " + ((Settler) utils.game.selectedUnit).turnsToCity);
 				switch (buildStatus)
 				{
 					case -1:
@@ -500,6 +502,7 @@ public class GameWindow extends JFrame
 						break;
 					}
 				}
+				utils.game.updateWindow();
 			}
 		});
 
@@ -510,6 +513,7 @@ public class GameWindow extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				utils.game.attackSelected = !utils.game.attackSelected;
+				utils.game.updateWindow();
 			}
 		});
 
@@ -531,6 +535,7 @@ public class GameWindow extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				utils.serializeGame();
+				utils.game.updateWindow();
 			}
 		});
 
@@ -572,6 +577,7 @@ public class GameWindow extends JFrame
 						break;
 					}
 				}
+				utils.game.updateWindow();
 			}
 		});
 	}
