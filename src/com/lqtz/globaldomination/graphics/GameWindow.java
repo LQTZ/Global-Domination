@@ -51,7 +51,7 @@ public class GameWindow extends JFrame
 	private JTextPane eventLogPane; // Event log pane
 	private JScrollPane eventLogScroll;
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
-	// combat info pane
+								// combat info pane
 	private GameScreen mapPane; // Map pane
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel unitButtonsPane; // Pane with action buttons
@@ -105,7 +105,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Main game interface window
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -332,7 +332,7 @@ public class GameWindow extends JFrame
 					.get(miscButtonText[i]));
 			miscButtons[i].setForeground(Color.WHITE); // Text color
 			miscButtons[i].setFocusPainted(false); // Eliminate inner focus
-			// border
+													// border
 			miscButtons[i].setOpaque(true);
 		}
 
@@ -484,7 +484,6 @@ public class GameWindow extends JFrame
 			{
 				int buildStatus = ((Settler) utils.game.selectedUnit)
 						.buildCity();
-				eventLog("Turns: " + ((Settler) utils.game.selectedUnit).turnsToCity);
 				switch (buildStatus)
 				{
 					case -1:
@@ -584,7 +583,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Logs an event
-	 *
+	 * 
 	 * @param s
 	 *            the event to be logged
 	 */
@@ -605,7 +604,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Set the text of {@code infoBox}
-	 *
+	 * 
 	 * @param s
 	 *            text to set {@code infoBox} to
 	 */
@@ -621,24 +620,24 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Updates text pane contents.
-	 *
+	 * 
 	 * <p>
 	 * The {@code Map} should be of the form
 	 * <code>{paneName : newContents, paneName : newContents... }</code> Note
 	 * that the new contents can be both {@code String}s or
 	 * {@code StyledDocument}s.
-	 *
+	 * 
 	 * <p>
 	 * The {@code paneName}s can be
 	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
-	 *
+	 * 
 	 * <p>
 	 * <b>Note:</b> The strings or documents should not include the title. They
 	 * should contain newlines at the end.
-	 *
+	 * 
 	 * <p>
 	 * Use the <code>eventLog</code> method to access the event log.
-	 *
+	 * 
 	 * @param diffs
 	 *            {@code diffs} map
 	 * @throws IllegalArgumentException
@@ -766,9 +765,9 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Change the visible button pane
-	 *
+	 * 
 	 * 0 - misc 1 - unit 2 - tile
-	 *
+	 * 
 	 * @param n
 	 */
 	public void togglePane(int n)
@@ -794,7 +793,6 @@ public class GameWindow extends JFrame
 		}
 		controlPane.add(buttonsPane);
 		controlPane.revalidate();
-		eventLog(String.valueOf(n));
 	}
 
 	public void exit()

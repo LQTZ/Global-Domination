@@ -71,7 +71,7 @@ public class Game implements Serializable
 
 	/**
 	 * A GD game
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @param gw
@@ -168,7 +168,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedTile}
-	 *
+	 * 
 	 * @param tileToSelect
 	 *            new selected {@code Tile}
 	 */
@@ -192,7 +192,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedUnit}
-	 *
+	 * 
 	 * @param unitToSelect
 	 *            new selected {@code Unit}
 	 */
@@ -493,7 +493,7 @@ public class Game implements Serializable
 
 	/**
 	 * Call this when deserialized.
-	 *
+	 * 
 	 * @param utils
 	 * @param gw
 	 */

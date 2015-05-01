@@ -9,7 +9,7 @@ public class Hexagon extends Polygon implements Serializable
 
 	/**
 	 * Hexagon-shaped {@code Polygon} to represent map {@code Tile}s
-	 *
+	 * 
 	 * @param centerY
 	 *            x-coordinate of center
 	 * @param centerX

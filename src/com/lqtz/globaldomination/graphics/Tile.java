@@ -82,7 +82,7 @@ public class Tile implements Serializable
 	/**
 	 * {@code HashMap} that contains all possible colors. Each array of colors
 	 * has the following format:
-	 *
+	 * 
 	 * <p>
 	 * <code>{normalColor, highlightedColor, selectedColor}</code>
 	 */
@@ -90,7 +90,7 @@ public class Tile implements Serializable
 
 	/**
 	 * A {@code Tile} in the Map
-	 *
+	 * 
 	 * @param xCoord
 	 *            x-coordinate of the {@code Tile} on the map
 	 * @param yCoord

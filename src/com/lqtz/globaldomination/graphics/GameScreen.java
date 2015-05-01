@@ -31,10 +31,10 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Map {@code JPanel} to draw {@code Tile}s on
-	 *
+	 * 
 	 * @param gw
 	 *            {@code GameWindow} for painting on
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -50,7 +50,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Add all the {@code Hexagon}s
-	 *
+	 * 
 	 * @param width
 	 *            width of the {@code GameScreen}
 	 * @param height
@@ -137,7 +137,6 @@ public class GameScreen extends JPanel implements MouseInputListener
 			{
 				int status = utils.game.selectedUnit
 						.move(utils.game.selectedTile);
-				gw.eventLog("Move status: " + status);
 				switch (status)
 				{
 					case -1:
@@ -161,7 +160,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 						JOptionPane.showMessageDialog(utils.gw,
 								"This Settler is building, you "
 										+ "cannot interupt its building.",
-										"Building", JOptionPane.ERROR_MESSAGE);
+								"Building", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 				}
@@ -185,7 +184,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 			else
 			{
 				((Soldier) utils.game.selectedUnit)
-				.attackTile(utils.game.selectedTile);
+						.attackTile(utils.game.selectedTile);
 
 				utils.game.moveSelected = false;
 				utils.game.selectUnit(null);
