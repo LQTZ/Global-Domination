@@ -186,7 +186,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 				((Soldier) utils.game.selectedUnit)
 						.attackTile(utils.game.selectedTile);
 
-				utils.game.moveSelected = false;
+				utils.game.attackSelected = false;
 				utils.game.selectUnit(null);
 			}
 		}
