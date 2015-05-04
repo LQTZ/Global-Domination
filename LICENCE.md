@@ -1,9 +1,10 @@
 # GNU GENERAL PUBLIC LICENSE
-<center>Version 3, 29 June 2007</center>
+Version 3, 29 June 2007
 
- Copyright (C) 2007 Free Software Foundation, Inc. http://fsf.org/
- Everyone is permitted to copy and distribute verbatim copies
- of this license document, but changing it is not allowed.
+Copyright (C) 2007 Free Software Foundation, Inc. http://fsf.org/
+
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
 
 ### Preamble
 
@@ -474,7 +475,7 @@ sale, or importing the Program or any portion of it.
 License of the Program or a work on which the Program is based.  The
 work thus licensed is called the contributor's "contributor version".
 
-  * A contributor's "essential patent claims" are all patent claims
+ * A contributor's "essential patent claims" are all patent claims
 owned or controlled by the contributor, whether already acquired or
 hereafter acquired, that would be infringed by some manner, permitted
 by this License, of making, using, or selling its contributor version,
@@ -489,7 +490,7 @@ patent license under the contributor's essential patent claims, to
 make, use, sell, offer for sale, import and otherwise run, modify and
 propagate the contents of its contributor version.
 
-  * In the following three paragraphs, a "patent license" is any express
+ * In the following three paragraphs, a "patent license" is any express
 agreement or commitment, however denominated, not to enforce a patent
 (such as an express permission to practice a patent or covenant not to
 sue for patent infringement).  To "grant" such a patent license to a
@@ -618,7 +619,7 @@ an absolute waiver of all civil liability in connection with the
 Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.
 
-<center>END OF TERMS AND CONDITIONS</center>
+END OF TERMS AND CONDITIONS
 
 ## How to Apply These Terms to Your New Programs
 
