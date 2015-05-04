@@ -242,6 +242,8 @@ public class GameWindow extends JFrame
 		String[] unitButtonText = new String[] {"Move", "Attack", "Settle"};
 		String[] tileButtonText = new String[] {"Grow"};
 		String[] miscButtonText = new String[] {"Next", "Save", "Exit"};
+		
+		Font buttonFont = utils.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
 
 		unitButtonsPane = new AlphaJPanel();
 		unitButtonsPane.setBackground(new Color(50, 50, 50, 210));
@@ -252,16 +254,15 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 3; i++)
 		{
 			unitButtons[i] = new JButton(unitButtonText[i]);
-			unitButtons[i].setFont(utils.fonts.sourcesans.deriveFont(
-					Font.PLAIN, 20));
+			unitButtons[i].setFont(buttonFont);
 			unitButtonsPane.add(unitButtons[i]); // Add button
 
 			// Spacing
 			unitButtonsPane.add(Box.createHorizontalGlue());
 			unitButtons[i].setMargin(new Insets(5, 5, 5, 5));
-			unitButtons[i].setMinimumSize(new Dimension(100, 60));
-			unitButtons[i].setMaximumSize(new Dimension(100, 60));
-			unitButtons[i].setPreferredSize(new Dimension(100, 60));
+			unitButtons[i].setMinimumSize(new Dimension(150, 60));
+			unitButtons[i].setMaximumSize(new Dimension(150, 60));
+			unitButtons[i].setPreferredSize(new Dimension(150, 60));
 
 			// Colors of buttons
 			unitButtons[i].setBackground(utils.buttonColors // Button color
@@ -284,16 +285,15 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 1; i++)
 		{
 			tileButtons[i] = new JButton(tileButtonText[i]);
-			tileButtons[i].setFont(utils.fonts.sourcesans.deriveFont(
-					Font.PLAIN, 20));
+			tileButtons[i].setFont(buttonFont);
 			tileButtonsPane.add(tileButtons[i]); // Add button
 
 			// Spacing
 			tileButtonsPane.add(Box.createHorizontalGlue());
 			tileButtons[i].setMargin(new Insets(5, 5, 5, 5));
-			tileButtons[i].setMinimumSize(new Dimension(100, 60));
-			tileButtons[i].setMaximumSize(new Dimension(100, 60));
-			tileButtons[i].setPreferredSize(new Dimension(100, 60));
+			tileButtons[i].setMinimumSize(new Dimension(150, 60));
+			tileButtons[i].setMaximumSize(new Dimension(150, 60));
+			tileButtons[i].setPreferredSize(new Dimension(150, 60));
 
 			// Colors of buttons
 			tileButtons[i].setBackground(utils.buttonColors // Button color
@@ -316,16 +316,15 @@ public class GameWindow extends JFrame
 		for (int i = 0; i < 3; i++)
 		{
 			miscButtons[i] = new JButton(miscButtonText[i]);
-			miscButtons[i].setFont(utils.fonts.sourcesans.deriveFont(
-					Font.PLAIN, 20));
+			miscButtons[i].setFont(buttonFont);
 			miscButtonsPane.add(miscButtons[i]); // Add button
 
 			// Spacing
 			miscButtonsPane.add(Box.createHorizontalGlue());
 			miscButtons[i].setMargin(new Insets(5, 5, 5, 5));
-			miscButtons[i].setMinimumSize(new Dimension(100, 60));
-			miscButtons[i].setMaximumSize(new Dimension(100, 60));
-			miscButtons[i].setPreferredSize(new Dimension(100, 60));
+			miscButtons[i].setMinimumSize(new Dimension(150, 60));
+			miscButtons[i].setMaximumSize(new Dimension(150, 60));
+			miscButtons[i].setPreferredSize(new Dimension(150, 60));
 
 			// Colors of buttons
 			miscButtons[i].setBackground(utils.buttonColors // Button color
@@ -346,7 +345,7 @@ public class GameWindow extends JFrame
 		infoBox.setBackground(new Color(0, 0, 0, 0));
 		infoBox.setForeground(Color.WHITE);
 		infoBox.setPreferredSize(new Dimension(utils.resolution.width - 400, 50));
-		infoBox.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 20));
+		infoBox.setFont(utils.fonts.sourcesans.deriveFont(Font.PLAIN, 24));
 		buttonsPane = miscButtonsPane;
 		controlPane.add(buttonsPane, BorderLayout.NORTH);
 		controlPane.add(infoBox, BorderLayout.SOUTH);
@@ -401,11 +400,11 @@ public class GameWindow extends JFrame
 	{
 		body = unitsPane.addStyle(null, null);
 		StyleConstants.setForeground(body, Color.WHITE);
-		StyleConstants.setFontSize(body, 18);
+		StyleConstants.setFontSize(body, 20 );
 		head = unitsPane.addStyle(null, body);
 		StyleConstants.setBold(head, true);
 		StyleConstants.setUnderline(head, true);
-		StyleConstants.setFontSize(head, 24);
+		StyleConstants.setFontSize(head, 30);
 
 		soldierImages = new Style[10];
 		for (int i = 0; i < soldierImages.length; i++)

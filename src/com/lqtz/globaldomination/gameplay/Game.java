@@ -404,6 +404,7 @@ public class Game implements Serializable
 		gw.updateTextPanes(diffs);
 
 		gw.infoBox(turnNationality + " to move");
+		gw.newTurn(turnNationality);
 
 		gw.repaint();
 	}
