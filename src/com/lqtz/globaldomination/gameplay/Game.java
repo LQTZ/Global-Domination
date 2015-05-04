@@ -347,8 +347,9 @@ public class Game implements Serializable
 							+ selectedTile.city.growUnitLevel + " "
 							+ selectedTile.city.growUnitType + " unit\n";
 				}
-				tileInfoStr = tileInfoStr + "\n";
 			}
+			tileInfoStr += ("Revenue: " + selectedTile.tileRevenue + "\n");
+			tileInfoStr += ("Productivity: " + selectedTile.tileProductivity + "\n");
 
 			// Number of units
 			tileInfoStr = tileInfoStr + "Has "
