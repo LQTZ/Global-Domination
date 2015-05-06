@@ -141,6 +141,9 @@ public class Settler extends Unit
 			tile.nat = Nationality.NEUTRAL;
 		}
 
+		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
+				+ toTile + ".");
+
 		// Add new one
 		tile = toTile;
 		tile.settlers.add(this);
@@ -173,6 +176,8 @@ public class Settler extends Unit
 
 		isBuilding = true;
 
+		utils.gw.eventLog("A " + this + " initiated city building on " + tile
+				+ ".\nThis will take " + turnsToCity + " moves.");
 		cityBuilder = new CountdownTask(turnsToCity)
 		{
 			private static final long serialVersionUID = 1L;
@@ -182,9 +187,8 @@ public class Settler extends Unit
 			{
 				isBuilding = false;
 				nation.addCity(tile);
-				utils.game.gw.eventLog("A new " + nation.nationality.toString()
-						+ " was built on Tile " + (tile.xCoord + 1) + ", "
-						+ (tile.yCoord + 1));
+				utils.game.gw.eventLog("A new " + nation.nationality
+						+ " city was built on " + tile + ".");
 				delete();
 			}
 		};

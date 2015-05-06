@@ -71,6 +71,11 @@ public class City implements Serializable
 		growUnitLevel = level;
 		isGrowing = true;
 
+		utils.gw.eventLog(nation.nationality
+				+ " has initiated growing of a level " + level + " " + ut
+				+ " unit on " + tile + ".\nThis will take " + (level * 2)
+				+ " moves.");
+
 		utils.game.countdownTasks.add(new CountdownTask(level * 2)
 		{
 			private static final long serialVersionUID = 1L;
@@ -79,6 +84,9 @@ public class City implements Serializable
 			public void run()
 			{
 				City.this.stopGrowing();
+				City.this.utils.gw.eventLog(nation.nationality
+						+ " has grown a level " + level + " " + ut
+						+ " unit on " + tile + ".");
 
 				if (ut == UnitType.SETTLER)
 				{

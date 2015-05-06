@@ -180,6 +180,9 @@ public class Soldier extends Unit
 				toTile.city = null;
 			}
 
+		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
+				+ toTile + ".");
+
 		// Add new one
 		tile = toTile;
 		tile.soldiers.add(this);
@@ -246,8 +249,13 @@ public class Soldier extends Unit
 	 */
 	public void attackUnit(Unit defender)
 	{
+		utils.gw.eventLog("A " + this + " attacked a " + defender + ".");
+
 		// Attack hits
-		defender.currentHealthPoints -= generateHits(attackPower, defender);
+		double damage = generateHits(attackPower, defender);
+		defender.currentHealthPoints -= damage;
+		utils.gw.eventLog("The " + defender + " lost "
+				+ Math.round(damage * 1000) / 1000.0 + " points.");
 
 		// Check for kill
 		if (defender.currentHealthPoints <= 0)
@@ -257,8 +265,10 @@ public class Soldier extends Unit
 		}
 
 		// Recieved hits
-		currentHealthPoints -= defender
-				.generateHits(defender.defendPower, this);
+		double defendDamage = defender.generateHits(defender.defendPower, this);
+		currentHealthPoints -= defendDamage;
+		utils.gw.eventLog("The " + this + " lost "
+				+ Math.round(defendDamage * 1000) / 1000.0 + " points.");
 
 		// Check for kill
 		if (currentHealthPoints <= 0)

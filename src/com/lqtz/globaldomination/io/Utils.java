@@ -139,6 +139,7 @@ public class Utils
 				oos.writeObject(game);
 				oos.close();
 				fos.close();
+				gw.eventLog("Game saved.");
 				return true;
 			}
 			catch (Exception e)

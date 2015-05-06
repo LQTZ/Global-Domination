@@ -76,6 +76,11 @@ public class GameWindow extends JFrame
 	 * {@code Style} for the body text
 	 */
 	public Style body;
+	
+	/**
+	 * {@code Style} for the event log.
+	 */
+	public Style small;
 
 	/**
 	 * {@code Style} for the head text
@@ -400,7 +405,9 @@ public class GameWindow extends JFrame
 	{
 		body = unitsPane.addStyle(null, null);
 		StyleConstants.setForeground(body, Color.WHITE);
-		StyleConstants.setFontSize(body, 20 );
+		StyleConstants.setFontSize(body, 20);
+		small = unitsPane.addStyle(null, body);
+		StyleConstants.setFontSize(small, 16);
 		head = unitsPane.addStyle(null, body);
 		StyleConstants.setBold(head, true);
 		StyleConstants.setUnderline(head, true);
@@ -592,7 +599,7 @@ public class GameWindow extends JFrame
 		int start = "Event Log:\n".length();
 		try
 		{
-			doc.insertString(start, s + "\n", body);
+			doc.insertString(start, s + "\n", small);
 		}
 		catch (BadLocationException e)
 		{

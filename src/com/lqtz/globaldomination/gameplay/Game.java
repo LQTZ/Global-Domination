@@ -115,7 +115,6 @@ public class Game implements Serializable
 		blueNat.addSettler(1, 0, 4);
 		yellowNat.addSettler(1, 4, 4);
 
-		gw.eventLog("Turn #: " + (int) utils.game.turnNum);
 		gw.newTurn(turnNationality);
 		// Temp
 		// test();
@@ -475,8 +474,9 @@ public class Game implements Serializable
 
 		// Increment turnNum and if new turn log
 		utils.game.turnNum += 0.25;
-		if (utils.game.turnNum == (int) utils.game.turnNum)
-			gw.eventLog("Turn #: " + (int) utils.game.turnNum);
+		
+		gw.eventLog("It is now " + turnNationality + "'s turn on turn #"
+				+ ((int) turnNum+1));
 
 		// Check for CountdownTests
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();

@@ -218,6 +218,12 @@ public class Tile implements Serializable
 				/ 8);
 
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "Tile " + (xCoord+1) + ", " + (yCoord+1);
+	}
 
 	public void onDeserialization(Utils utils)
 	{
