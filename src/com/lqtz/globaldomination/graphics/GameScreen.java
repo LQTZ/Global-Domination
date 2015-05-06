@@ -16,7 +16,6 @@ public class GameScreen extends JPanel implements MouseInputListener
 {
 	private static final long serialVersionUID = 1L;
 	private Utils utils;
-	private GameWindow gw;
 	private Font tileFont;
 
 	/**
@@ -38,10 +37,9 @@ public class GameScreen extends JPanel implements MouseInputListener
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public GameScreen(GameWindow gw, Utils utils)
+	public GameScreen(Utils utils)
 	{
 		super();
-		this.gw = gw;
 		this.utils = utils;
 
 		addMouseListener(this);

@@ -229,7 +229,7 @@ public class GameWindow extends JFrame
 		// Center components
 		centerPanel = new JPanel(new BorderLayout());
 		centerPanel.setOpaque(false);
-		mapPane = new GameScreen(this, utils);
+		mapPane = new GameScreen(utils);
 		mapPane.setBackground(new Color(0, 0, 0, 0));
 		mapPane.setPreferredSize(new Dimension(utils.resolution.width - 400,
 				utils.resolution.height - 150));
