@@ -101,7 +101,8 @@ public abstract class Unit implements Serializable
 	public abstract int move(Tile tile);
 
 	/**
-	 * Randomly generate hits to hit an enemy {@code Unit} with in a fight
+	 * Randomly generate amount of attack within a fight.
+	 * Considers health, power, and defense capability.
 	 * 
 	 * @param power
 	 *            power {@code level} being used against enemy {@code Unit}
@@ -117,7 +118,7 @@ public abstract class Unit implements Serializable
 				* againstUnit.currentHealthPoints / againstUnit.maxHealthPoints;
 
 		double hits = thisEffectivePower * thisEffectivePower
-				/ attackerEffectivePower * utils.random.nextDouble();
+				/ attackerEffectivePower * (utils.random.nextDouble()+1) / 2;
 
 		if (hits < 0)
 			return 0;
