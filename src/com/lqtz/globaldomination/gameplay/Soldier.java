@@ -163,7 +163,6 @@ public class Soldier extends Unit
 
 		// Delete the old one
 		tile.soldiers.remove(this);
-		nation.units.remove(this);
 
 		// Check if own Nation has abandoned Tile
 		if (tile.soldiers.size() + tile.settlers.size() == 0
@@ -174,11 +173,13 @@ public class Soldier extends Unit
 
 		// Check for foreign city flip
 		if (toTile.city != null)
+		{
 			if (toTile.city.nation.nationality != nation.nationality)
 			{
 				toTile.city.stopGrowing();
 				toTile.city = null;
 			}
+		}
 
 		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
 				+ toTile + ".");

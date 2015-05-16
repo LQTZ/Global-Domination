@@ -68,7 +68,7 @@ public class Nation implements Serializable
 	 * @param yCoord
 	 *            y-coordinate of the {@code Soldier}'s placement in the map
 	 */
-	public void addSoldier(int level, int xCoord, int yCoord)
+	public synchronized void addSoldier(int level, int xCoord, int yCoord)
 	{
 		Soldier s = new Soldier(this, level, xCoord, yCoord, utils);
 		units.add(s);
@@ -84,7 +84,7 @@ public class Nation implements Serializable
 	 * @param yCoord
 	 *            y-coordinate of the {@code Settler}'s placement in the map
 	 */
-	public void addSettler(int level, int xCoord, int yCoord)
+	public synchronized void addSettler(int level, int xCoord, int yCoord)
 	{
 		Settler s = new Settler(this, level, xCoord, yCoord, utils);
 		units.add(s);

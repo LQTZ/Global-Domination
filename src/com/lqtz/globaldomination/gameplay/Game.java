@@ -412,8 +412,17 @@ public class Game implements Serializable
 	/**
 	 * Switch to the next player's turn
 	 */
-	public void nextTurn()
+	public synchronized void nextTurn()
 	{
+		// Reset unit move count
+		for (int i = 0; i < nations.length; i++)
+		{
+			for (int j = 0; j < nations[i].units.size(); j++)
+			{
+				nations[i].units.get(j).movesLeft = nations[i].units.get(j).maxMoveDistance;
+			}
+		}
+
 		Nationality win = tiles[0][0].nat;
 		for (Tile[] tt : tiles)
 		{
@@ -474,9 +483,9 @@ public class Game implements Serializable
 
 		// Increment turnNum and if new turn log
 		utils.game.turnNum += 0.25;
-		
+
 		gw.eventLog("It is now " + turnNationality + "'s turn on turn #"
-				+ ((int) turnNum+1));
+				+ ((int) turnNum + 1));
 
 		// Check for CountdownTests
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();

@@ -108,7 +108,7 @@ public class Settler extends Unit
 	 *         {@code move()} successful)
 	 */
 	@Override
-	public int move(Tile toTile)
+	public synchronized int move(Tile toTile)
 	{
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
@@ -130,21 +130,18 @@ public class Settler extends Unit
 		{
 			return -3;
 		}
-
-		// Delete the old one
-		tile.settlers.remove(this);
-		nation.units.remove(this);
-
-		if (tile.soldiers.size() + tile.settlers.size() == 0
+		
+		if (tile.soldiers.size() + tile.settlers.size() == 1
 				&& tile.city == null)
 		{
 			tile.nat = Nationality.NEUTRAL;
 		}
-
+		
 		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
 				+ toTile + ".");
 
-		// Add new one
+		// Toggle tiles
+		tile.settlers.remove(this);
 		tile = toTile;
 		tile.settlers.add(this);
 

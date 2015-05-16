@@ -114,17 +114,18 @@ public class GameScreen extends JPanel implements MouseInputListener
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e)
+	public synchronized void mousePressed(MouseEvent e)
 	{
 		mouseMoved(e);
 		utils.game.selectTile(highlightedTile);
-
+		
 		// If move
 		if (utils.game.moveSelected && utils.game.selectedTile != null
 				&& utils.game.selectedUnit != null)
 		{
-			if (utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
-					&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
+			if (!utils.game.selectedTile.settlers.isEmpty()
+					&& !utils.game.selectedTile.soldiers.isEmpty()
+					&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality)
 			{
 				JOptionPane.showMessageDialog(utils.gw,
 						"You cannot move to an enemy tile.", "Bad Tile",

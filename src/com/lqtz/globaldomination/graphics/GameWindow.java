@@ -599,7 +599,7 @@ public class GameWindow extends JFrame
 		int start = "Event Log:\n".length();
 		try
 		{
-			doc.insertString(start, s + "\n", small);
+			doc.insertString(start, s + "\n\n", small);
 		}
 		catch (BadLocationException e)
 		{
