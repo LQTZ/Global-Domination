@@ -105,9 +105,9 @@ public class Game implements Serializable
 
 		// Init cities
 		redNat.addCity(tiles[0][0]);
-		greenNat.addCity(tiles[4][0]);
-		blueNat.addCity(tiles[0][4]);
-		yellowNat.addCity(tiles[4][4]);
+		greenNat.addCity(tiles[utils.DIM-1][0]);
+		blueNat.addCity(tiles[0][utils.DIM-1]);
+		yellowNat.addCity(tiles[utils.DIM-1][utils.DIM-1]);
 
 		// Init units in cities
 		redNat.addSettler(1, 0, 0);
