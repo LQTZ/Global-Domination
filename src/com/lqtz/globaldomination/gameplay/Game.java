@@ -412,7 +412,7 @@ public class Game implements Serializable
 	/**
 	 * Switch to the next player's turn
 	 */
-	public synchronized void nextTurn()
+	public void nextTurn()
 	{
 		// Reset unit move count
 		for (int i = 0; i < nations.length; i++)

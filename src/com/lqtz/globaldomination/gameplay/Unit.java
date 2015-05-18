@@ -130,7 +130,7 @@ public abstract class Unit implements Serializable
 	 * Remove all references to the {@code Unit} (kill it) (To be
 	 * {@code Override}d to add {@code UnitType} specific code)
 	 */
-	public synchronized void delete()
+	public void delete()
 	{
 		// Log unit death
 		utils.game.gw.eventLog("A " + this + " died on " + tile + ".");

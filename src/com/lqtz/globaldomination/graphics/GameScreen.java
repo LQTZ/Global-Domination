@@ -114,7 +114,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 	}
 
 	@Override
-	public synchronized void mousePressed(MouseEvent e)
+	public void mousePressed(MouseEvent e)
 	{
 		mouseMoved(e);
 		utils.game.selectTile(highlightedTile);

@@ -108,7 +108,7 @@ public class Settler extends Unit
 	 *         {@code move()} successful)
 	 */
 	@Override
-	public synchronized int move(Tile toTile)
+	public int move(Tile toTile)
 	{
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
