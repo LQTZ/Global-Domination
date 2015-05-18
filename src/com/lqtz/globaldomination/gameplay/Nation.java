@@ -103,7 +103,7 @@ public class Nation implements Serializable
 		t.city = c;
 		t.nat = nationality;
 	}
-	
+
 	public void onDeserialization(Utils utils)
 	{
 		this.utils = utils;

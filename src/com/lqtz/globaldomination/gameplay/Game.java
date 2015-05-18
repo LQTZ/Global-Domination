@@ -115,8 +115,7 @@ public class Game implements Serializable
 		blueNat.addSettler(1, 0, 4);
 		yellowNat.addSettler(1, 4, 4);
 
-		gw.eventLog("Turn #: " + (int) utils.game.turnNum);
-
+		gw.newTurn(turnNationality);
 		// Temp
 		// test();
 	}
@@ -124,6 +123,7 @@ public class Game implements Serializable
 	/**
 	 * Temporary method for running tests on GD
 	 */
+	@SuppressWarnings("unused")
 	private void test()
 	{
 		// Move red settler unit up one
@@ -179,7 +179,12 @@ public class Game implements Serializable
 		}
 		if (tileToSelect != null)
 		{
+			gw.togglePane(2);
 			tileToSelect.isSelected = true;
+		}
+		else
+		{
+			gw.togglePane(0);
 		}
 		this.selectedTile = tileToSelect;
 	}
@@ -193,12 +198,80 @@ public class Game implements Serializable
 	public void selectUnit(Unit unitToSelect)
 	{
 		selectedUnit = unitToSelect;
-		utils.game.gw.buttons[0].setEnabled(true);
 		if (selectedUnit instanceof Settler)
-			utils.game.gw.buttons[1].setEnabled(true);
+		{
+			gw.togglePane(1);
+			utils.game.gw.unitButtons[1].setEnabled(false);
+			utils.game.gw.unitButtons[2].setEnabled(true);
+		}
+		else if (selectedUnit instanceof Soldier)
+		{
+			gw.togglePane(1);
+			utils.game.gw.unitButtons[2].setEnabled(false);
+			utils.game.gw.unitButtons[1].setEnabled(true);
+		}
 		else
-			// Soldiers
-			utils.game.gw.buttons[2].setEnabled(true);
+		{
+			gw.togglePane(0);
+		}
+	}
+
+	//
+
+	/**
+	 * Grow a unit selected by a {@code JOptionPane}
+	 * 
+	 * @return Error value (-1 if city belongs to someone else, -2 if city
+	 *         already building something)
+	 */
+	public int growUnit()
+	{
+		// TODO Make growUnit() actually work
+
+		// Make sure city belongs to current player
+		if (selectedTile.nat != turnNationality)
+		{
+			return -1;
+		}
+
+		// Make sure city not busy
+		if (selectedTile.city.isGrowing)
+		{
+			return -2;
+		}
+
+		// Create array of possibilities
+		String[] possibilities = new String[16];
+		possibilities[0] = "--";
+		for (int i = 1; i < 6; i++)
+			possibilities[i] = "Settler Level " + String.valueOf(i);
+		for (int i = 6; i < 16; i++)
+			possibilities[i] = "Soldier Level " + String.valueOf(i - 5);
+
+		// Display growUnit selection dialog
+		String s = (String) JOptionPane.showInputDialog(gw,
+				"Which unit would you like your city to work on "
+						+ "right now?", "Grow Unit", JOptionPane.PLAIN_MESSAGE,
+				null, possibilities, "--");
+
+		// Check for null string
+		if (!((s == null) || (s == "--")))
+		{
+			String utString = s.substring(0, 7);
+			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
+					s.length()));
+
+			int confirm = JOptionPane.showConfirmDialog(gw,
+					"You are about to grow a unit. This cannot be"
+							+ " cancelled.", "Grow Unit Confirmation",
+					JOptionPane.OK_CANCEL_OPTION);
+			if (confirm == JOptionPane.OK_OPTION)
+			{
+				selectedTile.city.growUnit(UnitType.fromString(utString), ul);
+			}
+		}
+
+		return 0;
 	}
 
 	/**
@@ -227,8 +300,7 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.soldierImages[u.level - 1]);
-						doc.insertString(doc.getLength(), " Soldier Unit ("
-								+ u.nation.nationality.toString() + ")\n",
+						doc.insertString(doc.getLength(), " " + u + "\n",
 								gw.body);
 					}
 					for (Settler u : selectedTile.settlers)
@@ -242,8 +314,7 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.settlerImages[u.level - 1]);
-						doc.insertString(doc.getLength(), " Settler Unit ("
-								+ u.nation.nationality.toString() + ")\n",
+						doc.insertString(doc.getLength(), " " + u + "\n",
 								gw.body);
 					}
 				}
@@ -273,8 +344,9 @@ public class Game implements Serializable
 							+ selectedTile.city.growUnitLevel + " "
 							+ selectedTile.city.growUnitType + " unit\n";
 				}
-				tileInfoStr = tileInfoStr + "\n";
 			}
+			tileInfoStr += ("Revenue: " + selectedTile.tileRevenue + "\n");
+			tileInfoStr += ("Productivity: " + selectedTile.tileProductivity + "\n");
 
 			// Number of units
 			tileInfoStr = tileInfoStr + "Has "
@@ -330,6 +402,7 @@ public class Game implements Serializable
 		gw.updateTextPanes(diffs);
 
 		gw.infoBox(turnNationality + " to move");
+		gw.newTurn(turnNationality);
 
 		gw.repaint();
 	}
@@ -339,6 +412,15 @@ public class Game implements Serializable
 	 */
 	public void nextTurn()
 	{
+		// Reset unit move count
+		for (int i = 0; i < nations.length; i++)
+		{
+			for (int j = 0; j < nations[i].units.size(); j++)
+			{
+				nations[i].units.get(j).movesLeft = nations[i].units.get(j).maxMoveDistance;
+			}
+		}
+
 		Nationality win = tiles[0][0].nat;
 		for (Tile[] tt : tiles)
 		{
@@ -395,10 +477,13 @@ public class Game implements Serializable
 				break;
 		}
 
+		gw.newTurn(turnNationality);
+
 		// Increment turnNum and if new turn log
 		utils.game.turnNum += 0.25;
-		if (utils.game.turnNum == (int) utils.game.turnNum)
-			gw.eventLog("Turn #: " + (int) utils.game.turnNum);
+
+		gw.eventLog("It is now " + turnNationality + "'s turn on turn #"
+				+ ((int) turnNum + 1));
 
 		// Check for CountdownTests
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();

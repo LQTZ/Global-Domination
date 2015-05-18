@@ -101,7 +101,8 @@ public abstract class Unit implements Serializable
 	public abstract int move(Tile tile);
 
 	/**
-	 * Randomly generate hits to hit an enemy {@code Unit} with in a fight
+	 * Randomly generate amount of attack with in a fight. Considers health,
+	 * power, and defense capability.
 	 * 
 	 * @param power
 	 *            power {@code level} being used against enemy {@code Unit}
@@ -117,7 +118,7 @@ public abstract class Unit implements Serializable
 				* againstUnit.currentHealthPoints / againstUnit.maxHealthPoints;
 
 		double hits = thisEffectivePower * thisEffectivePower
-				/ attackerEffectivePower * utils.random.nextDouble();
+				/ attackerEffectivePower * (utils.random.nextDouble() + 1) / 2;
 
 		if (hits < 0)
 			return 0;
@@ -131,19 +132,25 @@ public abstract class Unit implements Serializable
 	 */
 	public void delete()
 	{
-		// Log unit death (note that coordinates are shifted by one to index
-		// coordinates at 1
-		utils.game.gw.eventLog("A " + this.nation.nationality.toString() + " "
-				+ unitType.toString() + " unit died on Tile "
-				+ (tile.xCoord + 1) + ", " + (tile.yCoord + 1));
+		// Log unit death
+		utils.game.gw.eventLog("A " + this + " died on " + tile + ".");
 
 		// Remove references to the object
 		nation.units.remove(this);
-		
-		if (tile.soldiers.isEmpty() && tile.settlers.isEmpty())
+		if (tile.soldiers.size() + tile.settlers.size() == 0
+				&& tile.city == null)
+		{
 			tile.nat = Nationality.NEUTRAL;
+		}
 	}
-	
+
+	@Override
+	public String toString()
+	{
+		return this.nation.nationality + " Level " + level + " " + unitType
+				+ " Unit";
+	}
+
 	public void onDeserialization(Utils utils)
 	{
 		this.utils = utils;

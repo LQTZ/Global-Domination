@@ -56,6 +56,7 @@ public class Soldier extends Unit
 				defendPower = 3;
 				attackPower = 5;
 				maxMoveDistance = 1;
+				break;
 			}
 			case 2:
 			{
@@ -63,6 +64,7 @@ public class Soldier extends Unit
 				defendPower = 5;
 				attackPower = 7;
 				maxMoveDistance = 1;
+				break;
 			}
 			case 3:
 			{
@@ -70,6 +72,7 @@ public class Soldier extends Unit
 				defendPower = 7;
 				attackPower = 9;
 				maxMoveDistance = 2;
+				break;
 			}
 			case 4:
 			{
@@ -77,6 +80,7 @@ public class Soldier extends Unit
 				defendPower = 9;
 				attackPower = 11;
 				maxMoveDistance = 2;
+				break;
 			}
 			case 5:
 			{
@@ -84,6 +88,7 @@ public class Soldier extends Unit
 				defendPower = 11;
 				attackPower = 13;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 6:
 			{
@@ -91,6 +96,7 @@ public class Soldier extends Unit
 				defendPower = 13;
 				attackPower = 15;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 7:
 			{
@@ -98,6 +104,7 @@ public class Soldier extends Unit
 				defendPower = 15;
 				attackPower = 17;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 8:
 			{
@@ -105,6 +112,7 @@ public class Soldier extends Unit
 				defendPower = 17;
 				attackPower = 19;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 9:
 			{
@@ -112,6 +120,7 @@ public class Soldier extends Unit
 				defendPower = 19;
 				attackPower = 21;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 10:
 			{
@@ -119,6 +128,7 @@ public class Soldier extends Unit
 				defendPower = 21;
 				attackPower = 23;
 				maxMoveDistance = 5;
+				break;
 			}
 		}
 	}
@@ -136,32 +146,43 @@ public class Soldier extends Unit
 	@Override
 	public int move(Tile toTile)
 	{
-		// Check if unit has maxed out moves for the turn
-		if (movesLeft <= 0)
-			return -2;
-
-		// Make sure tile is not adjacent
-		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+		// Check if tile is not adjacent
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
 				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
 				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		{
 			return -1;
+		}
+
+		// Check if unit has maxed out moves for the turn
+		if (movesLeft <= 0)
+		{
+			return -2;
+		}
 
 		// Delete the old one
 		tile.soldiers.remove(this);
-		nation.units.remove(this);
 
 		// Check if own Nation has abandoned Tile
-		if (tile.soldiers.size() + tile.settlers.size() < 1)
+		if (tile.soldiers.size() + tile.settlers.size() == 0
+				&& tile.city == null)
+		{
 			tile.nat = Nationality.NEUTRAL;
+		}
 
 		// Check for foreign city flip
 		if (toTile.city != null)
+		{
 			if (toTile.city.nation.nationality != nation.nationality)
 			{
 				toTile.city.stopGrowing();
 				toTile.city = null;
 			}
+		}
+
+		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
+				+ toTile + ".");
 
 		// Add new one
 		tile = toTile;
@@ -229,8 +250,13 @@ public class Soldier extends Unit
 	 */
 	public void attackUnit(Unit defender)
 	{
+		utils.gw.eventLog("A " + this + " attacked a " + defender + ".");
+
 		// Attack hits
-		defender.currentHealthPoints -= generateHits(attackPower, defender);
+		double damage = generateHits(attackPower, defender);
+		defender.currentHealthPoints -= damage;
+		utils.gw.eventLog("The " + defender + " lost "
+				+ Math.round(damage * 1000) / 1000.0 + " points.");
 
 		// Check for kill
 		if (defender.currentHealthPoints <= 0)
@@ -240,8 +266,10 @@ public class Soldier extends Unit
 		}
 
 		// Recieved hits
-		currentHealthPoints -= defender
-				.generateHits(defender.defendPower, this);
+		double defendDamage = defender.generateHits(defender.defendPower, this);
+		currentHealthPoints -= defendDamage;
+		utils.gw.eventLog("The " + this + " lost "
+				+ Math.round(defendDamage * 1000) / 1000.0 + " points.");
 
 		// Check for kill
 		if (currentHealthPoints <= 0)

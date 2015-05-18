@@ -61,6 +61,7 @@ public class Settler extends Unit
 				defendPower = 1;
 				maxMoveDistance = 1;
 				turnsToCity = 3;
+				break;
 			}
 			case 2:
 			{
@@ -68,6 +69,7 @@ public class Settler extends Unit
 				defendPower = 3;
 				maxMoveDistance = 2;
 				turnsToCity = 3;
+				break;
 			}
 			case 3:
 			{
@@ -75,18 +77,21 @@ public class Settler extends Unit
 				defendPower = 5;
 				maxMoveDistance = 3;
 				turnsToCity = 2;
+				break;
 			}
 			case 4:
 			{
 				maxHealthPoints = 8;
 				defendPower = 7;
 				turnsToCity = 2;
+				break;
 			}
 			case 5:
 			{
 				maxHealthPoints = 10;
 				maxMoveDistance = 3;
 				turnsToCity = 1;
+				break;
 			}
 		}
 	}
@@ -96,35 +101,47 @@ public class Settler extends Unit
 	 * 
 	 * @param toTile
 	 *            {@code Tile} to move to
-	 * @return Whether or not {@code move()} was legal (-2 if the
-	 *         {@code Settler} has maxed out moves for the turn, -1 if the
-	 *         {@code Tile}s are not adjacent, and 0 if {@code move()}
-	 *         successful)
+	 * @return Whether or not {@code move()} was legal (-4 if the
+	 *         {@code Settler} is on a {@code City}, -3 if the {@code Settler}
+	 *         is building, -2 if the {@code Settler} has maxed out moves for
+	 *         the turn, -1 if the {@code Tile}s are not adjacent, and 0 if
+	 *         {@code move()} successful)
 	 */
 	@Override
 	public int move(Tile toTile)
 	{
-		// TODO Check if building city, and if so, do not allow settler to move
-		
-		// Check if unit has maxed out moves for the turn
-		if (movesLeft <= 0)
-			return -2;
-
-		// Make sure tile is not adjacent
-		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+		// Check if tile is not adjacent
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
 				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
 				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		{
 			return -1;
-		
-		// Delete the old one
-		tile.settlers.remove(this);
-		nation.units.remove(this);
+		}
 
-		if (tile.soldiers.size() + tile.settlers.size() < 1)
-			tile.nat = Nationality.NEUTRAL;
+		// Check if unit has maxed out moves for the turn
+		if (movesLeft <= 0)
+		{
+			return -2;
+		}
+
+		// Check if building city
+		if (isBuilding)
+		{
+			return -3;
+		}
 		
-		// Add new one
+		if (tile.soldiers.size() + tile.settlers.size() == 1
+				&& tile.city == null)
+		{
+			tile.nat = Nationality.NEUTRAL;
+		}
+		
+		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
+				+ toTile + ".");
+
+		// Toggle tiles
+		tile.settlers.remove(this);
 		tile = toTile;
 		tile.settlers.add(this);
 
@@ -137,27 +154,43 @@ public class Settler extends Unit
 	/**
 	 * Create a {@code City} object on the {@code Tile} the {@code Settler} is
 	 * on
+	 * 
+	 * @return Error status (-1: {@code isBuilding}, 0: successful)
 	 */
-	public void buildCity()
+	public int buildCity()
 	{
+		// Check if building
+		if (isBuilding)
+		{
+			return -1;
+		}
+
+		// Check if on city
+		if (tile.city != null)
+		{
+			return -2;
+		}
+
 		isBuilding = true;
 
+		utils.gw.eventLog("A " + this + " initiated city building on " + tile
+				+ ".\nThis will take " + turnsToCity + " moves.");
 		cityBuilder = new CountdownTask(turnsToCity)
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void run()
 			{
-				isBuilding = false;
+				stopGrowing();
 				nation.addCity(tile);
-				utils.game.gw.eventLog("A new " + nation.nationality.toString()
-						+ " was built on Tile " + (tile.xCoord + 1) + ", "
-						+ (tile.yCoord + 1));
+				utils.game.gw.eventLog("A new " + nation.nationality
+						+ " city was built on " + tile + ".");
 				delete();
 			}
 		};
 		utils.game.countdownTasks.add(cityBuilder);
+		return 0;
 	}
 
 	/**
@@ -166,6 +199,7 @@ public class Settler extends Unit
 	public void stopGrowing()
 	{
 		isBuilding = false;
+		cityBuilder = null;
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import com.lqtz.globaldomination.gameplay.Game;
+import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.graphics.GameWindow;
 
 public class Utils
@@ -50,7 +51,7 @@ public class Utils
 	 * {@code Game} object to be added once the {@code Game} is instantiated
 	 */
 	public Game game = null;
-	
+
 	public GameWindow gw = null;
 
 	/**
@@ -62,6 +63,8 @@ public class Utils
 	 * {@code Color}s of the {@code GameWindow} buttons
 	 */
 	public final HashMap<String, Color> buttonColors;
+
+	public final HashMap<Nationality, Color> infoBoxColors;
 
 	/**
 	 * Load resources
@@ -102,9 +105,16 @@ public class Utils
 		buttonColors.put("Move", new Color(39, 78, 19));
 		buttonColors.put("Settle", new Color(116, 27, 71));
 		buttonColors.put("Attack", new Color(153, 0, 0));
+		buttonColors.put("Grow", new Color(0, 96, 0));
 		buttonColors.put("Next", new Color(127, 127, 127));
 		buttonColors.put("Exit", Color.BLACK);
 		buttonColors.put("Save", new Color(0, 0, 180));
+
+		infoBoxColors = new HashMap<Nationality, Color>();
+		infoBoxColors.put(Nationality.RED, new Color(255, 0, 0, 100));
+		infoBoxColors.put(Nationality.GREEN, new Color(0, 255, 0, 100));
+		infoBoxColors.put(Nationality.YELLOW, new Color(191, 191, 0, 100));
+		infoBoxColors.put(Nationality.BLUE, new Color(0, 0, 255, 100));
 	}
 
 	/**
@@ -129,6 +139,7 @@ public class Utils
 				oos.writeObject(game);
 				oos.close();
 				fos.close();
+				gw.eventLog("Game saved.");
 				return true;
 			}
 			catch (Exception e)
@@ -143,7 +154,8 @@ public class Utils
 	 * Deserializes {@code Game} object.
 	 * 
 	 * @return {@code Game} object or {@code null} if cancelled
-	 * @throws if file is bad
+	 * @throws if
+	 *             file is bad
 	 */
 	public Game deserializeGame() throws IOException
 	{
@@ -156,8 +168,7 @@ public class Utils
 		{
 			try
 			{
-				FileInputStream fis = new FileInputStream(
-						fc.getSelectedFile());
+				FileInputStream fis = new FileInputStream(fc.getSelectedFile());
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				game = (Game) ois.readObject();
 				game.onDeserialization(this, gw);
@@ -178,10 +189,11 @@ public class Utils
 	 * Filters only {@code .gdm} files and directories.
 	 * 
 	 * @author Daniel
-	 *
+	 * 
 	 */
 	private class GDMFilter extends FileFilter
 	{
+		@Override
 		public boolean accept(File f)
 		{
 			if (f.isDirectory())

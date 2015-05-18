@@ -134,13 +134,14 @@ public class Tile implements Serializable
 				new Color(255, 127, 127, 150), new Color(127, 0, 0)});
 		colors.put(Nationality.GREEN, new Color[] {new Color(0, 255, 0, 150),
 				new Color(127, 255, 127, 150), new Color(0, 127, 0)});
-		colors.put(Nationality.YELLOW, new Color[] {new Color(191, 191, 0, 150),
-				new Color(255, 255, 191, 150), new Color(63, 63, 0)});
+		colors.put(Nationality.YELLOW, new Color[] {
+				new Color(191, 191, 0, 150), new Color(255, 255, 191, 150),
+				new Color(63, 63, 0)});
 		colors.put(Nationality.BLUE, new Color[] {new Color(0, 0, 255, 150),
 				new Color(127, 127, 255, 150), new Color(0, 0, 200)});
-		colors.put(Nationality.NEUTRAL,
-				new Color[] {new Color(127, 127, 127, 150),
-						new Color(191, 191, 191, 150), new Color(63, 63, 63)});
+		colors.put(Nationality.NEUTRAL, new Color[] {
+				new Color(127, 127, 127, 150), new Color(191, 191, 191, 150),
+				new Color(63, 63, 63)});
 	}
 
 	protected void paint(Graphics g, Font font)
@@ -180,8 +181,8 @@ public class Tile implements Serializable
 		// Draw city-related icons
 		if (city != null)
 		{
-			g.drawImage(utils.images.city, centerX - 2 * xOffset,
-					centerY - tileSize / 2, tileSize * 7 / 4, tileSize, null);
+			g.drawImage(utils.images.city, centerX - 2 * xOffset, centerY
+					- tileSize / 2, tileSize * 7 / 4, tileSize, null);
 		}
 
 		// Draw the settler units icon
@@ -213,9 +214,15 @@ public class Tile implements Serializable
 
 		// width and yOffset center it to the point (x, y), but we need to
 		// center the text to the center of the image --> tileSize / 8
-		g.drawString(str, x - width / 2 + tileSize / 8,
-				y + yOffset + tileSize / 8);
+		g.drawString(str, x - width / 2 + tileSize / 8, y + yOffset + tileSize
+				/ 8);
 
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "Tile " + (xCoord+1) + ", " + (yCoord+1);
 	}
 
 	public void onDeserialization(Utils utils)

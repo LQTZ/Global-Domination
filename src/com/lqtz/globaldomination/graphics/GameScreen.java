@@ -10,14 +10,12 @@ import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.gameplay.Soldier;
-import com.lqtz.globaldomination.gameplay.UnitType;
 import com.lqtz.globaldomination.io.Utils;
 
 public class GameScreen extends JPanel implements MouseInputListener
 {
 	private static final long serialVersionUID = 1L;
 	private Utils utils;
-	private GameWindow gw;
 	private Font tileFont;
 
 	/**
@@ -39,10 +37,9 @@ public class GameScreen extends JPanel implements MouseInputListener
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public GameScreen(GameWindow gw, Utils utils)
+	public GameScreen(Utils utils)
 	{
 		super();
-		this.gw = gw;
 		this.utils = utils;
 
 		addMouseListener(this);
@@ -121,6 +118,79 @@ public class GameScreen extends JPanel implements MouseInputListener
 	{
 		mouseMoved(e);
 		utils.game.selectTile(highlightedTile);
+		
+		// If move
+		if (utils.game.moveSelected && utils.game.selectedTile != null
+				&& utils.game.selectedUnit != null)
+		{
+			if (!utils.game.selectedTile.settlers.isEmpty()
+					&& !utils.game.selectedTile.soldiers.isEmpty()
+					&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality)
+			{
+				JOptionPane.showMessageDialog(utils.gw,
+						"You cannot move to an enemy tile.", "Bad Tile",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			else
+			{
+				int status = utils.game.selectedUnit
+						.move(utils.game.selectedTile);
+				switch (status)
+				{
+					case -1:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"You cannot move to a non-adjacent tile.",
+								"Bad Tile", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+
+					case -2:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"This unit is exhausted, you cannot move it.",
+								"Too Much Moving", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+
+					case -3:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"This Settler is building, you "
+										+ "cannot interupt its building.",
+								"Building", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+				}
+			}
+
+			utils.game.moveSelected = false;
+			utils.game.selectUnit(null);
+		}
+
+		// If attack
+		if (utils.game.attackSelected && utils.game.selectedTile != null)
+		{
+			if (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality
+					|| utils.game.selectedTile.nat == Nationality.NEUTRAL)
+			{
+				JOptionPane.showMessageDialog(utils.gw,
+						"You cannot attack a friendly tile.", "Bad Tile",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			else
+			{
+				((Soldier) utils.game.selectedUnit)
+						.attackTile(utils.game.selectedTile);
+
+				utils.game.attackSelected = false;
+				utils.game.selectUnit(null);
+			}
+		}
+
+		utils.game.selectedUnit = null;
 		utils.game.updateWindow();
 	}
 
@@ -157,90 +227,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	@Override
 	public void mouseClicked(MouseEvent e)
-	{
-		mousePressed(e);
-		// If double-click on a city tile, growunit popup
-		if (e.getClickCount() >= 2 && utils.game.selectedTile != null
-				&& utils.game.selectedTile.city != null)
-		{
-			// Make sure city belongs to current player (cannot be in previous
-			// if because null pointer exception if selectedTile is null)
-			if (utils.game.selectedTile.nat != utils.game.turnNationality)
-			{
-				JOptionPane.showMessageDialog(gw, "This city is "
-						+ utils.game.selectedTile.nat
-						+ ", you cannot grow units here.", "Cannot Grow Unit",
-						JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			// Make sure city not busy
-			if (utils.game.selectedTile.city.isGrowing)
-			{
-				JOptionPane.showMessageDialog(gw,
-						"The city is already growing a unit.",
-						"Cannot Grow Unit", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			// Create array of possibilities
-			String[] possibilities = new String[16];
-			possibilities[0] = "--";
-			for (int i = 1; i < 6; i++)
-				possibilities[i] = "Settler Level " + String.valueOf(i);
-			for (int i = 6; i < 16; i++)
-				possibilities[i] = "Soldier Level " + String.valueOf(i - 5);
-
-			// Display growUnit selection dialog
-			String s = (String) JOptionPane.showInputDialog(gw,
-					"Which unit would you like your city to work on "
-							+ "right now?", "Grow Unit",
-					JOptionPane.PLAIN_MESSAGE, null, possibilities, "--");
-
-			// Check for null string
-			if ((s == null) || (s == "--"))
-				return;
-
-			String utString = s.substring(0, 7);
-			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
-					s.length()));
-
-			int confirm = JOptionPane.showConfirmDialog(gw,
-					"You are about to grow a unit. This cannot be"
-							+ " cancelled.", "Grow Unit Confirmation",
-					JOptionPane.OK_CANCEL_OPTION);
-			if (confirm == JOptionPane.OK_OPTION)
-			{
-				utils.game.selectedTile.city.growUnit(
-						UnitType.fromString(utString), ul);
-			}
-		}
-
-		// If move
-		if (utils.game.moveSelected
-				&& (utils.game.selectedTile.nat == utils.game.selectedUnit.nation.nationality || utils.game.selectedTile.nat == Nationality.NEUTRAL))
-		{
-			utils.game.selectedUnit.move(utils.game.selectedTile);
-			utils.game.moveSelected = false;
-			utils.game.selectUnit(null);
-			gw.disableButtons();
-		}
-
-		// If attack
-		if (utils.game.attackSelected
-				&& utils.game.selectedTile.nat != utils.game.selectedUnit.nation.nationality
-				&& utils.game.selectedTile.nat != Nationality.NEUTRAL)
-		{
-			((Soldier) utils.game.selectedUnit)
-					.attackTile(utils.game.selectedTile);
-			utils.game.moveSelected = false;
-			utils.game.selectUnit(null);
-			gw.disableButtons();
-		}
-
-		utils.game.selectedUnit = null;
-		utils.game.updateWindow();
-	}
+	{}
 
 	@Override
 	public void mouseEntered(MouseEvent e)
