@@ -182,7 +182,7 @@ public class Settler extends Unit
 			@Override
 			public void run()
 			{
-				isBuilding = false;
+				stopGrowing();
 				nation.addCity(tile);
 				utils.game.gw.eventLog("A new " + nation.nationality
 						+ " city was built on " + tile + ".");
