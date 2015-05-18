@@ -147,8 +147,8 @@ public abstract class Unit implements Serializable
 	@Override
 	public String toString()
 	{
-		return this.nation.nationality + " level " + level + " " + unitType
-				+ " unit";
+		return this.nation.nationality + " Level " + level + " " + unitType
+				+ " Unit";
 	}
 
 	public void onDeserialization(Utils utils)

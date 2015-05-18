@@ -300,8 +300,7 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.soldierImages[u.level - 1]);
-						doc.insertString(doc.getLength(), " Soldier Unit ("
-								+ u.nation.nationality.toString() + ")\n",
+						doc.insertString(doc.getLength(), " " + u + "\n",
 								gw.body);
 					}
 					for (Settler u : selectedTile.settlers)
@@ -315,8 +314,7 @@ public class Game implements Serializable
 						doc.insertString(doc.getLength(),
 								GameWindow.IMAGE_STRING,
 								gw.settlerImages[u.level - 1]);
-						doc.insertString(doc.getLength(), " Settler Unit ("
-								+ u.nation.nationality.toString() + ")\n",
+						doc.insertString(doc.getLength(), " " + u + "\n",
 								gw.body);
 					}
 				}
