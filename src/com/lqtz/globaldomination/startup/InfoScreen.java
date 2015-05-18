@@ -33,7 +33,7 @@ public class InfoScreen extends BasicScreen
 
 	/**
 	 * Read the text for the page
-	 * 
+	 *
 	 * @param input
 	 *            {@code InputStream} of the .txt file with the page's body text
 	 * @param titleStr
@@ -52,7 +52,7 @@ public class InfoScreen extends BasicScreen
 	/**
 	 * Screen with only a header, a body, and an exit button (e.g. the about
 	 * page)
-	 * 
+	 *
 	 * @param text
 	 *            text to display in window
 	 * @param titleStr

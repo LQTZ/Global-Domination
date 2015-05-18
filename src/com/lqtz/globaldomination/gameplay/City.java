@@ -37,7 +37,7 @@ public class City implements Serializable
 
 	/**
 	 * {@code City} on a {@code Tile} that grows {@code Unit}s
-	 * 
+	 *
 	 * @param tile
 	 *            {@code Tile} the {@code City} is on
 	 * @param nation
@@ -59,7 +59,7 @@ public class City implements Serializable
 	/**
 	 * Grow a unit in the city (dispatch a {@code CountdownTask} that creates a
 	 * unit)
-	 * 
+	 *
 	 * @param ut
 	 *            {@code UnitType} of the {@code Unit} to grow
 	 * @param level

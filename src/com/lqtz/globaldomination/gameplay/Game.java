@@ -71,7 +71,7 @@ public class Game implements Serializable
 
 	/**
 	 * A GD game
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @param gw
@@ -167,7 +167,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedTile}
-	 * 
+	 *
 	 * @param tileToSelect
 	 *            new selected {@code Tile}
 	 */
@@ -191,7 +191,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedUnit}
-	 * 
+	 *
 	 * @param unitToSelect
 	 *            new selected {@code Unit}
 	 */
@@ -220,7 +220,7 @@ public class Game implements Serializable
 
 	/**
 	 * Grow a unit selected by a {@code JOptionPane}
-	 * 
+	 *
 	 * @return Error value (-1 if city belongs to someone else, -2 if city
 	 *         already building something)
 	 */
@@ -252,7 +252,7 @@ public class Game implements Serializable
 		String s = (String) JOptionPane.showInputDialog(gw,
 				"Which unit would you like your city to work on "
 						+ "right now?", "Grow Unit", JOptionPane.PLAIN_MESSAGE,
-				null, possibilities, "--");
+						null, possibilities, "--");
 
 		// Check for null string
 		if (!((s == null) || (s == "--")))
@@ -264,7 +264,7 @@ public class Game implements Serializable
 			int confirm = JOptionPane.showConfirmDialog(gw,
 					"You are about to grow a unit. This cannot be"
 							+ " cancelled.", "Grow Unit Confirmation",
-					JOptionPane.OK_CANCEL_OPTION);
+							JOptionPane.OK_CANCEL_OPTION);
 			if (confirm == JOptionPane.OK_OPTION)
 			{
 				selectedTile.city.growUnit(UnitType.fromString(utString), ul);
@@ -502,7 +502,7 @@ public class Game implements Serializable
 
 	/**
 	 * Call this when deserialized.
-	 * 
+	 *
 	 * @param utils
 	 * @param gw
 	 */

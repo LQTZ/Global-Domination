@@ -21,7 +21,7 @@ public class Fonts
 
 	/**
 	 * Load fonts
-	 * 
+	 *
 	 * @throws FontFormatException
 	 *             error loading fonts
 	 * @throws IOException

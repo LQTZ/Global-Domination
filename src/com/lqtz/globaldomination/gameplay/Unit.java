@@ -61,7 +61,7 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Initialize the unit
-	 * 
+	 *
 	 * @param nation
 	 *            nation of the Unit
 	 * @param level
@@ -93,7 +93,7 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Move the {@code Unit} to a specific {@code Tile} if legal
-	 * 
+	 *
 	 * @param tile
 	 *            {@code Tile} to move to
 	 * @return exit status (see implementations)
@@ -103,7 +103,7 @@ public abstract class Unit implements Serializable
 	/**
 	 * Randomly generate amount of attack with in a fight. Considers health,
 	 * power, and defense capability.
-	 * 
+	 *
 	 * @param power
 	 *            power {@code level} being used against enemy {@code Unit}
 	 * @param againstUnit
