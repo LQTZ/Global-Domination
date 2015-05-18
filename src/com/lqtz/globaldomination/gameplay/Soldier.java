@@ -238,6 +238,30 @@ public class Soldier extends Unit
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
 		}
+		
+		boolean survivors = false;
+
+		// Determine whether or not tile is hostile
+		for (Unit u : tile.soldiers)
+		{
+			if (u.nation.nationality != nation.nationality)
+			{
+				survivors = true;
+			}
+		}
+		for (Unit u : tile.settlers)
+		{
+			if (u.nation.nationality != nation.nationality)
+			{
+				survivors = true;
+			}
+		}
+		
+		if (!survivors)
+		{
+			tile.nat = Nationality.NEUTRAL;
+			tile.city = null;
+		}
 	}
 
 	/**
