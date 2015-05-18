@@ -57,39 +57,41 @@ public class Settler extends Unit
 		{
 			case 1:
 			{
-				maxHealthPoints = 2;
-				defendPower = 1;
+				maxHealthPoints = 4;
+				defendPower = 4;
 				maxMoveDistance = 1;
 				turnsToCity = 3;
 				break;
 			}
 			case 2:
 			{
-				maxHealthPoints = 4;
-				defendPower = 3;
+				maxHealthPoints = 5;
+				defendPower = 7;
 				maxMoveDistance = 2;
 				turnsToCity = 3;
 				break;
 			}
 			case 3:
 			{
-				maxHealthPoints = 6;
-				defendPower = 5;
+				maxHealthPoints = 8;
+				defendPower = 10;
 				maxMoveDistance = 3;
 				turnsToCity = 2;
 				break;
 			}
 			case 4:
 			{
-				maxHealthPoints = 8;
-				defendPower = 7;
+				maxHealthPoints = 10;
+				defendPower = 20;
+				maxMoveDistance = 3;
 				turnsToCity = 2;
 				break;
 			}
 			case 5:
 			{
-				maxHealthPoints = 10;
-				maxMoveDistance = 3;
+				maxHealthPoints = 20;
+				defendPower = 30;
+				maxMoveDistance = 4;
 				turnsToCity = 1;
 				break;
 			}

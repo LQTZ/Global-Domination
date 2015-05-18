@@ -54,7 +54,7 @@ public class Soldier extends Unit
 			{
 				maxHealthPoints = 4;
 				defendPower = 3;
-				attackPower = 5;
+				attackPower = 3;
 				maxMoveDistance = 1;
 				break;
 			}
@@ -62,7 +62,7 @@ public class Soldier extends Unit
 			{
 				maxHealthPoints = 6;
 				defendPower = 5;
-				attackPower = 7;
+				attackPower = 6;
 				maxMoveDistance = 1;
 				break;
 			}
@@ -70,7 +70,7 @@ public class Soldier extends Unit
 			{
 				maxHealthPoints = 8;
 				defendPower = 7;
-				attackPower = 9;
+				attackPower = 8;
 				maxMoveDistance = 2;
 				break;
 			}
