@@ -212,7 +212,7 @@ public class Game implements Serializable
 		}
 		else
 		{
-			gw.togglePane(0);
+			gw.togglePane(2);
 		}
 	}
 
