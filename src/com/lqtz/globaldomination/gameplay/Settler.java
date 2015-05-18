@@ -199,6 +199,7 @@ public class Settler extends Unit
 	public void stopGrowing()
 	{
 		isBuilding = false;
+		cityBuilder = null;
 	}
 
 	@Override
