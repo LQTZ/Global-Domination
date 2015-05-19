@@ -119,7 +119,7 @@ public class Utils
 
 	/**
 	 * Serializes {@code Game} object.
-	 *
+	 * 
 	 * @return whether successful
 	 */
 	public boolean serializeGame()
@@ -152,7 +152,7 @@ public class Utils
 
 	/**
 	 * Deserializes {@code Game} object.
-	 *
+	 * 
 	 * @return {@code Game} object or {@code null} if cancelled
 	 * @throws if
 	 *             file is bad
@@ -187,9 +187,9 @@ public class Utils
 
 	/**
 	 * Filters only {@code .gdm} files and directories.
-	 *
+	 * 
 	 * @author Daniel
-	 *
+	 * 
 	 */
 	private class GDMFilter extends FileFilter
 	{

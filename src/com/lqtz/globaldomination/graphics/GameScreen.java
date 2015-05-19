@@ -30,10 +30,10 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Map {@code JPanel} to draw {@code Tile}s on
-	 *
+	 * 
 	 * @param gw
 	 *            {@code GameWindow} for painting on
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -48,7 +48,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Add all the {@code Hexagon}s
-	 *
+	 * 
 	 * @param width
 	 *            width of the {@code GameScreen}
 	 * @param height
@@ -134,9 +134,9 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 			else
 			{
-				int status = utils.game.selectedUnit
+				int moveStatus = utils.game.selectedUnit
 						.move(utils.game.selectedTile);
-				switch (status)
+				switch (moveStatus)
 				{
 					case -1:
 					{
@@ -159,7 +159,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 						JOptionPane.showMessageDialog(utils.gw,
 								"This Settler is building, you "
 										+ "cannot interupt its building.",
-										"Building", JOptionPane.ERROR_MESSAGE);
+								"Building", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 				}
@@ -182,8 +182,19 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 			else
 			{
-				((Soldier) utils.game.selectedUnit)
-				.attackTile(utils.game.selectedTile);
+				int attackStatus = ((Soldier) utils.game.selectedUnit)
+						.attackTile(utils.game.selectedTile);
+
+				switch (attackStatus)
+				{
+					case -1:
+					{
+						JOptionPane.showMessageDialog(utils.gw,
+								"You cannot attack a non adjacent tile.",
+								"Bad Tile", JOptionPane.ERROR_MESSAGE);
+						break;
+					}
+				}
 
 				utils.game.attackSelected = false;
 				utils.game.selectUnit(null);

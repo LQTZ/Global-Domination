@@ -19,7 +19,7 @@ public class Soldier extends Unit
 
 	/**
 	 * {@code Soldier} {@code Unit}
-	 *
+	 * 
 	 * @param nation
 	 *            {@code Nation} the {@code Soldier} belongs to
 	 * @param level
@@ -135,7 +135,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Move to a certain {@code Tile}
-	 *
+	 * 
 	 * @param toTile
 	 *            {@code Tile} to move to
 	 * @return Whether or not {@code move()} was legal (-2 if the
@@ -199,23 +199,32 @@ public class Soldier extends Unit
 
 	/**
 	 * Attack a {@code Tile}
-	 *
-	 * @param tile
+	 * 
+	 * @param toTile
 	 *            {@code Tile} to attack
 	 */
-	public void attackTile(Tile tile)
+	public int attackTile(Tile toTile)
 	{
+		// Check if tile is not adjacent
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
+				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		{
+			return -1;
+		}
+
 		ArrayList<Unit> unitsToAttack = new ArrayList<Unit>();
 
 		// Determine whether or not tile is hostile
-		for (Unit u : tile.soldiers)
+		for (Unit u : toTile.soldiers)
 		{
 			if (u.nation.nationality != nation.nationality)
 			{
 				unitsToAttack.add(u);
 			}
 		}
-		for (Unit u : tile.settlers)
+		for (Unit u : toTile.settlers)
 		{
 			if (u.nation.nationality != nation.nationality)
 			{
@@ -227,48 +236,50 @@ public class Soldier extends Unit
 		if (unitsToAttack.size() > 0)
 		{
 			Collections.sort(unitsToAttack, new Comparator<Unit>()
-					{
+			{
 				@Override
 				public int compare(Unit o1, Unit o2)
 				{
 					return Double.compare(o1.defendPower, o2.defendPower);
 				}
-					});
+			});
 
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
 		}
-		
+
 		boolean survivors = false;
 
 		// Determine whether or not tile is hostile
-		for (Unit u : tile.soldiers)
+		for (Unit u : toTile.soldiers)
 		{
 			if (u.nation.nationality != nation.nationality)
 			{
 				survivors = true;
 			}
 		}
-		for (Unit u : tile.settlers)
+		for (Unit u : toTile.settlers)
 		{
 			if (u.nation.nationality != nation.nationality)
 			{
 				survivors = true;
 			}
 		}
-		
+
 		if (!survivors)
 		{
-			tile.nat = Nationality.NEUTRAL;
-			tile.city = null;
+			toTile.nat = Nationality.NEUTRAL;
+			toTile.city = null;
 		}
+
+		return 0;
 	}
 
 	/**
 	 * Attacks (hits) a specific enemy {@code Unit}, checks if enemy
 	 * {@code Unit} is dead, if not gets enemy {@code Unit} to hit back, and
 	 * checks if self is dead
-	 *
+	 * 
 	 * @param defender
 	 *            {@code Unit} to attack
 	 */

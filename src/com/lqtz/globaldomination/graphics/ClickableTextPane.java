@@ -116,7 +116,7 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 
 	/**
 	 * Check using the icon if a style is in an array of styles.
-	 *
+	 * 
 	 * @param a
 	 *            the style
 	 * @param aList

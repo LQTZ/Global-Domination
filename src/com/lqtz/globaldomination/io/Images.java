@@ -54,7 +54,7 @@ public class Images
 
 	/**
 	 * Load images
-	 *
+	 * 
 	 * @throws IOException
 	 *             error loading images
 	 */
