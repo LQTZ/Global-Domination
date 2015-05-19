@@ -216,7 +216,26 @@ public class Tile implements Serializable
 		// center the text to the center of the image --> tileSize / 8
 		g.drawString(str, x - width / 2 + tileSize / 8, y + yOffset + tileSize
 				/ 8);
+	}
 
+	/**
+	 * Add a {@code Unit} to its respective {@code ArrayList} on the
+	 * {@code Tile}
+	 * 
+	 * @param unit
+	 *            {@code Unit} to add to tile
+	 */
+	public void addUnit(Unit unit)
+	{
+		if (unit instanceof Settler)
+		{
+			settlers.add((Settler) unit);
+		}
+
+		else
+		{
+			soldiers.add((Soldier) unit);
+		}
 	}
 
 	@Override

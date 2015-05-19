@@ -35,7 +35,7 @@ public class Soldier extends Unit
 	{
 		super(nation, level, xCoord, yCoord, utils);
 		unitType = UnitType.SOLDIER;
-		utils.game.tiles[xCoord][yCoord].soldiers.add(this);
+		utils.game.tiles[xCoord][yCoord].addUnit(this);
 	}
 
 	@Override
@@ -146,6 +146,17 @@ public class Soldier extends Unit
 	@Override
 	public int move(Tile toTile)
 	{
+		super.move(toTile);
+
+		checkCityFlip(toTile);
+		tile.nat = nation.nationality;
+
+		return 0;
+	}
+
+	@Override
+	protected int getMoveError(Tile toTile)
+	{
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
@@ -161,16 +172,11 @@ public class Soldier extends Unit
 			return -2;
 		}
 
-		// Delete the old one
-		tile.soldiers.remove(this);
+		return 0;
+	}
 
-		// Check if own Nation has abandoned Tile
-		if (tile.soldiers.size() + tile.settlers.size() == 0
-				&& tile.city == null)
-		{
-			tile.nat = Nationality.NEUTRAL;
-		}
-
+	private void checkCityFlip(Tile toTile)
+	{
 		// Check for foreign city flip
 		if (toTile.city != null)
 		{
@@ -181,20 +187,6 @@ public class Soldier extends Unit
 			}
 		}
 
-		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
-				+ toTile + ".");
-
-		// Add new one
-		tile = toTile;
-		tile.soldiers.add(this);
-
-		// Change tile nationality (settlers do not do this; they are neutral)
-		tile.nat = nation.nationality;
-
-		// Decrement movesLeft
-		movesLeft--;
-
-		return 0;
 	}
 
 	/**

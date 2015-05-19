@@ -91,6 +91,8 @@ public abstract class Unit implements Serializable
 
 	protected abstract void assignByLevel();
 
+	protected abstract int getMoveError(Tile toTile);
+
 	/**
 	 * Move the {@code Unit} to a specific {@code Tile} if legal
 	 * 
@@ -98,7 +100,37 @@ public abstract class Unit implements Serializable
 	 *            {@code Tile} to move to
 	 * @return exit status (see implementations)
 	 */
-	public abstract int move(Tile tile);
+	public int move(Tile toTile)
+	{
+		int moveError = getMoveError(toTile);
+
+		if (moveError != 0)
+		{
+			return moveError;
+		}
+
+		// Delete the old one
+		tile.settlers.remove(this);
+
+		// Check if own Nation has abandoned Tile
+		if (tile.soldiers.size() + tile.settlers.size() == 0
+				&& tile.city == null)
+		{
+			tile.nat = Nationality.NEUTRAL;
+		}
+
+		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
+				+ toTile + ".");
+
+		// Add to new one
+		tile = toTile;
+		tile.addUnit(this);
+
+		// Decrement movesLeft
+		movesLeft--;
+
+		return moveError;
+	}
 
 	/**
 	 * Randomly generate amount of attack with in a fight. Considers health,

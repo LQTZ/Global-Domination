@@ -40,7 +40,7 @@ public class Settler extends Unit
 	{
 		super(nation, level, xCoord, yCoord, utils);
 		unitType = UnitType.SETTLER;
-		utils.game.tiles[xCoord][yCoord].settlers.add(this);
+		utils.game.tiles[xCoord][yCoord].addUnit(this);
 	}
 
 	@Override
@@ -97,20 +97,9 @@ public class Settler extends Unit
 			}
 		}
 	}
-
-	/**
-	 * Move to a certain {@code Tile}
-	 * 
-	 * @param toTile
-	 *            {@code Tile} to move to
-	 * @return Whether or not {@code move()} was legal (-4 if the
-	 *         {@code Settler} is on a {@code City}, -3 if the {@code Settler}
-	 *         is building, -2 if the {@code Settler} has maxed out moves for
-	 *         the turn, -1 if the {@code Tile}s are not adjacent, and 0 if
-	 *         {@code move()} successful)
-	 */
+	
 	@Override
-	public int move(Tile toTile)
+	protected int getMoveError(Tile toTile)
 	{
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
@@ -132,23 +121,6 @@ public class Settler extends Unit
 		{
 			return -3;
 		}
-
-		if (tile.soldiers.size() + tile.settlers.size() == 1
-				&& tile.city == null)
-		{
-			tile.nat = Nationality.NEUTRAL;
-		}
-
-		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
-				+ toTile + ".");
-
-		// Toggle tiles
-		tile.settlers.remove(this);
-		tile = toTile;
-		tile.settlers.add(this);
-
-		// Decrement movesLeft
-		movesLeft--;
 
 		return 0;
 	}
