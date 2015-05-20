@@ -97,7 +97,7 @@ public class Settler extends Unit
 			}
 		}
 	}
-	
+
 	@Override
 	protected int getMoveError(Tile toTile)
 	{
@@ -180,7 +180,6 @@ public class Settler extends Unit
 	public void delete()
 	{
 		super.delete();
-		tile.settlers.remove(this);
 		utils.game.countdownTasks.remove(cityBuilder);
 	}
 }

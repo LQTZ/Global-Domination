@@ -302,11 +302,4 @@ public class Soldier extends Unit
 		if (currentHealthPoints <= 0)
 			delete();
 	}
-
-	@Override
-	public void delete()
-	{
-		super.delete();
-		tile.soldiers.remove(this);
-	}
 }

@@ -223,7 +223,7 @@ public class Tile implements Serializable
 	 * {@code Tile}
 	 * 
 	 * @param unit
-	 *            {@code Unit} to add to tile
+	 *            {@code Unit} to add to {@code Tile}
 	 */
 	public void addUnit(Unit unit)
 	{
@@ -235,6 +235,26 @@ public class Tile implements Serializable
 		else
 		{
 			soldiers.add((Soldier) unit);
+		}
+	}
+	
+	/**
+	 * Remove a {@code Unit} from its respective {@code ArrayList} on the
+	 * {@code Tile}
+	 * 
+	 * @param unit
+	 *            {@code Unit} to remove from {@code Tile}
+	 */
+	public void removeUnit(Unit unit)
+	{
+		if (unit instanceof Settler)
+		{
+			settlers.remove((Settler) unit);
+		}
+
+		else
+		{
+			soldiers.remove((Soldier) unit);
 		}
 	}
 

@@ -110,7 +110,7 @@ public abstract class Unit implements Serializable
 		}
 
 		// Delete the old one
-		tile.settlers.remove(this);
+		tile.removeUnit(this);
 
 		// Check if own Nation has abandoned Tile
 		if (tile.soldiers.size() + tile.settlers.size() == 0
@@ -174,6 +174,8 @@ public abstract class Unit implements Serializable
 		{
 			tile.nat = Nationality.NEUTRAL;
 		}
+		
+		tile.removeUnit(this);
 	}
 
 	@Override
