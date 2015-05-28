@@ -1,15 +1,14 @@
 package com.lqtz.globaldomination.graphics;
 
 import java.awt.Polygon;
-import java.io.Serializable;
 
-public class Hexagon extends Polygon implements Serializable
+public class Hexagon extends Polygon
 {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Hexagon-shaped {@code Polygon} to represent map {@code Tile}s
-	 * 
+	 *
 	 * @param centerY
 	 *            x-coordinate of center
 	 * @param centerX

@@ -9,7 +9,7 @@ public abstract class Unit implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	protected transient Utils utils;
+	protected Utils utils;
 
 	/**
 	 * {@code Nation} of the {@code Unit}
@@ -20,11 +20,6 @@ public abstract class Unit implements Serializable
 	 * {@code Tile} the {@code Unit} is currently on
 	 */
 	public Tile tile;
-
-	/**
-	 * {@code UnitType} of the {@code Unit}
-	 */
-	public UnitType unitType;
 
 	/**
 	 * Maximum number of health points the {@code Unit} can have (also the
@@ -61,15 +56,15 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Initialize the unit
-	 * 
+	 *
 	 * @param nation
-	 *            nation of the Unit
+	 *            Nation of the Unit
 	 * @param level
 	 *            {@code Unit} {@code level} to base other fields on
 	 * @param xCoord
-	 *            initial x-coordinate
+	 *            Initial x-coordinate
 	 * @param yCoord
-	 *            initial y-coordinate
+	 *            Initial y-coordinate
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -91,8 +86,6 @@ public abstract class Unit implements Serializable
 
 	protected abstract void assignByLevel();
 
-	protected abstract int getMoveError(Tile toTile);
-
 	/**
 	 * Move the {@code Unit} to a specific {@code Tile} if legal
 	 * 
@@ -100,42 +93,16 @@ public abstract class Unit implements Serializable
 	 *            {@code Tile} to move to
 	 * @return exit status (see implementations)
 	 */
-	public int move(Tile toTile)
-	{
-		int moveError = getMoveError(toTile);
-
-		if (moveError != 0)
-		{
-			return moveError;
-		}
-
-		// Delete the old one
-		tile.removeUnit(this);
-
-		// Check if own Nation has abandoned Tile
-		if (tile.soldiers.size() + tile.settlers.size() == 0
-				&& tile.city == null)
-		{
-			tile.nat = Nationality.NEUTRAL;
-		}
-
-		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
-				+ toTile + ".");
-
-		// Add to new one
-		tile = toTile;
-		tile.addUnit(this);
-
-		// Decrement movesLeft
-		movesLeft--;
-
-		return moveError;
-	}
+	public abstract int move(Tile tile);
 
 	/**
-	 * Randomly generate amount of attack with in a fight. Considers health,
-	 * power, and defense capability.
-	 * 
+	 * Remove all references to the {@code Unit} (kill it)
+	 */
+	public abstract void delete();
+
+	/**
+	 * Randomly generate hits to hit an enemy {@code Unit} with in a fight
+	 *
 	 * @param power
 	 *            power {@code level} being used against enemy {@code Unit}
 	 * @param againstUnit
@@ -150,43 +117,11 @@ public abstract class Unit implements Serializable
 				* againstUnit.currentHealthPoints / againstUnit.maxHealthPoints;
 
 		double hits = thisEffectivePower * thisEffectivePower
-				/ attackerEffectivePower * (utils.random.nextDouble() + 1) / 2;
+				/ attackerEffectivePower * utils.random.nextDouble();
 
 		if (hits < 0)
 			return 0;
 		else
 			return hits;
-	}
-
-	/**
-	 * Remove all references to the {@code Unit} (kill it) (To be
-	 * {@code Override}d to add {@code UnitType} specific code)
-	 */
-	public void delete()
-	{
-		// Log unit death
-		utils.game.gw.eventLog("A " + this + " died on " + tile + ".");
-
-		// Remove references to the object
-		nation.units.remove(this);
-		if (tile.soldiers.size() + tile.settlers.size() == 0
-				&& tile.city == null)
-		{
-			tile.nat = Nationality.NEUTRAL;
-		}
-		
-		tile.removeUnit(this);
-	}
-
-	@Override
-	public String toString()
-	{
-		return this.nation.nationality + " Level " + level + " " + unitType
-				+ " Unit";
-	}
-
-	public void onDeserialization(Utils utils)
-	{
-		this.utils = utils;
 	}
 }

@@ -1,15 +1,13 @@
 package com.lqtz.globaldomination.gameplay;
 
-import java.io.Serializable;
-
 /**
- * 
+ *
  * Enum for what nationality an object can be.
- * 
+ *
  * @author Gandalf
- * 
+ *
  */
-public enum Nationality implements Serializable
+public enum Nationality
 {
 	RED, GREEN, BLUE, YELLOW, NEUTRAL;
 

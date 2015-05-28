@@ -1,14 +1,11 @@
 package com.lqtz.globaldomination.gameplay;
 
-import java.io.Serializable;
-
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class City implements Serializable
+public class City
 {
-	private static final long serialVersionUID = 1L;
-	private transient Utils utils;
+	private Utils utils;
 
 	/**
 	 * {@code Nation} of the {@code City}
@@ -37,7 +34,7 @@ public class City implements Serializable
 
 	/**
 	 * {@code City} on a {@code Tile} that grows {@code Unit}s
-	 * 
+	 *
 	 * @param tile
 	 *            {@code Tile} the {@code City} is on
 	 * @param nation
@@ -59,7 +56,7 @@ public class City implements Serializable
 	/**
 	 * Grow a unit in the city (dispatch a {@code CountdownTask} that creates a
 	 * unit)
-	 * 
+	 *
 	 * @param ut
 	 *            {@code UnitType} of the {@code Unit} to grow
 	 * @param level
@@ -71,22 +68,12 @@ public class City implements Serializable
 		growUnitLevel = level;
 		isGrowing = true;
 
-		utils.gw.eventLog(nation.nationality
-				+ " has initiated growing of a level " + level + " " + ut
-				+ " unit on " + tile + ".\nThis will take " + (level * 2)
-				+ " moves.");
-
 		utils.game.countdownTasks.add(new CountdownTask(level * 2)
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public void run()
 			{
 				City.this.stopGrowing();
-				City.this.utils.gw.eventLog(nation.nationality
-						+ " has grown a level " + level + " " + ut
-						+ " unit on " + tile + ".");
 
 				if (ut == UnitType.SETTLER)
 				{
@@ -108,10 +95,5 @@ public class City implements Serializable
 	public void stopGrowing()
 	{
 		isGrowing = false;
-	}
-
-	public void onDeserialization(Utils utils)
-	{
-		this.utils = utils;
 	}
 }

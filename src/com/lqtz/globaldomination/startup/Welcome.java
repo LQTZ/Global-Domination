@@ -30,7 +30,7 @@ public class Welcome extends JFrame
 
 	/**
 	 * Welcome screen for links to info pages and new game
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -59,9 +59,9 @@ public class Welcome extends JFrame
 
 	/**
 	 * Start Global Domination
-	 * 
+	 *
 	 * @param args
-	 *            command-line arguments (unused)
+	 *            Command-line arguments (unused)
 	 */
 	public static void main(String[] args)
 	{
@@ -152,7 +152,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(utils, true);
+					new GameWindow(utils);
 					break;
 				}
 				case 1: // Settings button
@@ -168,7 +168,7 @@ public class Welcome extends JFrame
 					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 					frame.dispatchEvent(new WindowEvent(frame,
 							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(utils, false);
+					new GameWindow(utils);
 					break;
 				}
 				case 3: // About button

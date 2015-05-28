@@ -1,12 +1,8 @@
 package com.lqtz.globaldomination.gameplay;
 
-import java.io.Serializable;
-
-public enum UnitType implements Serializable
+public enum UnitType
 {
 	SETTLER, SOLDIER;
-
-	private static final long serialVersionUID = 1L;
 
 	@Override
 	public String toString()
@@ -23,7 +19,7 @@ public enum UnitType implements Serializable
 
 	/**
 	 * Get {@code UnitType} from a {@code String}
-	 * 
+	 *
 	 * @param s
 	 *            {@code String} to translate
 	 * @return {@code UnitType} the {@code String} represents

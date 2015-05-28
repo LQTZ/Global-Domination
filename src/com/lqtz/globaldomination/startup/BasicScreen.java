@@ -28,9 +28,9 @@ public abstract class BasicScreen extends JFrame
 
 	/**
 	 * Basic fullscreen {@code JFrame}
-	 * 
+	 *
 	 * @param titleStr
-	 *            {@code String} for the title text
+	 *            {@code String}(s?) for the title text
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */

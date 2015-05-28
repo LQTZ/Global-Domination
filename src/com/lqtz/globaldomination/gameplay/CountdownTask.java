@@ -1,10 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
-import java.io.Serializable;
-
-public abstract class CountdownTask implements Runnable, Serializable
+public abstract class CountdownTask implements Runnable
 {
-	private static final long serialVersionUID = 1L;
 	private int moves;
 
 	/**
@@ -15,9 +12,9 @@ public abstract class CountdownTask implements Runnable, Serializable
 	/**
 	 * Runnable that waits a certain number of turns then executes its
 	 * {@code run()} method (to be overridden)
-	 * 
+	 *
 	 * @param moves
-	 *            number of moves to wait before executing {@code run()}
+	 *            Number of moves to wait before executing {@code run()}
 	 */
 	public CountdownTask(int moves)
 	{

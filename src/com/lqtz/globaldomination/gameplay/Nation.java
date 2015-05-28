@@ -1,15 +1,13 @@
 package com.lqtz.globaldomination.gameplay;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Nation implements Serializable
+public class Nation
 {
-	private static final long serialVersionUID = 1L;
-	private transient Utils utils;
+	private Utils utils;
 
 	/**
 	 * Nationality of the nation
@@ -43,9 +41,9 @@ public class Nation implements Serializable
 
 	/**
 	 * Object representing a {@code Nation} (player) in the game
-	 * 
+	 *
 	 * @param nationality
-	 *            nationality of the nation
+	 *            Nationality of the nation
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -60,7 +58,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a soldier to the Nation's units list
-	 * 
+	 *
 	 * @param level
 	 *            {@code level} of the {@code Soldier}
 	 * @param xCoord
@@ -76,7 +74,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a settler to the Nation's units list
-	 * 
+	 *
 	 * @param level
 	 *            {@code level} of the {@code Settler}
 	 * @param xCoord
@@ -92,7 +90,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a {@code City}
-	 * 
+	 *
 	 * @param t
 	 *            {@code Tile} to put the {@code City} on
 	 */
@@ -102,10 +100,5 @@ public class Nation implements Serializable
 		cities.add(c);
 		t.city = c;
 		t.nat = nationality;
-	}
-
-	public void onDeserialization(Utils utils)
-	{
-		this.utils = utils;
 	}
 }
