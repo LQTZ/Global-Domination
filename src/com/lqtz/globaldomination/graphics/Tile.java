@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +13,13 @@ import com.lqtz.globaldomination.gameplay.City;
 import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.gameplay.Settler;
 import com.lqtz.globaldomination.gameplay.Soldier;
+import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Tile
+public class Tile implements Serializable
 {
-	private Utils utils;
+	private static final long serialVersionUID = 1L;
+	private transient Utils utils;
 	private int centerX;
 	private int centerY;
 	private int tileSize;
@@ -37,12 +40,12 @@ public class Tile
 	public int tileRevenue;
 
 	/**
-	 * Productivity of the {@code City}s on the {@code Tile} would collect
+	 * Productivity {@code City}s on the {@code Tile} would collect
 	 */
 	public int tileProductivity;
 
 	/**
-	 * {@code City}s on the {@code Tile} (null if no city)
+	 * {@code City} on the {@code Tile} (null if no city)
 	 */
 	public City city;
 
@@ -59,12 +62,12 @@ public class Tile
 	/**
 	 * Whether or not the {@code Tile} is currently being moused over
 	 */
-	public boolean isHighlighted;
+	public transient boolean isHighlighted;
 
 	/**
 	 * Whether or not the {@code Tile} currently selected (clicked)
 	 */
-	public boolean isSelected;
+	public transient boolean isSelected;
 
 	/**
 	 * All the {@code Settler}s on the {@code Tile}
@@ -79,7 +82,7 @@ public class Tile
 	/**
 	 * {@code HashMap} that contains all possible colors. Each array of colors
 	 * has the following format:
-	 *
+	 * 
 	 * <p>
 	 * <code>{normalColor, highlightedColor, selectedColor}</code>
 	 */
@@ -87,7 +90,7 @@ public class Tile
 
 	/**
 	 * A {@code Tile} in the Map
-	 *
+	 * 
 	 * @param xCoord
 	 *            x-coordinate of the {@code Tile} on the map
 	 * @param yCoord
@@ -97,12 +100,12 @@ public class Tile
 	 * @param centerY
 	 *            y-coordinate of center of the {@code Hexagon}
 	 * @param tileSize
-	 *            Radius of circumscribed circle (multiple of 8) of the
+	 *            radius of circumscribed circle (multiple of 8) of the
 	 *            {@code Hexagon}
 	 * @param revenue
-	 *            Revenue Cities on the {@code Tile} would collect
+	 *            revenue Cities on the {@code Tile} would collect
 	 * @param productivity
-	 *            Productivity Cities on the {@code Tile} would collect
+	 *            productivity Cities on the {@code Tile} would collect
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -213,6 +216,64 @@ public class Tile
 		// center the text to the center of the image --> tileSize / 8
 		g.drawString(str, x - width / 2 + tileSize / 8, y + yOffset + tileSize
 				/ 8);
+	}
 
+	/**
+	 * Add a {@code Unit} to its respective {@code ArrayList} on the
+	 * {@code Tile}
+	 * 
+	 * @param unit
+	 *            {@code Unit} to add to {@code Tile}
+	 */
+	public void addUnit(Unit unit)
+	{
+		if (unit instanceof Settler)
+		{
+			settlers.add((Settler) unit);
+		}
+
+		else
+		{
+			soldiers.add((Soldier) unit);
+		}
+	}
+	
+	/**
+	 * Remove a {@code Unit} from its respective {@code ArrayList} on the
+	 * {@code Tile}
+	 * 
+	 * @param unit
+	 *            {@code Unit} to remove from {@code Tile}
+	 */
+	public void removeUnit(Unit unit)
+	{
+		if (unit instanceof Settler)
+		{
+			settlers.remove((Settler) unit);
+		}
+
+		else
+		{
+			soldiers.remove((Soldier) unit);
+		}
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Tile " + (xCoord + 1) + ", " + (yCoord + 1);
+	}
+
+	public void onDeserialization(Utils utils)
+	{
+		this.utils = utils;
+		if (city != null)
+		{
+			city.onDeserialization(utils);
+		}
+		for (Unit u : settlers)
+		{
+			u.onDeserialization(utils);
+		}
 	}
 }

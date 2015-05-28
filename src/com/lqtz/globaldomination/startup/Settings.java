@@ -30,10 +30,6 @@ import javax.swing.text.BadLocationException;
 
 import com.lqtz.globaldomination.io.Utils;
 
-/**
- * Needs comments
- */
-
 public class Settings extends BasicScreen implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
@@ -68,7 +64,7 @@ public class Settings extends BasicScreen implements ActionListener
 
 	/**
 	 * Settings screen
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */

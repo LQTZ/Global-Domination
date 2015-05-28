@@ -19,7 +19,7 @@ public class Soldier extends Unit
 
 	/**
 	 * {@code Soldier} {@code Unit}
-	 *
+	 * 
 	 * @param nation
 	 *            {@code Nation} the {@code Soldier} belongs to
 	 * @param level
@@ -34,7 +34,8 @@ public class Soldier extends Unit
 	public Soldier(Nation nation, int level, int xCoord, int yCoord, Utils utils)
 	{
 		super(nation, level, xCoord, yCoord, utils);
-		utils.game.tiles[xCoord][yCoord].soldiers.add(this);
+		unitType = UnitType.SOLDIER;
+		utils.game.tiles[xCoord][yCoord].addUnit(this);
 	}
 
 	@Override
@@ -53,22 +54,25 @@ public class Soldier extends Unit
 			{
 				maxHealthPoints = 4;
 				defendPower = 3;
-				attackPower = 5;
+				attackPower = 3;
 				maxMoveDistance = 1;
+				break;
 			}
 			case 2:
 			{
 				maxHealthPoints = 6;
 				defendPower = 5;
-				attackPower = 7;
+				attackPower = 6;
 				maxMoveDistance = 1;
+				break;
 			}
 			case 3:
 			{
 				maxHealthPoints = 8;
 				defendPower = 7;
-				attackPower = 9;
+				attackPower = 8;
 				maxMoveDistance = 2;
+				break;
 			}
 			case 4:
 			{
@@ -76,6 +80,7 @@ public class Soldier extends Unit
 				defendPower = 9;
 				attackPower = 11;
 				maxMoveDistance = 2;
+				break;
 			}
 			case 5:
 			{
@@ -83,6 +88,7 @@ public class Soldier extends Unit
 				defendPower = 11;
 				attackPower = 13;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 6:
 			{
@@ -90,6 +96,7 @@ public class Soldier extends Unit
 				defendPower = 13;
 				attackPower = 15;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 7:
 			{
@@ -97,6 +104,7 @@ public class Soldier extends Unit
 				defendPower = 15;
 				attackPower = 17;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 8:
 			{
@@ -104,6 +112,7 @@ public class Soldier extends Unit
 				defendPower = 17;
 				attackPower = 19;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 9:
 			{
@@ -111,6 +120,7 @@ public class Soldier extends Unit
 				defendPower = 19;
 				attackPower = 21;
 				maxMoveDistance = 3;
+				break;
 			}
 			case 10:
 			{
@@ -118,62 +128,95 @@ public class Soldier extends Unit
 				defendPower = 21;
 				attackPower = 23;
 				maxMoveDistance = 5;
+				break;
 			}
 		}
 	}
 
 	/**
 	 * Move to a certain {@code Tile}
-	 *
+	 * 
 	 * @param toTile
 	 *            {@code Tile} to move to
 	 * @return Whether or not {@code move()} was legal (-2 if the
-	 *         {@code Soldier} has maximized out moves for the turn, -1 if the
+	 *         {@code Soldier} has maxed out moves for the turn, -1 if the
 	 *         {@code Tile}s are not adjacent, and 0 if {@code move()}
 	 *         successful)
 	 */
 	@Override
 	public int move(Tile toTile)
 	{
-		// Check if unit has maxed out moves for the turn
-		if (movesLeft <= 0)
-			return -2;
+		super.move(toTile);
 
-		// Make sure tile is not adjacent
-		else if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
-				|| (Math.abs(tile.xCoord - toTile.xCoord) > 1))
-			return -1;
-
-		// Delete the old one
-		tile.soldiers.remove(this);
-		nation.units.remove(this);
-
-		// Add new one
-		tile = toTile;
-		tile.soldiers.add(this);
+		checkCityFlip(toTile);
+		tile.nat = nation.nationality;
 
 		return 0;
 	}
 
+	@Override
+	protected int getMoveError(Tile toTile)
+	{
+		// Check if tile is not adjacent
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
+				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		{
+			return -1;
+		}
+
+		// Check if unit has maxed out moves for the turn
+		if (movesLeft <= 0)
+		{
+			return -2;
+		}
+
+		return 0;
+	}
+
+	private void checkCityFlip(Tile toTile)
+	{
+		// Check for foreign city flip
+		if (toTile.city != null)
+		{
+			if (toTile.city.nation.nationality != nation.nationality)
+			{
+				toTile.city.stopGrowing();
+				toTile.city = null;
+			}
+		}
+
+	}
+
 	/**
 	 * Attack a {@code Tile}
-	 *
-	 * @param tile
+	 * 
+	 * @param toTile
 	 *            {@code Tile} to attack
 	 */
-	public void attackTile(Tile tile)
+	public int attackTile(Tile toTile)
 	{
+		// Check if tile is not adjacent
+		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
+				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
+				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+		{
+			return -1;
+		}
+
 		ArrayList<Unit> unitsToAttack = new ArrayList<Unit>();
 
 		// Determine whether or not tile is hostile
-		for (Unit u : tile.soldiers)
+		for (Unit u : toTile.soldiers)
 		{
 			if (u.nation.nationality != nation.nationality)
 			{
 				unitsToAttack.add(u);
 			}
 		}
-		for (Unit u : tile.settlers)
+		for (Unit u : toTile.settlers)
 		{
 			if (u.nation.nationality != nation.nationality)
 			{
@@ -196,20 +239,51 @@ public class Soldier extends Unit
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
 		}
+
+		boolean survivors = false;
+
+		// Determine whether or not tile is hostile
+		for (Unit u : toTile.soldiers)
+		{
+			if (u.nation.nationality != nation.nationality)
+			{
+				survivors = true;
+			}
+		}
+		for (Unit u : toTile.settlers)
+		{
+			if (u.nation.nationality != nation.nationality)
+			{
+				survivors = true;
+			}
+		}
+
+		if (!survivors)
+		{
+			toTile.nat = Nationality.NEUTRAL;
+			toTile.city = null;
+		}
+
+		return 0;
 	}
 
 	/**
 	 * Attacks (hits) a specific enemy {@code Unit}, checks if enemy
 	 * {@code Unit} is dead, if not gets enemy {@code Unit} to hit back, and
-	 * checks if itself is dead
-	 *
+	 * checks if self is dead
+	 * 
 	 * @param defender
 	 *            {@code Unit} to attack
 	 */
 	public void attackUnit(Unit defender)
 	{
+		utils.gw.eventLog("A " + this + " attacked a " + defender + ".");
+
 		// Attack hits
-		defender.currentHealthPoints -= generateHits(attackPower, defender);
+		double damage = generateHits(attackPower, defender);
+		defender.currentHealthPoints -= damage;
+		utils.gw.eventLog("The " + defender + " lost "
+				+ Math.round(damage * 1000) / 1000.0 + " points.");
 
 		// Check for kill
 		if (defender.currentHealthPoints <= 0)
@@ -219,18 +293,13 @@ public class Soldier extends Unit
 		}
 
 		// Recieved hits
-		currentHealthPoints -= defender
-				.generateHits(defender.defendPower, this);
+		double defendDamage = defender.generateHits(defender.defendPower, this);
+		currentHealthPoints -= defendDamage;
+		utils.gw.eventLog("The " + this + " lost "
+				+ Math.round(defendDamage * 1000) / 1000.0 + " points.");
 
 		// Check for kill
 		if (currentHealthPoints <= 0)
 			delete();
-	}
-
-	@Override
-	public void delete()
-	{
-		nation.units.remove(this);
-		tile.soldiers.remove(this);
 	}
 }

@@ -48,10 +48,15 @@ public class Images
 	public BufferedImage[] settlers;
 
 	/**
+	 * Pointer icon (yellow triangle next to selected things)
+	 */
+	public BufferedImage pointer;
+
+	/**
 	 * Load images
 	 * 
 	 * @throws IOException
-	 *             Error loading images
+	 *             error loading images
 	 */
 	public Images() throws IOException
 	{
@@ -79,5 +84,8 @@ public class Images
 			settlers[i] = ImageIO.read(getClass().getResourceAsStream(
 					"/images/settler/level" + (i + 1) + ".png"));
 		}
+
+		pointer = ImageIO.read(getClass().getResourceAsStream(
+				"/images/pointer.png"));
 	}
 }

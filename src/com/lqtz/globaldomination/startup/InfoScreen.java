@@ -33,15 +33,15 @@ public class InfoScreen extends BasicScreen
 
 	/**
 	 * Read the text for the page
-	 *
+	 * 
 	 * @param input
 	 *            {@code InputStream} of the .txt file with the page's body text
 	 * @param titleStr
-	 *            Title of the page
+	 *            title of the page
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @throws IOException
-	 *            Error loading body text
+	 *             error loading body text
 	 */
 	public InfoScreen(InputStream input, String titleStr, Utils utils)
 			throws IOException
@@ -52,13 +52,13 @@ public class InfoScreen extends BasicScreen
 	/**
 	 * Screen with only a header, a body, and an exit button (e.g. the about
 	 * page)
-	 *
+	 * 
 	 * @param text
-	 *            Text to display in window
+	 *            text to display in window
 	 * @param titleStr
-	 *            Text to display in the title
+	 *            text to display in the title
 	 * @param utils
-	 * 	          GD {@code Utils} utility
+	 *            GD {@code Utils} utility
 	 */
 	public InfoScreen(String text, String titleStr, Utils utils)
 	{
