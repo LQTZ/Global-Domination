@@ -5,6 +5,22 @@ import java.io.Serializable;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public abstract class Unit implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -61,7 +77,7 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Initialize the unit
-	 * 
+	 *
 	 * @param nation
 	 *            nation of the Unit
 	 * @param level
@@ -95,9 +111,10 @@ public abstract class Unit implements Serializable
 
 	/**
 	 * Move the {@code Unit} to a specific {@code Tile} if legal
-	 * 
-	 * @param tile
-	 *            {@code Tile} to move to
+	 *
+	 * @param toTile
+	 *            {@code Tile} the {@code Unit} is moving to
+	 *
 	 * @return exit status (see implementations)
 	 */
 	public int move(Tile toTile)
@@ -135,7 +152,7 @@ public abstract class Unit implements Serializable
 	/**
 	 * Randomly generate amount of attack with in a fight. Considers health,
 	 * power, and defense capability.
-	 * 
+	 *
 	 * @param power
 	 *            power {@code level} being used against enemy {@code Unit}
 	 * @param againstUnit
@@ -174,7 +191,7 @@ public abstract class Unit implements Serializable
 		{
 			tile.nat = Nationality.NEUTRAL;
 		}
-		
+
 		tile.removeUnit(this);
 	}
 
@@ -185,6 +202,12 @@ public abstract class Unit implements Serializable
 				+ " Unit";
 	}
 
+	/**
+	 * Reinstate {@code transient} fields
+	 *
+	 * @param utils
+	 *            new {@code Utils}
+	 */
 	public void onDeserialization(Utils utils)
 	{
 		this.utils = utils;

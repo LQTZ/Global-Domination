@@ -37,6 +37,22 @@ import com.lqtz.globaldomination.gameplay.Settler;
 import com.lqtz.globaldomination.io.Utils;
 import com.lqtz.globaldomination.startup.Welcome;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class GameWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
@@ -66,10 +82,18 @@ public class GameWindow extends JFrame
 	private JScrollPane tileInfoScroll;
 
 	/**
-	 * Action {@code JButton}s of the {@code GameWindow}
+	 * {@code Unit} action {@code JButton}s of the {@code GameWindow}
 	 */
 	public JButton[] unitButtons;
+
+	/**
+	 * {@code Tile} action {@code JButton}s of the {@code GameWindow}
+	 */
 	public JButton[] tileButtons;
+
+	/**
+	 * Other action {@code JButton}s of the {@code GameWindow}
+	 */
 	public JButton[] miscButtons;
 
 	/**
@@ -110,9 +134,12 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Main game interface window
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
+	 * @param newGame
+	 *            whether or not the game is a new game (versus being a loaded
+	 *            game)
 	 */
 	public GameWindow(Utils utils, boolean newGame)
 	{
@@ -589,7 +616,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Logs an event
-	 * 
+	 *
 	 * @param s
 	 *            the event to be logged
 	 */
@@ -610,7 +637,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Set the text of {@code infoBox}
-	 * 
+	 *
 	 * @param s
 	 *            text to set {@code infoBox} to
 	 */
@@ -619,6 +646,12 @@ public class GameWindow extends JFrame
 		infoBox.setText(s);
 	}
 
+	/**
+	 * Toggle whose turn it is
+	 *
+	 * @param n
+	 *            {@code Nationality} of the next player
+	 */
 	public void newTurn(Nationality n)
 	{
 		infoBox.setBackground(utils.infoBoxColors.get(n));
@@ -626,24 +659,24 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Updates text pane contents.
-	 * 
+	 *
 	 * <p>
 	 * The {@code Map} should be of the form
 	 * <code>{paneName : newContents, paneName : newContents... }</code> Note
 	 * that the new contents can be both {@code String}s or
 	 * {@code StyledDocument}s.
-	 * 
+	 *
 	 * <p>
 	 * The {@code paneName}s can be
 	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
-	 * 
+	 *
 	 * <p>
 	 * <b>Note:</b> The strings or documents should not include the title. They
 	 * should contain newlines at the end.
-	 * 
+	 *
 	 * <p>
 	 * Use the <code>eventLog</code> method to access the event log.
-	 * 
+	 *
 	 * @param diffs
 	 *            {@code diffs} map
 	 * @throws IllegalArgumentException
@@ -771,10 +804,11 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Change the visible button pane
-	 * 
+	 *
 	 * 0 - misc 1 - unit 2 - tile
-	 * 
+	 *
 	 * @param n
+	 *            index of the pane to bring up
 	 */
 	public void togglePane(int n)
 	{
@@ -801,6 +835,9 @@ public class GameWindow extends JFrame
 		controlPane.revalidate();
 	}
 
+	/**
+	 * Close the window
+	 */
 	public void exit()
 	{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

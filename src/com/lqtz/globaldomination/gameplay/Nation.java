@@ -6,6 +6,22 @@ import java.util.ArrayList;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class Nation implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +59,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Object representing a {@code Nation} (player) in the game
-	 * 
+	 *
 	 * @param nationality
 	 *            nationality of the nation
 	 * @param utils
@@ -60,7 +76,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a soldier to the Nation's units list
-	 * 
+	 *
 	 * @param level
 	 *            {@code level} of the {@code Soldier}
 	 * @param xCoord
@@ -76,7 +92,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a settler to the Nation's units list
-	 * 
+	 *
 	 * @param level
 	 *            {@code level} of the {@code Settler}
 	 * @param xCoord
@@ -92,7 +108,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a {@code City}
-	 * 
+	 *
 	 * @param t
 	 *            {@code Tile} to put the {@code City} on
 	 */
@@ -104,6 +120,12 @@ public class Nation implements Serializable
 		t.nat = nationality;
 	}
 
+	/**
+	 * Reinstate {@code transient} fields
+	 *
+	 * @param utils
+	 *            new {@code Utils}
+	 */
 	public void onDeserialization(Utils utils)
 	{
 		this.utils = utils;

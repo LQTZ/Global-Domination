@@ -7,6 +7,22 @@ import java.util.Comparator;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class Soldier extends Unit
 {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +35,7 @@ public class Soldier extends Unit
 
 	/**
 	 * {@code Soldier} {@code Unit}
-	 * 
+	 *
 	 * @param nation
 	 *            {@code Nation} the {@code Soldier} belongs to
 	 * @param level
@@ -135,7 +151,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Move to a certain {@code Tile}
-	 * 
+	 *
 	 * @param toTile
 	 *            {@code Tile} to move to
 	 * @return Whether or not {@code move()} was legal (-2 if the
@@ -191,9 +207,10 @@ public class Soldier extends Unit
 
 	/**
 	 * Attack a {@code Tile}
-	 * 
+	 *
 	 * @param toTile
 	 *            {@code Tile} to attack
+	 * @return attack status
 	 */
 	public int attackTile(Tile toTile)
 	{
@@ -228,13 +245,13 @@ public class Soldier extends Unit
 		if (unitsToAttack.size() > 0)
 		{
 			Collections.sort(unitsToAttack, new Comparator<Unit>()
-			{
+					{
 				@Override
 				public int compare(Unit o1, Unit o2)
 				{
 					return Double.compare(o1.defendPower, o2.defendPower);
 				}
-			});
+					});
 
 			// Attack the greatest defensive power
 			attackUnit(unitsToAttack.get(unitsToAttack.size() - 1));
@@ -271,7 +288,7 @@ public class Soldier extends Unit
 	 * Attacks (hits) a specific enemy {@code Unit}, checks if enemy
 	 * {@code Unit} is dead, if not gets enemy {@code Unit} to hit back, and
 	 * checks if self is dead
-	 * 
+	 *
 	 * @param defender
 	 *            {@code Unit} to attack
 	 */

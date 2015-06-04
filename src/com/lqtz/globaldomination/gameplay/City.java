@@ -5,6 +5,22 @@ import java.io.Serializable;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class City implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +53,7 @@ public class City implements Serializable
 
 	/**
 	 * {@code City} on a {@code Tile} that grows {@code Unit}s
-	 * 
+	 *
 	 * @param tile
 	 *            {@code Tile} the {@code City} is on
 	 * @param nation
@@ -59,7 +75,7 @@ public class City implements Serializable
 	/**
 	 * Grow a unit in the city (dispatch a {@code CountdownTask} that creates a
 	 * unit)
-	 * 
+	 *
 	 * @param ut
 	 *            {@code UnitType} of the {@code Unit} to grow
 	 * @param level
@@ -110,6 +126,12 @@ public class City implements Serializable
 		isGrowing = false;
 	}
 
+	/**
+	 * Reinstate {@code transient} fields
+	 *
+	 * @param utils
+	 *            new {@code Utils}
+	 */
 	public void onDeserialization(Utils utils)
 	{
 		this.utils = utils;

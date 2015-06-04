@@ -20,6 +20,22 @@ import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.graphics.GameWindow;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class Utils
 {
 	/**
@@ -52,6 +68,9 @@ public class Utils
 	 */
 	public Game game = null;
 
+	/**
+	 * {@code GameWindow} to play the game in
+	 */
 	public GameWindow gw = null;
 
 	/**
@@ -64,6 +83,9 @@ public class Utils
 	 */
 	public final HashMap<String, Color> buttonColors;
 
+	/**
+	 * {@code Color}s of the info boxes
+	 */
 	public final HashMap<Nationality, Color> infoBoxColors;
 
 	/**
@@ -119,7 +141,7 @@ public class Utils
 
 	/**
 	 * Serializes {@code Game} object.
-	 * 
+	 *
 	 * @return whether successful
 	 */
 	public boolean serializeGame()
@@ -152,10 +174,10 @@ public class Utils
 
 	/**
 	 * Deserializes {@code Game} object.
-	 * 
+	 *
 	 * @return {@code Game} object or {@code null} if cancelled
-	 * @throws if
-	 *             file is bad
+	 * @throws IOException
+	 *             if game file is corrupted
 	 */
 	public Game deserializeGame() throws IOException
 	{
@@ -187,9 +209,9 @@ public class Utils
 
 	/**
 	 * Filters only {@code .gdm} files and directories.
-	 * 
+	 *
 	 * @author Daniel
-	 * 
+	 *
 	 */
 	private class GDMFilter extends FileFilter
 	{

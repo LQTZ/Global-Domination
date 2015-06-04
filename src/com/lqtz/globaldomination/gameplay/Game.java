@@ -14,6 +14,22 @@ import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class Game implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -71,7 +87,7 @@ public class Game implements Serializable
 
 	/**
 	 * A GD game
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @param gw
@@ -167,7 +183,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedTile}
-	 * 
+	 *
 	 * @param tileToSelect
 	 *            new selected {@code Tile}
 	 */
@@ -191,7 +207,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedUnit}
-	 * 
+	 *
 	 * @param unitToSelect
 	 *            new selected {@code Unit}
 	 */
@@ -220,7 +236,7 @@ public class Game implements Serializable
 
 	/**
 	 * Grow a unit selected by a {@code JOptionPane}
-	 * 
+	 *
 	 * @return Error value (-1 if city belongs to someone else, -2 if city
 	 *         already building something)
 	 */
@@ -252,7 +268,7 @@ public class Game implements Serializable
 		String s = (String) JOptionPane.showInputDialog(gw,
 				"Which unit would you like your city to work on "
 						+ "right now?", "Grow Unit", JOptionPane.PLAIN_MESSAGE,
-				null, possibilities, "--");
+						null, possibilities, "--");
 
 		// Check for null string
 		if (!((s == null) || (s == "--")))
@@ -264,7 +280,7 @@ public class Game implements Serializable
 			int confirm = JOptionPane.showConfirmDialog(gw,
 					"You are about to grow a unit. This cannot be"
 							+ " cancelled.", "Grow Unit Confirmation",
-					JOptionPane.OK_CANCEL_OPTION);
+							JOptionPane.OK_CANCEL_OPTION);
 			if (confirm == JOptionPane.OK_OPTION)
 			{
 				selectedTile.city.growUnit(UnitType.fromString(utString), ul);
@@ -501,10 +517,12 @@ public class Game implements Serializable
 	}
 
 	/**
-	 * Call this when deserialized.
-	 * 
+	 * Reinstate {@code transient} fields
+	 *
 	 * @param utils
+	 *            new {@code Utils}
 	 * @param gw
+	 *            new {@code GameWindow}
 	 */
 	public void onDeserialization(Utils utils, GameWindow gw)
 	{

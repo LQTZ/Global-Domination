@@ -23,6 +23,22 @@ import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.io.Utils;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class InfoScreen extends BasicScreen
 {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +49,7 @@ public class InfoScreen extends BasicScreen
 
 	/**
 	 * Read the text for the page
-	 * 
+	 *
 	 * @param input
 	 *            {@code InputStream} of the .txt file with the page's body text
 	 * @param titleStr
@@ -52,7 +68,7 @@ public class InfoScreen extends BasicScreen
 	/**
 	 * Screen with only a header, a body, and an exit button (e.g. the about
 	 * page)
-	 * 
+	 *
 	 * @param text
 	 *            text to display in window
 	 * @param titleStr

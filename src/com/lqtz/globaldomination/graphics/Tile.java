@@ -16,6 +16,22 @@ import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Utils;
 
+/**
+ * This file is part of Global Domination.
+ *
+ * Global Domination is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Global Domination is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * Global Domination. If not, see <http://www.gnu.org/licenses/>.
+ */
 public class Tile implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -82,7 +98,7 @@ public class Tile implements Serializable
 	/**
 	 * {@code HashMap} that contains all possible colors. Each array of colors
 	 * has the following format:
-	 * 
+	 *
 	 * <p>
 	 * <code>{normalColor, highlightedColor, selectedColor}</code>
 	 */
@@ -90,7 +106,7 @@ public class Tile implements Serializable
 
 	/**
 	 * A {@code Tile} in the Map
-	 * 
+	 *
 	 * @param xCoord
 	 *            x-coordinate of the {@code Tile} on the map
 	 * @param yCoord
@@ -221,7 +237,7 @@ public class Tile implements Serializable
 	/**
 	 * Add a {@code Unit} to its respective {@code ArrayList} on the
 	 * {@code Tile}
-	 * 
+	 *
 	 * @param unit
 	 *            {@code Unit} to add to {@code Tile}
 	 */
@@ -237,11 +253,11 @@ public class Tile implements Serializable
 			soldiers.add((Soldier) unit);
 		}
 	}
-	
+
 	/**
 	 * Remove a {@code Unit} from its respective {@code ArrayList} on the
 	 * {@code Tile}
-	 * 
+	 *
 	 * @param unit
 	 *            {@code Unit} to remove from {@code Tile}
 	 */
@@ -249,12 +265,12 @@ public class Tile implements Serializable
 	{
 		if (unit instanceof Settler)
 		{
-			settlers.remove((Settler) unit);
+			settlers.remove(unit);
 		}
 
 		else
 		{
-			soldiers.remove((Soldier) unit);
+			soldiers.remove(unit);
 		}
 	}
 
@@ -264,6 +280,12 @@ public class Tile implements Serializable
 		return "Tile " + (xCoord + 1) + ", " + (yCoord + 1);
 	}
 
+	/**
+	 * Reinstate {@code transient} fields
+	 *
+	 * @param utils
+	 *            new {@code Utils}
+	 */
 	public void onDeserialization(Utils utils)
 	{
 		this.utils = utils;
