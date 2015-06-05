@@ -68,7 +68,7 @@ public class GameWindow extends JFrame
 	private JTextPane eventLogPane; // Event log pane
 	private JScrollPane eventLogScroll;
 	private JPanel centerPanel; // Panel with map pane, action buttons pane, and
-	// combat info pane
+								// combat info pane
 	private GameScreen mapPane; // Map pane
 	private JPanel controlPane; // Pane with buttons pane and combat odds pane
 	private AlphaJPanel unitButtonsPane; // Pane with action buttons
@@ -135,7 +135,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Main game interface window
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @param newGame
@@ -617,7 +617,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Logs an event
-	 *
+	 * 
 	 * @param s
 	 *            the event to be logged
 	 */
@@ -638,7 +638,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Set the text of {@code infoBox}
-	 *
+	 * 
 	 * @param s
 	 *            text to set {@code infoBox} to
 	 */
@@ -649,7 +649,7 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Toggle whose turn it is
-	 *
+	 * 
 	 * @param n
 	 *            {@code Nationality} of the next player
 	 */
@@ -660,24 +660,24 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Updates text pane contents.
-	 *
+	 * 
 	 * <p>
 	 * The {@code Map} should be of the form
 	 * <code>{paneName : newContents, paneName : newContents... }</code> Note
 	 * that the new contents can be both {@code String}s or
 	 * {@code StyledDocument}s.
-	 *
+	 * 
 	 * <p>
 	 * The {@code paneName}s can be
 	 * <code><ul><li>"units"<li>"tile"<li>"city"<li>"game"</ul></code>
-	 *
+	 * 
 	 * <p>
 	 * <b>Note:</b> The strings or documents should not include the title. They
 	 * should contain newlines at the end.
-	 *
+	 * 
 	 * <p>
 	 * Use the <code>eventLog</code> method to access the event log.
-	 *
+	 * 
 	 * @param diffs
 	 *            {@code diffs} map
 	 * @throws IllegalArgumentException
@@ -805,9 +805,9 @@ public class GameWindow extends JFrame
 
 	/**
 	 * Change the visible button pane
-	 *
+	 * 
 	 * 0 - misc 1 - unit 2 - tile
-	 *
+	 * 
 	 * @param n
 	 *            index of the pane to bring up
 	 */

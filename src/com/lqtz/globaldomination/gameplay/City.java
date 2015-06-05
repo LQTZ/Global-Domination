@@ -54,7 +54,7 @@ public class City implements Serializable
 
 	/**
 	 * {@code City} on a {@code Tile} that grows {@code Unit}s
-	 *
+	 * 
 	 * @param tile
 	 *            {@code Tile} the {@code City} is on
 	 * @param nation
@@ -76,7 +76,7 @@ public class City implements Serializable
 	/**
 	 * Grow a unit in the city (dispatch a {@code CountdownTask} that creates a
 	 * unit)
-	 *
+	 * 
 	 * @param ut
 	 *            {@code UnitType} of the {@code Unit} to grow
 	 * @param level
@@ -105,14 +105,7 @@ public class City implements Serializable
 						+ " has grown a level " + level + " " + ut
 						+ " unit on " + tile + ".");
 
-				if (ut == UnitType.SETTLER)
-				{
-					nation.addSettler(level, tile.xCoord, tile.yCoord);
-				}
-				else if (ut == UnitType.SOLDIER)
-				{
-					nation.addSoldier(level, tile.xCoord, tile.yCoord);
-				}
+				nation.addUnit(ut, level, tile.xCoord, tile.yCoord);
 				growUnitType = null;
 				growUnitLevel = -1;
 			}
@@ -129,7 +122,7 @@ public class City implements Serializable
 
 	/**
 	 * Reinstate {@code transient} fields
-	 *
+	 * 
 	 * @param utils
 	 *            new {@code Utils}
 	 */

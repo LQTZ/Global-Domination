@@ -88,7 +88,7 @@ public class Game implements Serializable
 
 	/**
 	 * A GD game
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @param gw
@@ -127,10 +127,10 @@ public class Game implements Serializable
 		yellowNat.addCity(tiles[utils.DIM - 1][utils.DIM - 1]);
 
 		// Init units in cities
-		redNat.addSettler(1, 0, 0);
-		greenNat.addSettler(1, 4, 0);
-		blueNat.addSettler(1, 0, 4);
-		yellowNat.addSettler(1, 4, 4);
+		redNat.addUnit(UnitType.SETTLER, 1, 0, 0);
+		greenNat.addUnit(UnitType.SETTLER, 1, 4, 0);
+		blueNat.addUnit(UnitType.SETTLER, 1, 0, 4);
+		yellowNat.addUnit(UnitType.SETTLER, 1, 4, 4);
 
 		gw.newTurn(turnNationality);
 		// Temp
@@ -138,53 +138,8 @@ public class Game implements Serializable
 	}
 
 	/**
-	 * Temporary method for running tests on GD
-	 */
-	@SuppressWarnings("unused")
-	private void test()
-	{
-		// Move red settler unit up one
-		tiles[0][0].settlers.get(0).move(tiles[0][1]);
-
-		// Build a city on that square
-		tiles[0][1].settlers.get(0).buildCity();
-
-		// Add red soldier and blue soldier
-		nations[0].addSoldier(4, 0, 0);
-		nations[2].addSoldier(4, 0, 4);
-
-		// Move red soldier up 2 and blue soldier down 1
-		tiles[0][0].soldiers.get(0).move(tiles[0][2]);
-		tiles[0][4].soldiers.get(0).move(tiles[0][3]);
-
-		// Red soldier attack blue soldier
-		tiles[0][2].soldiers.get(0).attackTile(tiles[0][3]);
-
-		// Display hp or unit dead
-		try
-		{
-			JOptionPane.showMessageDialog(gw, String
-					.valueOf(tiles[0][2].soldiers.get(0).currentHealthPoints));
-		}
-		catch (IndexOutOfBoundsException e)
-		{
-			JOptionPane.showMessageDialog(gw, "Unit dead");
-		}
-
-		try
-		{
-			JOptionPane.showMessageDialog(gw, String
-					.valueOf(tiles[0][3].soldiers.get(0).currentHealthPoints));
-		}
-		catch (IndexOutOfBoundsException e)
-		{
-			JOptionPane.showMessageDialog(gw, "Unit dead");
-		}
-	}
-
-	/**
 	 * Change {@code selectedTile}
-	 *
+	 * 
 	 * @param tileToSelect
 	 *            new selected {@code Tile}
 	 */
@@ -208,7 +163,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedUnit}
-	 *
+	 * 
 	 * @param unitToSelect
 	 *            new selected {@code Unit}
 	 */
@@ -237,7 +192,7 @@ public class Game implements Serializable
 
 	/**
 	 * Grow a unit selected by a {@code JOptionPane}
-	 *
+	 * 
 	 * @return Error value (-1 if city belongs to someone else, -2 if city
 	 *         already building something)
 	 */
@@ -269,7 +224,7 @@ public class Game implements Serializable
 		String s = (String) JOptionPane.showInputDialog(gw,
 				"Which unit would you like your city to work on "
 						+ "right now?", "Grow Unit", JOptionPane.PLAIN_MESSAGE,
-						null, possibilities, "--");
+				null, possibilities, "--");
 
 		// Check for null string
 		if (!((s == null) || (s == "--")))
@@ -281,7 +236,7 @@ public class Game implements Serializable
 			int confirm = JOptionPane.showConfirmDialog(gw,
 					"You are about to grow a unit. This cannot be"
 							+ " cancelled.", "Grow Unit Confirmation",
-							JOptionPane.OK_CANCEL_OPTION);
+					JOptionPane.OK_CANCEL_OPTION);
 			if (confirm == JOptionPane.OK_OPTION)
 			{
 				selectedTile.city.growUnit(UnitType.fromString(utString), ul);
@@ -519,7 +474,7 @@ public class Game implements Serializable
 
 	/**
 	 * Reinstate {@code transient} fields
-	 *
+	 * 
 	 * @param utils
 	 *            new {@code Utils}
 	 * @param gw

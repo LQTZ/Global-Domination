@@ -47,7 +47,7 @@ public class Welcome extends JFrame
 
 	/**
 	 * Welcome screen for links to info pages and new game
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -76,7 +76,7 @@ public class Welcome extends JFrame
 
 	/**
 	 * Start Global Domination
-	 *
+	 * 
 	 * @param args
 	 *            command-line arguments (unused)
 	 */

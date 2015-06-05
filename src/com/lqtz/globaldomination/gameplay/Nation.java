@@ -60,7 +60,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Object representing a {@code Nation} (player) in the game
-	 *
+	 * 
 	 * @param nationality
 	 *            nationality of the nation
 	 * @param utils
@@ -76,40 +76,34 @@ public class Nation implements Serializable
 	}
 
 	/**
-	 * Add a soldier to the Nation's units list
-	 *
+	 * Add a {@code Unit} to the {@code Nation}
+	 * 
+	 * @param ut
+	 *            {@code UnitType} of the {@code Unit} to add
 	 * @param level
-	 *            {@code level} of the {@code Soldier}
+	 *            {@code level} of the {@code Unit}
 	 * @param xCoord
-	 *            x-coordinate of the {@code Soldier}'s placement in the map
+	 *            x-coordinate of the {@code Unit}'s placement in the map
 	 * @param yCoord
-	 *            y-coordinate of the {@code Soldier}'s placement in the map
+	 *            y-coordinate of the {@code Unit}'s placement in the map
 	 */
-	public void addSoldier(int level, int xCoord, int yCoord)
+	public void addUnit(UnitType ut, int level, int xCoord, int yCoord)
 	{
-		Soldier s = new Soldier(this, level, xCoord, yCoord, utils);
-		units.add(s);
-	}
-
-	/**
-	 * Add a settler to the Nation's units list
-	 *
-	 * @param level
-	 *            {@code level} of the {@code Settler}
-	 * @param xCoord
-	 *            x-coordinate of the {@code Settler}'s placement in the map
-	 * @param yCoord
-	 *            y-coordinate of the {@code Settler}'s placement in the map
-	 */
-	public void addSettler(int level, int xCoord, int yCoord)
-	{
-		Settler s = new Settler(this, level, xCoord, yCoord, utils);
-		units.add(s);
+		if (ut == UnitType.SETTLER)
+		{
+			Settler s = new Settler(this, level, xCoord, yCoord, utils);
+			units.add(s);
+		}
+		else
+		{
+			Soldier s = new Soldier(this, level, xCoord, yCoord, utils);
+			units.add(s);
+		}
 	}
 
 	/**
 	 * Add a {@code City}
-	 *
+	 * 
 	 * @param t
 	 *            {@code Tile} to put the {@code City} on
 	 */
@@ -123,7 +117,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Reinstate {@code transient} fields
-	 *
+	 * 
 	 * @param utils
 	 *            new {@code Utils}
 	 */

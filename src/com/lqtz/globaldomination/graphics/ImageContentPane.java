@@ -31,7 +31,7 @@ public class ImageContentPane extends JPanel
 
 	/**
 	 * Content pane for the GD UI (the background)
-	 *
+	 * 
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */

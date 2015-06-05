@@ -99,7 +99,7 @@ public class Tile implements Serializable
 	/**
 	 * {@code HashMap} that contains all possible colors. Each array of colors
 	 * has the following format:
-	 *
+	 * 
 	 * <p>
 	 * <code>{normalColor, highlightedColor, selectedColor}</code>
 	 */
@@ -107,7 +107,7 @@ public class Tile implements Serializable
 
 	/**
 	 * A {@code Tile} in the Map
-	 *
+	 * 
 	 * @param xCoord
 	 *            x-coordinate of the {@code Tile} on the map
 	 * @param yCoord
@@ -238,7 +238,7 @@ public class Tile implements Serializable
 	/**
 	 * Add a {@code Unit} to its respective {@code ArrayList} on the
 	 * {@code Tile}
-	 *
+	 * 
 	 * @param unit
 	 *            {@code Unit} to add to {@code Tile}
 	 */
@@ -258,7 +258,7 @@ public class Tile implements Serializable
 	/**
 	 * Remove a {@code Unit} from its respective {@code ArrayList} on the
 	 * {@code Tile}
-	 *
+	 * 
 	 * @param unit
 	 *            {@code Unit} to remove from {@code Tile}
 	 */
@@ -283,7 +283,7 @@ public class Tile implements Serializable
 
 	/**
 	 * Reinstate {@code transient} fields
-	 *
+	 * 
 	 * @param utils
 	 *            new {@code Utils}
 	 */

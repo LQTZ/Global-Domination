@@ -41,7 +41,7 @@ public class Settler extends Unit
 
 	/**
 	 * {@code Settler} {@code Unit}
-	 *
+	 * 
 	 * @param nation
 	 *            {@code Nation} the {@code Settler} belongs to
 	 * @param level
@@ -145,7 +145,7 @@ public class Settler extends Unit
 	/**
 	 * Create a {@code City} object on the {@code Tile} the {@code Settler} is
 	 * on
-	 *
+	 * 
 	 * @return Error status (-1: {@code isBuilding}, 0: successful)
 	 */
 	public int buildCity()
