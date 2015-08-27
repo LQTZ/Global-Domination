@@ -17,48 +17,44 @@
  *******************************************************************************/
 package com.lqtz.globaldomination.gameplay;
 
-import java.io.Serializable;
-
-public abstract class CountdownTask implements Runnable, Serializable
+public abstract class CountdownTask
 {
-	private static final long serialVersionUID = 1L;
-	private int moves;
+	/**
+	 * The variable that controls when the {@code CountdownTask} will execute
+	 * {@code run}
+	 */
+	public int sentry;
 
 	/**
-	 * Whether or not it has finished its job
+	 * The value of sentry that the {@code CountdownTask} will execute
+	 * {@code run} for
+	 */
+	public int exit;
+
+	/**
+	 * Whether or not the {@code CountdownTask} has {@code run} yet
 	 */
 	public boolean hasRun = false;
 
 	/**
-	 * Runnable that waits a certain number of turns then executes its
-	 * {@code run()} method (to be overridden)
-	 * 
-	 * @param moves
-	 *            number of moves to wait before executing {@code run()}
+	 * Decreases the sentry
 	 */
-	public CountdownTask(int moves)
-	{
-		this.moves = moves * 4;
-		if (moves == 0)
-		{
-			run();
-			hasRun = true;
-		}
-	}
+	public abstract void decrease();
 
 	/**
-	 * Decreases the number of moves left by one (called every new turn)
+	 * Executes the code
 	 */
-	public void decrease()
+	public abstract void run();
+
+	/**
+	 * Check if {@code sentry} has been depleted, and if so, {@code run}
+	 */
+	public void check()
 	{
-		moves--;
-		if (!hasRun && moves == 0)
+		if (!hasRun && sentry <= 0)
 		{
 			run();
 			hasRun = true;
 		}
 	}
-
-	@Override
-	public abstract void run();
 }

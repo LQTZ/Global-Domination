@@ -88,7 +88,7 @@ public class Game implements Serializable
 
 	/**
 	 * A GD game
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 * @param gw
@@ -139,7 +139,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedTile}
-	 * 
+	 *
 	 * @param tileToSelect
 	 *            new selected {@code Tile}
 	 */
@@ -163,7 +163,7 @@ public class Game implements Serializable
 
 	/**
 	 * Change {@code selectedUnit}
-	 * 
+	 *
 	 * @param unitToSelect
 	 *            new selected {@code Unit}
 	 */
@@ -192,7 +192,7 @@ public class Game implements Serializable
 
 	/**
 	 * Grow a unit selected by a {@code JOptionPane}
-	 * 
+	 *
 	 * @return Error value (-1 if city belongs to someone else, -2 if city
 	 *         already building something)
 	 */
@@ -223,20 +223,21 @@ public class Game implements Serializable
 		// Display growUnit selection dialog
 		String s = (String) JOptionPane.showInputDialog(gw,
 				"Which unit would you like your city to work on "
-						+ "right now?", "Grow Unit", JOptionPane.PLAIN_MESSAGE,
-				null, possibilities, "--");
+						+ "right now?",
+				"Grow Unit", JOptionPane.PLAIN_MESSAGE, null, possibilities,
+				"--");
 
 		// Check for null string
 		if (!((s == null) || (s == "--")))
 		{
 			String utString = s.substring(0, 7);
-			int ul = Integer.parseInt(s.substring("Settler Level ".length(),
-					s.length()));
+			int ul = Integer.parseInt(
+					s.substring("Settler Level ".length(), s.length()));
 
 			int confirm = JOptionPane.showConfirmDialog(gw,
 					"You are about to grow a unit. This cannot be"
-							+ " cancelled.", "Grow Unit Confirmation",
-					JOptionPane.OK_CANCEL_OPTION);
+							+ " cancelled.",
+					"Grow Unit Confirmation", JOptionPane.OK_CANCEL_OPTION);
 			if (confirm == JOptionPane.OK_OPTION)
 			{
 				selectedTile.city.growUnit(UnitType.fromString(utString), ul);
@@ -256,7 +257,8 @@ public class Game implements Serializable
 		// TODO Implement this correctly
 		if (selectedTile != null)
 		{
-			if ((selectedTile.soldiers.size() + selectedTile.settlers.size()) != 0)
+			if ((selectedTile.soldiers.size()
+					+ selectedTile.settlers.size()) != 0)
 			{
 				StyledDocument doc = new DefaultStyledDocument();
 				try
@@ -318,7 +320,8 @@ public class Game implements Serializable
 				}
 			}
 			tileInfoStr += ("Revenue: " + selectedTile.tileRevenue + "\n");
-			tileInfoStr += ("Productivity: " + selectedTile.tileProductivity + "\n");
+			tileInfoStr += ("Productivity: " + selectedTile.tileProductivity
+					+ "\n");
 
 			// Number of units
 			tileInfoStr = tileInfoStr + "Has "
@@ -389,10 +392,12 @@ public class Game implements Serializable
 		{
 			for (int j = 0; j < nations[i].units.size(); j++)
 			{
-				nations[i].units.get(j).movesLeft = nations[i].units.get(j).maxMoveDistance;
+				nations[i].units.get(j).movesLeft = nations[i].units
+						.get(j).maxMoveDistance;
 			}
 		}
 
+		// Reset tile nationalities
 		Nationality win = tiles[0][0].nat;
 		for (Tile[] tt : tiles)
 		{
@@ -423,6 +428,7 @@ public class Game implements Serializable
 			return;
 		}
 
+		// Update the turnNationality
 		switch (turnNationality)
 		{
 			case RED:
@@ -449,15 +455,13 @@ public class Game implements Serializable
 				break;
 		}
 
+		// Update the GameWindow
 		gw.newTurn(turnNationality);
-
-		// Increment turnNum and if new turn log
 		utils.game.turnNum += 0.25;
-
 		gw.eventLog("It is now " + turnNationality + "'s turn on turn #"
 				+ ((int) turnNum + 1));
 
-		// Check for CountdownTests
+		// Decrease CountdownTests
 		ArrayList<CountdownTask> newTaskList = new ArrayList<CountdownTask>();
 		for (int i = 0; i < countdownTasks.size(); i++)
 		{
@@ -474,7 +478,7 @@ public class Game implements Serializable
 
 	/**
 	 * Reinstate {@code transient} fields
-	 * 
+	 *
 	 * @param utils
 	 *            new {@code Utils}
 	 * @param gw

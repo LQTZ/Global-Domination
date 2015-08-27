@@ -41,7 +41,7 @@ public class Settler extends Unit
 
 	/**
 	 * {@code Settler} {@code Unit}
-	 * 
+	 *
 	 * @param nation
 	 *            {@code Nation} the {@code Settler} belongs to
 	 * @param level
@@ -53,7 +53,8 @@ public class Settler extends Unit
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public Settler(Nation nation, int level, int xCoord, int yCoord, Utils utils)
+	public Settler(Nation nation, int level, int xCoord, int yCoord,
+			Utils utils)
 	{
 		super(nation, level, xCoord, yCoord, utils);
 		unitType = UnitType.SETTLER;
@@ -121,8 +122,8 @@ public class Settler extends Unit
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
-				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
-				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1) && (tile.yCoord
+						- toTile.yCoord == tile.xCoord - toTile.xCoord))
 		{
 			return -1;
 		}
@@ -145,7 +146,7 @@ public class Settler extends Unit
 	/**
 	 * Create a {@code City} object on the {@code Tile} the {@code Settler} is
 	 * on
-	 * 
+	 *
 	 * @return Error status (-1: {@code isBuilding}, 0: successful)
 	 */
 	public int buildCity()
@@ -166,7 +167,7 @@ public class Settler extends Unit
 
 		utils.gw.eventLog("A " + this + " initiated city building on " + tile
 				+ ".\nThis will take " + turnsToCity + " moves.");
-		cityBuilder = new CountdownTask(turnsToCity)
+		cityBuilder = new CityBuildTask(turnsToCity)
 		{
 			private static final long serialVersionUID = 1L;
 

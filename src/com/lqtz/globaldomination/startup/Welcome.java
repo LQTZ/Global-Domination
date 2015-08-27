@@ -47,7 +47,7 @@ public class Welcome extends JFrame
 
 	/**
 	 * Welcome screen for links to info pages and new game
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -76,7 +76,7 @@ public class Welcome extends JFrame
 
 	/**
 	 * Start Global Domination
-	 * 
+	 *
 	 * @param args
 	 *            command-line arguments (unused)
 	 */
@@ -102,8 +102,8 @@ public class Welcome extends JFrame
 			locations = new int[][] {new int[] {50, 310}, new int[] {200, 370},
 					new int[] {350, 310}, new int[] {500, 370},
 					new int[] {650, 310}, new int[] {800, 370}};
-			labels = new String[] {"new game", "settings", "load game",
-					"about", "how to play", "exit"};
+			labels = new String[] {"new game", "settings", "load game", "about",
+					"how to play", "exit"};
 			this.utils = utils;
 			this.frame = frame;
 			labelFont = this.utils.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
@@ -148,10 +148,11 @@ public class Welcome extends JFrame
 				g.fillPolygon(
 						new int[] {locations[selected][0] - 15,
 								locations[selected][0] - 15,
-								locations[selected][0] - 5}, new int[] {
-								locations[selected][1] - 5,
+								locations[selected][0] - 5},
+						new int[] {locations[selected][1] - 5,
 								locations[selected][1] - 25,
-								locations[selected][1] - 15}, 3);
+								locations[selected][1] - 15},
+						3);
 			}
 		}
 
@@ -166,33 +167,37 @@ public class Welcome extends JFrame
 				}
 				case 0: // New game button
 				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					new GameWindow(utils, true);
 					break;
 				}
 				case 1: // Settings button
 				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					new Settings(utils);
 					break;
 				}
 				case 2: // New game button
 				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					new GameWindow(utils, false);
 					break;
 				}
 				case 3: // About button
 				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					try
 					{
 						new InfoScreen(getClass().getResourceAsStream(
@@ -206,14 +211,16 @@ public class Welcome extends JFrame
 				}
 				case 4:
 				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					try
 					{
-						new InfoScreen(getClass().getResourceAsStream(
-								"/text/HowToPlayText.txt"), "How to Play",
-								utils);
+						new InfoScreen(
+								getClass().getResourceAsStream(
+										"/text/HowToPlayText.txt"),
+								"How to Play", utils);
 					}
 					catch (IOException e1)
 					{
@@ -223,8 +230,8 @@ public class Welcome extends JFrame
 				}
 				case 5: // Exit button
 				{
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					break;
 				}
 			}

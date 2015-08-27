@@ -47,7 +47,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Map {@code JPanel} to draw {@code Tile}s on
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -62,7 +62,7 @@ public class GameScreen extends JPanel implements MouseInputListener
 
 	/**
 	 * Add all the {@code Hexagon}s
-	 * 
+	 *
 	 * @param width
 	 *            width of the {@code GameScreen}
 	 * @param height
@@ -96,15 +96,11 @@ public class GameScreen extends JPanel implements MouseInputListener
 			{
 				for (int j = 0; j < DIM; j++)
 				{
-					tiles[i][j] = new Tile(
-							i,
-							j,
+					tiles[i][j] = new Tile(i, j,
 							sizeFit * (1 + 2 * i + j) * 7 / 8 + xOffset,
 							height - (sizeFit * (3 * j + 2) / 2 + yOffset),
-							sizeFit,
-							(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
-							(int) Math.abs(utils.random.nextGaussian() * 100 + 500),
-							utils);
+							sizeFit, Math.abs(utils.random.nextInt(5) + 5),
+							Math.abs(utils.random.nextInt(5) + 5), utils);
 				}
 			}
 		}

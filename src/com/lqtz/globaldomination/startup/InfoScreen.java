@@ -50,7 +50,7 @@ public class InfoScreen extends BasicScreen
 
 	/**
 	 * Read the text for the page
-	 * 
+	 *
 	 * @param input
 	 *            {@code InputStream} of the .txt file with the page's body text
 	 * @param titleStr
@@ -69,7 +69,7 @@ public class InfoScreen extends BasicScreen
 	/**
 	 * Screen with only a header, a body, and an exit button (e.g. the about
 	 * page)
-	 * 
+	 *
 	 * @param text
 	 *            text to display in window
 	 * @param titleStr
@@ -158,10 +158,11 @@ public class InfoScreen extends BasicScreen
 			if (selected != -1)
 			{
 				g.setColor(new Color(240, 192, 48));
-				g.fillPolygon(new int[] {utils.resolution.width - 115,
-						utils.resolution.width - 115,
-						utils.resolution.width - 105}, new int[] {60, 40, 50},
-						3);
+				g.fillPolygon(
+						new int[] {utils.resolution.width - 115,
+								utils.resolution.width - 115,
+								utils.resolution.width - 105},
+						new int[] {60, 40, 50}, 3);
 			}
 		}
 
@@ -176,9 +177,10 @@ public class InfoScreen extends BasicScreen
 				}
 				case 0: // Welcome
 				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					new Welcome(utils);
 					break;
 				}
@@ -188,8 +190,8 @@ public class InfoScreen extends BasicScreen
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-			Rectangle itemRect = new Rectangle(utils.resolution.width - 100,
-					35, 100, 30);
+			Rectangle itemRect = new Rectangle(utils.resolution.width - 100, 35,
+					100, 30);
 			if (itemRect.contains(e.getPoint()))
 			{
 				selected = 0;

@@ -71,23 +71,23 @@ public class Images
 
 	/**
 	 * Load images
-	 * 
+	 *
 	 * @throws IOException
 	 *             error loading images
 	 */
 	public Images() throws IOException
 	{
-		background = ImageIO.read(getClass().getResourceAsStream(
-				"/images/background.png"));
+		background = ImageIO
+				.read(getClass().getResourceAsStream("/images/background.png"));
 		city = ImageIO.read(getClass().getResourceAsStream("/images/city.png"));
-		productivity = ImageIO.read(getClass().getResourceAsStream(
-				"/images/productivity.png"));
-		revenue = ImageIO.read(getClass().getResourceAsStream(
-				"/images/revenue.png"));
-		soldier = ImageIO.read(getClass().getResourceAsStream(
-				"/images/soldier.png"));
-		settler = ImageIO.read(getClass().getResourceAsStream(
-				"/images/settler.png"));
+		productivity = ImageIO.read(
+				getClass().getResourceAsStream("/images/productivity.png"));
+		revenue = ImageIO
+				.read(getClass().getResourceAsStream("/images/revenue.png"));
+		soldier = ImageIO
+				.read(getClass().getResourceAsStream("/images/soldier.png"));
+		settler = ImageIO
+				.read(getClass().getResourceAsStream("/images/settler.png"));
 		soldiers = new BufferedImage[10];
 		for (int i = 0; i < soldiers.length; i++)
 		{
@@ -102,7 +102,7 @@ public class Images
 					"/images/settler/level" + (i + 1) + ".png"));
 		}
 
-		pointer = ImageIO.read(getClass().getResourceAsStream(
-				"/images/pointer.png"));
+		pointer = ImageIO
+				.read(getClass().getResourceAsStream("/images/pointer.png"));
 	}
 }

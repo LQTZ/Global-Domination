@@ -36,7 +36,7 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 
 	/**
 	 * Pane with clickable buttons to go in the {@code GameWindow}
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -139,7 +139,7 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 
 	/**
 	 * Check using the icon if a style is in an array of styles.
-	 * 
+	 *
 	 * @param a
 	 *            the style
 	 * @param aList
@@ -152,9 +152,8 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 
 		for (AttributeSet compare : aList)
 		{
-			if (a.getAttribute(iconAttr) != null
-					&& a.getAttribute(iconAttr).equals(
-							compare.getAttribute(iconAttr)))
+			if (a.getAttribute(iconAttr) != null && a.getAttribute(iconAttr)
+					.equals(compare.getAttribute(iconAttr)))
 			{
 				return true;
 			}

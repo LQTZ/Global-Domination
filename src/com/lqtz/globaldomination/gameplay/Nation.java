@@ -60,7 +60,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Object representing a {@code Nation} (player) in the game
-	 * 
+	 *
 	 * @param nationality
 	 *            nationality of the nation
 	 * @param utils
@@ -77,7 +77,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a {@code Unit} to the {@code Nation}
-	 * 
+	 *
 	 * @param ut
 	 *            {@code UnitType} of the {@code Unit} to add
 	 * @param level
@@ -103,7 +103,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Add a {@code City}
-	 * 
+	 *
 	 * @param t
 	 *            {@code Tile} to put the {@code City} on
 	 */
@@ -117,7 +117,7 @@ public class Nation implements Serializable
 
 	/**
 	 * Reinstate {@code transient} fields
-	 * 
+	 *
 	 * @param utils
 	 *            new {@code Utils}
 	 */

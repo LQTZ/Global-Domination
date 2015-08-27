@@ -36,7 +36,7 @@ public class Soldier extends Unit
 
 	/**
 	 * {@code Soldier} {@code Unit}
-	 * 
+	 *
 	 * @param nation
 	 *            {@code Nation} the {@code Soldier} belongs to
 	 * @param level
@@ -48,7 +48,8 @@ public class Soldier extends Unit
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public Soldier(Nation nation, int level, int xCoord, int yCoord, Utils utils)
+	public Soldier(Nation nation, int level, int xCoord, int yCoord,
+			Utils utils)
 	{
 		super(nation, level, xCoord, yCoord, utils);
 		unitType = UnitType.SOLDIER;
@@ -152,7 +153,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Move to a certain {@code Tile}
-	 * 
+	 *
 	 * @param toTile
 	 *            {@code Tile} to move to
 	 * @return Whether or not {@code move()} was legal (-2 if the
@@ -177,8 +178,8 @@ public class Soldier extends Unit
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
-				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
-				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1) && (tile.yCoord
+						- toTile.yCoord == tile.xCoord - toTile.xCoord))
 		{
 			return -1;
 		}
@@ -208,7 +209,7 @@ public class Soldier extends Unit
 
 	/**
 	 * Attack a {@code Tile}
-	 * 
+	 *
 	 * @param toTile
 	 *            {@code Tile} to attack
 	 * @return attack status
@@ -218,8 +219,8 @@ public class Soldier extends Unit
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
-				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
-				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
+				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1) && (tile.yCoord
+						- toTile.yCoord == tile.xCoord - toTile.xCoord))
 		{
 			return -1;
 		}
@@ -289,7 +290,7 @@ public class Soldier extends Unit
 	 * Attacks (hits) a specific enemy {@code Unit}, checks if enemy
 	 * {@code Unit} is dead, if not gets enemy {@code Unit} to hit back, and
 	 * checks if self is dead
-	 * 
+	 *
 	 * @param defender
 	 *            {@code Unit} to attack
 	 */

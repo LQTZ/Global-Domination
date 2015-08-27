@@ -81,7 +81,7 @@ public class Settings extends BasicScreen implements ActionListener
 
 	/**
 	 * Settings screen
-	 * 
+	 *
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
@@ -133,8 +133,8 @@ public class Settings extends BasicScreen implements ActionListener
 		}
 		else
 		{
-			resSelect.setSelectedItem(utils.resolution.width + " x "
-					+ utils.resolution.height);
+			resSelect.setSelectedItem(
+					utils.resolution.width + " x " + utils.resolution.height);
 		}
 		resolution.add(resText);
 		resolution.add(resSelect);
@@ -241,18 +241,20 @@ public class Settings extends BasicScreen implements ActionListener
 			{
 				case 0:
 				{
-					g.fillPolygon(new int[] {utils.resolution.width - 115,
-							utils.resolution.width - 115,
-							utils.resolution.width - 105}, new int[] {60, 40,
-							50}, 3);
+					g.fillPolygon(
+							new int[] {utils.resolution.width - 115,
+									utils.resolution.width - 115,
+									utils.resolution.width - 105},
+							new int[] {60, 40, 50}, 3);
 					break;
 				}
 				case 1:
 				{
-					g.fillPolygon(new int[] {utils.resolution.width - 315,
-							utils.resolution.width - 315,
-							utils.resolution.width - 305}, new int[] {60, 40,
-							50}, 3);
+					g.fillPolygon(
+							new int[] {utils.resolution.width - 315,
+									utils.resolution.width - 315,
+									utils.resolution.width - 305},
+							new int[] {60, 40, 50}, 3);
 				}
 			}
 		}
@@ -268,9 +270,10 @@ public class Settings extends BasicScreen implements ActionListener
 				}
 				case 0: // Welcome
 				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					new Welcome(utils);
 					break;
 				}
@@ -279,9 +282,10 @@ public class Settings extends BasicScreen implements ActionListener
 					utils.fullScreen = fsSelect.isSelected();
 					utils.resolution = possdims.get(Arrays.asList(dimstrs)
 							.indexOf(resSelect.getSelectedItem()));
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
+					frame.setDefaultCloseOperation(
+							WindowConstants.DISPOSE_ON_CLOSE);
+					frame.dispatchEvent(
+							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 					new Settings(utils);
 					break;
 				}
