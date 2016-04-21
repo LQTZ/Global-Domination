@@ -1,7 +1,8 @@
 package com.lqtz.globaldomination.gameplay;
 
-public class CityBuildTask extends CountdownTask
-{
+public class CityBuildTask extends CountdownTask {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * {@code Runnable} that builds a {@code City} once a certain number of
 	 * turns has passed
@@ -9,20 +10,18 @@ public class CityBuildTask extends CountdownTask
 	 * @param turnsToCity
 	 *            the number of turns to wait before building a {@code City}
 	 */
-	public CityBuildTask(int turnsToCity)
-	{
+	public CityBuildTask(int turnsToCity) {
 		this.sentry = turnsToCity * 4;
 		check();
 	}
 
 	@Override
-	public void decrease()
-	{
+	public void decrease() {
 		sentry -= 1;
 		check();
 	}
 
 	@Override
-	public void run()
-	{}
+	public void run() {
+	}
 }

@@ -22,8 +22,7 @@ import java.io.Serializable;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class City implements Serializable
-{
+public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
 
@@ -62,8 +61,7 @@ public class City implements Serializable
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public City(Tile tile, Nation nation, Utils utils)
-	{
+	public City(Tile tile, Nation nation, Utils utils) {
 		this.utils = utils;
 
 		this.tile = tile;
@@ -82,28 +80,25 @@ public class City implements Serializable
 	 * @param level
 	 *            {@code level} of the {@code Unit} to grow
 	 */
-	public void growUnit(final UnitType ut, final int level)
-	{
+	public void growUnit(final UnitType ut, final int level) {
 		growUnitType = ut;
 		growUnitLevel = level;
 		isGrowing = true;
 
-		utils.gw.eventLog(
-				nation.nationality + " has initiated growing of a level "
-						+ level + " " + ut + " unit on " + tile
-						+ ".\nThis will take " + (level * 2) + " moves.");
+		utils.gw.eventLog(nation.nationality
+				+ " has initiated growing of a level " + level + " " + ut
+				+ " unit on " + tile + ".\nThis will take " + (level * 2)
+				+ " moves.");
 
-		utils.game.countdownTasks.add(new UnitGrowTask(this, level * 2)
-		{
+		utils.game.countdownTasks.add(new UnitGrowTask(this, level * 6) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void run()
-			{
+			public void run() {
 				City.this.stopGrowing();
-				City.this.utils.gw
-						.eventLog(nation.nationality + " has grown a level "
-								+ level + " " + ut + " unit on " + tile + ".");
+				City.this.utils.gw.eventLog(nation.nationality
+						+ " has grown a level " + level + " " + ut
+						+ " unit on " + tile + ".");
 
 				nation.addUnit(ut, level, tile.xCoord, tile.yCoord);
 				growUnitType = null;
@@ -115,8 +110,7 @@ public class City implements Serializable
 	/**
 	 * Finish growing the {@code Unit}
 	 */
-	public void stopGrowing()
-	{
+	public void stopGrowing() {
 		isGrowing = false;
 	}
 
@@ -126,8 +120,7 @@ public class City implements Serializable
 	 * @param utils
 	 *            new {@code Utils}
 	 */
-	public void onDeserialization(Utils utils)
-	{
+	public void onDeserialization(Utils utils) {
 		this.utils = utils;
 	}
 }

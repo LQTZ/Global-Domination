@@ -1,10 +1,7 @@
 package com.lqtz.globaldomination.gameplay;
 
-import java.io.Serializable;
-
-public class UnitGrowTask extends CountdownTask
-		implements Runnable, Serializable
-{
+public class UnitGrowTask extends CountdownTask implements Runnable {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * {@code City} the {@code Unit} is being grown in
 	 */
@@ -19,21 +16,19 @@ public class UnitGrowTask extends CountdownTask
 	 *            number of {@code tileProductivity} points needed to grow the
 	 *            {@code Unit}
 	 */
-	public UnitGrowTask(City city, int productivityCost)
-	{
+	public UnitGrowTask(City city, int productivityCost) {
 		this.city = city;
 		this.sentry = productivityCost * 4;
 		check();
 	}
 
 	@Override
-	public void decrease()
-	{
+	public void decrease() {
 		sentry -= city.tile.tileProductivity;
 		check();
 	}
 
 	@Override
-	public void run()
-	{}
+	public void run() {
+	}
 }
