@@ -17,8 +17,12 @@
  *******************************************************************************/
 package com.lqtz.globaldomination.gameplay;
 
-public abstract class CountdownTask
+import java.io.Serializable;
+
+public abstract class CountdownTask implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The variable that controls when the {@code CountdownTask} will execute
 	 * {@code run}
