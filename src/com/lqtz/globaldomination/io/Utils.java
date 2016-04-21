@@ -37,8 +37,7 @@ import com.lqtz.globaldomination.gameplay.Game;
 import com.lqtz.globaldomination.gameplay.Nationality;
 import com.lqtz.globaldomination.graphics.GameWindow;
 
-public class Utils
-{
+public class Utils {
 	/**
 	 * Images to load
 	 */
@@ -92,33 +91,24 @@ public class Utils
 	/**
 	 * Load resources
 	 */
-	public Utils()
-	{
+	public Utils() {
 		random = new Random();
 
 		// Import images
-		try
-		{
+		try {
 			images = new Images();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.err.println("Images not found");
 			e.printStackTrace();
 		}
 
 		// Initializes fonts
-		try
-		{
+		try {
 			fonts = new Fonts();
-		}
-		catch (FontFormatException e)
-		{
+		} catch (FontFormatException e) {
 			System.err.println("Fonts corrupted");
 			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			System.err.println("Fonts not found");
 			e.printStackTrace();
 		}
@@ -145,17 +135,14 @@ public class Utils
 	 *
 	 * @return whether successful
 	 */
-	public boolean serializeGame()
-	{
+	public boolean serializeGame() {
 		JFileChooser fc = new JFileChooser();
 		GDMFilter ff = new GDMFilter();
 		fc.addChoosableFileFilter(ff);
 		fc.setFileFilter(ff);
 		int returnVal = fc.showSaveDialog(gw);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
-		{
-			try
-			{
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try {
 				String n = fc.getSelectedFile().getAbsolutePath() + ".gdm";
 				FileOutputStream fos = new FileOutputStream(n);
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -164,9 +151,7 @@ public class Utils
 				fos.close();
 				gw.eventLog("Game saved.");
 				return true;
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				return false;
 			}
 		}
@@ -180,17 +165,14 @@ public class Utils
 	 * @throws IOException
 	 *             if game file is corrupted
 	 */
-	public Game deserializeGame() throws IOException
-	{
+	public Game deserializeGame() throws IOException {
 		JFileChooser fc = new JFileChooser();
 		GDMFilter ff = new GDMFilter();
 		fc.addChoosableFileFilter(ff);
 		fc.setFileFilter(ff);
 		int returnVal = fc.showOpenDialog(gw);
-		if (returnVal == JFileChooser.APPROVE_OPTION)
-		{
-			try
-			{
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			try {
 				FileInputStream fis = new FileInputStream(fc.getSelectedFile());
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				game = (Game) ois.readObject();
@@ -198,9 +180,7 @@ public class Utils
 				ois.close();
 				fis.close();
 				return game;
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace();
 				throw new IOException("Corrupted or outdated file.");
 			}
@@ -214,39 +194,30 @@ public class Utils
 	 * @author Daniel
 	 *
 	 */
-	private class GDMFilter extends FileFilter
-	{
+	private class GDMFilter extends FileFilter {
 		@Override
-		public boolean accept(File f)
-		{
-			if (f.isDirectory())
-			{
+		public boolean accept(File f) {
+			if (f.isDirectory()) {
 				return true;
 			}
-			if (extension(f).equals("gdm"))
-			{
+			if (extension(f).equals("gdm")) {
 				return true;
 			}
 			return false;
 		}
 
-		private String extension(File f)
-		{
+		private String extension(File f) {
 			String n = f.getName();
 			int i = n.lastIndexOf('.') + 1;
-			if (i > 0 && i < n.length())
-			{
+			if (i > 0 && i < n.length()) {
 				return n.substring(i).toLowerCase();
-			}
-			else
-			{
+			} else {
 				return "";
 			}
 		}
 
 		@Override
-		public String getDescription()
-		{
+		public String getDescription() {
 			return "Global Domination Files";
 		}
 	}

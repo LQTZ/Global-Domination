@@ -40,8 +40,7 @@ import javax.swing.event.MouseInputListener;
 
 import com.lqtz.globaldomination.io.Utils;
 
-public class InfoScreen extends BasicScreen
-{
+public class InfoScreen extends BasicScreen {
 	private static final long serialVersionUID = 1L;
 	private JTextArea bodyTextArea;
 	private JScrollPane bodyScrollPane;
@@ -61,8 +60,7 @@ public class InfoScreen extends BasicScreen
 	 *             error loading body text
 	 */
 	public InfoScreen(InputStream input, String titleStr, Utils utils)
-			throws IOException
-	{
+			throws IOException {
 		this(read(input), titleStr, utils);
 	}
 
@@ -77,16 +75,14 @@ public class InfoScreen extends BasicScreen
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public InfoScreen(String text, String titleStr, Utils utils)
-	{
+	public InfoScreen(String text, String titleStr, Utils utils) {
 		super(titleStr, utils);
 		bodyText = text;
 		createWindow();
 	}
 
 	@Override
-	protected JComponent createBody()
-	{
+	protected JComponent createBody() {
 		bodyTextArea = new JTextArea(bodyText);
 		bodyTextArea.setBackground(new Color(0, 0, 0, 0));
 		bodyTextArea.setForeground(Color.WHITE);
@@ -111,14 +107,12 @@ public class InfoScreen extends BasicScreen
 	}
 
 	@Override
-	protected JComponent createFoot()
-	{
+	protected JComponent createFoot() {
 		footPanel = new InfoPanel(utils, this);
 		return footPanel;
 	}
 
-	private static String read(InputStream input)
-	{
+	private static String read(InputStream input) {
 		Scanner unmodscan = new Scanner(input);
 		Scanner s = unmodscan.useDelimiter("\\A");
 		String str = s.next();
@@ -127,16 +121,14 @@ public class InfoScreen extends BasicScreen
 		return str;
 	}
 
-	private class InfoPanel extends JPanel implements MouseInputListener
-	{
+	private class InfoPanel extends JPanel implements MouseInputListener {
 		private static final long serialVersionUID = 1L;
 		private int selected = -1;
 		private Font labelFont;
 		private Utils utils;
 		private JFrame frame;
 
-		private InfoPanel(Utils utils, JFrame frame)
-		{
+		private InfoPanel(Utils utils, JFrame frame) {
 			this.utils = utils;
 			this.frame = frame;
 			labelFont = utils.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
@@ -149,78 +141,68 @@ public class InfoScreen extends BasicScreen
 		}
 
 		@Override
-		protected void paintComponent(Graphics g)
-		{
+		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
 			g.drawString("back", utils.resolution.width - 100, 65);
-			if (selected != -1)
-			{
+			if (selected != -1) {
 				g.setColor(new Color(240, 192, 48));
-				g.fillPolygon(
-						new int[] {utils.resolution.width - 115,
-								utils.resolution.width - 115,
-								utils.resolution.width - 105},
-						new int[] {60, 40, 50}, 3);
+				g.fillPolygon(new int[] { utils.resolution.width - 115,
+						utils.resolution.width - 115,
+						utils.resolution.width - 105 },
+						new int[] { 60, 40, 50 }, 3);
 			}
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e)
-		{
-			switch (selected)
+		public void mousePressed(MouseEvent e) {
+			switch (selected) {
+			case -1: // Invalid button push
 			{
-				case -1: // Invalid button push
-				{
-					break;
-				}
-				case 0: // Welcome
-				{
-					frame.setDefaultCloseOperation(
-							WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(
-							new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-					new Welcome(utils);
-					break;
-				}
+				break;
+			}
+			case 0: // Welcome
+			{
+				frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame,
+						WindowEvent.WINDOW_CLOSING));
+				new Welcome(utils);
+				break;
+			}
 			}
 		}
 
 		@Override
-		public void mouseMoved(MouseEvent e)
-		{
-			Rectangle itemRect = new Rectangle(utils.resolution.width - 100, 35,
-					100, 30);
-			if (itemRect.contains(e.getPoint()))
-			{
+		public void mouseMoved(MouseEvent e) {
+			Rectangle itemRect = new Rectangle(utils.resolution.width - 100,
+					35, 100, 30);
+			if (itemRect.contains(e.getPoint())) {
 				selected = 0;
-			}
-			else
-			{
+			} else {
 				selected = -1;
 			}
 			repaint();
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e)
-		{}
+		public void mouseClicked(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseReleased(MouseEvent e)
-		{}
+		public void mouseReleased(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseEntered(MouseEvent e)
-		{}
+		public void mouseEntered(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseExited(MouseEvent e)
-		{}
+		public void mouseExited(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseDragged(MouseEvent e)
-		{}
+		public void mouseDragged(MouseEvent e) {
+		}
 	}
 }

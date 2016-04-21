@@ -19,8 +19,7 @@ package com.lqtz.globaldomination.gameplay;
 
 import java.io.Serializable;
 
-public abstract class CountdownTask implements Serializable
-{
+public abstract class CountdownTask implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -53,10 +52,8 @@ public abstract class CountdownTask implements Serializable
 	/**
 	 * Check if {@code sentry} has been depleted, and if so, {@code run}
 	 */
-	public void check()
-	{
-		if (!hasRun && sentry <= 0)
-		{
+	public void check() {
+		if (!hasRun && sentry <= 0) {
 			run();
 			hasRun = true;
 		}

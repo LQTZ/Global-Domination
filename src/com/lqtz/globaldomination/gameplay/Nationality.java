@@ -19,8 +19,7 @@ package com.lqtz.globaldomination.gameplay;
 
 import java.io.Serializable;
 
-public enum Nationality implements Serializable
-{
+public enum Nationality implements Serializable {
 	/**
 	 * Red {@code Nation}'s {@code Nationality}
 	 */
@@ -47,22 +46,20 @@ public enum Nationality implements Serializable
 	NEUTRAL;
 
 	@Override
-	public String toString()
-	{
-		switch (this)
-		{
-			case RED:
-				return "Red";
-			case GREEN:
-				return "Green";
-			case BLUE:
-				return "Blue";
-			case YELLOW:
-				return "Yellow";
-			case NEUTRAL:
-				return "Neutral";
-			default:
-				return "";
+	public String toString() {
+		switch (this) {
+		case RED:
+			return "Red";
+		case GREEN:
+			return "Green";
+		case BLUE:
+			return "Blue";
+		case YELLOW:
+			return "Yellow";
+		case NEUTRAL:
+			return "Neutral";
+		default:
+			return "";
 		}
 	}
 }

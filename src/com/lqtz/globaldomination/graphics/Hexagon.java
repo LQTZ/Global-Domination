@@ -20,8 +20,7 @@ package com.lqtz.globaldomination.graphics;
 import java.awt.Polygon;
 import java.io.Serializable;
 
-public class Hexagon extends Polygon implements Serializable
-{
+public class Hexagon extends Polygon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -35,14 +34,11 @@ public class Hexagon extends Polygon implements Serializable
 	 *            radius of circle the {@code Hexagon} is inscribed in (must be
 	 *            a multiple of 8 for {@code Polygon} constructor to work)
 	 */
-	public Hexagon(int centerX, int centerY, int size)
-	{
-		super(new int[] {centerX, centerX + 7 * size / 8,
+	public Hexagon(int centerX, int centerY, int size) {
+		super(new int[] { centerX, centerX + 7 * size / 8,
 				centerX + 7 * size / 8, centerX, centerX - 7 * size / 8,
-				centerX - 7 * size / 8},
-				new int[] {centerY + size, centerY + size / 2,
-						centerY - size / 2, centerY - size, centerY - size / 2,
-						centerY + size / 2},
-				6);
+				centerX - 7 * size / 8 }, new int[] { centerY + size,
+				centerY + size / 2, centerY - size / 2, centerY - size,
+				centerY - size / 2, centerY + size / 2 }, 6);
 	}
 }

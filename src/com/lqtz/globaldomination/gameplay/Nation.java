@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Nation implements Serializable
-{
+public class Nation implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
 
@@ -66,8 +65,7 @@ public class Nation implements Serializable
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public Nation(Nationality nationality, Utils utils)
-	{
+	public Nation(Nationality nationality, Utils utils) {
 		this.nationality = nationality;
 		this.utils = utils;
 
@@ -87,15 +85,11 @@ public class Nation implements Serializable
 	 * @param yCoord
 	 *            y-coordinate of the {@code Unit}'s placement in the map
 	 */
-	public void addUnit(UnitType ut, int level, int xCoord, int yCoord)
-	{
-		if (ut == UnitType.SETTLER)
-		{
+	public void addUnit(UnitType ut, int level, int xCoord, int yCoord) {
+		if (ut == UnitType.SETTLER) {
 			Settler s = new Settler(this, level, xCoord, yCoord, utils);
 			units.add(s);
-		}
-		else
-		{
+		} else {
 			Soldier s = new Soldier(this, level, xCoord, yCoord, utils);
 			units.add(s);
 		}
@@ -107,8 +101,7 @@ public class Nation implements Serializable
 	 * @param t
 	 *            {@code Tile} to put the {@code City} on
 	 */
-	public void addCity(Tile t)
-	{
+	public void addCity(Tile t) {
 		City c = new City(t, this, utils);
 		cities.add(c);
 		t.city = c;
@@ -121,8 +114,7 @@ public class Nation implements Serializable
 	 * @param utils
 	 *            new {@code Utils}
 	 */
-	public void onDeserialization(Utils utils)
-	{
+	public void onDeserialization(Utils utils) {
 		this.utils = utils;
 	}
 }

@@ -22,8 +22,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Images
-{
+public class Images {
 	/**
 	 * Background image
 	 */
@@ -75,34 +74,31 @@ public class Images
 	 * @throws IOException
 	 *             error loading images
 	 */
-	public Images() throws IOException
-	{
-		background = ImageIO
-				.read(getClass().getResourceAsStream("/images/background.png"));
+	public Images() throws IOException {
+		background = ImageIO.read(getClass().getResourceAsStream(
+				"/images/background.png"));
 		city = ImageIO.read(getClass().getResourceAsStream("/images/city.png"));
-		productivity = ImageIO.read(
-				getClass().getResourceAsStream("/images/productivity.png"));
-		revenue = ImageIO
-				.read(getClass().getResourceAsStream("/images/revenue.png"));
-		soldier = ImageIO
-				.read(getClass().getResourceAsStream("/images/soldier.png"));
-		settler = ImageIO
-				.read(getClass().getResourceAsStream("/images/settler.png"));
+		productivity = ImageIO.read(getClass().getResourceAsStream(
+				"/images/productivity.png"));
+		revenue = ImageIO.read(getClass().getResourceAsStream(
+				"/images/revenue.png"));
+		soldier = ImageIO.read(getClass().getResourceAsStream(
+				"/images/soldier.png"));
+		settler = ImageIO.read(getClass().getResourceAsStream(
+				"/images/settler.png"));
 		soldiers = new BufferedImage[10];
-		for (int i = 0; i < soldiers.length; i++)
-		{
+		for (int i = 0; i < soldiers.length; i++) {
 			soldiers[i] = ImageIO.read(getClass().getResourceAsStream(
 					"/images/soldier/level" + (i + 1) + ".png"));
 		}
 
 		settlers = new BufferedImage[5];
-		for (int i = 0; i < settlers.length; i++)
-		{
+		for (int i = 0; i < settlers.length; i++) {
 			settlers[i] = ImageIO.read(getClass().getResourceAsStream(
 					"/images/settler/level" + (i + 1) + ".png"));
 		}
 
-		pointer = ImageIO
-				.read(getClass().getResourceAsStream("/images/pointer.png"));
+		pointer = ImageIO.read(getClass().getResourceAsStream(
+				"/images/pointer.png"));
 	}
 }

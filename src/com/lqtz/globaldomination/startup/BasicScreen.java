@@ -33,8 +33,7 @@ import javax.swing.SwingConstants;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Utils;
 
-public abstract class BasicScreen extends JFrame
-{
+public abstract class BasicScreen extends JFrame {
 	private static final long serialVersionUID = 1L;
 	protected Utils utils;
 	private String titleStr;
@@ -51,8 +50,7 @@ public abstract class BasicScreen extends JFrame
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public BasicScreen(String titleStr, Utils utils)
-	{
+	public BasicScreen(String titleStr, Utils utils) {
 		this.titleStr = titleStr;
 		this.utils = utils;
 	}
@@ -60,29 +58,22 @@ public abstract class BasicScreen extends JFrame
 	/**
 	 * Creates window; not automatically called
 	 */
-	protected void createWindow()
-	{
+	protected void createWindow() {
 		setContentPane(new ImageContentPane(utils));
 
-		if (utils.fullScreen)
-		{
+		if (utils.fullScreen) {
 			// Removes buttons
 			setUndecorated(true);
 
 			// Makes full screen
 			GraphicsDevice gd = GraphicsEnvironment
 					.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-			if (gd.isFullScreenSupported())
-			{
+			if (gd.isFullScreenSupported()) {
 				gd.setFullScreenWindow(this);
-			}
-			else
-			{
+			} else {
 				setSize(Toolkit.getDefaultToolkit().getScreenSize());
 			}
-		}
-		else
-		{
+		} else {
 			getContentPane().setPreferredSize(utils.resolution);
 			pack();
 			setResizable(false);
@@ -97,8 +88,7 @@ public abstract class BasicScreen extends JFrame
 		setVisible(true);
 	}
 
-	protected void addComponents()
-	{
+	protected void addComponents() {
 		setLayout(new BorderLayout());
 
 		// Draw title

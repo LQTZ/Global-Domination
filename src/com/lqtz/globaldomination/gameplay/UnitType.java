@@ -19,8 +19,7 @@ package com.lqtz.globaldomination.gameplay;
 
 import java.io.Serializable;
 
-public enum UnitType implements Serializable
-{
+public enum UnitType implements Serializable {
 
 	/**
 	 * {@code Settler}'s {@code UnitType}
@@ -35,14 +34,12 @@ public enum UnitType implements Serializable
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public String toString()
-	{
-		switch (this)
-		{
-			case SETTLER:
-				return "Settler";
-			case SOLDIER:
-				return "Soldier";
+	public String toString() {
+		switch (this) {
+		case SETTLER:
+			return "Settler";
+		case SOLDIER:
+			return "Soldier";
 		}
 		return null;
 	}
@@ -54,16 +51,14 @@ public enum UnitType implements Serializable
 	 *            {@code String} to translate
 	 * @return {@code UnitType} the {@code String} represents
 	 */
-	public static UnitType fromString(String s)
-	{
-		switch (s)
-		{
-			case "Settler":
-				return SETTLER;
-			case "Soldier":
-				return SOLDIER;
-			default:
-				return null;
+	public static UnitType fromString(String s) {
+		switch (s) {
+		case "Settler":
+			return SETTLER;
+		case "Soldier":
+			return SOLDIER;
+		default:
+			return null;
 		}
 	}
 }

@@ -22,8 +22,7 @@ import java.io.Serializable;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public abstract class Unit implements Serializable
-{
+public abstract class Unit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected transient Utils utils;
@@ -90,8 +89,7 @@ public abstract class Unit implements Serializable
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public Unit(Nation nation, int level, int xCoord, int yCoord, Utils utils)
-	{
+	public Unit(Nation nation, int level, int xCoord, int yCoord, Utils utils) {
 		// Initialize passed fields
 		this.nation = nation;
 		this.level = level;
@@ -118,12 +116,10 @@ public abstract class Unit implements Serializable
 	 *
 	 * @return exit status (see implementations)
 	 */
-	public int move(Tile toTile)
-	{
+	public int move(Tile toTile) {
 		int moveError = getMoveError(toTile);
 
-		if (moveError != 0)
-		{
+		if (moveError != 0) {
 			return moveError;
 		}
 
@@ -132,8 +128,7 @@ public abstract class Unit implements Serializable
 
 		// Check if own Nation has abandoned Tile
 		if (tile.soldiers.size() + tile.settlers.size() == 0
-				&& tile.city == null)
-		{
+				&& tile.city == null) {
 			tile.nat = Nationality.NEUTRAL;
 		}
 
@@ -160,8 +155,7 @@ public abstract class Unit implements Serializable
 	 *            enemy {@code Unit}
 	 * @return hits to hit enemy {@code Unit} with
 	 */
-	public double generateHits(double power, Unit againstUnit)
-	{
+	public double generateHits(double power, Unit againstUnit) {
 		double thisEffectivePower = power * currentHealthPoints
 				/ maxHealthPoints;
 		double attackerEffectivePower = againstUnit.defendPower
@@ -180,16 +174,14 @@ public abstract class Unit implements Serializable
 	 * Remove all references to the {@code Unit} (kill it) (To be
 	 * {@code Override}d to add {@code UnitType} specific code)
 	 */
-	public void delete()
-	{
+	public void delete() {
 		// Log unit death
 		utils.game.gw.eventLog("A " + this + " died on " + tile + ".");
 
 		// Remove references to the object
 		nation.units.remove(this);
 		if (tile.soldiers.size() + tile.settlers.size() == 0
-				&& tile.city == null)
-		{
+				&& tile.city == null) {
 			tile.nat = Nationality.NEUTRAL;
 		}
 
@@ -197,8 +189,7 @@ public abstract class Unit implements Serializable
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return this.nation.nationality + " Level " + level + " " + unitType
 				+ " Unit";
 	}
@@ -209,8 +200,7 @@ public abstract class Unit implements Serializable
 	 * @param utils
 	 *            new {@code Utils}
 	 */
-	public void onDeserialization(Utils utils)
-	{
+	public void onDeserialization(Utils utils) {
 		this.utils = utils;
 	}
 }

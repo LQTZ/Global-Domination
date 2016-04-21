@@ -29,8 +29,7 @@ import com.lqtz.globaldomination.gameplay.Settler;
 import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.io.Utils;
 
-public class ClickableTextPane extends JTextPane implements MouseListener
-{
+public class ClickableTextPane extends JTextPane implements MouseListener {
 	private static final long serialVersionUID = 1L;
 	private Utils utils;
 
@@ -40,27 +39,25 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public ClickableTextPane(Utils utils)
-	{
+	public ClickableTextPane(Utils utils) {
 		this.utils = utils;
 		addMouseListener(this);
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e)
-	{}
+	public void mouseClicked(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseEntered(MouseEvent e)
-	{}
+	public void mouseEntered(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e)
-	{}
+	public void mouseExited(MouseEvent e) {
+	}
 
 	@Override
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		StyledDocument doc = getStyledDocument();
 
 		int soldIndex = -1;
@@ -70,29 +67,22 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 		int location = viewToModel(e.getPoint());
 
 		// Tell if selection is beyond last unit
-		if (location == doc.getLength())
-		{
+		if (location == doc.getLength()) {
 			utils.game.selectUnit(null);
 			utils.game.updateWindow();
 			return;
 		}
 
-		for (int i = 0; i < (location + 1); i++)
-		{
+		for (int i = 0; i < (location + 1); i++) {
 			AttributeSet sty = doc.getCharacterElement(i).getAttributes();
-			if (styleImageIn(sty, utils.game.gw.soldierImages))
-			{
+			if (styleImageIn(sty, utils.game.gw.soldierImages)) {
 				soldIndex++;
 				inGap = false;
-			}
-			else if (styleImageIn(sty, utils.game.gw.settlerImages))
-			{
+			} else if (styleImageIn(sty, utils.game.gw.settlerImages)) {
 				settIndex++;
 				inGap = false;
-			}
-			else if (styleImageIn(sty,
-					new AttributeSet[] {utils.game.gw.pointer}))
-			{
+			} else if (styleImageIn(sty,
+					new AttributeSet[] { utils.game.gw.pointer })) {
 				inGap = true;
 			}
 		}
@@ -100,29 +90,20 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 		settIndex += (inGap ? 1 : 0);
 		soldIndex += (inGap ? 1 : 0);
 
-		if (settIndex == -1)
-		{
-			if (soldIndex == -1)
-			{
+		if (settIndex == -1) {
+			if (soldIndex == -1) {
 				utils.game.selectUnit(null);
-			}
-			else
-			{
+			} else {
 				Soldier clickedSoldier = utils.game.selectedTile.soldiers
 						.get(soldIndex);
 				// Make sure unit belongs to nation whose turn it is
-				if (clickedSoldier.nation.nationality == utils.game.turnNationality)
-				{
+				if (clickedSoldier.nation.nationality == utils.game.turnNationality) {
 					utils.game.selectUnit(clickedSoldier);
-				}
-				else
-				{
+				} else {
 					utils.game.selectUnit(null);
 				}
 			}
-		}
-		else
-		{
+		} else {
 			Settler clickedSettler = utils.game.selectedTile.settlers
 					.get(settIndex);
 			// Make sure unit belongs to nation whose turn it is
@@ -134,8 +115,8 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e)
-	{}
+	public void mouseReleased(MouseEvent e) {
+	}
 
 	/**
 	 * Check using the icon if a style is in an array of styles.
@@ -146,15 +127,13 @@ public class ClickableTextPane extends JTextPane implements MouseListener
 	 *            the array of styles
 	 * @return whether the style icon is in the array of styles
 	 */
-	private boolean styleImageIn(AttributeSet a, AttributeSet[] aList)
-	{
+	private boolean styleImageIn(AttributeSet a, AttributeSet[] aList) {
 		Object iconAttr = StyleConstants.IconAttribute;
 
-		for (AttributeSet compare : aList)
-		{
-			if (a.getAttribute(iconAttr) != null && a.getAttribute(iconAttr)
-					.equals(compare.getAttribute(iconAttr)))
-			{
+		for (AttributeSet compare : aList) {
+			if (a.getAttribute(iconAttr) != null
+					&& a.getAttribute(iconAttr).equals(
+							compare.getAttribute(iconAttr))) {
 				return true;
 			}
 		}
