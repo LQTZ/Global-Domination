@@ -1,10 +1,26 @@
+/*******************************************************************************
+ * Global Domination is a strategy game.
+ * Copyright (C) 2014, 2015  LQTZ Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 package com.lqtz.globaldomination.gameplay;
 
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Settler extends Unit
-{
+public class Settler extends Unit {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -36,16 +52,14 @@ public class Settler extends Unit
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public Settler(Nation nation, int level, int xCoord, int yCoord, Utils utils)
-	{
+	public Settler(Nation nation, int level, int xCoord, int yCoord, Utils utils) {
 		super(nation, level, xCoord, yCoord, utils);
 		unitType = UnitType.SETTLER;
-		utils.game.tiles[xCoord][yCoord].settlers.add(this);
+		utils.game.tiles[xCoord][yCoord].addUnit(this);
 	}
 
 	@Override
-	protected void assignByLevel()
-	{
+	protected void assignByLevel() {
 		// Note: switch is used instead of simply writing a function to generate
 		// the values since it allows for greater flexibility (e.g.
 		// maxMoveDistance can flat out at 3 and level 5 can be
@@ -53,100 +67,64 @@ public class Settler extends Unit
 
 		// TODO make the constants realistic (current values of maxHealthPoints
 		// and defendPower were arbitrarily chosen)
-		switch (level)
-		{
-			case 1:
-			{
-				maxHealthPoints = 2;
-				defendPower = 1;
-				maxMoveDistance = 1;
-				turnsToCity = 3;
-				break;
-			}
-			case 2:
-			{
-				maxHealthPoints = 4;
-				defendPower = 3;
-				maxMoveDistance = 2;
-				turnsToCity = 3;
-				break;
-			}
-			case 3:
-			{
-				maxHealthPoints = 6;
-				defendPower = 5;
-				maxMoveDistance = 3;
-				turnsToCity = 2;
-				break;
-			}
-			case 4:
-			{
-				maxHealthPoints = 8;
-				defendPower = 7;
-				turnsToCity = 2;
-				break;
-			}
-			case 5:
-			{
-				maxHealthPoints = 10;
-				maxMoveDistance = 3;
-				turnsToCity = 1;
-				break;
-			}
+		switch (level) {
+		case 1: {
+			maxHealthPoints = 4;
+			defendPower = 4;
+			maxMoveDistance = 1;
+			turnsToCity = 3;
+			break;
+		}
+		case 2: {
+			maxHealthPoints = 5;
+			defendPower = 7;
+			maxMoveDistance = 2;
+			turnsToCity = 3;
+			break;
+		}
+		case 3: {
+			maxHealthPoints = 8;
+			defendPower = 10;
+			maxMoveDistance = 3;
+			turnsToCity = 2;
+			break;
+		}
+		case 4: {
+			maxHealthPoints = 10;
+			defendPower = 20;
+			maxMoveDistance = 3;
+			turnsToCity = 2;
+			break;
+		}
+		case 5: {
+			maxHealthPoints = 20;
+			defendPower = 30;
+			maxMoveDistance = 4;
+			turnsToCity = 1;
+			break;
+		}
 		}
 	}
 
-	/**
-	 * Move to a certain {@code Tile}
-	 *
-	 * @param toTile
-	 *            {@code Tile} to move to
-	 * @return Whether or not {@code move()} was legal (-4 if the
-	 *         {@code Settler} is on a {@code City}, -3 if the {@code Settler}
-	 *         is building, -2 if the {@code Settler} has maxed out moves for
-	 *         the turn, -1 if the {@code Tile}s are not adjacent, and 0 if
-	 *         {@code move()} successful)
-	 */
 	@Override
-	public int move(Tile toTile)
-	{
+	protected int getMoveError(Tile toTile) {
 		// Check if tile is not adjacent
 		if ((Math.abs(tile.xCoord - toTile.xCoord) > 1)
 				|| (Math.abs(tile.yCoord - toTile.yCoord) > 1)
 				|| (Math.abs(tile.xCoord - toTile.xCoord) == 1)
-				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord))
-		{
+				&& (tile.yCoord - toTile.yCoord == tile.xCoord - toTile.xCoord)) {
 			return -1;
 		}
 
 		// Check if unit has maxed out moves for the turn
-		if (movesLeft <= 0)
-		{
+		if (movesLeft <= 0) {
 			return -2;
 		}
 
 		// Check if building city
-		if (isBuilding)
-		{
+		if (isBuilding) {
 			return -3;
 		}
-
-		if (tile.soldiers.size() + tile.settlers.size() == 1
-				&& tile.city == null)
-		{
-			tile.nat = Nationality.NEUTRAL;
-		}
-
-		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
-				+ toTile + ".");
-
-		// Toggle tiles
-		tile.settlers.remove(this);
-		tile = toTile;
-		tile.settlers.add(this);
-
-		// Decrement movesLeft
-		movesLeft--;
 
 		return 0;
 	}
@@ -157,17 +135,14 @@ public class Settler extends Unit
 	 *
 	 * @return Error status (-1: {@code isBuilding}, 0: successful)
 	 */
-	public int buildCity()
-	{
+	public int buildCity() {
 		// Check if building
-		if (isBuilding)
-		{
+		if (isBuilding) {
 			return -1;
 		}
 
 		// Check if on city
-		if (tile.city != null)
-		{
+		if (tile.city != null) {
 			return -2;
 		}
 
@@ -175,13 +150,11 @@ public class Settler extends Unit
 
 		utils.gw.eventLog("A " + this + " initiated city building on " + tile
 				+ ".\nThis will take " + turnsToCity + " moves.");
-		cityBuilder = new CountdownTask(turnsToCity)
-		{
+		cityBuilder = new CityBuildTask(turnsToCity) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void run()
-			{
+			public void run() {
 				stopGrowing();
 				nation.addCity(tile);
 				utils.game.gw.eventLog("A new " + nation.nationality
@@ -196,17 +169,14 @@ public class Settler extends Unit
 	/**
 	 * Finish building the {@code City}
 	 */
-	public void stopGrowing()
-	{
+	public void stopGrowing() {
 		isBuilding = false;
 		cityBuilder = null;
 	}
 
 	@Override
-	public void delete()
-	{
+	public void delete() {
 		super.delete();
-		tile.settlers.remove(this);
 		utils.game.countdownTasks.remove(cityBuilder);
 	}
 }

@@ -1,3 +1,20 @@
+/*******************************************************************************
+ * Global Domination is a strategy game.
+ * Copyright (C) 2014, 2015  LQTZ Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 package com.lqtz.globaldomination.graphics;
 
 import java.awt.Color;
@@ -16,8 +33,7 @@ import com.lqtz.globaldomination.gameplay.Soldier;
 import com.lqtz.globaldomination.gameplay.Unit;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Tile implements Serializable
-{
+public class Tile implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
 	private int centerX;
@@ -110,8 +126,7 @@ public class Tile implements Serializable
 	 *            GD {@code Utils} utility
 	 */
 	public Tile(int xCoord, int yCoord, int centerX, int centerY, int tileSize,
-			int revenue, int productivity, Utils utils)
-	{
+			int revenue, int productivity, Utils utils) {
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		hexagon = new Hexagon(centerX, centerY, tileSize);
@@ -130,33 +145,29 @@ public class Tile implements Serializable
 		settlers = new ArrayList<Settler>();
 
 		colors = new HashMap<Nationality, Color[]>();
-		colors.put(Nationality.RED, new Color[] {new Color(255, 0, 0, 150),
-				new Color(255, 127, 127, 150), new Color(127, 0, 0)});
-		colors.put(Nationality.GREEN, new Color[] {new Color(0, 255, 0, 150),
-				new Color(127, 255, 127, 150), new Color(0, 127, 0)});
+		colors.put(Nationality.RED, new Color[] { new Color(255, 0, 0, 150),
+				new Color(255, 127, 127, 150), new Color(127, 0, 0) });
+		colors.put(Nationality.GREEN, new Color[] { new Color(0, 255, 0, 150),
+				new Color(127, 255, 127, 150), new Color(0, 127, 0) });
 		colors.put(Nationality.YELLOW, new Color[] {
 				new Color(191, 191, 0, 150), new Color(255, 255, 191, 150),
-				new Color(63, 63, 0)});
-		colors.put(Nationality.BLUE, new Color[] {new Color(0, 0, 255, 150),
-				new Color(127, 127, 255, 150), new Color(0, 0, 200)});
+				new Color(63, 63, 0) });
+		colors.put(Nationality.BLUE, new Color[] { new Color(0, 0, 255, 150),
+				new Color(127, 127, 255, 150), new Color(0, 0, 200) });
 		colors.put(Nationality.NEUTRAL, new Color[] {
 				new Color(127, 127, 127, 150), new Color(191, 191, 191, 150),
-				new Color(63, 63, 63)});
+				new Color(63, 63, 63) });
 	}
 
-	protected void paint(Graphics g, Font font)
-	{
+	protected void paint(Graphics g, Font font) {
 		g.setFont(font); // Init font
 
 		// Fill hexagon based on its selected/highlighted status
 		Color fillColor;
 		int colorState = 0;
-		if (isSelected)
-		{
+		if (isSelected) {
 			colorState = 2;
-		}
-		else if (isHighlighted)
-		{
+		} else if (isHighlighted) {
 			colorState = 1;
 		}
 		fillColor = colors.get(nat)[colorState];
@@ -179,8 +190,7 @@ public class Tile implements Serializable
 		int yMax = centerY + yOffset - size;
 
 		// Draw city-related icons
-		if (city != null)
-		{
+		if (city != null) {
 			g.drawImage(utils.images.city, centerX - 2 * xOffset, centerY
 					- tileSize / 2, tileSize * 7 / 4, tileSize, null);
 		}
@@ -206,8 +216,7 @@ public class Tile implements Serializable
 		drawCenterText(g, String.valueOf(tileProductivity), xMax, yMin);
 	}
 
-	private void drawCenterText(Graphics g, String str, int x, int y)
-	{
+	private void drawCenterText(Graphics g, String str, int x, int y) {
 		FontMetrics fm = g.getFontMetrics();
 		int width = fm.stringWidth(str);
 		int yOffset = (fm.getAscent() - fm.getDescent()) / 2;
@@ -216,24 +225,59 @@ public class Tile implements Serializable
 		// center the text to the center of the image --> tileSize / 8
 		g.drawString(str, x - width / 2 + tileSize / 8, y + yOffset + tileSize
 				/ 8);
+	}
 
+	/**
+	 * Add a {@code Unit} to its respective {@code ArrayList} on the
+	 * {@code Tile}
+	 *
+	 * @param unit
+	 *            {@code Unit} to add to {@code Tile}
+	 */
+	public void addUnit(Unit unit) {
+		if (unit instanceof Settler) {
+			settlers.add((Settler) unit);
+		}
+
+		else {
+			soldiers.add((Soldier) unit);
+		}
+	}
+
+	/**
+	 * Remove a {@code Unit} from its respective {@code ArrayList} on the
+	 * {@code Tile}
+	 *
+	 * @param unit
+	 *            {@code Unit} to remove from {@code Tile}
+	 */
+	public void removeUnit(Unit unit) {
+		if (unit instanceof Settler) {
+			settlers.remove(unit);
+		}
+
+		else {
+			soldiers.remove(unit);
+		}
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Tile " + (xCoord + 1) + ", " + (yCoord + 1);
 	}
 
-	public void onDeserialization(Utils utils)
-	{
+	/**
+	 * Reinstate {@code transient} fields
+	 *
+	 * @param utils
+	 *            new {@code Utils}
+	 */
+	public void onDeserialization(Utils utils) {
 		this.utils = utils;
-		if (city != null)
-		{
+		if (city != null) {
 			city.onDeserialization(utils);
 		}
-		for (Unit u : settlers)
-		{
+		for (Unit u : settlers) {
 			u.onDeserialization(utils);
 		}
 	}

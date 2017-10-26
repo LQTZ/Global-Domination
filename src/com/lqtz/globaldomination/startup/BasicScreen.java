@@ -1,3 +1,20 @@
+/*******************************************************************************
+ * Global Domination is a strategy game.
+ * Copyright (C) 2014, 2015  LQTZ Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 package com.lqtz.globaldomination.startup;
 
 import java.awt.BorderLayout;
@@ -16,8 +33,7 @@ import javax.swing.SwingConstants;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Utils;
 
-public abstract class BasicScreen extends JFrame
-{
+public abstract class BasicScreen extends JFrame {
 	private static final long serialVersionUID = 1L;
 	protected Utils utils;
 	private String titleStr;
@@ -34,8 +50,7 @@ public abstract class BasicScreen extends JFrame
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public BasicScreen(String titleStr, Utils utils)
-	{
+	public BasicScreen(String titleStr, Utils utils) {
 		this.titleStr = titleStr;
 		this.utils = utils;
 	}
@@ -43,29 +58,22 @@ public abstract class BasicScreen extends JFrame
 	/**
 	 * Creates window; not automatically called
 	 */
-	protected void createWindow()
-	{
+	protected void createWindow() {
 		setContentPane(new ImageContentPane(utils));
 
-		if (utils.fullScreen)
-		{
+		if (utils.fullScreen) {
 			// Removes buttons
 			setUndecorated(true);
 
 			// Makes full screen
 			GraphicsDevice gd = GraphicsEnvironment
 					.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-			if (gd.isFullScreenSupported())
-			{
+			if (gd.isFullScreenSupported()) {
 				gd.setFullScreenWindow(this);
-			}
-			else
-			{
+			} else {
 				setSize(Toolkit.getDefaultToolkit().getScreenSize());
 			}
-		}
-		else
-		{
+		} else {
 			getContentPane().setPreferredSize(utils.resolution);
 			pack();
 			setResizable(false);
@@ -80,8 +88,7 @@ public abstract class BasicScreen extends JFrame
 		setVisible(true);
 	}
 
-	protected void addComponents()
-	{
+	protected void addComponents() {
 		setLayout(new BorderLayout());
 
 		// Draw title

@@ -1,3 +1,20 @@
+/*******************************************************************************
+ * Global Domination is a strategy game.
+ * Copyright (C) 2014, 2015  LQTZ Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 package com.lqtz.globaldomination.gameplay;
 
 import java.io.Serializable;
@@ -5,8 +22,7 @@ import java.io.Serializable;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public abstract class Unit implements Serializable
-{
+public abstract class Unit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected transient Utils utils;
@@ -73,8 +89,7 @@ public abstract class Unit implements Serializable
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public Unit(Nation nation, int level, int xCoord, int yCoord, Utils utils)
-	{
+	public Unit(Nation nation, int level, int xCoord, int yCoord, Utils utils) {
 		// Initialize passed fields
 		this.nation = nation;
 		this.level = level;
@@ -91,14 +106,44 @@ public abstract class Unit implements Serializable
 
 	protected abstract void assignByLevel();
 
+	protected abstract int getMoveError(Tile toTile);
+
 	/**
 	 * Move the {@code Unit} to a specific {@code Tile} if legal
 	 *
-	 * @param tile
-	 *            {@code Tile} to move to
+	 * @param toTile
+	 *            {@code Tile} the {@code Unit} is moving to
+	 *
 	 * @return exit status (see implementations)
 	 */
-	public abstract int move(Tile tile);
+	public int move(Tile toTile) {
+		int moveError = getMoveError(toTile);
+
+		if (moveError != 0) {
+			return moveError;
+		}
+
+		// Delete the old one
+		tile.removeUnit(this);
+
+		// Check if own Nation has abandoned Tile
+		if (tile.soldiers.size() + tile.settlers.size() == 0
+				&& tile.city == null) {
+			tile.nat = Nationality.NEUTRAL;
+		}
+
+		utils.gw.eventLog("A " + this + " was moved from " + tile + " to "
+				+ toTile + ".");
+
+		// Add to new one
+		tile = toTile;
+		tile.addUnit(this);
+
+		// Decrement movesLeft
+		movesLeft--;
+
+		return moveError;
+	}
 
 	/**
 	 * Randomly generate amount of attack with in a fight. Considers health,
@@ -110,8 +155,7 @@ public abstract class Unit implements Serializable
 	 *            enemy {@code Unit}
 	 * @return hits to hit enemy {@code Unit} with
 	 */
-	public double generateHits(double power, Unit againstUnit)
-	{
+	public double generateHits(double power, Unit againstUnit) {
 		double thisEffectivePower = power * currentHealthPoints
 				/ maxHealthPoints;
 		double attackerEffectivePower = againstUnit.defendPower
@@ -130,29 +174,33 @@ public abstract class Unit implements Serializable
 	 * Remove all references to the {@code Unit} (kill it) (To be
 	 * {@code Override}d to add {@code UnitType} specific code)
 	 */
-	public void delete()
-	{
+	public void delete() {
 		// Log unit death
 		utils.game.gw.eventLog("A " + this + " died on " + tile + ".");
 
 		// Remove references to the object
 		nation.units.remove(this);
 		if (tile.soldiers.size() + tile.settlers.size() == 0
-				&& tile.city == null)
-		{
+				&& tile.city == null) {
 			tile.nat = Nationality.NEUTRAL;
 		}
+
+		tile.removeUnit(this);
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return this.nation.nationality + " Level " + level + " " + unitType
 				+ " Unit";
 	}
 
-	public void onDeserialization(Utils utils)
-	{
+	/**
+	 * Reinstate {@code transient} fields
+	 *
+	 * @param utils
+	 *            new {@code Utils}
+	 */
+	public void onDeserialization(Utils utils) {
 		this.utils = utils;
 	}
 }

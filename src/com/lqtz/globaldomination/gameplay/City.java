@@ -1,3 +1,20 @@
+/*******************************************************************************
+ * Global Domination is a strategy game.
+ * Copyright (C) 2014, 2015  LQTZ Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 package com.lqtz.globaldomination.gameplay;
 
 import java.io.Serializable;
@@ -5,8 +22,7 @@ import java.io.Serializable;
 import com.lqtz.globaldomination.graphics.Tile;
 import com.lqtz.globaldomination.io.Utils;
 
-public class City implements Serializable
-{
+public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient Utils utils;
 
@@ -45,8 +61,7 @@ public class City implements Serializable
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public City(Tile tile, Nation nation, Utils utils)
-	{
+	public City(Tile tile, Nation nation, Utils utils) {
 		this.utils = utils;
 
 		this.tile = tile;
@@ -65,8 +80,7 @@ public class City implements Serializable
 	 * @param level
 	 *            {@code level} of the {@code Unit} to grow
 	 */
-	public void growUnit(final UnitType ut, final int level)
-	{
+	public void growUnit(final UnitType ut, final int level) {
 		growUnitType = ut;
 		growUnitLevel = level;
 		isGrowing = true;
@@ -76,26 +90,17 @@ public class City implements Serializable
 				+ " unit on " + tile + ".\nThis will take " + (level * 2)
 				+ " moves.");
 
-		utils.game.countdownTasks.add(new CountdownTask(level * 2)
-		{
+		utils.game.countdownTasks.add(new UnitGrowTask(this, level * 6) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void run()
-			{
+			public void run() {
 				City.this.stopGrowing();
 				City.this.utils.gw.eventLog(nation.nationality
 						+ " has grown a level " + level + " " + ut
 						+ " unit on " + tile + ".");
 
-				if (ut == UnitType.SETTLER)
-				{
-					nation.addSettler(level, tile.xCoord, tile.yCoord);
-				}
-				else if (ut == UnitType.SOLDIER)
-				{
-					nation.addSoldier(level, tile.xCoord, tile.yCoord);
-				}
+				nation.addUnit(ut, level, tile.xCoord, tile.yCoord);
 				growUnitType = null;
 				growUnitLevel = -1;
 			}
@@ -105,13 +110,17 @@ public class City implements Serializable
 	/**
 	 * Finish growing the {@code Unit}
 	 */
-	public void stopGrowing()
-	{
+	public void stopGrowing() {
 		isGrowing = false;
 	}
 
-	public void onDeserialization(Utils utils)
-	{
+	/**
+	 * Reinstate {@code transient} fields
+	 *
+	 * @param utils
+	 *            new {@code Utils}
+	 */
+	public void onDeserialization(Utils utils) {
 		this.utils = utils;
 	}
 }

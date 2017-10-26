@@ -1,3 +1,20 @@
+/*******************************************************************************
+ * Global Domination is a strategy game.
+ * Copyright (C) 2014, 2015  LQTZ Inc.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
 package com.lqtz.globaldomination.startup;
 
 import java.awt.Color;
@@ -22,8 +39,7 @@ import com.lqtz.globaldomination.graphics.GameWindow;
 import com.lqtz.globaldomination.graphics.ImageContentPane;
 import com.lqtz.globaldomination.io.Utils;
 
-public class Welcome extends JFrame
-{
+public class Welcome extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Utils utils;
 	private JPanel panel;
@@ -34,8 +50,7 @@ public class Welcome extends JFrame
 	 * @param utils
 	 *            GD {@code Utils} utility
 	 */
-	public Welcome(Utils utils)
-	{
+	public Welcome(Utils utils) {
 		this.utils = utils;
 
 		setUndecorated(true);
@@ -50,8 +65,7 @@ public class Welcome extends JFrame
 		setVisible(true);
 	}
 
-	private void addComponents()
-	{
+	private void addComponents() {
 		panel = new WelcomePanel(utils, this);
 		add(panel);
 		pack();
@@ -63,13 +77,11 @@ public class Welcome extends JFrame
 	 * @param args
 	 *            command-line arguments (unused)
 	 */
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new Welcome(new Utils());
 	}
 
-	private class WelcomePanel extends JPanel implements MouseInputListener
-	{
+	private class WelcomePanel extends JPanel implements MouseInputListener {
 		private static final long serialVersionUID = 1L;
 		private JLabel title1;
 		private JLabel title2;
@@ -80,13 +92,13 @@ public class Welcome extends JFrame
 		private int[][] locations;
 		private String[] labels;
 
-		private WelcomePanel(Utils utils, JFrame frame)
-		{
-			locations = new int[][] {new int[] {50, 310}, new int[] {200, 370},
-					new int[] {350, 310}, new int[] {500, 370},
-					new int[] {650, 310}, new int[] {800, 370}};
-			labels = new String[] {"new game", "settings", "load game",
-					"about", "how to play", "exit"};
+		private WelcomePanel(Utils utils, JFrame frame) {
+			locations = new int[][] { new int[] { 50, 310 },
+					new int[] { 200, 370 }, new int[] { 350, 310 },
+					new int[] { 500, 370 }, new int[] { 650, 310 },
+					new int[] { 800, 370 } };
+			labels = new String[] { "new game", "settings", "load game",
+					"about", "how to play", "exit" };
 			this.utils = utils;
 			this.frame = frame;
 			labelFont = this.utils.fonts.sourcesans.deriveFont(Font.PLAIN, 30);
@@ -116,143 +128,126 @@ public class Welcome extends JFrame
 		}
 
 		@Override
-		protected void paintComponent(Graphics g)
-		{
+		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(new Color(192, 192, 192));
 			g.setFont(labelFont);
-			for (int i = 0; i < 6; i++)
-			{
+			for (int i = 0; i < 6; i++) {
 				g.drawString(labels[i], locations[i][0], locations[i][1]);
 			}
-			if (selected != -1)
-			{
+			if (selected != -1) {
 				g.setColor(new Color(240, 192, 48));
 				g.fillPolygon(
-						new int[] {locations[selected][0] - 15,
+						new int[] { locations[selected][0] - 15,
 								locations[selected][0] - 15,
-								locations[selected][0] - 5}, new int[] {
+								locations[selected][0] - 5 }, new int[] {
 								locations[selected][1] - 5,
 								locations[selected][1] - 25,
-								locations[selected][1] - 15}, 3);
+								locations[selected][1] - 15 }, 3);
 			}
 		}
 
 		@Override
-		public void mousePressed(MouseEvent e)
-		{
-			switch (selected)
+		public void mousePressed(MouseEvent e) {
+			switch (selected) {
+			case -1: // Invalid button push
 			{
-				case -1: // Invalid button push
-				{
-					break;
+				break;
+			}
+			case 0: // New game button
+			{
+				frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame,
+						WindowEvent.WINDOW_CLOSING));
+				new GameWindow(utils, true);
+				break;
+			}
+			case 1: // Settings button
+			{
+				frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame,
+						WindowEvent.WINDOW_CLOSING));
+				new Settings(utils);
+				break;
+			}
+			case 2: // New game button
+			{
+				frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame,
+						WindowEvent.WINDOW_CLOSING));
+				new GameWindow(utils, false);
+				break;
+			}
+			case 3: // About button
+			{
+				frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame,
+						WindowEvent.WINDOW_CLOSING));
+				try {
+					new InfoScreen(getClass().getResourceAsStream(
+							"/text/AboutText.txt"), "About", utils);
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
-				case 0: // New game button
-				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(utils, true);
-					break;
+				break;
+			}
+			case 4: {
+				frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame,
+						WindowEvent.WINDOW_CLOSING));
+				try {
+					new InfoScreen(getClass().getResourceAsStream(
+							"/text/HowToPlayText.txt"), "How to Play", utils);
+				} catch (IOException e1) {
+					e1.printStackTrace();
 				}
-				case 1: // Settings button
-				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
-					new Settings(utils);
-					break;
-				}
-				case 2: // New game button
-				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
-					new GameWindow(utils, false);
-					break;
-				}
-				case 3: // About button
-				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
-					try
-					{
-						new InfoScreen(getClass().getResourceAsStream(
-								"/text/AboutText.txt"), "About", utils);
-					}
-					catch (IOException e1)
-					{
-						e1.printStackTrace();
-					}
-					break;
-				}
-				case 4:
-				{
-					frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
-					try
-					{
-						new InfoScreen(getClass().getResourceAsStream(
-								"/text/HowToPlayText.txt"), "How to Play",
-								utils);
-					}
-					catch (IOException e1)
-					{
-						e1.printStackTrace();
-					}
-					break;
-				}
-				case 5: // Exit button
-				{
-					frame.dispatchEvent(new WindowEvent(frame,
-							WindowEvent.WINDOW_CLOSING));
-					break;
-				}
+				break;
+			}
+			case 5: // Exit button
+			{
+				frame.dispatchEvent(new WindowEvent(frame,
+						WindowEvent.WINDOW_CLOSING));
+				break;
+			}
 			}
 		}
 
 		@Override
-		public void mouseMoved(MouseEvent e)
-		{
+		public void mouseMoved(MouseEvent e) {
 			boolean onString = false;
-			for (int i = 0; i < 6; i++)
-			{
+			for (int i = 0; i < 6; i++) {
 				Rectangle itemRect = new Rectangle(locations[i][0],
 						locations[i][1] - 30, 150, 30);
-				if (itemRect.contains(e.getPoint()))
-				{
+				if (itemRect.contains(e.getPoint())) {
 					selected = i;
 					onString = true;
 				}
 			}
 
-			if (!onString)
-			{
+			if (!onString) {
 				selected = -1;
 			}
 			repaint();
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e)
-		{}
+		public void mouseClicked(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseReleased(MouseEvent e)
-		{}
+		public void mouseReleased(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseEntered(MouseEvent e)
-		{}
+		public void mouseEntered(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseExited(MouseEvent e)
-		{}
+		public void mouseExited(MouseEvent e) {
+		}
 
 		@Override
-		public void mouseDragged(MouseEvent e)
-		{}
+		public void mouseDragged(MouseEvent e) {
+		}
 	}
 }

@@ -1,18 +1,27 @@
-    Global Domination is a turn-based strategy game where players take turns to attempt to dominate the “world,” a 5 by 5 hex grid. The objective of the game is to fight and eliminate all other players.
+Global Domination is a turn-based strategy game where players take turns to attempt to dominate the “world,” a 5 by 5 hex grid. The objective of the game is to fight and eliminate all other players.
 
-    Each hexagonal tile in the grid is a territory whereupon a city can be built and units can reside. Military units are used to fight other units, and settler units are used to build cities. Cities grow units of the player’s choice, but it takes a certain number of turns for a unit to grow units. Units of higher levels are more powerful (cause more damage when attacking other units, heal more quickly, build cities faster, etc.), but take longer to grow in cities. Each tile has a productivity value which influence the speed at which cities on that tile grow units and a revenue value that dictates the taxes cities built on that tile will yield to the national revenue each turn. On each turn, players have the option to order their units to complete unit actions and upgrade cities. 
+Each hexagonal tile in the grid is a territory whereupon a city can be built and units can reside. Soldier units are used to fight other units, and settler units are used to build cities. On each turn, players have the option to perform unit actions and/or grow a unit. 
 
-    Unit actions include moving a certain number of tiles, attacking other units, building cities, upgrading level, and retiring (being deleted). To order units, first select them by clicking on the tile the unit is on and clicking the unit you wish to order under the unit list (the selected tile and unit will be bordered in white).
+Unit actions include moving a certain number of tiles, attacking other units, and building cities.
 
-    To order a unit to move, select it, click the “Move” button, and click on the adjacent tile you wish to move the unit to.
+To perform these actions:
 
-    To order a unit to attack another unit, click the “Attack” button, click the adjacent tile with the enemy unit(s) you wish to attack. Each fight will do some amount of damage to the health of both units fighting. When units run out of health points, they die. However, units that survive fights slowly regenerate their health over the course of several turns, the specific number of turns depending on the severity of the damage and the level of the unit. The outcome of fights depend on the units’ levels and some luck. Units will automatically attack the weakest non-settler units in a unit stack.The battle stats (most likely outcome data) are displayed when you mouse over tiles. If multiple foreign nations have units on the tile you are attacking, select which nation you wish to attack in the popup. When you have killed all enemy units on an enemy city, the city “flips” and becomes your own city.
+ * First select them by clicking on the tile the unit is on and clicking the unit you wish to order under the unit list. (You cannot select units of other nationalities.)
 
-    To order a unit to build a city (only applicable to settler units), navigate the unit to the tile on which you want to build the city using the Move order, and click the “Build” button. Building the city will take multiple turns. If the settlers are killed by enemies while building the city, the city is deleted.
+ * To order a unit to move, select it, click the “Move” button, and click on the adjacent tile you wish to move the unit to. Units can only move a certain number of times in a turn; this number can be viewed in the “Selected Unit Info” pane.
 
-    To order a unit to upgrade by one level, click the “Upgrade” button. Unit upgrades usually cost a large amount of national revenue.
+ * To order a unit to attack another unit (only applicable to soldier units), click the “Attack” button, click the tile with the enemy unit(s) you wish to attack. Each fight will do some amount of damage to the health of both units fighting. When units run out of health points, they die. The outcome of fights depend on the units’ levels and some luck. Units will automatically attack the weakest units that are not in their nation. When you have killed all enemy units on an enemy city, the tile becomes neutral.
 
-    To order a unit to retire, click the “Delete” button.
+ * To order a unit to build a city (only applicable to settler units), navigate the unit to the tile on which you want to build the city using the Move order, and click the “Settle” button. Building the city will take multiple turns. If the settlers are killed by enemies while building the city, the city is deleted.
 
-    At the beginning of the game, each player starts with a single settler, and nothing else. The settler must build a city. The cities grow military and settler units. The military units are strategically used to attack other players. The settlers are used to build new cities to grow more units. Players must strategically balance their fighting with building (or capturing) of new cities to grow new units. The game ends when one player has destroyed all the units of the other players.
+To grow a unit, select the tile and click the “Grow” button, and popups will appear guiding you through the process
 
+To do game-wide actions, select the background and three buttons will appear.
+
+ * The “Next” button ends your turn.
+ 
+ * The “Save” button saves the game.
+ 
+ * The “Exit” button exits the game WITHOUT SAVING.
+
+At the beginning of the game, each player starts with a single settler, and nothing else. The settler must build a city. The cities grow soldier and settler units. The military units are strategically used to attack other players. The settlers are used to build new cities to grow more units. Players must strategically balance their fighting with building (or capturing) of new cities to grow new units. The game ends when one player has destroyed all the units of the other players.
